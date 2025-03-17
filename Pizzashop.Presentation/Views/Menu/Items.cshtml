@@ -1,0 +1,779 @@
+@model Pizzashop.DAL.ViewModels.menuviewmodel
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="~/css/Menu.css">
+  <link rel="stylesheet" href="~/css/MenuModifier.css">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="d-flex">
+    <div class="w-100 bg-light">
+      <div>
+        <div class="d-flex justify-content-between">
+          <div class="ms-3">
+            <p class="fs-2" style="color: rgb(0, 102, 187);">Menu</p>
+          </div>
+        </div>
+
+        <div class="d-flex border ms-3 gap-4 bg-white me-3">
+          <ul class="nav" id="menuTabs">
+            <li class="nav-item">
+              <a class="nav-link active" id="items-tab" data-bs-toggle="tab" href="#items-container" role="tab"
+                aria-controls="items-container" aria-selected="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-ul"
+                  viewBox="0 0 16 16">
+                  <path fill-rule="evenodd"
+                    d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
+                </svg>
+                Items
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="modifiers-tab" data-bs-toggle="tab" href="#modifiers-container" role="tab"
+                aria-controls="modifiers-container" aria-selected="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-ui-checks-grid" viewBox="0 0 16 16">
+                  <path
+                    d="M2 10h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1m9-9h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1m0 9a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1zm0-10a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM2 9a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2zm7 2a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-3a2 2 0 0 1-2-2zM0 2a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm5.354.854a.5.5 0 1 0-.708-.708L3 3.793l-.646-.647a.5.5 0 1 0-.708.708l1 1a.5.5 0 0 0 .708 0z" />
+                </svg>
+                Modifiers
+              </a>
+            </li>
+          </ul>
+        </div>
+
+
+        <!-- Tab Content -->
+        <div class="tab-content ms-3 me-3 mt-2">
+
+          <!-- Items Section -->
+          <div class="tab-pane fade show active" id="items-container" role="tabpanel" aria-labelledby="items-tab">
+            <div class="d-flex border category-box">
+              <aside class="bg-light">
+                <div class="div">
+                  <div class="ms-3 mb-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="fs-3">Category</div>
+                      <img data-bs-toggle="modal" data-bs-target="#exampleModal1" class="pe-2" style="height: 25px;"
+                        src="~/images/icons/plus-square.svg" alt="">
+                    </div>
+                  </div>
+                  <div class="sidebar-elements">
+                    @foreach (var category in Model.Categories)
+                    {
+                      <div class="aaa">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <a class="d-flex gap-2 pt-2 pb-2 ps-3 nav-link active align-items-center"
+                            id="category-idforclick" data-category-id="@category.CategoryId">
+                            <img style="height: 25px;" src="~/images/icons/dots-menu-svgrepo-com.svg">
+                            <div onclick="fetchItems(@category.CategoryId)">@category.CategoryName</div>
+                          </a>
+                          <div class="icons-forlist">
+                            <a data-category-edit-id="@category.CategoryId" data-category-name="@category.CategoryName"
+                              data-description="@category.Description" onclick="setEditData(this)" class="edit-category"
+                              data-bs-toggle="modal" data-bs-target="#editModal">
+                              <img src="~/images/icons/pen-fill.svg" alt="">
+                            </a>
+                            <a data-category1-id="@category.CategoryId" class="delete-category" data-bs-toggle="modal"
+                              data-bs-target="#deleteModal1">
+                              <img src="~/images/icons/trash (1).svg" alt="">
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    }
+                  </div>
+                </div>
+              </aside>
+
+              <div class="ps-3 container-fluid w-100 bg-white overflow-auto">
+                <p class="fs-3">Items</p>
+                <div id="items-container-table">
+                  @Html.Partial("_ItemsPartial", Model.pagination)
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modifiers Section -->
+          <div class="tab-pane fade" id="modifiers-container" role="tabpanel" aria-labelledby="modifiers-tab">
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- Bootstrap & jQuery -->
+  @* <script  href="~/lib/bootstrap/dist/css/bootstrap.min.js" src="~/js/bootstrap.bundle.min.js"></script> *@
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</body>
+
+
+</html>
+
+@section scripts
+{
+  <!-- modifier group -->
+  <script>
+
+    $(document).ready(function () {
+
+      function loadModifierTab() {
+        $.ajax({
+          url: '@Url.Action("ModifiersTab", "Menu")',
+          type: 'GET',
+          success: function (data) {
+            $('#modifiers-container').html(data);
+          },
+          error: function (xhr, status, error) {
+            console.error("Error loading ModifierTab:", error);
+            alert("An error occurred while loading the ModifierTab.");
+          }
+        });
+      }
+
+      loadModifierTab();
+
+      $('#modifiers-tab').on('click', function () {
+        loadModifierTab();
+      });
+
+      var selectedModifierId;
+
+    let debounceTimer;
+    $(document).on("click", ".modifierGroupBtn", function () {
+       console.log("Modifier button clicked");
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        selectedModifierId = $(this).data("modifier-id");
+            console.log("Selected Modifier ID:", selectedModifierId); 
+
+        let pagesize = $("#selectpagesizeForModifiers").val();
+        console.log("Page size:", pagesize);
+        $.ajax({
+          url: '@Url.Action("ItemsByModifier", "Menu")',
+          type: "GET",
+          data: { id: selectedModifierId, pageNo: 1, pageSize: pagesize, searchKey: "" },
+          success: function (data) {
+             console.log("AJAX request successful", data);
+            $("#modifieritems").html(data);
+          },
+          error: function () {
+            console.log("Error occurs");
+          }
+        });
+      }, 300);
+    });
+    });
+  </script>
+
+
+
+  <script>
+    var selectedCategoryId;
+    $(document).ready(function () {
+      const searchInput = $('#userListSearch');
+
+      let debounceTimer;
+      searchInput.on('input', function () {
+        clearTimeout(debounceTimer);
+        const searchTerm = $(this).val().trim();
+        console.log("ssss", selectedCategoryId);
+        debounceTimer = setTimeout(() => {
+          const url = new URL(window.location.href);
+          if (searchTerm) {
+            url.searchParams.set('id', selectedCategoryId);
+            url.searchParams.set('searchTerm', searchTerm);
+          } else {
+            url.searchParams.delete('searchTerm');
+          }
+
+          $.get(url.toString(), function (data) {
+            $('#items-container-tabler').html($(data).find('#items-container-table').html());
+          });
+        }, 100);
+      });
+    });
+
+    function fetchItems(categoryId) {
+      selectedCategoryId = categoryId;
+      let pagesize = $('#selectpagesizeForItems').val();
+      console.log(selectedCategoryId);
+      $.ajax({
+        url: '@Url.Action("ItemsByCategory", "Menu")',
+        type: 'GET',
+        data: { id: selectedCategoryId, searchTerm: "", pagesize: pagesize, pageNo: 1 },
+        success: function (data) {
+          console.log(data);
+          $('#items-container-table').html(data);
+        },
+        error: function () {
+          console.log("Error");
+        }
+      });
+    }
+
+
+
+
+    $(document).ready(function () {
+    @* categoryClickEvents(); *@
+    @* paginationAjax(1); *@
+    @* fetchItems(categoryId); *@
+            });
+
+  </script>
+
+  <script>
+  @* $(document).ready(function () {
+    $(document).on("click", "#itemEdit", function () {
+    console.log("myid", $(this).data("editid"));
+    setEditItem($(this).data("editid"));
+    })
+    function setEditItem(id) {
+      console.log(id);
+      $.ajax({
+        url: "/Menu/EditItem",
+        type: 'GET',
+        data: { 'id': id },
+        success: function (data) {
+    console.log(data);
+    $('#editModal2').html('data');
+    },
+        error: function () {
+    console.log("Error11");
+    }
+    });
+    }
+    }); *@
+
+    $(document).on("click", "#itemEdit", function () {
+      loadItemModal($(this).data("editid"));
+    })
+
+  function loadItemModal(id) {
+    $.ajax({
+      url: '@Url.Action("EditItem", "Menu")',
+      type: "GET",
+      data: { id: id },
+
+      success: function (data) {
+        $("#modal-size").html(data);
+      },
+      error: function () {
+        console.log("No Projects Found");
+        $("#editModal2").html('No User Fetched');
+      }
+    })
+  }
+
+</script>
+
+<script>
+  function setEditData(element) {
+    var categoryId = element.getAttribute("data-category-edit-id");
+    var categoryName = element.getAttribute("data-category-name");
+    var description = element.getAttribute("data-description");
+    document.getElementById("CategoryId").value = categoryId;
+    document.getElementById("editforname").value = categoryName;
+    document.getElementById("editfordescription").value = description;
+  }
+
+  function setEditModifierData(element) {
+    var modifierId = element.getAttribute("data-modifier-edit-id");
+    console.log(modifierId);
+    var modifierName = element.getAttribute("data-modifier-name");
+    console.log(modifierName);
+    var description = element.getAttribute("data-description");
+    console.log(description);
+    $("#ModifiergId").val(modifierId);
+    $("#editformgname").val(modifierName);
+    $("#editformgdescription").val(description);
+  }
+
+</script>
+
+<script>
+  function resetForm() {
+    $('form')[0].reset();
+  }
+</script>
+}
+
+
+
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <form method="post" asp-controller="Menu" asp-action="EditCategory" class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel1">Edit Category</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex flex-column gap-2">
+          <div class="form-floating">
+            <input type="hidden" id="CategoryId" name="CategoryId">
+            <input type="text" class="form-control" id="editforname" name="CategoryName" placeholder="Category Name">
+            <label for="editforname">Name</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="editfordescription" name="Description"
+              placeholder="Description">
+            <label for="editfordescription">Description</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" onclick="resetForm()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  $(document).on('click', '.delete-category', function () {
+    var categoryId = $(this).data('category1-id');
+    console.log(categoryId);
+    $('#CategoryId1').val(categoryId);
+  });
+
+  $(document).on('click', '.delete-modifier', function () {
+    var modifierId = $(this).data('modifier-delete-id');
+    console.log(modifierId);
+    $('#ModifierId').val(modifierId);
+  });
+
+</script>
+
+<div class="modal fade" id="deleteModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Confirmation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex justify-content-center align-items-center flex-column">
+        @* <img class="" src="~/images/icons/exclamation-triangle.svg" alt=""> *@
+        <h1 class="fs-5">Are You Sure you want to delete Category ?</h1>
+      </div>
+      <form method="post" asp-controller="Menu" asp-action="DeleteCategory"
+        class="modal-footer d-flex justify-content-center">
+        <input type="hidden" name="id" id="CategoryId1" />
+        <button type="submit" class="btn btn-primary">Yes</button>
+        <button type="button" class="btn btn-outline-primary">No</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <form method="post" asp-controller="Menu" asp-action="AddCategory" class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel1">Add Category</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex flex-column gap-2">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingInput" name="CategoryName" placeholder="Category Name">
+            <label for="floatingInput">Name</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingInput" name="Description" placeholder="Description">
+            <label for="floatingInput">Description</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" onclick="resetForm()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Confirmation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex justify-content-center align-items-center flex-column">
+        @* <img class="" src="~/images/icons/exclamation-triangle.svg" alt=""> *@
+        <h1 class="fs-5">Are You Sure you want to delete Category ?</h1>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Yes</button>
+        <button type="button" class="btn btn-outline-primary">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <form method="post" asp-controller="Menu" asp-action="Items" class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Menu Item</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="conatainer-fluid">
+          <div class="row">
+            <div class="col-lg-8 col-12">
+              <div class="row mb-3">
+                <div class="col">
+                  <div class="form-floating">
+                    <select class="form-select" id="categorySelect" asp-for="@Model.Additem.Categoryid"
+                      aria-label="Floating label select example">
+                      <option value="">Select Category</option>
+                      @foreach (var category in Model.Categories)
+                      {
+                        <option value="@category.CategoryId">@category.CategoryName</option>
+                      }
+                    </select>
+                    <label for="categorySelect">Category</label>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-floating">
+                    <input asp-for="@Model.Additem.Itemname" type="text" class="form-control" id="floatingInput"
+                      placeholder="name@example.com">
+                    <label asp-for="@Model.Additem.Itemname" for="floatingInput">Name</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-lg-3 col-md-6 mb-md-3 mb-3 ">
+                  <div class="form-floating">
+                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example"
+                      asp-for="@Model.Additem.Itemtype">
+                      <option selected>Select Type</option>
+                      <option value="veg">Veg</option>
+                      <option value="non-veg">Non-veg</option>
+                    </select>
+                    <label for="floatingSelect">Item Type</label>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-md-3 mb-3">
+                  <div class="form-floating">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com"
+                      asp-for="@Model.Additem.Rate">
+                    <label for="floatingInput">Rate</label>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-3">
+                  <div class="form-floating">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com"
+                      asp-for="@Model.Additem.Quantity">
+                    <label for="floatingInput">Quantity</label>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-3">
+                  <div class="form-floating">
+                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example"
+                      asp-for="@Model.Additem.Unit">
+                      <option selected>Select a Unit</option>
+                      @foreach (var unit in Model.units)
+                      {
+                        <option value="@unit.Unitid">@unit.Unitname</option>
+                      }
+                    </select>
+                    <label for="floatingSelect">Unit</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-lg-3 col-md-6 col-6 gap-1">
+                  <div class="form-check form-switch d-flex align-items-center gap-1 ms-lg-2 mb-3">
+                    <input style="height: 30px; width: 60px;" class="form-check-input" type="checkbox" role="switch"
+                      id="flexSwitchCheckChecked" asp-for="@Model.Additem.IsAvailable" value="true">
+                    <span> Available </span>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-6">
+                  <div class="form-check form-switch d-flex align-items-center gap-1 ms-lg-2">
+                    <input style="height: 30px; width: 60px;" class="form-check-input" type="checkbox" role="switch"
+                      id="flexSwitchCheckChecked" asp-for="@Model.Additem.IsDefaultTax" value="true">
+                    <span class="">DefaultTax</span>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-12 mb-3">
+                  <div class="form-floating">
+                    <input type="text" class="form-control" id="floatingInput" asp-for="@Model.Additem.TaxPercentage"
+                      placeholder="name@example.com">
+                    <label for="floatingInput">Tax Percentage</label>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                  <div class="form-floating">
+                    <input type="text" class="form-control" id="floatingInput" asp-for="@Model.Additem.ShortCode"
+                      placeholder="name@example.com">
+                    <label for="floatingInput">Short Code</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col">
+                  <textarea class="form-control" style="height: 80px;" type="text" asp-for="@Model.Additem.Description"
+                    placeholder="Description"></textarea>
+                </div>
+              </div>
+
+              <div class="row">
+
+                <div class="col-12">
+                  <span>Upload Image</span>
+                  <p style="height: 100px;"
+                    class="form-control align-items-center d-flex flex-column justify-content-center" placeholder="">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                      class="bi bi-cloud-arrow-up" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd"
+                        d="M7.646 5.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708z" />
+                      <path
+                        d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z" />
+                    </svg>
+                    Drag and drops or Brows file
+                    <input type="file" style="opacity: 0%;" name="" id="" asp-for="@Model.Additem.Image">
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 d-lg-block d-none pt-3" style="background-color: #FDF5E6;">
+              <select class="form-select  " id="autoSizingSelect">
+                <option value="">Select Modifiers Groups(s) </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div class="modal fade" id="editModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl editt-modal">
+    <div class="modal-content" id="modal-size">
+
+    </div>
+    @* @Html.Partial("_EditItemPartial", Model.EditItem); *@
+
+  </div>
+</div>
+
+<!-- delete item modal  !-->
+
+<div class="modal fade" id="deleteItemModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Confirmation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex justify-content-center align-items-center flex-column">
+        @* <img class="" src="~/images/icons/exclamation-triangle.svg" alt=""> *@
+        <h1 class="fs-5">Are You Sure you want to delete item ?</h1>
+      </div>
+      <form asp-action="MenuListItemDelete" method="post" class="modal-footer d-flex justify-content-center">
+        <input type="text" name="id" id="ItemId" hidden>
+        <input type="hidden" name="itemList" id="ItemList" hidden>
+        <button type="submit" class="btn btn-primary">Yes</button>
+        <button type="button" class="btn btn-outline-primary">No</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- Add Modifier Group Modal -->
+
+<div class="modal fade" id="modifierModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <form method="post" asp-controller="Menu" asp-action="AddModifier" class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel1">Add Modifier</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex flex-column gap-2">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingInput" name="Name" placeholder=" Name">
+            <label for="floatingInput">Name</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingInput" name="Description" placeholder="Description">
+            <label for="floatingInput">Description</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" onclick="resetForm()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Edit Modifier Group Modal -->
+<div class="modal fade" id="editModifier" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <form method="post" asp-controller="Menu" asp-action="EditModifier" class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel1">Edit Modifier</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex flex-column gap-2">
+          <div class="form-floating">
+            <input type="hidden" id="ModifiergId" name="ModifierId">
+            <input type="text" class="form-control" id="editformgname" name="Name" placeholder="Category Name">
+            <label for="editforname">Name</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="editformgdescription" name="Description"
+              placeholder="Description">
+            <label for="editfordescription">Description</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" onclick="resetForm()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Add Existing  Modifier Group Modal -->
+<div class="modal fade" tabindex="-1" id="existingModifierModal" aria-labelleby="modal-title">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header border-0 pb-0">
+        <h5 class="modal-title fw-bolder">Select Existing Modifier</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex flex-column">
+        <div class="w-50">
+          <form class="d-flex position-relative" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" id="existingModifierSearch"
+              aria-label="Search" />
+            <label for="search" class="search_icon d-none d-md-block"><img src="~/images/icons/search.svg"
+                alt="" /></label>
+          </form>
+        </div>
+
+        <div id="existingModifierModalContent">
+
+        </div>
+
+      </div>
+      <div class="modal-footer border-0 d-flex flex-row justify-content-end">
+        <button type="button" id="saveExitingMgBtn" class="btn btn-primary" data-bs-toggle="modal"
+          data-bs-target="#modifierModal">Save</button>
+        <button type="button" class="btn cancle_btn" data-bs-toggle="modal" data-bs-target="#modifierModal">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Delete Modifier Group Modal -->
+
+<div class="modal fade" id="deleteModalformodifier" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Confirmation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex justify-content-center align-items-center flex-column">
+        @* <img class="" src="~/images/icons/exclamation-triangle.svg" alt=""> *@
+        <h1 class="fs-5">Are You Sure you want to delete Modifer ?</h1>
+      </div>
+      <form method="post" asp-controller="Menu" asp-action="DeleteModifer"
+        class="modal-footer d-flex justify-content-center">
+        <input type="hidden" name="id" id="ModifierId" />
+        <button type="submit" class="btn btn-primary">Yes</button>
+        <button type="button" class="btn btn-outline-primary">No</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+@* <div class="modal fade" tabindex="-1" id="deleteModifierGroupModal" aria-labelledby="modal-title">
+<div class="modal-dialog modal-dialog-centered">
+<div class="modal-content">
+<div class="modal-header border-0">
+<h5 class="modal-title fw-bolder text-muted">
+Delete Confirmation
+</h5>
+<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body text-center">
+<img src="~/images/icons/warning-icon.svg" alt="" width="35px" />
+<p class="fs-5 fw-bold text-muted">
+Are you sure you want to delete this Modifier Group?
+</p>
+</div>
+<div class="modal-footer border-0 d-flex justify-content-center">
+<button type="button" class="btn btn-primary delteModifierGroupBtn" id="confirmMGDeleteBtn">Yes</button>
+<button type="button" class="btn cancle_btn" data-bs-dismiss="modal">No</button>
+</div>
+</div>
+</div>
+</div> *@
+
+<!-- Add Modifier Item Modal -->
+<div class="modal fade" tabindex="-1" id="addModifierItem" aria-labelledby="modal-title">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content" id="addModifierModalContent">
+    </div>
+  </div>
+</div>
+
+<!-- Delete Modifier Item Modal -->
+<div class="modal fade" tabindex="-1" id="deleteModifierModal" aria-labelledby="modal-title">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title fw-bolder text-muted">
+          Delete Confirmation
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img src="~/images/icons/warning-icon.svg" alt="" width="35px" />
+        <p class="fs-5 fw-bold text-muted">
+          Are you sure you want to delete this Modifier?
+        </p>
+      </div>
+      <div class="modal-footer border-0 d-flex justify-content-center">
+        <button type="button" class="btn btn-primary delteModifierModalBtn" id="confirmModifierDeleteBtn">Yes</button>
+        <button type="button" class="btn cancle_btn" data-bs-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>

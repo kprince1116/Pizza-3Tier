@@ -1,0 +1,60 @@
+using DAL.Models;
+using DAL.ViewModels;
+using Pizzashop.DAL.ViewModels;
+
+namespace DAL.Interfaces;
+
+public interface IUserMenuRepository
+{
+
+    List<MenuCategory> GetCategories();
+
+    List<Unit> GetUnits();
+
+    public Task<paginationviewmodel> GetItemsByCategory(int id,  int pageNo = 1 , int pageSize=3, string search = "");
+
+    public Task<int> GetCount(int categoryId);
+
+    public Task<bool> AddCategory( Categoryviewmodel model);
+
+    public Task<MenuCategory> GetUserByIdForDelete(int id);
+
+    Task DeleteCategoryAsync(MenuCategory existingCategory);
+
+    public Task<MenuCategory> GetCategoryId(int id);
+
+    Task UpdateCategoryAsync(MenuCategory category);
+
+    Task AddNewItem(menuviewmodel model);
+
+    public Task<EditItemviewmodel> GetEditItem(int id);
+    public Task<MenuItem> GetExistingItem(int id);
+
+    Task UpdateItemAsync( MenuItem existingitem);
+
+    public Task<MenuItem> GetItemForDeleteById(int id);
+
+    Task DeleteItemAsync(MenuItem existingitem);
+
+    Task DeleteItems(List<int> itemList); 
+
+    // public  Task<(List<MenuItemsviewmodel> items , int TotalRecords)> GetItemList(int categoryId,int pageNo,int pageSize,String search);
+
+    //Modifiers
+
+    public IEnumerable<ModifierGroup> GetAllModifierGroup();
+
+    //ADD Modifier Group
+    public Task<bool> AddModifier(ModifierGroupViewModel  model);
+
+    public Task<ModifierGroup> GetModifierId(int id);
+
+    Task UpdateModifierAsync( ModifierGroup category);
+
+     public Task<ModifierGroup> GetModifierByIdForDelete(int id);
+
+    Task DeleteModifierAsync( ModifierGroup existingModifier);
+
+    public Task<ModifierItemListViewModel> GetItemsByModifierId(int id,int pageNo,int pageSize,string search);
+    
+}

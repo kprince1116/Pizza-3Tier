@@ -1,0 +1,69 @@
+@model IEnumerable<Pizzashop.DAL.ViewModels.ModifierGroupViewModel>
+
+@{
+    var selectedModifierId = ViewBag.SelectedModifierId; 
+}
+
+<div class="d-flex border category-box">
+    <aside class="sidebarmodifier bg-light">
+        <div class="div">
+            <div class="ms-3 mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="fs-3">Modifier</div>
+                    <img data-bs-toggle="modal" data-bs-target="#modifierModal" class="pe-2" style="height: 25px;"
+                        src="~/images/icons/plus-square.svg" alt="Add Category">
+                </div>
+            </div>
+            <div class="sidebar-elementsformodifier">
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var modifierGroup in Model)
+                    {
+                         var isActive = modifierGroup.ModifierId == selectedModifierId ? "active" : "";
+                        <div class="modifier-sidebar">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a class="d-flex gap-2 pt-2 pb-2 ps-3 nav-link active align-items-center modifierGroupBtn"
+                                     data-modifier-id="@modifierGroup.ModifierId" >
+                                  <img style=" height: 25px;" src="~/images/icons/dots-menu-svgrepo-com.svg" alt="Menu">          
+                                    <div >@modifierGroup.Name</div>
+                                </a>
+                                <div class="modifier-icons-forlist">
+                                    <a data-modifier-edit-id="@modifierGroup.ModifierId"
+                                        data-modifier-name="@modifierGroup.Name" data-description="@modifierGroup.Description"
+                                        data-bs-toggle="modal" data-bs-target="#editModifier"
+                                        onclick="setEditModifierData(this)">
+                                        <img src="~/images/icons/pen-fill.svg" alt="Edit">
+                                    </a>
+                                    <a data-modifier-delete-id="@modifierGroup.ModifierId" class="delete-modifier"
+                                        data-bs-toggle="modal" data-bs-target="#deleteModalformodifier">
+                                        <img src="~/images/icons/trash (1).svg" alt="Delete">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>No modifier groups available.</p>
+                }
+            </div>
+        </div>
+    </aside>
+ 
+     <div id="modifieritems" class="w-100 bg-white" >
+           
+        </div>  
+
+</div>
+    
+<script>
+
+$(document).ready(function() {
+    $('.modifierGroupBtn').on('click', function() {
+        var modifierId = $(this).data('modifier-id');
+        $('#modifieritems').load('/Menu/ItemsByModifier?id=' + modifierId);
+    });
+});
+</script>
+ 

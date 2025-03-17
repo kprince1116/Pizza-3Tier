@@ -1,0 +1,123 @@
+*{
+    padding: 0%;
+    margin: 0%;
+    overflow: hidden;
+}
+
+body{
+    background-color: #D8EFF7;  
+}
+
+.validation-message {
+  display: block; 
+  width: 100%; 
+  margin-top: 5px; 
+  font-size: 0.875rem; 
+  line-height: 1.2;
+}
+
+
+.position-relative {
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start; 
+}
+
+.form-control {
+  width: 100%; 
+}
+
+
+.imageeeee {
+  position: absolute;
+  right: 10px; 
+  top: 15px;
+  transform: translateY(-50%);
+}
+
+
+/* .form-floating>.form-control-plaintext~label, .form-floating>.form-control:focus~label, .form-floating>.form-control:not(:placeholder-shown)~label, .form-floating>.form-select~label{
+    color: rgba(var(--bs-body-color-rgb), .65);
+    transform: scale(.85) translateY(-1.9rem) translateX(.15rem) !important ;  
+  }  */
+
+.main{
+    margin-top: 250px;
+}
+
+.aa :hover{
+  background-color: #B4B4B4;
+  
+}
+
+ /* @media (max-width: 768px) {
+    .font1{
+        color: white !important;
+    }
+    #emailError{
+      color: black !important;
+    }
+    #passwordError{
+      color: black !important;
+    }
+  } 
+ */
+
+
+
+
+  /* @media only screen and (width: 425px) {
+    .font1{
+        color: white !important;
+    }
+    .forgot-password{
+      color: black !important;
+    }
+  }  */
+
+/* @media only screen and (min-width: 375px) {
+    .main{
+        margin-top: 100px;
+    }
+  } */
+
+  
+  /* @media only screen and (min-width: 1000px) {
+   /* .content{
+    margin-top: 200px;
+   } */
+   
+
+    /* @media only screen and (min-width: 1300px) {
+    .pizza{
+        margin-left: 180px;
+    }
+  } */
+  
+
+  /* @media only screen and (width: 768px) {
+    .pizza{
+        margin-left: 150px;
+    }
+  } */
+
+/* 
+  @media only screen and (width: 1024px) {
+    .main{
+        margin-top: 180px;
+    }
+  } */
+/* 
+  @media only screen and (min-width: 1214px) {
+    .main{
+        margin-top: 250px;
+    }
+  }
+
+  @media only screen and (width: 768px) {
+    .main{
+        margin-top: 50px;
+    }
+  }
+
+   */

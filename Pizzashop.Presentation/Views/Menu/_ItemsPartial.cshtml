@@ -1,0 +1,374 @@
+@model Pizzashop.DAL.ViewModels.paginationviewmodel
+
+@* <div>
+id: @Model.Categoryid cp: @Model.CurrentPage ps:@Model.PageSize tp: @Model.TotalPages tr: @Model.TotalRecords searckKey: @Model.searchKey
+</div> *@
+
+    <div class="d-flex align-items-center gap-3 pe-3 justify-content-end">
+        <div class=" d-flex justify-content-end position-relative align-items-center ">
+          <div class="d-flex justify-content-end position-relative align-items-center">
+            <input type="text" class="search form-control" style="height: 50px;" id="itemListSearch" asp-for="searchKey"
+              placeholder="Search" />
+            <img src="~/images/icons/search.svg" alt="" style="width: 20px; aspect-ratio: 1"
+              class="bg-white position-absolute rounded-2 m-2" onclick="itemSearch()"/>
+          </div>
+        </div>
+
+        <div>
+          <img data-bs-toggle="modal" data-bs-target="#deleteItemModalForMass" 
+     class="border delete-icon d-flex p-lg-3 p-2" 
+     src="~/images/icons/trash (1).svg" alt="Delete Icon" id="delete-icon-massdelete"/>
+        </div>
+        <div class="border new-item d-flex p-lg-3 p-2" data-bs-toggle="modal" data-bs-target="#exampleModal2"
+          style="background-color: rgb(0, 102, 187); color: white; text-wrap: nowrap;">
+          +New Item
+        </div>
+    </div>
+   <div class=" mt-3 me-3 mb-4 table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <div>
+                    <th scope="col">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="outerCheck">
+                        Name
+                      </div>
+                  </div>
+                  </th>
+                  <th scope="col" style="text-align: center;">Item Type</th>
+                  <th scope="col" style="text-align: center;">Rate</th>
+                  <th scope="col" style="text-align: center;">Quantity</th>
+                  <th scope="col">Available</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach (var item in Model.Items){
+                 <tr>
+                  <th scope="row">
+                    <div class="form-check gap-5"> 
+                      <input class="form-check-input inner-check-delete" type="checkbox" value="" id="flexCheckChecked" data-deleteId="@item.Itemid">
+                      <div class="d-flex align-items-center gap-1">
+                        <img style="height: 25px;" src="~/images/dining-menu.png" alt="">
+                        <div class="d-flex align-items-center text-nowrap">@item.Itemname</div>
+                      </div>
+                    </div>
+                  </th>
+                 
+                  <td style="text-align: center;">
+                     @if(@item.Itemtype=="veg"){
+                        <img style="height: 35px;"  src="~/images/icons/veg-icon.svg" alt="">
+                     }else{
+                    <img style="height: 35px;" src="~/images/icons/non-veg-icon.svg" alt="">
+                    }
+                  </td>
+                  
+          
+          <td style="text-align: center;">
+            @item.Rate
+          </td>
+          <td style="text-align: center;">
+            @item.Quantity
+          </td>
+          <td>
+            <div class="ff form-check form-switch" style="text-align: center;">
+              <input class="form-check-input"  type="checkbox" role="switch" id="flexSwitchCheckChecked"  checked="@(item.IsAvailable == true ? "checked" : "")">
+          </td>
+          <td>
+            <a data-bs-toggle="modal" id="itemEdit" data-bs-target="#editModal2" class="edit-item" data-editid="@item.Itemid" ><img src="~/images/icons/pen-fill.svg" a  lt=""></a>
+            <img data-bs-toggle="modal" class="delete-item" data-bs-toggle="modal" data-bs-target="#deleteItemModal" onclick="deleteItem(this)" data-itemid ="@item.Itemid" src="~/images/icons/trash (1).svg" alt="">
+                                                
+          </td>
+          </tr>
+} 
+        </tbody>
+        </table>
+      </div>
+
+        <div class="d-flex table-footer align-items-center justify-content-end gap-lg-2 gap-md-2 gap-1 me-1 me-md-4 me-lg-4">
+                <div class="d-flex align-items-center gap-1 items">
+                  <span class="ps-5 font2">Items Per Page</span>
+                  <select class="form-select" onchange="changePageSizeForItems()" id="selectpagesizeForItems" aria-label="Floating label select example"
+                    style="width: 65px;">
+                    @if(Model.PageSize!=null)
+                    {
+                    <option value="3" selected="@(Model.PageSize==3 ? true : false)" >3</option>
+                    <option value="5" selected="@(Model.PageSize==5 ? true : false)" >5</option>
+                    <option value="10" selected="@(Model.PageSize==10 ? true : false)" >10</option>
+                    <option value="15" selected="@(Model.PageSize==15 ? true : false)" >15</option>
+                    }
+                  </select>
+                </div>
+                <div class="d-flex align-items-center gap-1">
+                  <span class="font2"> Showing @((Model.CurrentPage- 1) * Model.PageSize +
+                            1)-@Math.Min(Model.CurrentPage * Model.PageSize, Model.TotalRecords) of
+                            @Model.TotalRecords</span>
+                  <div class="pt-3">
+                    <nav aria-label="Page navigation example">
+                      <ul class="pagination gap-2">
+                        <li class="page-item @(Model.CurrentPage>1 ? " " : "disabled") ">
+                          <a class="page-link" aria-label="Previous" onclick="changePageForItem(@Model.CurrentPage-1)">
+                            <span aria-hidden="true">&laquo;</span>
+                          </a>
+                        </li>
+                        <li>
+                          <span class="page-link">@Model.CurrentPage</span>
+                        </li>
+                        <li class="page-item @(Model.CurrentPage<Model.TotalPages ? " " : "disabled")  ">
+                          <a class="page-link"  aria-label="Next" onclick="changePageForItem(@Model.CurrentPage+1)">
+                            <span aria-hidden="true">&raquo;</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+              </div>
+
+
+              @* <div onclick="getSelectedIds()">
+                clickhere
+              </div> *@
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+  $(document).on('click', '.delete-item', function () {
+    var itemId = $(this).data('itemid');
+    console.log(itemId);
+    $('#ItemId').val(itemId);
+  });
+
+  $(document).ready(function () {
+    $('#itemListSearch').on('keydown', function (event) {
+        if (event.key === "Enter") { // Check if Enter is pressed
+            event.preventDefault();  // Prevent default form submission
+            itemSearch();
+        }
+    });
+
+
+});
+
+function changePageSizeForItems() {
+      let pagesize = $('#selectpagesizeForItems').val();
+      let selectedCategoryId = @Model.Categoryid;  // Ensure Razor renders correctly
+      let search = $('#itemListSearch').val();
+
+      $.ajax({
+          url: '@Url.Action("ItemsByCategory", "Menu")',
+          type: "GET",
+          data: { id: selectedCategoryId, pageSize: pagesize, pageNo: 1, searchKey: search },
+          dataType: "html",  // Fixed typo
+          success: function (data) {
+              @* console.log(data); *@
+              $('#items-container-table').html(data);
+          },
+          error: function () {
+              $('#items-container-table').html("No Data Found");
+          }
+      });
+  } 
+
+  function changePageForItem(pageNum)
+  {
+      let pagesize = @Model.PageSize;
+      let selectedCategoryId = @Model.Categoryid;  // Ensure Razor renders correctly
+      let search = $('#itemListSearch').val();
+
+        $.ajax({
+          url: '@Url.Action("ItemsByCategory", "Menu")',
+          type: "GET",
+          data: { id: selectedCategoryId, pageSize: pagesize, pageNo: pageNum, searchKey: search },
+          dataType: "html",  // Fixed typo
+          success: function (data) {
+              @* console.log(data); *@
+              $('#items-container-table').html(data);
+          },
+          error: function () {
+              $('#items-container-table').html("No Data Found");
+          }
+      });
+
+
+  }
+
+  function itemSearch(){
+      let searchKey = $('#itemListSearch').val();
+      let selectedCategoryId = @Model.Categoryid;  // Ensure Razor renders correctly
+
+      $.ajax({
+          url: '@Url.Action("ItemsByCategory", "Menu")',
+          type: "GET",
+          data: { id: selectedCategoryId, pageSize: @Model.PageSize, pageNo: 1, searchKey: searchKey },
+          dataType: "html",  // Fixed typo
+          success: function (data) {
+              @* console.log(data); *@
+              $('#items-container-table').html(data);
+          },
+          error: function () {
+              $('#items-container-table').html("No Data Found");
+          }
+      });
+  }
+
+  function getSelectedIds() {
+      let selectedIds = [];
+      
+      $(".inner-check-delete:checked").each(function () {
+          let id = $(this).data("deleteid"); // Get the data-deleteId attribute
+          if (id !== undefined) {
+              selectedIds.push(id);
+          }
+      });
+
+      console.log(selectedIds); // Debugging output
+      return selectedIds;
+      
+  }
+
+</script>
+<div class="modal fade" id="deleteItemModalForMass" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Confirmation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex justify-content-center align-items-center flex-column">
+        <img class="" src="images/icons/exclamation-triangle.svg" alt="">
+        <h1 class="fs-5">Are You Sure you want to delete the selected item(s)? for Mass</h1>
+      </div>
+      <div id="itemListForDelete">
+
+      </div>
+      <form id="deleteFormMass" method="post" class="modal-footer d-flex justify-content-center">
+        @* <input type="hidden" name="itemList" id="ItemList" hidden> *@
+        <button type="submit" class="btn btn-primary">Yes</button>
+        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+$(document).ready(function() {
+    // When the trash icon is clicked, prepare the modal
+
+    $('#delete-icon-massdelete').on('click', function() {
+        
+        var listOfItemsId = getSelectedIds();
+        console.log(listOfItemsId);
+        
+        // Collect IDs of checked items
+
+        $('#itemListForDelete').html(listOfItemsId.join(',')); // Store the list in a hidden input
+        @* $('#deleteItemModalForMass').modal('show'); // Show the modal *@
+    });
+
+    // Handle form submission when "Yes" is clicked
+    $('#deleteFormMass').on('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        @* / Parse the stored list, default to empty array if invalid *@
+
+        @* if (itemList.length === 0) {
+            alert("No items to delete.");
+            $('#deleteItemModalForMass').modal('hide');
+            return;
+        } *@
+
+        let itemLists = Array.from(getSelectedIds());
+        console.log(itemLists);
+
+        var formData = new FormData();
+        itemLists.forEach(function(id) {
+            formData.append('itemList', id);
+        });
+
+      $.ajax({
+         url: '/Menu/DeleteCombine',
+         type: 'POST',
+         data: formData,
+         processData: false,  // Prevent jQuery from processing data
+        contentType: false,  // Prevent jQuery from setting the content-type header
+         success: function(data) {
+        console.log("Response:", data);
+         var categoryId = @Model.Categoryid; // Ensure this is valid in your context
+        var pageSize = @Model.PageSize; // Adjust based on your model
+                var searchKey = encodeURIComponent($('#search-input').val() || '');
+                var url = `/Menu/Items?id=${categoryId}&pageNo=1&pageSize=${pageSize}`;
+                
+                @* $('#deleteItemModalForMass').modal('hide'); // Hide the modal *@
+                window.location.href = url; // Redirect
+
+    },
+    error: function(xhr, status, error) {
+        console.error("Error deleting items:", xhr.responseText);
+        alert("An error occurred while deleting the items.");
+        $('#deleteItemModalForMass').modal('hide');
+    }
+});
+
+
+        // Send AJAX request to delete items
+        @* $.ajax({
+            url: '/Menu/DeleteCombine',
+            type: 'post',
+            data: formData,
+            success: function(data) {
+              console.log(data);
+                // Construct the redirect URL (adjust Model references if needed)
+                var categoryId = @Model.Categoryid; // Ensure this is valid in your context
+                var pageSize = @Model.PageSize; // Adjust based on your model
+                var searchKey = encodeURIComponent($('#search-input').val() || '');
+                var url = `/Menu/MenuList?categoryId=${categoryId}&pageNumber=1&pageSize=${pageSize}&searchKey=${searchKey}`;
+                
+                $('#deleteItemModalForMass').modal('hide'); // Hide the modal
+                window.location.href = url; // Redirect
+            },
+            error: function(xhr, status, error) {
+                console.error("Error deleting items:", error);
+                alert("An error occurred while deleting the items.");
+                $('#deleteItemModalForMass').modal('hide');
+            }
+        }); *@
+    });
+});
+</script>
+
+<script>
+
+    $(document).ready(function () {
+      const outerCheck = document.getElementById("outerCheck");
+      const innerChecks = document.querySelectorAll(".inner-check-delete");
+
+      // Toggle all inner checkboxes based on the outer checkbox state
+      outerCheck.addEventListener("change", function () {
+          innerChecks.forEach(checkbox => {
+              checkbox.checked = outerCheck.checked;
+          });
+      });
+
+      // Monitor inner checkboxes to update the outer checkbox
+      innerChecks.forEach(checkbox => {
+          checkbox.addEventListener("change", function () {
+              const allChecked = [...innerChecks].every(cb => cb.checked);
+              const anyChecked = [...innerChecks].some(cb => cb.checked);
+
+              outerCheck.checked = allChecked;
+              outerCheck.indeterminate = !allChecked && anyChecked; // Set indeterminate state if some are checked
+          });
+      });
+
+});
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+  });
+</script>
+
+
+

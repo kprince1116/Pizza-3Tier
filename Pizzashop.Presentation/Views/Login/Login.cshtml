@@ -1,0 +1,112 @@
+@{
+    Layout = null;
+}
+@model Pizzashop.DAL.ViewModels.Loginviewmodel;
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="~/css/login.css">
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="row vh-100 vw-100 g-0" style="height: 100%; width: 100%;">
+        <div class="col-lg-6 col-md-12 d-lg-block d-none">
+            <img style="height:100%; width: 100%;" class="img-fluid" src="~/images/dominos_background.jpg" alt="">
+        </div>
+        <form method="post" asp-controller="Login" asp-action="Login"
+            class="content col-lg-6 d-flex align-items-center justify-content-center col-md-12 ps-xl-5 pt-xl-5 ms-xl-0 ms-lg-0 ms-md-4">
+            <div class="bg-image d-block d-lg-none position-absolute w-100 h-100"
+                style="background-image: url('~/images/dominos_background.jpg'); background-size: cover; background-position: center; z-index: -1; opacity: 70%;">
+            </div>
+            <div class="container">
+                <div class="row mb-5 me-md-5 me-xl-5">
+                    <div class="pizza d-flex align-items-center justify-content-center">
+                        <img class="img-fluid" style="height: 60px;" src="~/images/logos/pizzashop_logo.png" alt="">
+                        <h1 class="font1">PIZZASHOP</h1>
+                    </div>
+                </div>
+                <div class="row ms-5 mb-3">
+                    <h1 class="font1 fw-bold">Welcome,</h1>
+                </div>
+                <div class="row ms-5">
+                    <div class="mb-4 p-0 d-flex justify-content-end col-10 position-relative">
+                        <input asp-for="Email" type="email" class="form-control" id="email" placeholder="Email" />
+                        <div class="imageeeee"><img src="~/images/icons/customer.svg" alt=""></div>
+                        <span asp-validation-for="Email" class="text-danger validation-message"></span>
+                    </div>
+                    <div class="mb-3 p-0 col-10 d-flex position-relative">
+                        <input asp-for="Password" type="password" class="form-control" id="passwordinput"
+                            placeholder="Password" />
+                        <div class="imageeeee"><img id="togglepassword" src="~/images/icons/eye.svg" alt=""></div>
+                        <span asp-validation-for="Password" class="text-danger validation-message"></span>
+                    </div>
+                    <div class="d-md-flex d-lg-flex d-xl-flex d-none justify-content-between col-10 mb-3 p-0">
+                        <div>
+                            <input asp-for="RememberMe" type="checkbox" id="rememberMe" />
+                            <span class="font1"> Remember Me</span>
+                        </div>
+                        <a class="forgot-password" id="forgotpassword" style="color:blue; text-decoration: none;"
+                            asp-action="ForgotPassword"> Forgot Password? </a>
+                    </div>
+                    <button type="submit"
+                        class="btn btn-primary btn-sm col-10 align-items-center justify-content-center">Login</button>
+                    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                    {
+                        <div class="text-danger">@ViewBag.ErrorMessage</div>
+                    }
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+        document.getElementById("togglepassword").addEventListener("click", function () {
+        var passwordInput = document.getElementById("passwordinput");
+        var icon = document.getElementById("togglepassword");
+        
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            icon.src = '@Url.Content("~/images/icons/eye-slash.svg")'; 
+        } else {
+            passwordInput.type = "password";
+            icon.src = '@Url.Content("~/images/icons/eye.svg")'; 
+        }
+    });
+
+        document.getElementById("forgotpassword").addEventListener("click", function (event) {
+            event.preventDefault();
+            var email = document.getElementById("email").value;
+            var url = email ? "/Login/ForgotPassword?email=" + encodeURIComponent(email) : "/Login/ForgotPassword";
+            window.location.href = url;
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+        @if (TempData["LogOutSuccess"] != null && (bool)TempData["LogOutSuccess"])
+        {
+            <text>
+                        toastr.success('User logged out successfully!');
+            </text>
+        }
+        });
+    </script>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+</body>
+
+</html>

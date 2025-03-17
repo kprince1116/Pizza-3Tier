@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pizzashop.Presentation", "Pizzashop.Presentation\Pizzashop.Presentation.csproj", "{7231F8CB-F904-4D69-8241-7389469E8558}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAL", "BAL\BAL.csproj", "{8AFFB488-A514-4878-800E-8B6685A5B765}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{8CC0B94F-04F4-4ADA-8AA4-F4E4B7454874}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7231F8CB-F904-4D69-8241-7389469E8558}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7231F8CB-F904-4D69-8241-7389469E8558}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7231F8CB-F904-4D69-8241-7389469E8558}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7231F8CB-F904-4D69-8241-7389469E8558}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AFFB488-A514-4878-800E-8B6685A5B765}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AFFB488-A514-4878-800E-8B6685A5B765}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AFFB488-A514-4878-800E-8B6685A5B765}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AFFB488-A514-4878-800E-8B6685A5B765}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CC0B94F-04F4-4ADA-8AA4-F4E4B7454874}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CC0B94F-04F4-4ADA-8AA4-F4E4B7454874}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CC0B94F-04F4-4ADA-8AA4-F4E4B7454874}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CC0B94F-04F4-4ADA-8AA4-F4E4B7454874}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
