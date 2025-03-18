@@ -24,6 +24,7 @@ public class MenuController : Controller
     {
         var categories = _userMenu.GetCategories();
         var units = _userMenu.GetUnits();
+        var modifiers = _userMenu.GetModifiers();
         int selectedCategoryId = id != 0 ? id : categories.First().CategoryId;
 
         var items = await _userMenu.GetItemsByCategory(selectedCategoryId,  pageNo ,  pageSize);
@@ -33,7 +34,8 @@ public class MenuController : Controller
         {
             Categories = categories,
             pagination = items,
-            units = units
+            units = units,
+            Modifiers = modifiers
         };
 
         return View(viewModel);
@@ -161,7 +163,6 @@ public class MenuController : Controller
         return RedirectToAction("Index", "Home");
     }
 
-    
    
     public async Task<IActionResult> ItemsByModifier(int id , int pageNo = 1 , int pageSize=3, string searchKey = "" )
     {
@@ -172,4 +173,47 @@ public class MenuController : Controller
         return PartialView("_ModifierPartial", items);
     }
 
+    [HttpPost]
+    public async Task<IActionResult> AddModifierItem(menuviewmodel model)
+    {
+        var isAdded = await _userMenu.AddModifierItem(model);
+        if (isAdded)
+        {
+            return RedirectToAction("Index", "Home");
+        }
+        else
+        {
+            return Content("error");
+        }
+    }
+
+    public async Task<IActionResult> EditModifierItem(int id)
+    {
+        var item =await _userMenu.GetEditModifierItem(id);
+        item.ModifierId = id;
+
+        return PartialView("_EditModifierItemPartial",item);                                 
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> EditModifierItems(EditModifierViewModel model)
+    {
+        var modifiers = _userMenu.EditModifierItem(model);
+        return RedirectToAction("Items","Menu");                                  
+    }
+
+    [HttpPost]
+
+    public async Task<IActionResult> DeleteModifierItem(int id)
+    {
+        var existingmodifier =  _userMenu.GetModifierItemForDeleteById(id);
+        return RedirectToAction("Items", "Menu");
+    }
+
+     [HttpPost]
+    public IActionResult DeleteCombineForModifier(List<int> modifierList)
+    {
+        _userMenu.DeleteModifiersAsync(modifierList);
+        return Json( new { success = true, message = "hi"});
+    }
 }

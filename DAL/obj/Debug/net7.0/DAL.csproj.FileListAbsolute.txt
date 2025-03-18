@@ -54,3 +54,17 @@ D:\Project\3-Tier\PizzaShop\DAL\obj\Debug\net7.0\refint\DAL.dll
 D:\Project\3-Tier\PizzaShop\DAL\obj\Debug\net7.0\DAL.pdb
 D:\Project\3-Tier\PizzaShop\DAL\obj\Debug\net7.0\DAL.genruntimeconfig.cache
 D:\Project\3-Tier\PizzaShop\DAL\obj\Debug\net7.0\ref\DAL.dll
+D:\Project\3Tier\DAL\obj\Debug\net7.0\DAL.csproj.AssemblyReference.cache
+D:\Project\3Tier\DAL\obj\Debug\net7.0\DAL.GeneratedMSBuildEditorConfig.editorconfig
+D:\Project\3Tier\DAL\obj\Debug\net7.0\DAL.AssemblyInfoInputs.cache
+D:\Project\3Tier\DAL\obj\Debug\net7.0\DAL.AssemblyInfo.cs
+D:\Project\3Tier\DAL\obj\Debug\net7.0\DAL.csproj.CoreCompileInputs.cache
+D:\Project\3Tier\DAL\bin\Debug\net7.0\DAL.deps.json
+D:\Project\3Tier\DAL\bin\Debug\net7.0\DAL.runtimeconfig.json
+D:\Project\3Tier\DAL\bin\Debug\net7.0\DAL.dll
+D:\Project\3Tier\DAL\bin\Debug\net7.0\DAL.pdb
+D:\Project\3Tier\DAL\obj\Debug\net7.0\DAL.dll
+D:\Project\3Tier\DAL\obj\Debug\net7.0\refint\DAL.dll
+D:\Project\3Tier\DAL\obj\Debug\net7.0\DAL.pdb
+D:\Project\3Tier\DAL\obj\Debug\net7.0\DAL.genruntimeconfig.cache
+D:\Project\3Tier\DAL\obj\Debug\net7.0\ref\DAL.dll

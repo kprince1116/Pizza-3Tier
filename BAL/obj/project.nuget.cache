@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "aPlYBOOMG/nk12T1iQ6wGKc2gECWppsEv30Ahx01udUPXT/gTFLs/f0coH15i4+HvAf1+d4OzKgt7QyU7JvHkw==",
+  "dgSpecHash": "6Jx4Hcq4NTyD0WqW57mr7o2qZZEloCFtzK2W/vS+ZfmYgAZtLhPRqnDkuXCdtQmBvftO0g117KyX9YejoixASA==",
   "success": true,
-  "projectFilePath": "D:\\Project\\3-Tier\\PizzaShop\\BAL\\BAL.csproj",
+  "projectFilePath": "D:\\Project\\3Tier\\BAL\\BAL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pca187\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\pca187\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

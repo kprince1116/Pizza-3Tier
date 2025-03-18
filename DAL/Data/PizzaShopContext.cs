@@ -184,7 +184,7 @@ public partial class PizzaShopContext : DbContext
                 .HasColumnName("modified_date");
             entity.Property(e => e.ModifierGroupId).HasColumnName("modifier_group_id");
             entity.Property(e => e.Modifiername)
-                .HasMaxLength(200)
+                .HasMaxLength(500)
                 .HasColumnName("modifiername");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
             entity.Property(e => e.Rate)

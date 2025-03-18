@@ -19,6 +19,10 @@ public class UserMenuRepository : IUserMenuRepository
         return _db.MenuCategories.Where(u => u.IsDeleted == false).ToList();
     }
 
+    public List<ModifierGroup> GetAllModifierGroups()
+     {
+        return _db.ModifierGroups.Where(u => u.IsDeleted == false).ToList();
+     }
     public List<Unit> GetUnits()
     {
         return _db.Units.ToList();
@@ -46,7 +50,7 @@ public class UserMenuRepository : IUserMenuRepository
 
         var totalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
 
-        List<MenuItemsviewmodel> items = await item.Skip((pageNo - 1) * pageSize).Take(pageSize).ToListAsync();
+        List<MenuItemsviewmodel> items = await item.Skip((pageNo - 1) * pageSize).Take(pageSize).OrderBy(u => u.Itemid).ToListAsync();
 
         return new paginationviewmodel
         {
@@ -141,9 +145,12 @@ public class UserMenuRepository : IUserMenuRepository
         }
         ).FirstOrDefaultAsync();
     }
+
+    
+  
     public async Task<MenuItem> GetExistingItem(int id)
     {
-        return await _db.MenuItems.FindAsync(id); // Faster if Itemid is a primary key
+        return await _db.MenuItems.FindAsync(id); 
     }
 
 
@@ -158,12 +165,14 @@ public class UserMenuRepository : IUserMenuRepository
         return await _db.MenuItems.FirstOrDefaultAsync(m => m.Itemid == id);
     }
 
+     
     public async Task DeleteItemAsync(MenuItem existingitem)
     {
         _db.MenuItems.Update(existingitem);
         await _db.SaveChangesAsync();
     }
 
+    
     public async Task DeleteItems(List<int> itemList)
     {
         for (int i = 0; i < itemList.Count; i++)
@@ -177,10 +186,11 @@ public class UserMenuRepository : IUserMenuRepository
         await _db.SaveChangesAsync();
     }
 
+    
     //Modiers
     public IEnumerable<ModifierGroup> GetAllModifierGroup()
     {
-        return _db.ModifierGroups.Where(u => u.IsDeleted == false).ToList();
+        return _db.ModifierGroups.Where(u => u.IsDeleted == false).ToList().OrderBy(u=>u.ModifierGroupId);
     }
 
     //Add Modifier
@@ -223,12 +233,13 @@ public class UserMenuRepository : IUserMenuRepository
     public async Task<ModifierItemListViewModel> GetItemsByModifierId(int id, int pageNo, int pageSize, string search)
     {
         var item = _db.Modifiers
-            .Where(u => u.ModifierGroupId == id && (u.Modifiername.ToLower().Contains(search.ToLower()) || u.Description.ToLower().Contains(search.ToLower())))
+            .Where(u => !u.IsDeleted.HasValue || !u.IsDeleted.Value &&   u.ModifierGroupId == id && (u.Modifiername.ToLower().Contains(search.ToLower()) || u.Description.ToLower().Contains(search.ToLower())))
             .Select(u => new ModifierItemViewModel
             {
                 ModifierItemId = u.Modifierid,
                 Name = u.Modifiername,
                 Unit = u.Unitid,
+                Unitname = _db.Units.Where(u => u.Unitid == u.Unitid).Select(u => u.Unitname).FirstOrDefault(),
                 Rate = u.Rate,
                 Quantity = u.Quantity
             });
@@ -253,4 +264,78 @@ public class UserMenuRepository : IUserMenuRepository
         };
 
     }
+
+    public  Task AddModifierItem(menuviewmodel model)
+    {
+        var modifier = new Modifier
+        {
+            ModifierGroupId = model.AddModifier.ModifierGroupId,   
+            Modifiername = model.AddModifier.ModifierName,
+            Rate = model.AddModifier.Rate,
+            Quantity = model.AddModifier.Quantity,
+            Description = model.AddModifier.Description
+        };
+
+        _db.Modifiers.Add(modifier);
+        return _db.SaveChangesAsync();
+    }
+
+      public async Task<EditModifierViewModel> GetEditModifierItem(int id)
+    {
+        return await _db.Modifiers.Where(u => u.Modifierid == id).Select(u => new EditModifierViewModel
+        {
+            units = _db.Units.ToList(),
+            modifiers = _db.ModifierGroups.ToList(),
+            ModifierGroupId = u.ModifierGroupId,
+            ModifierName = u.Modifiername,
+            Rate = u.Rate,
+            Quantity = u.Quantity,
+            Description = u.Description,
+            UnitId = u.Unitid,
+        }).FirstOrDefaultAsync();
+    }
+
+    public async Task<Modifier> GetExistingModifier(int ModifierId)
+    {
+        try
+        {
+           return await _db.Modifiers.FirstOrDefaultAsync(m => m.Modifierid == ModifierId);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return null;
+        }
+        
+    }
+
+    // public async Task  UpdateModifierItemAsync( Modifier existingmodifier)
+    // {
+    //      _db.Modifiers.Update(existingmodifier);
+    //     await  _db.SaveChangesAsync();
+    // }
+
+    public Task<Modifier> GetModifierItemForDeleteById(int id)
+    {
+        return _db.Modifiers.FirstOrDefaultAsync(m => m.Modifierid == id);
+    }
+
+      public async  Task DeleteModifierItemAsync( Modifier existingModifierItem)
+     {
+        // _db.Modifiers.Update(existingModifierItem);
+        await _db.SaveChangesAsync();
+     }
+
+    public async Task DeleteModifiers(List<int> modifierList)
+    {
+        for (int i = 0; i < modifierList.Count; i++)
+        {
+            Modifier modifier = _db.Modifiers.Where(e => e.Modifierid == modifierList[i]).FirstOrDefault();
+            modifier.IsDeleted = true;
+
+        }
+        await _db.SaveChangesAsync();
+    }
+
+
 }

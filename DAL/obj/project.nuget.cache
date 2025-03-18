@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ZFLj+MyL6807ed51OV00XlpWeP/6QotMO8F99wIlYCTja086BHiITaitiETU5Gu2wb4tctWyxd3PjnUM5yicfQ==",
+  "dgSpecHash": "VSKNtzFteQw2gYkatuulqpMKHfuGXi4yI8ujgJGdDjXKoFft/LjJ2f0RTRuUuszOpAgr/iTTAt1So1r8IeuJhA==",
   "success": true,
-  "projectFilePath": "D:\\Project\\3-Tier\\PizzaShop\\DAL\\DAL.csproj",
+  "projectFilePath": "d:\\Project\\3Tier\\DAL\\DAL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pca187\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\pca187\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

@@ -8195,11 +8195,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Project\\3-Tier\\PizzaShop\\DAL\\DAL.csproj",
+      "projectUniqueName": "D:\\Project\\3Tier\\DAL\\DAL.csproj",
       "projectName": "DAL",
-      "projectPath": "D:\\Project\\3-Tier\\PizzaShop\\DAL\\DAL.csproj",
+      "projectPath": "D:\\Project\\3Tier\\DAL\\DAL.csproj",
       "packagesPath": "C:\\Users\\pca187\\.nuget\\packages\\",
-      "outputPath": "D:\\Project\\3-Tier\\PizzaShop\\DAL\\obj\\",
+      "outputPath": "D:\\Project\\3Tier\\DAL\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\pca187\\AppData\\Roaming\\NuGet\\NuGet.Config"

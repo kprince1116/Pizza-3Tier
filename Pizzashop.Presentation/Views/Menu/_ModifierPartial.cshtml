@@ -5,7 +5,7 @@
     <div class=" d-flex align-items-center gap-3 pe-3 justify-content-end mt-5">
         <div class=" d-flex justify-content-end position-relative align-items-center ">
           <div class="d-flex justify-content-end position-relative align-items-center">
-            <input type="text" class="search form-control" style="height: 50px;" id="itemListSearch" asp-for="@Model.Page.searchKey"
+            <input type="text" class="search form-control" style="height: 50px;" id="ModifierListSearch" asp-for="@Model.Page.searchKey"
               placeholder="Search" />
             <img src="~/images/icons/search.svg" alt="" style="width: 20px; aspect-ratio: 1"
               class="bg-white position-absolute rounded-2 m-2" onclick="itemSearch()"/>
@@ -13,11 +13,11 @@
         </div>
 
         <div>
-          <img data-bs-toggle="modal" data-bs-target="#deleteItemModalForMass" 
+          <img data-bs-toggle="modal" data-bs-target="#deleteModifierModalForMass" 
      class="border delete-icon d-flex p-lg-3 p-2" 
-     src="~/images/icons/trash (1).svg" alt="Delete Icon" id="delete-icon-massdelete"/>
+     src="~/images/icons/trash (1).svg" alt="Delete Icon" id="delete-icon-massmodifierdelete"/>
         </div>
-        <div class="border new-item d-flex p-lg-3 p-2" data-bs-toggle="modal" data-bs-target="#exampleModal2"
+        <div class="border new-item d-flex p-lg-3 p-2" data-bs-toggle="modal" data-bs-target="#addmodifieritemmodal"
           style="background-color: rgb(0, 102, 187); color: white; text-wrap: nowrap;">
           +New Modifier
         </div>
@@ -30,7 +30,7 @@
                   <div>
                     <th scope="col">
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="outerCheck">
+                        <input class="form-check-input" type="checkbox" value="" id="outerCheckboxes">
                         Name
                       </div>
                   </div>
@@ -46,7 +46,7 @@
                  <tr>
                   <th scope="row">
                     <div class="form-check gap-5"> 
-                      <input class="form-check-input inner-check-delete" type="checkbox" value="" id="flexCheckChecked" data-deleteId="@item.ModifierItemId">
+                      <input class="form-check-input inner-check-deletes" type="checkbox" value="" id="flexCheckChecked" data-deid="@item.ModifierItemId">
                       <div class="d-flex align-items-center gap-1">
                         <img style="height: 25px;" src="~/images/dining-menu.png" alt="">
                         <div class="d-flex align-items-center text-nowrap">@item.Name</div>
@@ -56,7 +56,7 @@
                  
           
           <td style="text-align: center;">
-            @item.Unit
+            @item.Unitname
           </td>
               <td style="text-align: center;">
             @item.Rate
@@ -65,11 +65,11 @@
             @item.Quantity
           </td>
           <td>
-            <a data-bs-toggle="modal" id="itemEdit" data-bs-target="#editModal2" class="edit-item" data-editid="@item.ModifierItemId" ><img src="~/images/icons/pen-fill.svg" a  lt=""></a>
-            <img data-bs-toggle="modal" class="delete-item" data-bs-toggle="modal" data-bs-target="#deleteItemModal" onclick="deleteItem(this)" data-itemid ="@item.ModifierItemId" src="~/images/icons/trash (1).svg" alt="">
+            <a data-bs-toggle="modal" id="modifierEdit" data-bs-toggle="modal" data-bs-target="#Editmodifieritemmodal" class="edit-item" data-editmodifierid="@item.ModifierItemId" ><img src="~/images/icons/pen-fill.svg" a  lt=""></a>
+            <img data-bs-toggle="modal" class="delete-modifier" data-bs-toggle="modal" data-bs-target="#deleteModifierModal" onclick="deleteModifier(this)" data-deletemodifierid ="@item.ModifierItemId" src="~/images/icons/trash (1).svg" alt="">
                                                 
           </td>
-          </tr>
+          </tr> 
 } 
         </tbody>
         </table>
@@ -78,7 +78,7 @@
          <div class="d-flex table-footer align-items-center justify-content-end gap-lg-2 gap-md-2 gap-1 me-1 me-md-4 me-lg-4">
                 <div class="d-flex align-items-center gap-1 items">
                   <span class="ps-5 font2">Items Per Page</span>
-                  <select class="form-select" onchange="changePageSizeForItems()" id="selectpagesizeForModifiers" aria-label="Floating label select example"
+                  <select class="form-select " onchange="changePageSizeForModifiers()" id="selectpagesizeForModifiers" aria-label="Floating label select example"
                     style="width: 65px;">
                     @if(Model.Page.PageSize!=null)
                     {
@@ -97,7 +97,7 @@
                     <nav aria-label="Page navigation example">
                       <ul class="pagination gap-2">
                         <li class="page-item @(Model.Page.CurrentPage>1 ? " " : "disabled") ">
-                          <a class="page-link" aria-label="Previous" onclick="changePageForItem(@Model.Page.CurrentPage-1)">
+                          <a class="page-link" aria-label="Previous" onclick="changePageForModifiers(@Model.Page.CurrentPage-1)">
                             <span aria-hidden="true">&laquo;</span>
                           </a>
                         </li>
@@ -105,7 +105,7 @@
                           <span class="page-link">@Model.Page.CurrentPage</span>
                         </li>
                         <li class="page-item @(Model.Page.CurrentPage<Model.Page.TotalPages ? " " : "disabled")  ">
-                          <a class="page-link"  aria-label="Next" onclick="changePageForItem(@Model.Page.CurrentPage+1)">
+                          <a class="page-link"  aria-label="Next" onclick="changePageForModifiers(@Model.Page.CurrentPage+1)">
                             <span aria-hidden="true">&raquo;</span>
                           </a>
                         </li>
@@ -115,124 +115,172 @@
                 </div>
           </div> 
 
+<script>
+ 
+      $(document).on('click', '.delete-modifier', function () {
+    var modifierId = $(this).data('deid');
+    console.log( "modifierid:", modifierId);
+    $('#ModifierItemId').val(modifierId);
+  });
+
+    var selectedModifierId;
+
+    $(document).ready(function () {
+      
+        $(document).on("click", ".modifierGroupBtn", function () {
+            selectedModifierId = $(this).data("modifier-id");
+            console.log("Selected Modifier ID:", selectedModifierId);
+            changePageSizeForModifiers();
+        });  
+    });
+
+    function changePageSizeForModifiers() {
+        let pagesize = $('#selectpagesizeForModifiers').val();
+        let search = $('#ModifierListSearch').val();
+
+        $.ajax({
+            url: '@Url.Action("ItemsByModifier", "Menu")',
+            type: "GET",
+            data: { id: selectedModifierId, pageNo: 1, pageSize: pagesize, searchKey: search },
+            success: function (data) {
+                $("#modifieritems").html(data);
+                console.log("success");
+            },
+            error: function () {
+                console.log("Error occurs");
+            }
+        });
+    }
+
+      function changePageForModifiers(pagNum)
+      {
+          let pagesize = $('#selectpagesizeForModifiers').val();
+          let search = $('#ModifierListSearch').val();
+
+            $.ajax({
+              url: '@Url.Action("ItemsByModifier", "Menu")',
+              type: "GET",
+              data: { id: selectedModifierId, pageSize: pagesize, pageNo: pagNum, searchKey: search },
+              dataType: "html", 
+              success: function (data) {
+                  $('#modifieritems').html(data);
+              },
+              error: function () {
+                  $('#modifieritems').html("No Data Found");
+              }
+          });
+      }
+</script>
+
+<script>
+ $(document).ready(function () {
+      const outerCheck = document.getElementById("outerCheckboxes");
+      const innerChecks = document.querySelectorAll(".inner-check-deletes");
 
 
+      outerCheck.addEventListener("change", function () {
+          innerChecks.forEach(checkbox => {
+              checkbox.checked = outerCheck.checked;
+          });
+      });
+
+      
+      innerChecks.forEach(checkbox => {
+          checkbox.addEventListener("change", function () {
+              const allChecked = [...innerChecks].every(cb => cb.checked);
+              const anyChecked = [...innerChecks].some(cb => cb.checked);
+
+              outerCheck.checked = allChecked;
+              outerCheck.indeterminate = !allChecked && anyChecked; 
+          });
+      });
+
+});
+</script>
+
+<script>
+
+      function getSelectedId() {
+      let selectedIds = [];
+      
+      $(".inner-check-deletes:checked").each(function () {
+          let id = $(this).data("deid"); 
+          if(id == undefined)
+          {
+            console.log("id is undefined");
+          }
+          else if (id !== undefined) {
+              selectedIds.push(id);
+          }
+      });
+      return selectedIds;
+      }
+
+$(document).ready(function() {
+
+    $('#delete-icon-massmodifierdelete').on('click', function() {   
+        var listOfModifierId = getSelectedId();
+        console.log("list-id:",listOfModifierId);
+        $('#ModifierListForDelete').html(listOfModifierId.join(',')); 
+    });
+
+   
+    $('#deleteFormMassModifier').on('submit', function(event) {
+        event.preventDefault();
+
+        let itemLists = Array.from(getSelectedId());
+        console.log("itemid:",itemLists);
+
+        var formData = new FormData();
+        itemLists.forEach(function(id) {
+            formData.append('modifierList', id);
+        });
+   
+
+      $.ajax({
+         url: '/Menu/DeleteCombineForModifier',
+         type: 'POST',
+         data: formData,
+         processData: false,  
+        contentType: false,  
+         success: function(data) {
+
+        location.reload();
+        console.log("Response:", data);
 
 
+    },
+    error: function(xhr, status, error) {
+        console.error("Error deleting items:", xhr.responseText);
+        alert("An error occurred while deleting the items.");
+        $('#delete-icon-massmodifierdelete').modal('hide');
+    }
+});
+  
+    });
+     
+});
 
+</script>
 
+<div class="modal fade" id="deleteModifierModalForMass" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Confirmation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex justify-content-center align-items-center flex-column">
+        <img class="" src="images/icons/exclamation-triangle.svg" alt="">
+        <h1 class="fs-5">Are You Sure you want to delete the selected modifiers(s)? for Mass</h1>
+      </div>
+      <div id="ModifierListForDelete">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@* @model Pizzashop.DAL.ViewModels.ModifierItemListViewModel;
-<div class="table-responsive">
-<table class="table">
-    <thead>
-        <tr>
-            <th id="itemName" scope="col">
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="selectAll" onclick="toggleCheckBoxes(this)" />
-                    <label class="form-check-label" for="selectAll">Name</label>
-                </div>
-            </th>
-            <th scope="col">Unit</th>
-            <th scope="col">Rate</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var modifierItem in Model.ModifierItemList)
-        {
-            <tr>
-                <td class="user_profile">
-                    <div class="d-flex align-items-center gap-2">
-                        <input type="checkbox" class="form-check-input" data-mg-item-id="@modifierItem.ModifierItemId"/>
-                        @modifierItem.Name
-                    </div>
-                </td>
-                <td>
-                    @modifierItem.Unit
-                </td>
-                <td>@modifierItem.Rate</td>
-                <td>@modifierItem.Quantity</td>
-                <td>
-                    <a class="btn user_action modifierEditBtn" type="button" data-mg-item-id="@modifierItem.ModifierItemId" data-bs-target="#addModifierItem" data-bs-toggle="modal">
-                        <img src="~/images/icons/edit-pen.svg" alt="" />
-                    </a>
-                    <button class="btn user_action modifierDeleteBtn" type="button" data-mg-item-id="@modifierItem.ModifierItemId" data-bs-target="#deleteModifierModal" data-bs-toggle="modal">
-                        <img src="~/images/icons/delete-trash-icon.svg" alt="" />
-                    </button>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+      </div>
+      <form id="deleteFormMassModifier" method="post" class="modal-footer d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary">Yes</button>
+        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+      </form>
+    </div>
+  </div>
 </div>
-
-<!-- Paggination Frontend Start -->
-
-        <div class="d-flex table-footer align-items-center justify-content-end gap-lg-2 gap-md-2 gap-1 me-1 me-md-4 me-lg-4">
-                <div class="d-flex align-items-center gap-1 items">
-                  <span class="ps-5 font2">Items Per Page</span>
-                  <select class="form-select" onchange="changePageSizeForItems()" id="selectpagesizeForItems" aria-label="Floating label select example"
-                    style="width: 65px;">
-                    @if(Model.Page.PageSize!=null)
-                    {
-                    <option value="3" selected="@(Model.Page.PageSize==3 ? true : false)" >3</option>
-                    <option value="5" selected="@(Model.Page.PageSize==5 ? true : false)" >5</option>
-                    <option value="10" selected="@(Model.Page.PageSize==10 ? true : false)" >10</option>
-                    <option value="15" selected="@(Model.Page.PageSize==15 ? true : false)" >15</option>
-                    }
-                  </select>
-                </div>
-                <div class="d-flex align-items-center gap-1">
-                  <span class="font2"> Showing @((Model.Page.CurrentPage- 1) * Model.Page.PageSize +
-                            1)-@Math.Min(Model.Page.CurrentPage * Model.Page.PageSize, Model.Page.TotalRecords) of
-                            @Model.Page.TotalRecords</span>
-                  <div class="pt-3">
-                    <nav aria-label="Page navigation example">
-                      <ul class="pagination gap-2">
-                        <li class="page-item @(Model.Page.CurrentPage>1 ? " " : "disabled") ">
-                          <a class="page-link" aria-label="Previous" onclick="changePageForItem(@Model.Page.CurrentPage-1)">
-                            <span aria-hidden="true">&laquo;</span>
-                          </a>
-                        </li>
-                        <li>
-                          <span class="page-link">@Model.Page.CurrentPage</span>
-                        </li>
-                        <li class="page-item @(Model.Page.CurrentPage<Model.Page.TotalPages ? " " : "disabled")  ">
-                          <a class="page-link"  aria-label="Next" onclick="changePageForItem(@Model.Page.CurrentPage+1)">
-                            <span aria-hidden="true">&raquo;</span>
-                          </a>
-                        </li>
-                      </ul>
-                    </nav>
-                  </div>
-                </div>
-              </div>
-<!-- Pagination Frontend Ends --> *@

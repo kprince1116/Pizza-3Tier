@@ -144,7 +144,7 @@
     margin-left:-1.5em !important;
   } 
   
-  .modifier-icons-forlist{
+  /* .modifier-icons-forlist{
     display: none !important;
     margin-right: 1em !important;
   }
@@ -153,7 +153,20 @@
     .icons-forlist{
       display: block !important;
     }
+  } */
+
+  .modifier-icons-forlist{
+    display: none !important;
+    margin-right: 1em !important;
   }
+  .modifier-sidebar:hover {
+    background-color: #B4B4B4;
+    color: rgb(0, 102, 187);
+}
+
+.modifier-sidebar:hover .modifier-icons-forlist {
+    display: block !important;
+}
 
   input::placeholder {
     color: #999; 

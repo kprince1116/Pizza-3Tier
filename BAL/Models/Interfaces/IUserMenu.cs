@@ -9,6 +9,8 @@ public interface IUserMenu
     public List<Categoryviewmodel> GetCategories();
 
     public List<Unit> GetUnits();
+
+    public List<ModifierGroupViewModel> GetModifiers();
     public Task<paginationviewmodel> GetItemsByCategory(int id , int pageNo  , int pageSize, string search = "");
 
     // public Task<int> GetItemsCountByCategory(int categoryId);
@@ -26,7 +28,10 @@ public interface IUserMenu
 
     public Task<bool> GetItemForDeleteById(int id);
 
+
     public Task DeleteItemsAsync(List<int> itemList);
+
+    
     // Task UpdateItemAsync(MenuItemsviewmodel existingitem);
     // public Task<ItemListviewmodel>  GetItemList(int categoryId,int pageNo,int pageSize,string search);
 
@@ -40,4 +45,15 @@ public interface IUserMenu
     public Task<bool> GetModifierByIdForDelete(int id);
 
     public Task<ModifierItemListViewModel> GetItemsByModifier(int id ,  int pageNo  , int pageSize, string search );
+
+    public Task<bool> AddModifierItem(menuviewmodel model);
+
+    public Task<EditModifierViewModel> GetEditModifierItem(int id);
+
+    public Task<bool> EditModifierItem( EditModifierViewModel model);
+
+    public Task<bool> GetModifierItemForDeleteById( int id);
+
+    public Task DeleteModifiersAsync(List<int> modifierList);
+
 }

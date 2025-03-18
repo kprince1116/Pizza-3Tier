@@ -1,7 +1,7 @@
  @model Pizzashop.DAL.ViewModels.EditItemviewmodel
   
   <form method="post" asp-controller="Menu" asp-action="EditItems" >
-    <input type="text" id="EditItemId" asp-for="Itemid"/>
+    @* <input type="text" id="EditItemId" asp-for="Itemid"/> *@
     <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Menu Item</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -64,7 +64,6 @@
                             <div class="form-floating">
                                     <select class="form-select" id="floatingUnit" aria-label="Floating label select example"
                                     asp-for="@Model.UnitId">
-                                    @* @System.Console.WriteLine(); *@
                                     <option selected>Select a Unit</option>
                                     @foreach (var unit in Model.units)
                                     {

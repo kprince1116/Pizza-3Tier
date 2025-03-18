@@ -9,7 +9,7 @@ public partial class Modifier
 
     public int? ModifierGroupId { get; set; }
 
-    public string Modifiername { get; set; } = null!;
+    public string? Modifiername { get; set; }
 
     public decimal? Rate { get; set; }
 

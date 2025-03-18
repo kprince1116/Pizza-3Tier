@@ -69,7 +69,7 @@ namespace BAL.Services
                 issuer: _configuration["Jwt:Issuer"],
                 audience: _configuration["Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(30),
+                expires: DateTime.Now.AddDays(7),
                 signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
@@ -129,7 +129,7 @@ namespace BAL.Services
         {
             response.Cookies.Append("Email", email, new CookieOptions
             {
-                Expires = DateTime.UtcNow.AddDays(1),
+                Expires = DateTime.UtcNow.AddDays(7),
                 HttpOnly = true,
                 Secure = false,
                 SameSite = SameSiteMode.Strict

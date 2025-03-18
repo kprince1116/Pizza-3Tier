@@ -5,14 +5,18 @@
 {
     <tr>
         <th scope="row" class="d-flex gap-2" style="text-align: center;">
-            <img class="pt-0" style="height: 35px; border-radius: 50%; " src="@(!string.IsNullOrEmpty(user.ProfileImage) ? user.ProfileImage : "/ProfileImages/dominos_background.jpg")" alt="">
+            <img class="pt-0" style="height: 35px; border-radius: 50%; "
+                src="@(!string.IsNullOrEmpty(user.ProfileImage) ? user.ProfileImage : "/ProfileImages/dominos_background.jpg")"
+                alt="">
             <div class="d-flex">@user.Firstname @user.Lastname</div>
         </th>
         <td class="table-field">@user.Email</td>
         <td class="table-field text-nowrap">@user.Phonenumber</td>
         <td>@user.userrole</td>
-        <td><span class="status" style="color: black;">@(user.Status ? "Active" :
-            "Inactive")</span>
+        <td> <span class="badge fw-bold fs-6 px-4 py-1 rounded-5 @(user.Status ? "bg-success" : "bg-danger")">
+                @(user.Status ? "Active" : "Inactive")
+            </span>
+
         </td>
 
         <td>

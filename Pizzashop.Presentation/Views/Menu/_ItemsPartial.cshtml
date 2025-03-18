@@ -176,7 +176,7 @@ function changePageSizeForItems() {
   function changePageForItem(pageNum)
   {
       let pagesize = @Model.PageSize;
-      let selectedCategoryId = @Model.Categoryid;  // Ensure Razor renders correctly
+      let selectedCategoryId = @Model.Categoryid; 
       let search = $('#itemListSearch').val();
 
         $.ajax({
@@ -185,20 +185,18 @@ function changePageSizeForItems() {
           data: { id: selectedCategoryId, pageSize: pagesize, pageNo: pageNum, searchKey: search },
           dataType: "html",  // Fixed typo
           success: function (data) {
-              @* console.log(data); *@
+
               $('#items-container-table').html(data);
           },
           error: function () {
               $('#items-container-table').html("No Data Found");
           }
       });
-
-
   }
 
   function itemSearch(){
       let searchKey = $('#itemListSearch').val();
-      let selectedCategoryId = @Model.Categoryid;  // Ensure Razor renders correctly
+      let selectedCategoryId = @Model.Categoryid;  
 
       $.ajax({
           url: '@Url.Action("ItemsByCategory", "Menu")',
@@ -253,32 +251,27 @@ function changePageSizeForItems() {
     </div>
   </div>
 </div>
+@section script{
 <script>
 $(document).ready(function() {
-    // When the trash icon is clicked, prepare the modal
+
 
     $('#delete-icon-massdelete').on('click', function() {
         
         var listOfItemsId = getSelectedIds();
         console.log(listOfItemsId);
         
-        // Collect IDs of checked items
 
-        $('#itemListForDelete').html(listOfItemsId.join(',')); // Store the list in a hidden input
-        @* $('#deleteItemModalForMass').modal('show'); // Show the modal *@
+
+        $('#itemListForDelete').html(listOfItemsId.join(',')); 
+
     });
 
     // Handle form submission when "Yes" is clicked
     $('#deleteFormMass').on('submit', function(event) {
         event.preventDefault(); // Prevent default form submission
 
-        @* / Parse the stored list, default to empty array if invalid *@
-
-        @* if (itemList.length === 0) {
-            alert("No items to delete.");
-            $('#deleteItemModalForMass').modal('hide');
-            return;
-        } *@
+ 
 
         let itemLists = Array.from(getSelectedIds());
         console.log(itemLists);
@@ -292,17 +285,16 @@ $(document).ready(function() {
          url: '/Menu/DeleteCombine',
          type: 'POST',
          data: formData,
-         processData: false,  // Prevent jQuery from processing data
-        contentType: false,  // Prevent jQuery from setting the content-type header
+         processData: false,  
+        contentType: false,  
          success: function(data) {
         console.log("Response:", data);
-         var categoryId = @Model.Categoryid; // Ensure this is valid in your context
-        var pageSize = @Model.PageSize; // Adjust based on your model
+         var categoryId = @Model.Categoryid; 
+         var pageSize = @Model.PageSize; 
                 var searchKey = encodeURIComponent($('#search-input').val() || '');
                 var url = `/Menu/Items?id=${categoryId}&pageNo=1&pageSize=${pageSize}`;
                 
-                @* $('#deleteItemModalForMass').modal('hide'); // Hide the modal *@
-                window.location.href = url; // Redirect
+                window.location.href = url; 
 
     },
     error: function(xhr, status, error) {
@@ -313,28 +305,7 @@ $(document).ready(function() {
 });
 
 
-        // Send AJAX request to delete items
-        @* $.ajax({
-            url: '/Menu/DeleteCombine',
-            type: 'post',
-            data: formData,
-            success: function(data) {
-              console.log(data);
-                // Construct the redirect URL (adjust Model references if needed)
-                var categoryId = @Model.Categoryid; // Ensure this is valid in your context
-                var pageSize = @Model.PageSize; // Adjust based on your model
-                var searchKey = encodeURIComponent($('#search-input').val() || '');
-                var url = `/Menu/MenuList?categoryId=${categoryId}&pageNumber=1&pageSize=${pageSize}&searchKey=${searchKey}`;
-                
-                $('#deleteItemModalForMass').modal('hide'); // Hide the modal
-                window.location.href = url; // Redirect
-            },
-            error: function(xhr, status, error) {
-                console.error("Error deleting items:", error);
-                alert("An error occurred while deleting the items.");
-                $('#deleteItemModalForMass').modal('hide');
-            }
-        }); *@
+   
     });
 });
 </script>
@@ -345,30 +316,27 @@ $(document).ready(function() {
       const outerCheck = document.getElementById("outerCheck");
       const innerChecks = document.querySelectorAll(".inner-check-delete");
 
-      // Toggle all inner checkboxes based on the outer checkbox state
+    
       outerCheck.addEventListener("change", function () {
           innerChecks.forEach(checkbox => {
               checkbox.checked = outerCheck.checked;
           });
       });
 
-      // Monitor inner checkboxes to update the outer checkbox
+  
       innerChecks.forEach(checkbox => {
           checkbox.addEventListener("change", function () {
               const allChecked = [...innerChecks].every(cb => cb.checked);
               const anyChecked = [...innerChecks].some(cb => cb.checked);
 
               outerCheck.checked = allChecked;
-              outerCheck.indeterminate = !allChecked && anyChecked; // Set indeterminate state if some are checked
-          });
+              outerCheck.indeterminate = !allChecked && anyChecked; 
       });
 
 });
 
-  document.addEventListener("DOMContentLoaded", function () {
 
-  });
 </script>
-
+}
 
 
