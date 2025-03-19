@@ -4,6 +4,9 @@ namespace Pizzashop.DAL.ViewModels;
 
 public class AddModifierViewModel
 {
+      public IEnumerable<ModifierGroup> modifiers { get; set; }
+
+     public IEnumerable<Unit> units {get; set;} 
     public string ModifierName { get; set; } 
 
     public int? ModifierGroupId { get; set; }
@@ -12,6 +15,8 @@ public class AddModifierViewModel
     public int? Quantity { get; set; }
 
     public decimal? Rate { get; set; }
+
+    public int? UnitId { get; set; }
 
     public string? Description { get; set; }
 

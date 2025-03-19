@@ -46,7 +46,7 @@
                  <tr>
                   <th scope="row">
                     <div class="form-check gap-5"> 
-                      <input class="form-check-input inner-check-deletes" type="checkbox" value="" id="flexCheckChecked" data-deid="@item.ModifierItemId">
+                      <input class="form-check-input inner-check-deletes" type="checkbox" value="" id="flexCheckChecked" data-degroupid = "@item.ModifierGroupId" data-deid="@item.ModifierItemId">
                       <div class="d-flex align-items-center gap-1">
                         <img style="height: 25px;" src="~/images/dining-menu.png" alt="">
                         <div class="d-flex align-items-center text-nowrap">@item.Name</div>
@@ -66,7 +66,7 @@
           </td>
           <td>
             <a data-bs-toggle="modal" id="modifierEdit" data-bs-toggle="modal" data-bs-target="#Editmodifieritemmodal" class="edit-item" data-editmodifierid="@item.ModifierItemId" ><img src="~/images/icons/pen-fill.svg" a  lt=""></a>
-            <img data-bs-toggle="modal" class="delete-modifier" data-bs-toggle="modal" data-bs-target="#deleteModifierModal" onclick="deleteModifier(this)" data-deletemodifierid ="@item.ModifierItemId" src="~/images/icons/trash (1).svg" alt="">
+            <img data-bs-toggle="modal" class="delete-modifier" data-bs-toggle="modal" data-bs-target="#deleteModifierModal" onclick="deleteModifier(this)" data-deletemodifierid ="@item.ModifierItemId" data-deletemodifiergroupid = "@item.ModifierGroupId" src="~/images/icons/trash (1).svg" alt="">
                                                 
           </td>
           </tr> 
@@ -117,10 +117,15 @@
 
 <script>
  
+
       $(document).on('click', '.delete-modifier', function () {
-    var modifierId = $(this).data('deid');
-    console.log( "modifierid:", modifierId);
+    var modifierId = $(this).data('deletemodifierid');
+    var modifiergroupid = $(this).data('deletemodifiergroupid');
+    console.log( "modifierids:", modifierId);
+    console.log("modifiergroupids:", modifiergroupid);
     $('#ModifierItemId').val(modifierId);
+    $('#ModifierGroupId').val(modifiergroupid);
+
   });
 
     var selectedModifierId;
@@ -198,13 +203,15 @@
 });
 </script>
 
-<script>
-
+@* <script>
+      var groupid;
       function getSelectedId() {
       let selectedIds = [];
       
       $(".inner-check-deletes:checked").each(function () {
           let id = $(this).data("deid"); 
+          groupid = $(this).data("degroupid");
+         
           if(id == undefined)
           {
             console.log("id is undefined");
@@ -224,18 +231,17 @@ $(document).ready(function() {
         $('#ModifierListForDelete').html(listOfModifierId.join(',')); 
     });
 
-   
     $('#deleteFormMassModifier').on('submit', function(event) {
         event.preventDefault();
 
         let itemLists = Array.from(getSelectedId());
         console.log("itemid:",itemLists);
-
+        console.log("modifierGroupId:", groupid);
         var formData = new FormData();
         itemLists.forEach(function(id) {
             formData.append('modifierList', id);
+            formData.append('modifierGroupId', groupid)
         });
-   
 
       $.ajax({
          url: '/Menu/DeleteCombineForModifier',
@@ -261,7 +267,72 @@ $(document).ready(function() {
      
 });
 
+</script> *@
+
+<script>
+    var groupid;
+
+    function getSelectedId() {
+        let selectedIds = [];
+
+        $(".inner-check-deletes:checked").each(function () {
+            let id = $(this).data("deid");
+            groupid = $(this).data("degroupid"); // This sets groupid, but may not work if no checkboxes are checked
+            
+            if (id === undefined) {
+                console.log("id is undefined");
+            } else {
+                selectedIds.push(id);
+            }
+        });
+        return selectedIds;
+    }
+
+    $(document).ready(function() {
+        $('#delete-icon-massmodifierdelete').on('click', function() {   
+            var listOfModifierId = getSelectedId();
+            console.log("list-id:", listOfModifierId);
+            $('#ModifierListForDelete').html(listOfModifierId.join(',')); 
+        });
+
+        $('#deleteFormMassModifier').on('submit', function(event) {
+            event.preventDefault();
+
+            let itemLists = getSelectedId(); 
+            console.log("itemid:", itemLists);
+            console.log("modifierGroupId:", groupid);
+
+            if (itemLists.length === 0 || groupid === undefined) {
+                alert("Please select at least one item and ensure the group ID is set.");
+                return; 
+            }
+
+            var formData = new FormData();
+            itemLists.forEach(function(id) {
+                formData.append('modifierList', id);
+            });
+            formData.append('modifierGroupId', groupid); 
+
+            $.ajax({
+                url: '/Menu/DeleteCombineForModifier',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    location.reload();
+                    console.log("Response:", data);
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error deleting items:", xhr.responseText);
+                    alert("An error occurred while deleting the items.");
+                    $('#delete-icon-massmodifierdelete').modal('hide');
+                }
+            });
+        });
+    });
 </script>
+
 
 <div class="modal fade" id="deleteModifierModalForMass" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">

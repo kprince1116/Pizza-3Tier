@@ -1,3 +1,4 @@
+using System.Text.Json;
 using BAL.Interfaces;
 using DAL.Interfaces;
 using DAL.Models;
@@ -25,6 +26,7 @@ public class MenuController : Controller
         var categories = _userMenu.GetCategories();
         var units = _userMenu.GetUnits();
         var modifiers = _userMenu.GetModifiers();
+        var modifieritems = _userMenu.GetModifierItems();
         int selectedCategoryId = id != 0 ? id : categories.First().CategoryId;
 
         var items = await _userMenu.GetItemsByCategory(selectedCategoryId,  pageNo ,  pageSize);
@@ -35,7 +37,8 @@ public class MenuController : Controller
             Categories = categories,
             pagination = items,
             units = units,
-            Modifiers = modifiers
+            Modifiers = modifiers,
+            ModifierItems = modifieritems,
         };
 
         return View(viewModel);
@@ -131,17 +134,33 @@ public class MenuController : Controller
 
     //Add Modifier
      [HttpPost]
-    public async Task<IActionResult> AddModifier(ModifierGroupViewModel model)
+    public async Task<IActionResult> AddModifier(ModifierGroupViewModel model , string modifierList)
     {
+        if (!string.IsNullOrEmpty(modifierList))
+        {
+            model.ModifierItemList = JsonSerializer.Deserialize<List<ModifierItemViewModel>>(modifierList);
+        }
+
         var isAdded = await _userMenu.AddModifier(model);
         if (isAdded)
         {
             return RedirectToAction("Index", "Home");
         }
+        
+
+        string result = "";
+        bool isCreated = true;
+
+        if (result.Equals("true"))
+        {
+            // var message = string.Format(isCreated ? NotificationMessages.EntityCreated : NotificationMessages.EntityUpdated, "Modifier Group");
+            return Json(new { success = true , message = result});
+        }
         else
         {
-            return Content("error");
+            return Json(new { success = false, errorMessage = result});
         }
+
     }
   
     // Edit Modifier
@@ -196,7 +215,7 @@ public class MenuController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> EditModifierItems(EditModifierViewModel model)
+    public async Task<IActionResult> EditModifierItems(AddModifierViewModel model)
     {
         var modifiers = _userMenu.EditModifierItem(model);
         return RedirectToAction("Items","Menu");                                  
@@ -204,16 +223,31 @@ public class MenuController : Controller
 
     [HttpPost]
 
-    public async Task<IActionResult> DeleteModifierItem(int id)
+    public async Task<IActionResult> DeleteModifierItem(int id , int modifiergroupId)
     {
-        var existingmodifier =  _userMenu.GetModifierItemForDeleteById(id);
+        var existingmodifier =  _userMenu.GetModifierItemForDeleteById(id,modifiergroupId);
         return RedirectToAction("Items", "Menu");
     }
 
      [HttpPost]
-    public IActionResult DeleteCombineForModifier(List<int> modifierList)
+    public IActionResult DeleteCombineForModifier(List<int> modifierList , int modifiergroupId)
     {
-        _userMenu.DeleteModifiersAsync(modifierList);
+        _userMenu.DeleteModifiersAsync(modifierList , modifiergroupId);
         return Json( new { success = true, message = "hi"});
     }
+
+      public async Task<IActionResult> ItemsByExistingModifier( int pageNo = 1 , int pageSize=3, string searchKey = "" )
+    {
+        var items = await _userMenu.GetItemsByExistingModifier(pageNo,pageSize, searchKey);
+        items.Page.searchKey = searchKey;
+
+        return PartialView("_AddExistingModifier", items);
+    }
+
+    public async Task<IActionResult> GetExisistingsModifier(int id)
+    {
+        var items = await _userMenu.GetExistingModifierItems(id);
+        return PartialView("_EditExistingModifier", items);
+    }
+
 }

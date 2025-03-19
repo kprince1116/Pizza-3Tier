@@ -11,7 +11,13 @@ public interface IUserMenu
     public List<Unit> GetUnits();
 
     public List<ModifierGroupViewModel> GetModifiers();
+
+     public List<ModifierItemViewModel> GetModifierItems();
     public Task<paginationviewmodel> GetItemsByCategory(int id , int pageNo  , int pageSize, string search = "");
+    
+    public Task<ModifierItemListViewModel> GetItemsByExistingModifier( int pageNo  , int pageSize, string search = "");
+
+
 
     // public Task<int> GetItemsCountByCategory(int categoryId);
 
@@ -48,12 +54,14 @@ public interface IUserMenu
 
     public Task<bool> AddModifierItem(menuviewmodel model);
 
-    public Task<EditModifierViewModel> GetEditModifierItem(int id);
+    public Task<AddModifierViewModel> GetEditModifierItem(int id);
 
-    public Task<bool> EditModifierItem( EditModifierViewModel model);
+    public Task<bool> EditModifierItem( AddModifierViewModel model);
 
-    public Task<bool> GetModifierItemForDeleteById( int id);
+    public Task<bool> GetModifierItemForDeleteById( int id ,int modifiergroupId);
 
-    public Task DeleteModifiersAsync(List<int> modifierList);
+    public Task DeleteModifiersAsync(List<int> modifierList , int modifiergroupId);
+
+    public Task<List<ModifierItemViewModel>> GetExistingModifierItems(int id);
 
 }

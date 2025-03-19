@@ -2,6 +2,7 @@ namespace Pizzashop.DAL.ViewModels;
 
 public class ModifierItemViewModel
 {
+    public int ModifierGroupId { get; set; }
     public int ModifierItemId { get; set; }
     public string Name { get; set; }
     public decimal? Rate { get; set; }

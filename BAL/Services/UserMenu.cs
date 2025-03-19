@@ -49,10 +49,22 @@ public class UserMenu : IUserMenu
         }).ToList();
         return ModifierGroupViewModel;
     }
+
+    public List<ModifierItemViewModel> GetModifierItems()
+    {
+        var modifierItems = _userMenuRepository.GetModifierItems();
+        return modifierItems;
+    }
      public async Task<paginationviewmodel> GetItemsByCategory(int id , int pageNo = 1 , int pageSize=3 , string search = "")
      {
         var items = await _userMenuRepository.GetItemsByCategory(id,pageNo,pageSize,search);
 
+        return items;
+     }
+
+     public Task<ModifierItemListViewModel> GetItemsByExistingModifier( int pageNo  , int pageSize, string search = "")
+     {
+        var items = _userMenuRepository.GetItemsByExistingModifier(pageNo,pageSize,search);
         return items;
      }
     public async Task<int> GetItemsCountByCategory(int categoryId)
@@ -186,20 +198,8 @@ public class UserMenu : IUserMenu
 
      public async Task<bool> UpdateModifier(ModifierGroupViewModel model)
      {
-        var modifier = await _userMenuRepository.GetModifierId(model.ModifierId);
-        
-        if(modifier == null)
-        {
-            return false;
-        }
-
-        modifier.Name = model.Name; 
-        modifier.Description = model.Description;
-
-        await _userMenuRepository.UpdateModifierAsync(modifier);
-
-        return true;
-
+        return await _userMenuRepository.UpdateModifierAsync( model);
+    
      }
 
      //Delete Modifier Group
@@ -237,41 +237,24 @@ public class UserMenu : IUserMenu
          
       }
 
-         public Task<EditModifierViewModel> GetEditModifierItem(int id)
+         public Task<AddModifierViewModel> GetEditModifierItem(int id)
      {
             return _userMenuRepository.GetEditModifierItem(id);
      }
 
-     public  async Task<bool> EditModifierItem( EditModifierViewModel model)
+     public  async Task<bool> EditModifierItem(AddModifierViewModel model)
      {
-        Modifier existingmodifier =   _db.Modifiers.Where(m => m.Modifierid == model.ModifierId).FirstOrDefault();
-
-         if(existingmodifier == null)
+        if(model==null)
         {
             return false;
         }
-
-        existingmodifier.Modifiername = model.ModifierName;
-        existingmodifier.Description = model.Description;
-        existingmodifier.Rate = model.Rate; 
-        existingmodifier.Quantity = model.Quantity;
-        existingmodifier.Unitid = model.UnitId;
-
-      
-        try{
-            _db.SaveChanges();
-        }
-        catch(Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
-    
-          return true;
+       await _userMenuRepository.EditModifierItem(model);
+        return true;
      }
 
-     public async Task<bool> GetModifierItemForDeleteById(int id)
+     public async Task<bool> GetModifierItemForDeleteById(int id , int  modifiergroupId)
         {
-            var existingModifierItem =  _db.Modifiers.Where(m => m.Modifierid == id).FirstOrDefault();
+            var existingModifierItem =  _db.Modifiermappings.Where(m => m.ModifierId == id && m.ModifierGroupId == modifiergroupId ).FirstOrDefault();
 
             if(existingModifierItem == null)
             {
@@ -280,6 +263,7 @@ public class UserMenu : IUserMenu
             existingModifierItem.IsDeleted = true;
 
                 try{
+                    _db.Modifiermappings.Update(existingModifierItem);
                     _db.SaveChanges();
                 }
                 catch(Exception ex)
@@ -292,9 +276,14 @@ public class UserMenu : IUserMenu
             return true;
         }
 
-           public async Task DeleteModifiersAsync(List<int> modifierList)
+           public async Task DeleteModifiersAsync(List<int> modifierList,int modifiergroupId)
            {
-              await _userMenuRepository.DeleteModifiers(modifierList);
+              await _userMenuRepository.DeleteModifiers(modifierList,modifiergroupId);
            }
+
+        public async Task<List<ModifierItemViewModel>> GetExistingModifierItems(int id)
+            {
+                return await _userMenuRepository.GetExistingModifierItems(id);
+            }
 
 }

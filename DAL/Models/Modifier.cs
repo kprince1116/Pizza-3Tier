@@ -31,5 +31,7 @@ public partial class Modifier
 
     public virtual ModifierGroup? ModifierGroup { get; set; }
 
+    public virtual ICollection<Modifiermapping> Modifiermappings { get; set; } = new List<Modifiermapping>();
+
     public virtual Unit? Unit { get; set; }
 }

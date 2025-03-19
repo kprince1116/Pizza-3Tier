@@ -27,6 +27,8 @@ public partial class PizzaShopContext : DbContext
 
     public virtual DbSet<ModifierGroup> ModifierGroups { get; set; }
 
+    public virtual DbSet<Modifiermapping> Modifiermappings { get; set; }
+
     public virtual DbSet<Permission> Permissions { get; set; }
 
     public virtual DbSet<Rolesandpermission> Rolesandpermissions { get; set; }
@@ -225,6 +227,36 @@ public partial class PizzaShopContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(250)
                 .HasColumnName("name");
+        });
+
+        modelBuilder.Entity<Modifiermapping>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("modifiermapping_pkey");
+
+            entity.ToTable("modifiermapping");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
+            entity.Property(e => e.CreatedDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("created_date");
+            entity.Property(e => e.IsDeleted)
+                .HasDefaultValueSql("false")
+                .HasColumnName("is_deleted");
+            entity.Property(e => e.ModifiedBy).HasColumnName("modified_by");
+            entity.Property(e => e.ModifiedDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("modified_date");
+            entity.Property(e => e.ModifierGroupId).HasColumnName("modifier_group_id");
+            entity.Property(e => e.ModifierId).HasColumnName("modifier_id");
+
+            entity.HasOne(d => d.ModifierGroup).WithMany(p => p.Modifiermappings)
+                .HasForeignKey(d => d.ModifierGroupId)
+                .HasConstraintName("modifiermapping_modifier_group_id_fkey");
+
+            entity.HasOne(d => d.Modifier).WithMany(p => p.Modifiermappings)
+                .HasForeignKey(d => d.ModifierId)
+                .HasConstraintName("modifiermapping_modifier_id_fkey");
         });
 
         modelBuilder.Entity<Permission>(entity =>

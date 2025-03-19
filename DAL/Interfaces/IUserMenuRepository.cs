@@ -13,7 +13,11 @@ public interface IUserMenuRepository
 
     List<ModifierGroup> GetAllModifierGroups();
 
+    List<ModifierItemViewModel> GetModifierItems();
+
     public Task<paginationviewmodel> GetItemsByCategory(int id,  int pageNo = 1 , int pageSize=3, string search = "");
+
+    public Task<ModifierItemListViewModel> GetItemsByExistingModifier(int pageNo = 1 , int pageSize=3, string search = "");
 
     public Task<int> GetCount(int categoryId);
 
@@ -54,7 +58,7 @@ public interface IUserMenuRepository
 
     public Task<ModifierGroup> GetModifierId(int id);
 
-    Task UpdateModifierAsync( ModifierGroup category);
+    public  Task<bool> UpdateModifierAsync(ModifierGroupViewModel model);
 
      public Task<ModifierGroup> GetModifierByIdForDelete(int id);
 
@@ -63,8 +67,9 @@ public interface IUserMenuRepository
     public Task<ModifierItemListViewModel> GetItemsByModifierId(int id,int pageNo,int pageSize,string search);
 
     Task AddModifierItem(menuviewmodel  model);
+    Task EditModifierItem(AddModifierViewModel  model);
 
-    public Task<EditModifierViewModel> GetEditModifierItem(int id);
+    public Task<AddModifierViewModel> GetEditModifierItem(int id);
 
     public Task<Modifier> GetExistingModifier(int ModifierId);
 
@@ -74,6 +79,8 @@ public interface IUserMenuRepository
 
     Task DeleteModifierItemAsync( Modifier existingModifierItem);
 
-    Task DeleteModifiers(List<int> modifierList);
+    Task DeleteModifiers(List<int> modifierList,int modifiergroupId);
+
+    Task<List<ModifierItemViewModel>> GetExistingModifierItems(int id);
     
 }
