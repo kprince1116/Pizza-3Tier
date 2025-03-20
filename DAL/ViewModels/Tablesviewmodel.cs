@@ -1,0 +1,15 @@
+using DAL.ViewModels;
+
+namespace Pizzashop.DAL.ViewModels;
+
+public class Tablesviewmodel
+{
+    public IEnumerable<Sectionviemodel> Sections { get; set; }
+
+    // public IEnumerable<Tableviewmodel> Tableitem {get; set;}
+
+    public Tableviewmodel Tables {get; set;}
+
+   public AddTableviewmodel AddTable {get; set;}
+
+}

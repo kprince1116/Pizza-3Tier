@@ -1,0 +1,352 @@
+@model Pizzashop.DAL.ViewModels.Tablesviewmodel
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="~/css/Table.css">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="d-flex">
+    <div class="w-100 bg-light">
+      <div>
+        <div class="d-flex justify-content-between">
+          <div class="ms-3">
+            <p class="fs-2" style="color: rgb(0, 102, 187);">Sections/Tables</p>
+          </div>
+        </div>
+        <div>
+          <div class="d-flex border category-box ms-3 me-3 mt-2">
+            <aside class=" bg-light">
+              <div class="div">
+                <div class="ms-3 mb-3">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="fs-3">Sections</div>
+                    <img data-bs-toggle="modal" data-bs-target="#addsection" class="pe-2" style="height: 25px;"
+                      src="~/images/icons/plus-square.svg" alt="">
+                  </div>
+                </div>
+                <div class="sidebar-elements">
+                  @foreach (var sections in Model.Sections)
+                  {
+                    <div class="aa">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <a href="" data-section-id="@sections.Sectionid"
+                          class="sectionBtn d-flex gap-2 pt-2 pb-2 ps-3  nav-link active align-items-center">
+                          <img style="height: 25px;" src="~/images/icons/dots-menu-svgrepo-com.svg">
+                          @* <div onclick="fetchTables(@sections.Sectionid)">@sections.SectionName</div> *@
+                          <div class="section-name" data-sectionid="@sections.Sectionid">@sections.SectionName</div>
+                        </a>
+                        <div class="icons">
+                          <img data-sectioneditid="@sections.Sectionid" data-sectionname="@sections.SectionName"
+                            data-sectiondescription="@sections.Description" data-bs-toggle="modal"
+                            data-bs-target="#editsection" onclick="setEditSectionData(this)"
+                            src="~/images/icons/pen-fill.svg" alt="">
+                          <img class="delete-section" data-sectiondeleteid="@sections.Sectionid" data-bs-toggle="modal"
+                            data-bs-target="#deletesectionModal" src="~/images/icons/trash (1).svg" alt="">
+                        </div>
+                      </div>
+                    </div>
+                  }
+                </div>
+              </div>
+            </aside>
+
+            <div class="ps-3 container-fluid  w-100" style="background-color: white; overflow: auto;">
+              <p class="fs-3">Tables</p>
+              <div id="table-container-table">
+                @Html.Partial("_TablePartial", Model.Tables);
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</body>
+
+</html>
+
+
+@*Add section*@
+<div class="modal fade" id="addsection" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <form method="post" asp-controller="Table" asp-action="AddSection" class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel1">Add Section</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex flex-column gap-2">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingInput" name="SectionName" placeholder="Category Name">
+            <label for="floatingInput">Name</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingInput" name="Description" placeholder="Description">
+            <label for="floatingInput">Description</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" onclick="resetForm()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+@*Delete section*@
+<div class="modal fade" id="deletesectionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Confirmation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex justify-content-center align-items-center flex-column">
+        <img class="" src="~/images/icons/exclamation-triangle.svg" alt="">
+        <h1 class="fs-5">Are You Sure you want to delete Section ?</h1>
+      </div>
+      <form method="post" asp-controller="Table" asp-action="DeleteSection"
+        class="modal-footer d-flex justify-content-center">
+        <input type="hidden" name="id" id="SectiondeleteId" />
+        <button type="submit" class="btn btn-primary">Yes</button>
+        <button type="button" class="btn btn-outline-primary">No</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+@*edit section*@
+
+<div class="modal fade" id="editsection" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <form method="post" asp-controller="Table" asp-action="EditSection" class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel1">Edit Section</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex flex-column gap-2">
+          <div class="form-floating">
+            <input type="hidden" id="SectionEditId" name="Sectionid">
+            <input type="text" class="form-control" id="SectionName" name="SectionName" placeholder="Category Name">
+            <label for="SectionName">Name</label> <!-- Updated for attribute -->
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="SectionDescription" name="Description"
+              placeholder="Description"> <!-- ID corrected -->
+            <label for="SectionDescription">Description</label> <!-- Updated for attribute -->
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" onclick="resetForm()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+@*add table*@
+
+<div class="modal fade" id="AddTable" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <form method="post" asp-controller="Table" asp-action="AddTable" class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Table</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col">
+              <div class="row mb-3">
+                <div class="col">
+                  <div class="form-floating">
+                    <input type="text" class="form-control" asp-for = "@Model.AddTable.TableName" id="tableName" placeholder="Enter table name" required>
+                    <label for="tableName">Name</label>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-floating">
+                    <select class="form-select" id="categorySelect" asp-for="@Model.AddTable.Sectionid" aria-label="Floating label select example" required>
+                      <option value="">Select Section</option>
+                       @foreach (var s in Model.Sections) {
+                       <option value="@s.Sectionid">@s.SectionName</option> 
+                       } 
+                    </select>
+                    <label for="categorySelect">Section</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col">
+                  <div class="form-floating">
+                    <input type="number" asp-for="@Model.AddTable.Capacity" class="form-control" id="capacityInput" placeholder="Enter capacity" required>
+                    <label for="capacityInput">Capacity</label>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-floating">
+                    <select class="form-select" id="statusSelect" asp-for = "@Model.AddTable.Isavailable" aria-label="Floating label select example" required>
+                      <option value="">Select Status</option>
+                       <option value="true">Available</option> 
+                       <option value="false">Reserved</option> 
+                    </select>
+                    <label for="statusSelect">Status</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+@*Edit table*@
+
+<div class="modal fade" id="EditTable" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+     <div class="modal-content" id="edittabledata">
+    </div>
+  </div>
+</div>
+
+
+@*delete table*@
+
+<div class="modal fade" id="deletemodalfortable" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Confirmation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex justify-content-center align-items-center flex-column">
+        <img src="~/images/icons/exclamation-triangle.svg" alt="">
+        <h1 class="fs-5">Are You Sure you want to delete this Table?</h1>
+      </div>
+      <form asp-controller="Table" asp-action="DeleteTable" method="post" class="modal-footer d-flex justify-content-center">
+        <input type="hidden" name="id"  id="TablesId" >
+        <button type="submit" class="btn btn-primary">Yes</button>
+        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+@section scripts {
+
+
+  <script>
+
+    @*edit section*@
+    function setEditSectionData(element) {
+      var sectionId = element.getAttribute("data-sectioneditid");
+      var sectionName = element.getAttribute("data-sectionname");
+      var sectionDescription = element.getAttribute("data-sectiondescription");
+
+      document.getElementById("SectionEditId").value = sectionId;
+      document.getElementById("SectionName").value = sectionName;
+      document.getElementById("SectionDescription").value = sectionDescription;
+    }
+
+    $(document).ready(function () {
+    @*delete section*@
+      $(document).on('click', '.delete-section', function () {
+        var sectionid = $(this).data('sectiondeleteid');
+        console.log(sectionid);
+        $('#SectiondeleteId').val(sectionid);
+      });
+    });
+
+    var selectedSectionId;
+    $(document).ready(function () {
+    @* const searchInput = $('#userListSearch');
+
+      let debounceTimer;
+      searchInput.on('input', function () {
+        clearTimeout(debounceTimer);
+        const searchTerm = $(this).val().trim();
+        console.log("ssss", selectedCategoryId);
+        debounceTimer = setTimeout(() => {
+          const url = new URL(window.location.href);
+      if (searchTerm) {
+      url.searchParams.set('id', selectedCategoryId);
+      url.searchParams.set('searchTerm', searchTerm);
+      } else {
+      url.searchParams.delete('searchTerm');
+      }
+
+          $.get(url.toString(), function (data) {
+      $('#items-container-tabler').html($(data).find('#items-container-table').html());
+      });
+      }, 100);
+      }); *@
+      });
+
+   
+      $(document).ready(function () {
+        $('.section-name').on('click', function (e) {
+          e.preventDefault();
+          let sectionId = $(this).data('sectionid');
+          fetchTables(sectionId);
+        });
+      });
+
+    function fetchTables(sectionId) {
+      debugger;
+      let pagesize = $('#selectpagesizeForTables').val();
+      console.log("sectionid:", sectionId);
+      $.ajax({
+        url: '@Url.Action("TablesBySection", "Table")',
+        type: 'GET',
+        data: { id: sectionId, searchKey: "", pageSize: pagesize, pageNo: 1 },
+        success: function (data) {
+          console.log(data);
+          $('#table-container-table').html(data);
+        },
+        error: function () {
+          console.log("Error");
+        }
+      });
+    }
+
+  @* load edit table*@
+  $(document).ready(function () {
+     $(document).on("click", ".edittable", function () {
+      loadTableModal($(this).data("edittableid"));
+    });
+});
+    function loadTableModal(id) {
+      $.ajax({
+        url: '@Url.Action("EditTable", "Table")',
+        type: "GET",
+        data: { id: id },  
+        success: function (data) {
+          $("#edittabledata").html(data);
+           $('#edittableModal').modal('show');
+        },
+        error: function () {
+          console.log("No Projects Found");
+          $("#EditTable").html('No User Fetched');
+        }
+      })
+    }
+
+  </script>
+}

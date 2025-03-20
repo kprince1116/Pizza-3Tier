@@ -178,7 +178,6 @@
           type: "GET",
           data: { id: selectedModifierId },
           success: function (data) {
-            console.log("success data:", data);
             $("#existingModifierList").html(data);
           },
           error: function () {
@@ -249,9 +248,6 @@
       });
     }
 
-
-
-
     $(document).ready(function () {
     @* categoryClickEvents(); *@
     @* paginationAjax(1); *@
@@ -291,7 +287,7 @@
       $.ajax({
         url: '@Url.Action("EditModifierItem", "Menu")',
         type: "GET",
-        data: { id: id },
+        data: { editid: id },
 
         success: function (data) {
           $("#edit-modal-size").html(data);
@@ -406,11 +402,11 @@
 
     function AppendModifiers(id, name) {
       $('.existingModifierLists').append(`
-                            <span class="p-1 me-2 fw-medium existModifiers" data-deid="${id}" data-dename=${name} style="border: 1px solid grey; border-radius: 15px;">
-                                  ${name}
-                                  <button type="button" class="btn btn-close removeAddedModifierItem" data-deid="${id}"></button>
-                              </span>
-                            `);
+        <span class="p-1 me-2 fw-medium existModifiers" data-deid="${id}" data-dename=${name} style="border: 1px solid grey; border-radius: 15px;">
+        ${name}
+        <button type="button" class="btn btn-close removeAddedModifierItem" data-deid="${id}"></button>
+        </span>
+      `);
     }
 
     //Remove Added Modifier Item
@@ -424,8 +420,7 @@
 
     $(document).on("click", "#submitMgBtn", function (e) {
       e.preventDefault();
-
-     
+   
       $("#existingItemList").val(JSON.stringify(selectedExistingModifiers));
 
       var form = $("#submitModifierGroupForm")[0]; 
@@ -440,7 +435,6 @@
         processData: false,
         contentType: false,
         success: function (response) {
-          console.log(response);
           $('#modifierModal').modal('hide');
           $('#modifierModal').empty();
           location.reload();
@@ -450,6 +444,52 @@
         }
       });
     });
+
+     $(document).on("click", "#submitMgBtnForEditModifier", function (e) {
+      e.preventDefault();
+
+     
+      $("#existingModifierItemList").val(JSON.stringify(selectedExistingModifiers));
+
+      var form = $("#submitModifierGroupFormForEdit")[0]; 
+      var formData = new FormData(form); 
+
+      console.log("form-data:", formData);
+
+      $.ajax({
+        url: form.action,
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+
+          $('#editModifier').modal('hide');
+          location.reload();
+        },
+        error: function () {
+          alert("Error saving item.");
+        }
+      });
+    });
+
+    @* $('.editmodifiergroup').on('click',function(){
+      selectedExistingModifiers = [];
+      $('.existModifiers').each(function(){
+        selectedExistingModifiers.push({ ModifierItemId: $(this).data("mgitemid"), Name: $(this).data("mgitemname") });
+      });
+      console.log("select existing modifiers:"selectedExistingModifiers);
+    }) *@
+
+    $(document).on("click", ".removeAddedModifierItem", function () {
+      let removeteModifierItemID = $(this).data("mgitemid");
+      selectedExistingModifiers = $.grep(selectedExistingModifiers, function (selectedExistingModifiers) {
+        return selectedExistingModifiers.ModifierItemId !== removeteModifierItemID;
+      });
+      $("span").remove(".existModifiers[data-mgitemid='" + removeteModifierItemID + "']");
+    });
+
+
 
   </script>
 
@@ -722,10 +762,7 @@
 <div class="modal fade" id="editModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl editt-modal">
     <div class="modal-content" id="modal-size">
-
-    </div>
-    @* @Html.Partial("_EditItemPartial", Model.EditItem); *@
-
+    </div>  
   </div>
 </div>
 
@@ -759,6 +796,7 @@
 <div class="modal fade" id="modifierModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <form method="post" action="AddModifier" id="submitModifierGroupForm" class="modal-content">
+
       <input type="hidden" id="existingItemList" name="modifierList">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel1">Add Modifier</h1>
@@ -782,7 +820,7 @@
           data-bs-toggle="modal">+
           Add Existing Modifiers</a>
       </div>
-      <div class="existingModifierLists"></div>
+      <div class="existingModifierLists mb-3 ms-3 mt-2 "></div>
       <div class="modal-footer">
         <button type="button" id="submitMgBtn" class="btn btn-primary">Save</button>
         <button type="button" class="btn btn-secondary" onclick="resetForm()">Cancel</button>
@@ -795,7 +833,8 @@
 <!-- Edit Modifier Group Modal -->
 <div class="modal fade" id="editModifier" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
-    <form method="post" asp-controller="Menu" asp-action="EditModifier" class="modal-content">
+    <form method="post" asp-controller="Menu" id="submitModifierGroupFormForEdit" asp-action="EditModifier" class="modal-content">
+            <input type="hidden" id="existingModifierItemList" name="ExistingmodifierList">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel1">Edit Modifier</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -819,11 +858,11 @@
           data-bs-toggle="modal">+
           Add Existing Modifiers</a>
       </div>
-      <div class="ps-3 pt-2" id="existingModifierLists">
+      <div class="ps-3 pt-2 existingModifierLists" id="existingModifierList">
 
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" id="submitMgBtnForEditModifier" class="btn btn-primary">Save</button>
         <button type="button" class="btn btn-secondary" onclick="resetForm()">Cancel</button>
       </div>
     </form>

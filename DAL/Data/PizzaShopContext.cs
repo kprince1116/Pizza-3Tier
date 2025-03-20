@@ -33,7 +33,11 @@ public partial class PizzaShopContext : DbContext
 
     public virtual DbSet<Rolesandpermission> Rolesandpermissions { get; set; }
 
+    public virtual DbSet<Section> Sections { get; set; }
+
     public virtual DbSet<State> States { get; set; }
+
+    public virtual DbSet<Table> Tables { get; set; }
 
     public virtual DbSet<Unit> Units { get; set; }
 
@@ -315,6 +319,32 @@ public partial class PizzaShopContext : DbContext
                 .HasConstraintName("rolesandpermission_userroleid_fkey");
         });
 
+        modelBuilder.Entity<Section>(entity =>
+        {
+            entity.HasKey(e => e.Sectionid).HasName("section_pkey");
+
+            entity.ToTable("section");
+
+            entity.Property(e => e.Sectionid).HasColumnName("sectionid");
+            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
+            entity.Property(e => e.CreatedDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("created_date");
+            entity.Property(e => e.Description)
+                .HasMaxLength(250)
+                .HasColumnName("description");
+            entity.Property(e => e.Isdeleted)
+                .HasDefaultValueSql("false")
+                .HasColumnName("isdeleted");
+            entity.Property(e => e.ModifiedBy).HasColumnName("modified_by");
+            entity.Property(e => e.ModifiedDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("modified_date");
+            entity.Property(e => e.SectionName)
+                .HasMaxLength(250)
+                .HasColumnName("section_name");
+        });
+
         modelBuilder.Entity<State>(entity =>
         {
             entity.HasKey(e => e.Stateid).HasName("state_pkey");
@@ -330,6 +360,38 @@ public partial class PizzaShopContext : DbContext
             entity.HasOne(d => d.CountryNavigation).WithMany(p => p.States)
                 .HasForeignKey(d => d.Country)
                 .HasConstraintName("state_country_fkey");
+        });
+
+        modelBuilder.Entity<Table>(entity =>
+        {
+            entity.HasKey(e => e.Tableid).HasName("tables_pkey");
+
+            entity.ToTable("tables");
+
+            entity.Property(e => e.Tableid).HasColumnName("tableid");
+            entity.Property(e => e.Capacity).HasColumnName("capacity");
+            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
+            entity.Property(e => e.CreatedDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("created_date");
+            entity.Property(e => e.Isavailable)
+                .HasDefaultValueSql("true")
+                .HasColumnName("isavailable");
+            entity.Property(e => e.Isdeleted)
+                .HasDefaultValueSql("false")
+                .HasColumnName("isdeleted");
+            entity.Property(e => e.ModifiedBy).HasColumnName("modified_by");
+            entity.Property(e => e.ModifiedDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("modified_date");
+            entity.Property(e => e.Sectionid).HasColumnName("sectionid");
+            entity.Property(e => e.TableName)
+                .HasMaxLength(250)
+                .HasColumnName("table_name");
+
+            entity.HasOne(d => d.Section).WithMany(p => p.Tables)
+                .HasForeignKey(d => d.Sectionid)
+                .HasConstraintName("tables_sectionid_fkey");
         });
 
         modelBuilder.Entity<Unit>(entity =>

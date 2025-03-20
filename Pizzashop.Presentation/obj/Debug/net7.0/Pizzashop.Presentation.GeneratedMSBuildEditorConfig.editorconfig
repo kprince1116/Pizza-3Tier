@@ -104,6 +104,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Project/3Tier/Pizzashop.Presentation/Views/Table/Table.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFibGVcVGFibGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/3Tier/Pizzashop.Presentation/Views/Table/_EditTablePartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFibGVcX0VkaXRUYWJsZVBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/3Tier/Pizzashop.Presentation/Views/Table/_TablePartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFibGVcX1RhYmxlUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Project/3Tier/Pizzashop.Presentation/Views/User/AddUser.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxBZGRVc2VyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

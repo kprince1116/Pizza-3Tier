@@ -166,8 +166,14 @@ public class MenuController : Controller
     // Edit Modifier
 
     [HttpPost]
-    public async Task<IActionResult> EditModifier(ModifierGroupViewModel model)
+    public async Task<IActionResult> EditModifier(ModifierGroupViewModel model ,  string ExistingmodifierList )
     {
+
+        if (!string.IsNullOrEmpty(ExistingmodifierList))
+        {
+            model.ModifierItemList = JsonSerializer.Deserialize<List<ModifierItemViewModel>>(ExistingmodifierList);
+        }
+
         await _userMenu.UpdateModifier(model);
         return RedirectToAction("Index", "Home");
     }

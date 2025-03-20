@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\css\\RoleAndPermission.css"
     },
     {
+      "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\css\\Table.css",
+      "PackagePath": "staticwebassets\\css\\Table.css"
+    },
+    {
       "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\css\\changepassword.css",
       "PackagePath": "staticwebassets\\css\\changepassword.css"
     },
