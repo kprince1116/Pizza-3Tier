@@ -59,8 +59,24 @@
 
             <div class="ps-3 container-fluid  w-100" style="background-color: white; overflow: auto;">
               <p class="fs-3">Tables</p>
+              <div class="d-flex align-items-center gap-3 pe-3 justify-content-end">
+  <div class=" d-flex justify-content-end position-relative align-items-center ">
+    <input type="text" class="search form-control" style="height: 50px;" id="tableSearch" placeholder="Search">
+    <img src="~/images/icons/search.svg" alt="" style="width: 20px; aspect-ratio: 1"
+      class="bg-white position-absolute rounded-2 m-2" />
+  </div>
+  <div>
+    <img data-bs-toggle="modal" data-bs-target="#deleteTableModalForMass" id="deleteMassTable"
+      class="border delete-icon d-flex p-lg-3 p-2" src="~/images/icons/trash (1).svg" alt="">
+  </div>
+  <div class="border new-item d-flex p-lg-3 p-2" data-bs-toggle="modal" data-bs-target="#AddTable"
+    style="background-color: rgb(0, 102, 187); color: white; text-wrap: nowrap;">
+    +New Table
+  </div>
+</div>
+
               <div id="table-container-table">
-                @Html.Partial("_TablePartial", Model.Tables);
+                @Html.Partial("_TablePartial", Model.Tables)
               </div>
             </div>
           </div>
@@ -276,27 +292,7 @@
 
     var selectedSectionId;
     $(document).ready(function () {
-    @* const searchInput = $('#userListSearch');
-
-      let debounceTimer;
-      searchInput.on('input', function () {
-        clearTimeout(debounceTimer);
-        const searchTerm = $(this).val().trim();
-        console.log("ssss", selectedCategoryId);
-        debounceTimer = setTimeout(() => {
-          const url = new URL(window.location.href);
-      if (searchTerm) {
-      url.searchParams.set('id', selectedCategoryId);
-      url.searchParams.set('searchTerm', searchTerm);
-      } else {
-      url.searchParams.delete('searchTerm');
-      }
-
-          $.get(url.toString(), function (data) {
-      $('#items-container-tabler').html($(data).find('#items-container-table').html());
-      });
-      }, 100);
-      }); *@
+    
       });
 
    
@@ -333,7 +329,7 @@
     });
 });
     function loadTableModal(id) {
-      $.ajax({
+      $.ajax({  
         url: '@Url.Action("EditTable", "Table")',
         type: "GET",
         data: { id: id },  
@@ -347,6 +343,60 @@
         }
       })
     }
+
+    
+    @* function getTableIds()
+    {
+      let selectIds = [];
+
+      $(".inner-check-table-delete:checked").each(function(){
+      let id = $(this).data("deletetableId");
+      console.log("id:",id);
+      if (id !== undefined) {
+              selectIds.push(id);
+          }
+          console.log(selectIds);
+          return selectIds;
+    });
+    } *@
+
+    @* $(document).on("click","#deleteMassTable",function(){
+        var listTable = getTableIds();
+        console.log("list:",listTable);
+        $('#tableListForDelete').html(listTable.join(',')); 
+      }); *@
+
+      @* $(document).ready(function() { *@
+      @* $(document).on("submit","#deleteForTableMass",function(){
+        event.preventDefault();
+
+        let tableLists = Array.from(getTableIds());
+        console.log(tableLists);
+
+        var formData = new FormData();
+        tableLists.forEach(function(id) {
+              formData.append('tableLists', id);
+          });
+
+          $.ajax({
+            url:'/Table/DeleteCombine',
+            type: 'POST',
+            data: formData,
+            processData: false,  
+            contentType: false,  
+            success : function(data){
+              location.reload();
+              console.log("Response:", data);
+            },
+            error: function(xhr, status, error) {
+                      console.error("Error deleting items:", xhr.responseText);
+                      alert("An error occurred while deleting the items.");
+                      $('#deleteTableModalForMass').modal('hide');
+            }
+          });
+        }); *@
+      @* });  *@
+       
 
   </script>
 }

@@ -39,6 +39,8 @@ public partial class PizzaShopContext : DbContext
 
     public virtual DbSet<Table> Tables { get; set; }
 
+    public virtual DbSet<Taxesandfess> Taxesandfesses { get; set; }
+
     public virtual DbSet<Unit> Units { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
@@ -392,6 +394,47 @@ public partial class PizzaShopContext : DbContext
             entity.HasOne(d => d.Section).WithMany(p => p.Tables)
                 .HasForeignKey(d => d.Sectionid)
                 .HasConstraintName("tables_sectionid_fkey");
+        });
+
+        modelBuilder.Entity<Taxesandfess>(entity =>
+        {
+            entity.HasKey(e => e.Taxid).HasName("taxesandfess_pkey");
+
+            entity.ToTable("taxesandfess");
+
+            entity.Property(e => e.Taxid).HasColumnName("taxid");
+            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
+            entity.Property(e => e.CreatedDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("created_date");
+            entity.Property(e => e.FlatAmount)
+                .HasPrecision(18, 2)
+                .HasColumnName("flat_amount");
+            entity.Property(e => e.Isactive)
+                .HasDefaultValueSql("true")
+                .HasColumnName("isactive");
+            entity.Property(e => e.Isdefault)
+                .HasDefaultValueSql("true")
+                .HasColumnName("isdefault");
+            entity.Property(e => e.Isdeleted)
+                .HasDefaultValueSql("false")
+                .HasColumnName("isdeleted");
+            entity.Property(e => e.ModifiedBy).HasColumnName("modified_by");
+            entity.Property(e => e.ModifiedDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("modified_date");
+            entity.Property(e => e.Percentage)
+                .HasPrecision(18, 2)
+                .HasColumnName("percentage");
+            entity.Property(e => e.TaxType)
+                .HasDefaultValueSql("true")
+                .HasColumnName("tax_type");
+            entity.Property(e => e.Taxname)
+                .HasMaxLength(250)
+                .HasColumnName("taxname");
+            entity.Property(e => e.Taxvalue)
+                .HasPrecision(18, 2)
+                .HasColumnName("taxvalue");
         });
 
         modelBuilder.Entity<Unit>(entity =>

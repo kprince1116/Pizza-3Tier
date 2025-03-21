@@ -1,21 +1,6 @@
 @model Pizzashop.DAL.ViewModels.Tableviewmodel
 
 
-<div class="d-flex align-items-center gap-3 pe-3 justify-content-end">
-  <div class=" d-flex justify-content-end position-relative align-items-center ">
-    <input type="text" class="search form-control" style="height: 50px;" id="tableSearch" placeholder="Search">
-    <img src="~/images/icons/search.svg" alt="" style="width: 20px; aspect-ratio: 1"
-      class="bg-white position-absolute rounded-2 m-2" />
-  </div>
-  <div>
-    <img data-bs-toggle="modal" data-bs-target="#exampleModal" class="border delete-icon d-flex p-lg-3 p-2"
-      src="~/images/icons/trash (1).svg" alt="">
-  </div>
-  <div class="border new-item d-flex p-lg-3 p-2" data-bs-toggle="modal" data-bs-target="#AddTable"
-    style="background-color: rgb(0, 102, 187); color: white; text-wrap: nowrap;">
-    +New Table
-  </div>
-</div>
 
 <div class=" mt-3 me-3 mb-4 table-responsive">
   <table class="table">
@@ -24,7 +9,7 @@
         <div>
           <th scope="col">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+              <input class="form-check-input" type="checkbox" value="" id="outercheckforTable">
               Name
             </div>
         </div>
@@ -40,7 +25,8 @@
         <tr>
           <th scope="row">
             <div class="form-check gap-5">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+              <input class="form-check-input inner-check-table-delete" type="checkbox" value="" id="flexCheckChecked"
+                data-deletetableid="@tables.Tableid">
               <div class="d-flex align-items-center gap-1">
                 @* <img style="height: 25px;" src="images/dining-menu.png" alt=""> *@
                 <div class="d-flex align-items-center text-nowrap">@tables.TableName</div>
@@ -51,13 +37,17 @@
             @tables.Capacity
           </td>
           <td style="text-align: center;">
-            @((bool)tables.Isavailable ? "Available" : "Occupied")
-
+            <span
+              class="badge fw-bold fs-6 px-4 py-1 rounded-5 @((bool)tables.Isavailable ? "bg-success" : "bg-secondary")">
+              @((bool)tables.Isavailable ? "Available" : "Occupied")
+            </span>
           </td>
 
           <td>
-            <img  data-bs-toggle="modal" class="edittable" data-edittableid = "@tables.Tableid" data-bs-target="#EditTable" src="~/images/icons/pen-fill.svg" alt="">
-           <img class="delete-table" data-tablesdeleteid="@tables.Tableid" data-bs-toggle="modal" data-bs-target="#deletemodalfortable" src="~/images/icons/trash (1).svg" alt="">
+            <img data-bs-toggle="modal" class="edittable" data-edittableid="@tables.Tableid" data-bs-target="#EditTable"
+              src="~/images/icons/pen-fill.svg" alt="">
+            <img class="delete-table" data-tablesdeleteid="@tables.Tableid" data-bs-toggle="modal"
+              data-bs-target="#deletemodalfortable" src="~/images/icons/trash (1).svg" alt="">
           </td>
         </tr>
       }
@@ -105,23 +95,107 @@
   </div>
 </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-
+<div class="modal fade" id="deleteTableModalForMass" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Confirmation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex justify-content-center align-items-center flex-column">
+        <img class="" src="images/icons/exclamation-triangle.svg" alt="">
+        <h1 class="fs-5">Are You Sure you want to delete the tables(s)?</h1>
+      </div>
+      <div id="tableListForDelete" hidden>
+      </div>
+      <form id="deleteForTableMass" method="post" class="modal-footer d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary">Yes</button>
+        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+      </form>
+    </div>
+  </div>
+</div>
 
 <script>
-  
-  
 
-    $(document).on('click', '.delete-table', function () {
-    var tableId = $(this).data('tablesdeleteid');
-    console.log("tableid:",tableId);
-    $('#TablesId').val(tableId);
+  $(document).on("input","#tableSearch", function () {
+      console.log("success");
+        currentPage = 1;
+        changePageForTable(currentPage);
+      });
+
+  @*Mass Delete*@
+
+  function getTableIds() {
+    let selectIds = [];
+
+    $(".inner-check-table-delete:checked").each(function () {
+      let id = $(this).data("deletetableid");
+      console.log("id:", id);
+      if (id !== undefined) {
+        selectIds.push(id);
+      }
+    });
+
+    console.log("Select:", selectIds);
+    return selectIds;
+  }
+
+  $(document).on("click", "#deleteMassTable", function () {
+    var listTable = getTableIds();
+    console.log("list:", listTable);
+    $('#tableListForDelete').html(listTable.join(','));
+
+    $(document).on("submit", "#deleteForTableMass", function (event) {
+      event.preventDefault();
+
+      let tableLists = getTableIds();
+      console.log("table", tableLists);
+
+      if (tableLists.length === 0) {
+        alert("No tables selected for deletion.");
+        return;
+      }
+
+      var formData = new FormData();
+      tableLists.forEach(function (id) {
+        formData.append('tableLists', id);
+      });
+
+      $.ajax({
+        url: '/Table/DeleteCombine',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+          location.reload();
+          console.log("Response:", data);
+        },
+        error: function (xhr, status, error) {
+          console.error("Error deleting items:", xhr.responseText);
+          alert("An error occurred while deleting the items.");
+          $('#deleteTableModalForMass').modal('hide');
+        }
+      });
+    });
+
   });
 
 
 
-   function changePageSizeForTables() {
+
+
+  $(document).on('click', '.delete-table', function () {
+    var tableId = $(this).data('tablesdeleteid');
+    console.log("tableid:", tableId);
+    $('#TablesId').val(tableId);
+  });
+
+  function changePageSizeForTables() {
     let pagesize = $('#selectpagesizeForTable').val();
     let selectedSectionId = @Model.Sectionid;
     let search = $('#tableSearch').val();
@@ -143,7 +217,7 @@
   function changePageForTable(pageNum) {
     let pagesize = @Model.PageSize;
     let selectedCategoryId = @Model.Sectionid;
-    let search = $('#tableSearch').val(); sele
+    let search = $('#tableSearch').val(); 
 
     $.ajax({
       url: '@Url.Action("TablesBySection", "Table")',
@@ -157,10 +231,28 @@
         $('#table-container-table').html("No Data Found");
       }
     });
-  } 
+  }
+
+  $(document).ready(function () {
+    const outerCheck = document.getElementById("outercheckforTable");
+    const innerChecks = document.querySelectorAll(".inner-check-table-delete");
+
+    outerCheck.addEventListener("change", function () {
+      innerChecks.forEach(checkbox => {
+        checkbox.checked = outerCheck.checked;
+      });
+    });
+
+    innerChecks.forEach(checkbox => {
+      checkbox.addEventListener("change", function () {
+        const allChecked = [...innerChecks].every(cb => cb.checked);
+        const anyChecked = [...innerChecks].some(cb => cb.checked);
+
+        outerCheck.checked = allChecked;
+        outerCheck.indeterminate = !allChecked && anyChecked;
+      });
+    });
+  });
+
 
 </script>
-
-
-
-

@@ -1,11 +1,14 @@
  @model Pizzashop.DAL.ViewModels.ModifierItemListViewModel
 
+  
+
+
   <p class="ps-3 fs-3">Modifiers</p>
 
     <div class=" d-flex align-items-center gap-3 pe-3 justify-content-end mt-5">
         <div class=" d-flex justify-content-end position-relative align-items-center ">
           <div class="d-flex justify-content-end position-relative align-items-center">
-            <input type="text" class="search form-control" style="height: 50px;" id="ModifierListSearch" asp-for="@Model.Page.searchKey"
+            <input type="text" class="search form-control" style="height: 50px;" id="ModifierListSearch" 
               placeholder="Search" />
             <img src="~/images/icons/search.svg" alt="" style="width: 20px; aspect-ratio: 1"
               class="bg-white position-absolute rounded-2 m-2" onclick="itemSearch()"/>
@@ -117,6 +120,11 @@
 
 <script>
  
+ $(document).on("input","#ModifierListSearch", function () {
+      console.log("success");
+        currentPage = 1;
+        changePageForModifiers(currentPage);
+      });
 
       $(document).on('click', '.delete-modifier', function () {
     var modifierId = $(this).data('deletemodifierid');
@@ -203,71 +211,7 @@
 });
 </script>
 
-@* <script>
-      var groupid;
-      function getSelectedId() {
-      let selectedIds = [];
-      
-      $(".inner-check-deletes:checked").each(function () {
-          let id = $(this).data("deid"); 
-          groupid = $(this).data("degroupid");
-         
-          if(id == undefined)
-          {
-            console.log("id is undefined");
-          }
-          else if (id !== undefined) {
-              selectedIds.push(id);
-          }
-      });
-      return selectedIds;
-      }
 
-$(document).ready(function() {
-
-    $('#delete-icon-massmodifierdelete').on('click', function() {   
-        var listOfModifierId = getSelectedId();
-        console.log("list-id:",listOfModifierId);
-        $('#ModifierListForDelete').html(listOfModifierId.join(',')); 
-    });
-
-    $('#deleteFormMassModifier').on('submit', function(event) {
-        event.preventDefault();
-
-        let itemLists = Array.from(getSelectedId());
-        console.log("itemid:",itemLists);
-        console.log("modifierGroupId:", groupid);
-        var formData = new FormData();
-        itemLists.forEach(function(id) {
-            formData.append('modifierList', id);
-            formData.append('modifierGroupId', groupid)
-        });
-
-      $.ajax({
-         url: '/Menu/DeleteCombineForModifier',
-         type: 'POST',
-         data: formData,
-         processData: false,  
-        contentType: false,  
-         success: function(data) {
-
-        location.reload();
-        console.log("Response:", data);
-
-
-    },
-    error: function(xhr, status, error) {
-        console.error("Error deleting items:", xhr.responseText);
-        alert("An error occurred while deleting the items.");
-        $('#delete-icon-massmodifierdelete').modal('hide');
-    }
-});
-  
-    });
-     
-});
-
-</script> *@
 
 <script>
     var groupid;

@@ -62,7 +62,7 @@ public class UserTableRepository : IUserTableRepository
 
      public async Task<Tableviewmodel> GetTablesBySection(int id,int pageNo,int pageSize,string searchKey)
      {
-        var tables = _db.Tables.Where( u=>u.Sectionid == id && u.Isdeleted == false ).Select(
+        var tables = _db.Tables.Where( u=>u.Sectionid == id && u.Isdeleted == false && u.TableName.ToLower().Contains(searchKey.ToLower())).Select(
             u=> new TableItemviewmodel
             {
                 Tableid = u.Tableid,
@@ -71,7 +71,7 @@ public class UserTableRepository : IUserTableRepository
                 Isavailable = u.Isavailable,
                 Sectionid = u.Sectionid,
             }
-        );
+        ).OrderBy(u=>u.Tableid);
 
         var totalRecords = tables.Count();
 
@@ -131,4 +131,28 @@ public class UserTableRepository : IUserTableRepository
             }
         ).FirstOrDefaultAsync();
     }
+
+     public async Task<Table> GetEditTableId(int id)
+     {
+        return await _db.Tables.FirstOrDefaultAsync(u => u.Tableid == id);
+     } 
+
+    public async Task UpdateTableForEditAsync(Table existingTable)
+    {
+        _db.Tables.Update(existingTable);
+        await _db.SaveChangesAsync();
+    }
+
+    public async Task DeleteTableAsync(List<int> tableLists)
+    {
+        for(int i=0 ; i<tableLists.Count(); i++)
+        {
+            Table table = _db.Tables.Where(u=>u.Tableid == tableLists[i]).FirstOrDefault();
+            table.Isdeleted = true ;
+            // _db.Tables.Update(table);
+          
+        }
+          await _db.SaveChangesAsync();
+    }
+
 }

@@ -12,6 +12,8 @@
               <div class="row mb-3">
                 <div class="col">
                   <div class="form-floating">
+                    <input type="hidden" asp-for = "@Model.Tableid" >
+                    @* <input type="hidden" > *@
                     <input type="text" class="form-control" asp-for = "@Model.TableName" id="tableName" placeholder="Enter table name" required>
                     <label for="tableName">Name</label>
                   </div>

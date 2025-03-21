@@ -95,6 +95,26 @@
 
               <div class="ps-3 container-fluid w-100 bg-white overflow-auto">
                 <p class="fs-3">Items</p>
+                  <div class="d-flex align-items-center gap-3 pe-3 justify-content-end">
+        <div class=" d-flex justify-content-end position-relative align-items-center ">
+          <div class="d-flex justify-content-end position-relative align-items-center">
+            <input type="text" class="search form-control" style="height: 50px;"  id ="itemsearch"
+              placeholder="Search" />
+            <img src="~/images/icons/search.svg" alt="" style="width: 20px; aspect-ratio: 1"
+              class="bg-white position-absolute rounded-2 m-2" />
+          </div>
+        </div>
+
+        <div>
+          <img data-bs-toggle="modal" data-bs-target="#deleteItemModalForMass" 
+     class="border delete-icon d-flex p-lg-3 p-2" 
+     src="~/images/icons/trash (1).svg" alt="Delete Icon" id="delete-icon-massdelete"/>
+        </div>
+        <div class="border new-item d-flex p-lg-3 p-2" data-bs-toggle="modal" data-bs-target="#exampleModal2"
+          style="background-color: rgb(0, 102, 187); color: white; text-wrap: nowrap;">
+          +New Item
+        </div>
+    </div>
                 <div id="items-container-table">
                   @Html.Partial("_ItemsPartial", Model.pagination)
                 </div>
@@ -104,6 +124,7 @@
 
           <!-- Modifiers Section -->
           <div class="tab-pane fade" id="modifiers-container" role="tabpanel" aria-labelledby="modifiers-tab">
+
           </div>
         </div>
 
@@ -135,8 +156,7 @@
           success: function (data) {
             $('#modifiers-container').html(data);
 
-            selectedModifierId = $(".modifierGroupBtn").first().data("modifier-id");
-            console.log("Defaulting to first Modifier ID:", selectedModifierId);
+            selectedModifierId = $(".modifierGroupBtn").first().data("modifier-id")
 
             loadItemsByModifier(selectedModifierId);
           },
@@ -205,30 +225,6 @@
   </script>
 
   <script>
-    var selectedCategoryId;
-    $(document).ready(function () {
-      const searchInput = $('#userListSearch');
-
-      let debounceTimer;
-      searchInput.on('input', function () {
-        clearTimeout(debounceTimer);
-        const searchTerm = $(this).val().trim();
-        console.log("ssss", selectedCategoryId);
-        debounceTimer = setTimeout(() => {
-          const url = new URL(window.location.href);
-          if (searchTerm) {
-            url.searchParams.set('id', selectedCategoryId);
-            url.searchParams.set('searchTerm', searchTerm);
-          } else {
-            url.searchParams.delete('searchTerm');
-          }
-
-          $.get(url.toString(), function (data) {
-            $('#items-container-tabler').html($(data).find('#items-container-table').html());
-          });
-        }, 100);
-      });
-    });
 
     function fetchItems(categoryId) {
       selectedCategoryId = categoryId;
@@ -237,7 +233,7 @@
       $.ajax({
         url: '@Url.Action("ItemsByCategory", "Menu")',
         type: 'GET',
-        data: { id: selectedCategoryId, searchTerm: "", pagesize: pagesize, pageNo: 1 },
+        data: { id: selectedCategoryId, searchKey: "", pagesize: pagesize, pageNo: 1 },
         success: function (data) {
           console.log(data);
           $('#items-container-table').html(data);
@@ -248,16 +244,15 @@
       });
     }
 
-    $(document).ready(function () {
-    @* categoryClickEvents(); *@
-    @* paginationAjax(1); *@
-    @* fetchItems(categoryId); *@
-                        });
-
   </script>
 
   <script>
 
+     $(document).on("input","#itemsearch", function () {
+      console.log("success");
+      pageNum=1;
+       changePageForItem(pageNum) ;
+      });
 
     $(document).on("click", "#itemEdit", function () {
       loadItemModal($(this).data("editid"));
@@ -299,8 +294,9 @@
       })
     }
 
-
   </script>
+
+
 
   <script>
     function setEditData(element) {
@@ -336,6 +332,8 @@
 
 
   <script>
+
+    
 
     $(document).on('click', '.existingmodifierbutton', function () {
       console.log("existing modifier button clicked");
@@ -611,7 +609,6 @@
   </div>
 </div>
 
-
 <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <form method="post" asp-controller="Menu" asp-action="Items" class="modal-content">
@@ -784,6 +781,30 @@
         <input type="hidden" name="itemList" id="ItemList" hidden>
         <button type="submit" class="btn btn-primary">Yes</button>
         <button type="button" class="btn btn-outline-primary">No</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Mass Item delete !-->
+
+<div class="modal fade" id="deleteItemModalForMass" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Confirmation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex justify-content-center align-items-center flex-column">
+        <img class="" src="images/icons/exclamation-triangle.svg" alt="">
+        <h1 class="fs-5">Are You Sure you want to delete the selected item(s)? for Mass</h1>
+      </div>
+      <div id="itemListForDelete">
+
+      </div>
+      <form id="deleteFormMass" method="post" class="modal-footer d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary">Yes</button>
+        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
       </form>
     </div>
   </div>

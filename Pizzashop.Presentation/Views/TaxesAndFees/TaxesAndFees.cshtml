@@ -1,0 +1,212 @@
+@model Pizzashop.DAL.ViewModels.Taxviewmodel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="~/css/dashboard.css" asp-append-version="true" />
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="hidden" name="" asp-formaction="UserId">
+    <div class="d-flex">
+        <div class="w-100 bg-light">
+            <div class="d-flex justify-content-between gap-1 me-3">
+                <div class="ms-3">
+                    <p class="fs-2" style="color: rgb(0, 102, 187);">Taxes/Fees</p>
+                </div>
+                <div class="d-flex gap-2 mb-2">
+                    <div class="d-flex justify-content-end position-relative align-items-center">
+                        <input type="text" class="search form-control" style="height: 60px;" id="taxListSearch"
+                            placeholder="Search" />
+                        <img src="~/images/icons/search.svg" alt="" style="width: 20px; aspect-ratio: 1"
+                            class="bg-white position-absolute rounded-2 m-2" />
+                    </div>
+
+                    <a  class=" add-user border  p-lg-3 p-2"  data-bs-toggle="modal" data-bs-target="#addTax"
+                        style="background-color: rgb(0, 102, 187); text-decoration: none; color: white; text-wrap: nowrap;">
+                        +Add Tax
+                    </a>
+                </div>
+            </div>
+
+         <div id="taxTableContent" class="table_container">
+        </div>
+
+        </div>
+    </div>
+    <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+@*Add Tax*@
+
+<div class="modal fade" id="addTax" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" id="addTaxModal">
+            <div class="modal-header border-0">
+                <h5 class="modal-title fw-bolder">Add New Tax</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="AddTax" asp-controller="TaxesAndFees" method="post" id="taxSaveForm">
+                <div class="modal-body">
+                    @* <input type="text" asp-for ="@Model.AddTax.TaxId" hidden> *@
+                    <div class="mb-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" asp-for = "@Model.AddTax.TaxName" id="taxName" placeholder="Enter tax name" required>
+                            <label for="taxName">Name</label>
+                        </div>
+                    </div>
+                    <div class="row" >  
+                    <div class="col-6 mb-3">
+                        <div class="form-floating">
+                            <select class="form-select" id="statusSelect" asp-for = "@Model.AddTax.TaxType" aria-label="Tax Type" required>
+                                <option value=""  selected>Tax Type</option>
+                                <option value="true">Percentage</option>
+                                <option value="false">Flat</option>
+                            </select>
+                            <label for="statusSelect">Type</label>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" id="taxAmount" asp-for = "@Model.AddTax.TaxValue" placeholder="Enter tax amount" required>
+                            <label for="taxAmount">Tax Amount</label>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6 d-flex align-items-center">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" asp-for = "@Model.AddTax.IsActive" id="availableTax">
+                            </div>
+                            <label class="form-check-label " for="availableTax">Available</label>
+                        </div>
+                        <div class="col-6 d-flex align-items-center">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" asp-for = "@Model.AddTax.IsDefault" id="defaultTax">
+                            </div>
+                            <label class="form-check-label " for="defaultTax">Default Tax</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit"class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@*Edit Tax*@
+
+<div class="modal fade" id="editTax" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" id="editTaxModal">
+            
+        </div>
+    </div>
+</div>
+
+@*Delete Tax *@
+<div class="modal fade" id="deleteTaxModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Confirmation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex justify-content-center align-items-center flex-column">
+        <img class="" src="~/images/icons/exclamation-triangle.svg" alt="">
+        <h1 class="fs-5">Are You Sure you want to delete Tax?</h1>
+      </div>
+      <form method="post" asp-controller="TaxesAndFees" asp-action="DeleteTax"
+        class="modal-footer d-flex justify-content-center">
+        <input type="hidden" name="id" id="TaxId" />
+        <button type="submit" class="btn btn-primary">Yes</button>
+        <button type="button" class="btn btn-outline-primary">No</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+
+   
+
+     function changePageSizeForTaxes() {
+     let pageSize = $('#taxPageSize').val();
+    @* let selectedSectionId = @Model.Sectionid; *@
+    let search = $('#taxListSearch').val();
+
+    $.ajax({
+      url: '@Url.Action("GetTaxList", "TaxesAndFees")',
+      type: "GET",
+      data: { pageSize: pageSize, pageNo: 1, searchKey: search },
+      dataType: "html",
+      success: function (data) {
+        $('#taxTableContent').html(data);
+      },
+      error: function () {
+        $('#taxTableContent').html("No Data Found");
+      }
+    });
+  }
+
+  function changePageForTaxes(pageNum) {
+     let pageSize = $('#taxPageSize').val();
+    @* let selectedCategoryId = @Model.Sectionid; *@
+    let search = $('#taxListSearch').val(); 
+
+    $.ajax({
+      url: '@Url.Action("GetTaxList", "TaxesAndFees")',
+      type: "GET",
+      data: {  pageSize: pageSize, pageNo: pageNum, searchKey: search },
+      dataType: "html",
+      success: function (data) {
+        $('#taxTableContent').html(data);
+      },
+      error: function () {
+        $('#taxTableContent').html("No Data Found");
+      }
+    });
+  }
+
+     $(document).ready(function () {
+     $(document).on("click", ".edit-tax", function () {
+      loadTaxModal($(this).data("edittaxid"));
+    });
+});
+    function loadTaxModal(id) {
+      $.ajax({  
+        url: '@Url.Action("EditTax", "TaxesAndFees")',
+        type: "GET",
+        data: { id: id },  
+        success: function (data) {
+          $("#editTaxModal").html(data);
+           $('#editTax').modal('show');
+        },
+        error: function () {
+          console.log("No Projects Found");
+          $("#editTax").html('No User Fetched');
+        }
+      })
+    }
+
+    $(document).on("input","#taxListSearch", function () {
+      console.log("success");
+        currentPage = 1;
+        changePageForTaxes(currentPage);
+      });
+
+
+  $(document).ready(function () {
+    changePageForTaxes(1);
+     })
+</script>

@@ -28,4 +28,10 @@ public interface IUserTableRepository
     Task UpdateTableAsync(Table existingTable);
 
     public Task<EditTableviewmodel> GetEditTable(int id);
+
+    public Task<Table> GetEditTableId(int id);
+
+    Task UpdateTableForEditAsync(Table existingTable);
+
+    Task DeleteTableAsync(List<int> tableLists);
 }

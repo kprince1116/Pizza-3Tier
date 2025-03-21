@@ -90,10 +90,25 @@ public class TableController : Controller
     }
 
     [HttpPost]
+    public async Task<IActionResult> EditTable(EditTableviewmodel model)
+    {
+         await _table.EditTable(model);
+        return  RedirectToAction("Table", "Table");
+    }
+
+    [HttpPost]
     public async Task<IActionResult> DeleteTable(int id)
     {
         var existingSection = await _table.GetTableByIdForDelte(id);
         return  RedirectToAction("Table", "Table");
+    }
+
+    [HttpPost]
+
+    public async Task<IActionResult> DeleteCombine(List<int> tableLists)
+    {
+        _table.DeleteTableAsync(tableLists);
+        return Json( new { success = true, message = "hi"});
     }
 
 }

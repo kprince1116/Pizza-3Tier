@@ -1,25 +1,6 @@
 @model Pizzashop.DAL.ViewModels.paginationviewmodel
 
-    <div class="d-flex align-items-center gap-3 pe-3 justify-content-end">
-        <div class=" d-flex justify-content-end position-relative align-items-center ">
-          <div class="d-flex justify-content-end position-relative align-items-center">
-            <input type="text" class="search form-control" style="height: 50px;" id="itemListSearch" asp-for="searchKey"
-              placeholder="Search" />
-            <img src="~/images/icons/search.svg" alt="" style="width: 20px; aspect-ratio: 1"
-              class="bg-white position-absolute rounded-2 m-2" onclick="itemSearch()"/>
-          </div>
-        </div>
-
-        <div>
-          <img data-bs-toggle="modal" data-bs-target="#deleteItemModalForMass" 
-     class="border delete-icon d-flex p-lg-3 p-2" 
-     src="~/images/icons/trash (1).svg" alt="Delete Icon" id="delete-icon-massdelete"/>
-        </div>
-        <div class="border new-item d-flex p-lg-3 p-2" data-bs-toggle="modal" data-bs-target="#exampleModal2"
-          style="background-color: rgb(0, 102, 187); color: white; text-wrap: nowrap;">
-          +New Item
-        </div>
-    </div>
+  
    <div class=" mt-3 me-3 mb-4 table-responsive">
             <table class="table">
               <thead>
@@ -27,7 +8,7 @@
                   <div>
                     <th scope="col">
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="outerCheck">
+                        <input class="form-check-input" type="checkbox"  id="outerC">
                         Name
                       </div>
                   </div>
@@ -73,8 +54,7 @@
           </td>
           <td>
             <a data-bs-toggle="modal" id="itemEdit" data-bs-target="#editModal2" class="edit-item" data-editid="@item.Itemid" ><img src="~/images/icons/pen-fill.svg" a  lt=""></a>
-            <img data-bs-toggle="modal" class="delete-item" data-bs-toggle="modal" data-bs-target="#deleteItemModal" onclick="deleteItem(this)" data-itemid ="@item.Itemid" src="~/images/icons/trash (1).svg" alt="">
-                                                
+            <img data-bs-toggle="modal" class="delete-item" data-bs-toggle="modal" data-bs-target="#deleteItemModal" onclick="deleteItem(this)" data-itemid ="@item.Itemid" src="~/images/icons/trash (1).svg" alt="">                                   
           </td>
           </tr>
 } 
@@ -130,6 +110,7 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+@section script {
 <script>
 
   $(document).on('click', '.delete-item', function () {
@@ -138,29 +119,18 @@
     $('#ItemId').val(itemId);
   });
 
-  $(document).ready(function () {
-    $('#itemListSearch').on('keydown', function (event) {
-        if (event.key === "Enter") { // Check if Enter is pressed
-            event.preventDefault();  // Prevent default form submission
-            itemSearch();
-        }
-    });
-
-
-});
-
 function changePageSizeForItems() {
       let pagesize = $('#selectpagesizeForItems').val();
-      let selectedCategoryId = @Model.Categoryid;  // Ensure Razor renders correctly
-      let search = $('#itemListSearch').val();
+      let selectedCategoryId = @Model.Categoryid;  
+      let search = $('#itemsearch').val();
 
       $.ajax({
           url: '@Url.Action("ItemsByCategory", "Menu")',
           type: "GET",
           data: { id: selectedCategoryId, pageSize: pagesize, pageNo: 1, searchKey: search },
-          dataType: "html",  // Fixed typo
+          dataType: "html", 
           success: function (data) {
-              @* console.log(data); *@
+         
               $('#items-container-table').html(data);
           },
           error: function () {
@@ -173,34 +143,15 @@ function changePageSizeForItems() {
   {
       let pagesize = @Model.PageSize;
       let selectedCategoryId = @Model.Categoryid; 
-      let search = $('#itemListSearch').val();
+      let search = $('#itemsearch').val();
 
         $.ajax({
           url: '@Url.Action("ItemsByCategory", "Menu")',
           type: "GET",
           data: { id: selectedCategoryId, pageSize: pagesize, pageNo: pageNum, searchKey: search },
-          dataType: "html",  // Fixed typo
+          dataType: "html",  
           success: function (data) {
 
-              $('#items-container-table').html(data);
-          },
-          error: function () {
-              $('#items-container-table').html("No Data Found");
-          }
-      });
-  }
-
-  function itemSearch(){
-      let searchKey = $('#itemListSearch').val();
-      let selectedCategoryId = @Model.Categoryid;  
-
-      $.ajax({
-          url: '@Url.Action("ItemsByCategory", "Menu")',
-          type: "GET",
-          data: { id: selectedCategoryId, pageSize: @Model.PageSize, pageNo: 1, searchKey: searchKey },
-          dataType: "html",  // Fixed typo
-          success: function (data) {
-              @* console.log(data); *@
               $('#items-container-table').html(data);
           },
           error: function () {
@@ -213,61 +164,29 @@ function changePageSizeForItems() {
       let selectedIds = [];
       
       $(".inner-check-delete:checked").each(function () {
-          let id = $(this).data("deleteid"); // Get the data-deleteId attribute
+          let id = $(this).data("deleteid");
           if (id !== undefined) {
               selectedIds.push(id);
           }
       });
 
-      console.log(selectedIds); // Debugging output
+      console.log(selectedIds); 
       return selectedIds;
       
   }
 
-</script>
-<div class="modal fade" id="deleteItemModalForMass" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Confirmation</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body d-flex justify-content-center align-items-center flex-column">
-        <img class="" src="images/icons/exclamation-triangle.svg" alt="">
-        <h1 class="fs-5">Are You Sure you want to delete the selected item(s)? for Mass</h1>
-      </div>
-      <div id="itemListForDelete">
 
-      </div>
-      <form id="deleteFormMass" method="post" class="modal-footer d-flex justify-content-center">
-        @* <input type="hidden" name="itemList" id="ItemList" hidden> *@
-        <button type="submit" class="btn btn-primary">Yes</button>
-        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
-      </form>
-    </div>
-  </div>
-</div>
-@section script{
-<script>
 $(document).ready(function() {
 
-
-    $('#delete-icon-massdelete').on('click', function() {
-        
+    $(document).on('click','#delete-icon-massdelete', function() {
         var listOfItemsId = getSelectedIds();
         console.log(listOfItemsId);
-        
-
-
         $('#itemListForDelete').html(listOfItemsId.join(',')); 
-
     });
 
-    // Handle form submission when "Yes" is clicked
-    $('#deleteFormMass').on('submit', function(event) {
-        event.preventDefault(); // Prevent default form submission
-
  
+    $('#deleteFormMass').on('submit', function(event) {
+        event.preventDefault(); 
 
         let itemLists = Array.from(getSelectedIds());
         console.log(itemLists);
@@ -287,10 +206,9 @@ $(document).ready(function() {
         console.log("Response:", data);
          var categoryId = @Model.Categoryid; 
          var pageSize = @Model.PageSize; 
-                var searchKey = encodeURIComponent($('#search-input').val() || '');
-                var url = `/Menu/Items?id=${categoryId}&pageNo=1&pageSize=${pageSize}`;
-                
-                window.location.href = url; 
+         var searchKey = encodeURIComponent($('#search-input').val() || '');
+         var url = `/Menu/Items?id=${categoryId}&pageNo=1&pageSize=${pageSize}`;
+          window.location.href = url; 
 
     },
     error: function(xhr, status, error) {
@@ -299,40 +217,37 @@ $(document).ready(function() {
         $('#deleteItemModalForMass').modal('hide');
     }
 });
-
-
-   
     });
 });
-</script>
 
-<script>
 
-    $(document).ready(function () {
-      const outerCheck = document.getElementById("outerCheck");
-      const innerChecks = document.querySelectorAll(".inner-check-delete");
+  $(document).ready(function(){
+      
+    const outerCheck = document.getElementById("outerC");
+    const innerChecks = document.querySelectorAll(".inner-check-delete");
 
     
-      outerCheck.addEventListener("change", function () {
-          innerChecks.forEach(checkbox => {
-              checkbox.checked = outerCheck.checked;
-          });
-      });
+    outerCheck.addEventListener("change", function() {
+        innerChecks.forEach(checkbox => {
+            checkbox.checked = outerCheck.checked;
+        });
+    });
 
   
-      innerChecks.forEach(checkbox => {
-          checkbox.addEventListener("change", function () {
-              const allChecked = [...innerChecks].every(cb => cb.checked);
-              const anyChecked = [...innerChecks].some(cb => cb.checked);
+    innerChecks.forEach(checkbox => {
+        checkbox.addEventListener("change", function() {
+            const allChecked = [...innerChecks].every(cb => cb.checked);
+            const anyChecked = [...innerChecks].some(cb => cb.checked);
 
-              outerCheck.checked = allChecked;
-              outerCheck.indeterminate = !allChecked && anyChecked; 
-      });
-
-});
+            outerCheck.checked = allChecked;
+            outerCheck.indeterminate = !allChecked && anyChecked; 
+        });
+    });
+    });   
 
 
 </script>
 }
+
 
 

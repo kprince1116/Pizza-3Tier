@@ -26,6 +26,8 @@ builder.Services.AddScoped<IUserMenu, UserMenu>();
 builder.Services.AddScoped<IUserMenuRepository, UserMenuRepository>();
 builder.Services.AddScoped<ITable,BAL.Services.Table>();
 builder.Services.AddScoped<IUserTableRepository, UserTableRepository>();
+builder.Services.AddScoped<ITaxesAndFessService, TaxesAndFessService>();
+builder.Services.AddScoped<ITaxesAndFessRepository , TaxesAndFess>();
 // builder.Services.AddScoped<IWebHostEnvironment,WebHostEnvironment>();
 
 builder.Services.AddControllersWithViews();

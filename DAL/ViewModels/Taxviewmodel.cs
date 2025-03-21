@@ -1,19 +1,16 @@
-using DAL.Models;
+using DAL.ViewModels;
 
 namespace Pizzashop.DAL.ViewModels;
 
-public class paginationviewmodel
+public class Taxviewmodel
 {
-
-     public IEnumerable<MenuItemsviewmodel> Items { get; set; }
+    public IEnumerable<TaxListviewmodel> TaxList { get; set; } 
+    public pageviewmodel? Page{ get; set; }
      public int CurrentPage {get; set;}
      public int TotalPages {get; set;}
      public int PageSize {get; set;}
      public int TotalRecords {get; set;}
      public string searchKey {get; set;}
 
-     public int Modifierid { get; set; }
-     public int Categoryid { get; set; }
-
-
+     public AddTaxviewmodel AddTax {get; set;}
 }

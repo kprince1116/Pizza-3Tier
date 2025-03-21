@@ -111,4 +111,31 @@ public class Table : ITable
         return await _userTableRepository.GetEditTable(id);
     }
 
+    public async Task<bool> EditTable(EditTableviewmodel model)
+    {
+
+        var existingTable = await _userTableRepository.GetEditTableId(model.Tableid);
+
+        if(existingTable == null)
+        {
+            return false;
+        }
+
+        existingTable.Sectionid = model.Sectionid;
+        existingTable.Tableid = model.Tableid;
+        existingTable.TableName = model.TableName;
+        existingTable.Capacity = model.Capacity;
+        existingTable.Isavailable = model.Isavailable;
+
+        await _userTableRepository.UpdateTableForEditAsync(existingTable);
+
+        return true;
+
+    }
+
+      public async Task  DeleteTableAsync(List<int> tableLists)
+      {
+        await _userTableRepository.DeleteTableAsync(tableLists);
+      }
+
 }

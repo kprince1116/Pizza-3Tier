@@ -21,4 +21,8 @@ public interface ITable
     public Task<bool> GetTableByIdForDelte(int id);
 
     public Task<EditTableviewmodel> GetEditTable(int id);
+
+    public Task<bool> EditTable(EditTableviewmodel model);
+
+    public Task  DeleteTableAsync(List<int> tableLists);
 }

@@ -200,7 +200,7 @@ public class UserMenuRepository : IUserMenuRepository
 
     public async Task<MenuItem> GetExistingItem(int id)
     {
-        return await _db.MenuItems.FindAsync(id);
+        return await _db.MenuItems.FirstOrDefaultAsync(u=>u.Itemid == id);
     }
 
 
@@ -517,10 +517,10 @@ public class UserMenuRepository : IUserMenuRepository
         {
             Modifiermapping modifier = _db.Modifiermappings.Where(e => e.ModifierId == modifierList[i] && e.ModifierGroupId == modifiergroupId ).FirstOrDefault();
             modifier.IsDeleted = true;
-            _db.Modifiermappings.Update(modifier);
-            await _db.SaveChangesAsync();
+            // _db.Modifiermappings.Update(modifier);
+            
         }
-        
+        await _db.SaveChangesAsync();
     }
 
     public async Task<List<ModifierItemViewModel>> GetExistingModifierItems(int id)

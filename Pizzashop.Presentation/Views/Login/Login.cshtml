@@ -55,6 +55,22 @@
                         <a class="forgot-password" id="forgotpassword" style="color:blue; text-decoration: none;"
                             asp-action="ForgotPassword"> Forgot Password? </a>
                     </div>
+                    @* <div class="d-md-none d-lg-none d-xl-none d-block justify-content-between  mb-3 p-0">
+                        <div>
+                           
+                        </div>
+                        <a class="forgot-password" id="forgotpassword" style="color:blue; text-decoration: none;"
+                            asp-action="ForgotPassword"> Forgot Password? </a>
+                    </div> *@
+                     <div class="d-md-none d-lg-none d-xl-none justify-content-end col-10 mb-3">
+                            <div class="d-flex gap-1 justify-content-center">
+                            <input asp-for="RememberMe" type="checkbox" id="rememberMe" />
+                            <span class="font1"> Remember Me</span>
+                            </div>
+                            <a class="forgot-password d-flex justify-content-center" id="forgotpassword" style="color:blue; text-decoration: none;"
+                            asp-action="ForgotPassword"> Forgot Password? </a>
+                        </div>
+                    
                     <button type="submit"
                         class="btn btn-primary btn-sm col-10 align-items-center justify-content-center">Login</button>
                     @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))

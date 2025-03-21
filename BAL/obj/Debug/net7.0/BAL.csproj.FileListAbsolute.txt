@@ -63,7 +63,6 @@ d:\Project\3Tier\BAL\bin\Debug\net7.0\BAL.dll
 d:\Project\3Tier\BAL\bin\Debug\net7.0\BAL.pdb
 d:\Project\3Tier\BAL\bin\Debug\net7.0\DAL.dll
 d:\Project\3Tier\BAL\bin\Debug\net7.0\DAL.pdb
-d:\Project\3Tier\BAL\obj\Debug\net7.0\BAL.csproj.AssemblyReference.cache
 d:\Project\3Tier\BAL\obj\Debug\net7.0\BAL.GeneratedMSBuildEditorConfig.editorconfig
 d:\Project\3Tier\BAL\obj\Debug\net7.0\BAL.AssemblyInfoInputs.cache
 d:\Project\3Tier\BAL\obj\Debug\net7.0\BAL.AssemblyInfo.cs
@@ -73,3 +72,4 @@ d:\Project\3Tier\BAL\obj\Debug\net7.0\BAL.dll
 d:\Project\3Tier\BAL\obj\Debug\net7.0\refint\BAL.dll
 d:\Project\3Tier\BAL\obj\Debug\net7.0\BAL.pdb
 d:\Project\3Tier\BAL\obj\Debug\net7.0\ref\BAL.dll
+d:\Project\3Tier\BAL\obj\Debug\net7.0\BAL.csproj.AssemblyReference.cache
