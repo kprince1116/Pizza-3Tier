@@ -29,5 +29,5 @@ public partial class Rolesandpermission
 
     public virtual Permission? Permission { get; set; }
 
-    public virtual Userrole1? Userrole { get; set; }
+    public virtual Userrole? Userrole { get; set; }
 }

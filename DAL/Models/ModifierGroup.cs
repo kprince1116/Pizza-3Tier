@@ -21,6 +21,8 @@ public partial class ModifierGroup
 
     public DateTime? ModifiedDate { get; set; }
 
+    public virtual ICollection<Itemmodifiergroup> Itemmodifiergroups { get; set; } = new List<Itemmodifiergroup>();
+
     public virtual ICollection<Modifiermapping> Modifiermappings { get; set; } = new List<Modifiermapping>();
 
     public virtual ICollection<Modifier> Modifiers { get; set; } = new List<Modifier>();

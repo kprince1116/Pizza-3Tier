@@ -129,7 +129,7 @@ namespace BAL.Services
         {
             response.Cookies.Append("Email", email, new CookieOptions
             {
-                Expires = DateTime.UtcNow.AddDays(7),
+                Expires = DateTime.Now.AddDays(7),
                 HttpOnly = true,
                 Secure = false,
                 SameSite = SameSiteMode.Strict

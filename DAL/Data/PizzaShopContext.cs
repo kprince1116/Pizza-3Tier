@@ -19,6 +19,8 @@ public partial class PizzaShopContext : DbContext
 
     public virtual DbSet<Country> Countries { get; set; }
 
+    public virtual DbSet<Itemmodifiergroup> Itemmodifiergroups { get; set; }
+
     public virtual DbSet<MenuCategory> MenuCategories { get; set; }
 
     public virtual DbSet<MenuItem> MenuItems { get; set; }
@@ -51,7 +53,7 @@ public partial class PizzaShopContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql("Host=localhost;Database=pizza-shop;Username=postgres;     password=Tatva@123");
+        => optionsBuilder.UseNpgsql("Host=localhost;Database=pizza-shop;Username=postgres;password=Happy@007");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -82,6 +84,38 @@ public partial class PizzaShopContext : DbContext
             entity.Property(e => e.Countryname)
                 .HasMaxLength(150)
                 .HasColumnName("countryname");
+        });
+
+        modelBuilder.Entity<Itemmodifiergroup>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("itemmodifiergroup_pkey");
+
+            entity.ToTable("itemmodifiergroup");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
+            entity.Property(e => e.CreatedDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("created_date");
+            entity.Property(e => e.IsDeleted)
+                .HasDefaultValueSql("false")
+                .HasColumnName("is_deleted");
+            entity.Property(e => e.Itemid).HasColumnName("itemid");
+            entity.Property(e => e.Maxallowed).HasColumnName("maxallowed");
+            entity.Property(e => e.Minallowed).HasColumnName("minallowed");
+            entity.Property(e => e.ModifiedBy).HasColumnName("modified_by");
+            entity.Property(e => e.ModifiedDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("modified_date");
+            entity.Property(e => e.Modifiergroupid).HasColumnName("modifiergroupid");
+
+            entity.HasOne(d => d.Item).WithMany(p => p.Itemmodifiergroups)
+                .HasForeignKey(d => d.Itemid)
+                .HasConstraintName("itemmodifiergroup_itemid_fkey");
+
+            entity.HasOne(d => d.Modifiergroup).WithMany(p => p.Itemmodifiergroups)
+                .HasForeignKey(d => d.Modifiergroupid)
+                .HasConstraintName("itemmodifiergroup_modifiergroupid_fkey");
         });
 
         modelBuilder.Entity<MenuCategory>(entity =>
@@ -538,18 +572,6 @@ public partial class PizzaShopContext : DbContext
 
         modelBuilder.Entity<Userrole>(entity =>
         {
-            entity.HasKey(e => e.Roleid).HasName("userrole_pkey");
-
-            entity.ToTable("userrole");
-
-            entity.Property(e => e.Roleid).HasColumnName("roleid");
-            entity.Property(e => e.Rolename)
-                .HasMaxLength(150)
-                .HasColumnName("rolename");
-        });
-
-        modelBuilder.Entity<Userrole1>(entity =>
-        {
             entity.HasKey(e => e.Userroleid).HasName("userroles_pkey");
 
             entity.ToTable("userroles");
@@ -569,6 +591,18 @@ public partial class PizzaShopContext : DbContext
             entity.Property(e => e.RoleName)
                 .HasMaxLength(150)
                 .HasColumnName("role_name");
+        });
+
+        modelBuilder.Entity<Userrole1>(entity =>
+        {
+            entity.HasKey(e => e.Roleid).HasName("userrole_pkey");
+
+            entity.ToTable("userrole");
+
+            entity.Property(e => e.Roleid).HasColumnName("roleid");
+            entity.Property(e => e.Rolename)
+                .HasMaxLength(150)
+                .HasColumnName("rolename");
         });
 
         OnModelCreatingPartial(modelBuilder);

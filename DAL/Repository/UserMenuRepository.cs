@@ -36,6 +36,12 @@ public class UserMenuRepository : IUserMenuRepository
             // Description = u.Description
         }).ToList();
     }
+    
+    // public List<ItemModifierGroupviewmodel> GetModifierItem()
+    // {
+    //     return _db.
+    // }
+
     public List<Unit> GetUnits()
     {
         return _db.Units.ToList();
@@ -73,6 +79,27 @@ public class UserMenuRepository : IUserMenuRepository
             CurrentPage = pageNo,
             PageSize = pageSize
         };
+    }
+
+    public async Task<ModifierGroupViewModel> GetModifierItemById(int modifierId)
+    {
+        ModifierGroupViewModel? modifiergroup = await _db.ModifierGroups.Where(m => m.ModifierGroupId == modifierId).
+                                    Include(m => m.Modifiermappings).ThenInclude(m=>m.Modifier).
+                                    Select(m => new ModifierGroupViewModel
+                                    {
+                                        ModifierId = m.ModifierGroupId,
+                                        Name = m.Name,
+                                        Description = m.Description,
+                                        ModifierItemList = m.Modifiermappings.Select(i => new ModifierItemViewModel
+                                        {
+                                            ModifierItemId = i.Modifier.Modifierid,
+                                            Name = i.Modifier.Modifiername,
+                                            Rate = i.Modifier.Rate,
+                                            Quantity = i.Modifier.Quantity,
+                                        }).ToList()
+                                    }).FirstOrDefaultAsync();
+
+        return modifiergroup;
     }
 
     //existing modifier
@@ -169,13 +196,94 @@ public class UserMenuRepository : IUserMenuRepository
             Description = model.Additem.Description,
             TaxPercentage = model.Additem.TaxPercentage,
         };
-
-
         _db.MenuItems.Update(item);
         await _db.SaveChangesAsync();
+
+        await AddItemModifier(item.Itemid, model.Additem.ItemModifierList);
+        
     }
 
-   
+     public async Task<bool> AddItemModifier(int itemId, List<ItemModifierGroupviewmodel> itemModifierList)
+    {
+        List<int> exisingModifierIds = await _db.Itemmodifiergroups
+                                        .Where(im => im.Itemid == itemId && im.IsDeleted == false )
+                                        .Select(mi => (int)mi.Modifiergroupid)
+                                        .ToListAsync();
+
+        List<int> newModifierGroupIds = itemModifierList.Select(m => m.ModifierGroupId).ToList();
+        List<int> toBeRemoved = exisingModifierIds.Except(newModifierGroupIds).ToList();
+
+        try
+        {
+            if (toBeRemoved.Count > 0)
+            {
+                foreach (var deleteItem in toBeRemoved)
+                {
+                    await DeleteSelectModifierGroups(itemId,deleteItem);
+                }
+            }
+            
+            foreach(var item in itemModifierList)
+            {
+                Itemmodifiergroup? existingOne = await _db.Itemmodifiergroups.Where(i => i.Itemid == itemId && i.Modifiergroupid == item.ModifierGroupId && i.IsDeleted == false)
+                .FirstOrDefaultAsync();
+
+                if(existingOne != null)
+                {
+                    existingOne.Minallowed = item.MinAllowed;
+                    existingOne.Maxallowed = item.MaxAllowed;
+                    _db.Itemmodifiergroups.Update(existingOne);
+                    await _db.SaveChangesAsync();
+                }
+                else
+                {
+                    Itemmodifiergroup newItemModifer = new Itemmodifiergroup{
+                        Itemid = itemId,
+                        Modifiergroupid = item.ModifierGroupId,
+                        Minallowed = item.MinAllowed,
+                        Maxallowed = item.MaxAllowed
+                    };
+
+                    await _db.Itemmodifiergroups.AddAsync(newItemModifer);
+                    await _db.SaveChangesAsync();
+                }
+            }
+            
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error in Modifier Item", ex.Message);
+            return false;
+        }
+    }
+
+    public async Task<bool> DeleteSelectModifierGroups(int Itemid,int id)
+    {
+        try
+        {
+            Itemmodifiergroup? existingOne = await _db.Itemmodifiergroups
+                                            .Where(im => im.Modifiergroupid == id && im.Itemid == Itemid && im.IsDeleted == false)
+                                            .FirstOrDefaultAsync();
+
+            if(existingOne == null)
+            {
+                return false;
+            }
+
+            existingOne.IsDeleted = true;
+
+            _db.Itemmodifiergroups.Update(existingOne);
+            await _db.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error Deleting Selected Modifier Group", ex.Message);
+            return false;
+        }
+    }
+
     public async Task<EditItemviewmodel> GetEditItem(int id)
     {
         return await _db.MenuItems.Where(u => u.Itemid == id).Select(u => new EditItemviewmodel
@@ -204,10 +312,33 @@ public class UserMenuRepository : IUserMenuRepository
     }
 
 
-    public async Task UpdateItemAsync(MenuItem existingitem)
+    public async Task<bool> UpdateItem(EditItemviewmodel model)
     {
+        var existingitem = await _db.MenuItems.FirstOrDefaultAsync(u=>u.Itemid == model.Itemid);
+
+         if(existingitem == null)
+        {
+            return false;
+        }
+        existingitem.Categoryid = model.Categoryid;
+        existingitem.Itemid = model.Itemid;
+        existingitem.Itemname = model.Itemname;
+        existingitem.Description = model.Description;
+        existingitem.Quantity = model.Quantity;
+        existingitem.Rate = model.Rate;
+        existingitem.IsAvailable = model.IsAvailable;
+        existingitem.ShortCode = model.ShortCode;
+        existingitem.Unitid = model.UnitId;
+        existingitem.TaxPercentage = model.TaxPercentage;
+        existingitem.Image = model.Image;
+
         _db.MenuItems.Update(existingitem);
         await _db.SaveChangesAsync();
+
+        await AddItemModifier(existingitem.Itemid, model.ItemModifierList);
+
+        return true;
+        
     }
 
     public async Task<MenuItem> GetItemForDeleteById(int id)
@@ -574,5 +705,31 @@ public class UserMenuRepository : IUserMenuRepository
             return true;
     }
 
+    public async Task<List<ItemModifierGroupviewmodel>> GetAllModifierItemById(int id)
+    {
 
+        List<ItemModifierGroupviewmodel> model = await _db.Itemmodifiergroups.
+            Include(mm => mm.Modifiergroup.Modifiermappings)
+            .ThenInclude(mim => mim.Modifier)
+            .Where(i => i.Itemid == id && i.IsDeleted ==false )
+            .Select(i => new ItemModifierGroupviewmodel
+            {
+                ItemId =(int) i.Id,
+                ModifierGroupId =(int) i.Modifiergroupid,
+                Name = i.Modifiergroup.Name,
+                MinAllowed = i.Minallowed,
+                MaxAllowed = i.Maxallowed,
+                ModifierItemList = i.Modifiergroup.Modifiermappings
+                .Where(m => m.IsDeleted == false && m.Modifier.IsDeleted == false)
+                .Select(i => new ModifierItemViewModel
+                {
+                    ModifierItemId = i.Id,
+                    Name = i.Modifier.Modifiername,
+                    Rate = i.Modifier.Rate,
+                    Quantity = i.Modifier.Quantity
+                }).ToList()
+            }).ToListAsync();
+            return model;
+        
+    }
 }

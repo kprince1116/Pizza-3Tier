@@ -15,7 +15,11 @@ public interface IUserMenuRepository
 
     List<ModifierItemViewModel> GetModifierItems();
 
+    // List<ItemModifierGroupviewmodel> GetModifierItem();
+
     public Task<paginationviewmodel> GetItemsByCategory(int id,  int pageNo = 1 , int pageSize=3, string search = "");
+
+    public Task<ModifierGroupViewModel> GetModifierItemById(int modifierId);
 
     public Task<ModifierItemListViewModel> GetItemsByExistingModifier(int pageNo = 1 , int pageSize=3, string search = "");
 
@@ -38,7 +42,7 @@ public interface IUserMenuRepository
     
     public Task<MenuItem> GetExistingItem(int id);
 
-    Task UpdateItemAsync( MenuItem existingitem);
+    Task<bool> UpdateItem( EditItemviewmodel model);
 
     public Task<MenuItem> GetItemForDeleteById(int id);
 
@@ -82,5 +86,7 @@ public interface IUserMenuRepository
     Task DeleteModifiers(List<int> modifierList,int modifiergroupId);
 
     Task<List<ModifierItemViewModel>> GetExistingModifierItems(int id);
+
+    Task<List<ItemModifierGroupviewmodel>> GetAllModifierItemById(int id);
     
 }

@@ -66,7 +66,7 @@
                 <div class="d-flex align-items-center gap-1 items">
                   <span class="ps-5 font2">Items Per Page</span>
                   <select class="form-select" onchange="changePageSizeForItems()" id="selectpagesizeForItems" aria-label="Floating label select example"
-                    style="width: 65px;">
+                    style="width: 70px;">
                     @if(Model.PageSize!=null)
                     {
                     <option value="3" selected="@(Model.PageSize==3 ? true : false)" >3</option>
@@ -110,24 +110,29 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-@section script {
+@* @section scripts
+{
 <script>
 
-  $(document).on('click', '.delete-item', function () {
-    var itemId = $(this).data('itemid');
-    console.log(itemId);
-    $('#ItemId').val(itemId);
-  });
+  $(document).ready(function () {
+
+    $(document).on("click", ".categorygroupbtn", function () {
+       var selectedcataegoryId = $(this).data("category-id");
+        console.log("Selected Modifier ID:", selectedcataegoryId);
+        
+         changePageSizeForItems();
+    });
+});
+
 
 function changePageSizeForItems() {
       let pagesize = $('#selectpagesizeForItems').val();
-      let selectedCategoryId = @Model.Categoryid;  
       let search = $('#itemsearch').val();
 
       $.ajax({
           url: '@Url.Action("ItemsByCategory", "Menu")',
           type: "GET",
-          data: { id: selectedCategoryId, pageSize: pagesize, pageNo: 1, searchKey: search },
+          data: { id: selectedcataegoryId, pageSize: pagesize, pageNo: 1, searchKey: search },
           dataType: "html", 
           success: function (data) {
          
@@ -141,14 +146,13 @@ function changePageSizeForItems() {
 
   function changePageForItem(pageNum)
   {
-      let pagesize = @Model.PageSize;
-      let selectedCategoryId = @Model.Categoryid; 
+      let pagesize = $('#selectpagesizeForItems').val();
       let search = $('#itemsearch').val();
 
         $.ajax({
           url: '@Url.Action("ItemsByCategory", "Menu")',
           type: "GET",
-          data: { id: selectedCategoryId, pageSize: pagesize, pageNo: pageNum, searchKey: search },
+          data: { id: selectedcataegoryId, pageSize: pagesize, pageNo: pageNum, searchKey: search },
           dataType: "html",  
           success: function (data) {
 
@@ -159,95 +163,8 @@ function changePageSizeForItems() {
           }
       });
   }
-
-  function getSelectedIds() {
-      let selectedIds = [];
-      
-      $(".inner-check-delete:checked").each(function () {
-          let id = $(this).data("deleteid");
-          if (id !== undefined) {
-              selectedIds.push(id);
-          }
-      });
-
-      console.log(selectedIds); 
-      return selectedIds;
-      
-  }
-
-
-$(document).ready(function() {
-
-    $(document).on('click','#delete-icon-massdelete', function() {
-        var listOfItemsId = getSelectedIds();
-        console.log(listOfItemsId);
-        $('#itemListForDelete').html(listOfItemsId.join(',')); 
-    });
-
- 
-    $('#deleteFormMass').on('submit', function(event) {
-        event.preventDefault(); 
-
-        let itemLists = Array.from(getSelectedIds());
-        console.log(itemLists);
-
-        var formData = new FormData();
-        itemLists.forEach(function(id) {
-            formData.append('itemList', id);
-        });
-
-      $.ajax({
-         url: '/Menu/DeleteCombine',
-         type: 'POST',
-         data: formData,
-         processData: false,  
-        contentType: false,  
-         success: function(data) {
-        console.log("Response:", data);
-         var categoryId = @Model.Categoryid; 
-         var pageSize = @Model.PageSize; 
-         var searchKey = encodeURIComponent($('#search-input').val() || '');
-         var url = `/Menu/Items?id=${categoryId}&pageNo=1&pageSize=${pageSize}`;
-          window.location.href = url; 
-
-    },
-    error: function(xhr, status, error) {
-        console.error("Error deleting items:", xhr.responseText);
-        alert("An error occurred while deleting the items.");
-        $('#deleteItemModalForMass').modal('hide');
+    </script>
     }
-});
-    });
-});
 
 
-  $(document).ready(function(){
-      
-    const outerCheck = document.getElementById("outerC");
-    const innerChecks = document.querySelectorAll(".inner-check-delete");
-
-    
-    outerCheck.addEventListener("change", function() {
-        innerChecks.forEach(checkbox => {
-            checkbox.checked = outerCheck.checked;
-        });
-    });
-
-  
-    innerChecks.forEach(checkbox => {
-        checkbox.addEventListener("change", function() {
-            const allChecked = [...innerChecks].every(cb => cb.checked);
-            const anyChecked = [...innerChecks].some(cb => cb.checked);
-
-            outerCheck.checked = allChecked;
-            outerCheck.indeterminate = !allChecked && anyChecked; 
-        });
-    });
-    });   
-
-
-</script>
-}
-
-
-
+ *@

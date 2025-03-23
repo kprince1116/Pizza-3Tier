@@ -31,6 +31,8 @@ public class MenuController : Controller
 
         var items = await _userMenu.GetItemsByCategory(selectedCategoryId,  pageNo ,  pageSize);
         items.Categoryid = selectedCategoryId;
+        AddItemviewmodel addItemModel = new AddItemviewmodel();
+        addItemModel.ItemModifierList = new List<ItemModifierGroupviewmodel>();
 
         var viewModel = new menuviewmodel
         {
@@ -39,6 +41,7 @@ public class MenuController : Controller
             units = units,
             Modifiers = modifiers,
             ModifierItems = modifieritems,
+            Additem = addItemModel
         };
 
         return View(viewModel);
@@ -79,34 +82,60 @@ public class MenuController : Controller
     [Route("Menu/ItemsByCategory")]
     public async Task<IActionResult> ItemsByCategory(int id , int pageNo = 1 , int pageSize=3, string searchKey = "" )
     {
-        var items = await _userMenu.GetItemsByCategory(id,pageNo,pageSize, searchKey);
+        var categories = _userMenu.GetCategories();
+        int selectedCategoryId = id != 0 ? id : categories.First().CategoryId;
+
+        var items = await _userMenu.GetItemsByCategory(selectedCategoryId,pageNo,pageSize, searchKey);
         items.Categoryid = id;
         items.searchKey = searchKey;
 
         return PartialView("_ItemsPartial", items);
     }
 
+     // ---------------------------------------------------- Add Item Modifier Select Group -----------------------------
+    [HttpGet]
+    public async Task<IActionResult> GetModifierItemById(int modifierId)
+    {
+        return PartialView("_modifierItemPartialView", await _userMenu.GetModifierItemById(modifierId));
+    }
+
 
     [HttpPost]
-    public async Task<IActionResult> Items(menuviewmodel model)
+    public async Task<IActionResult> Items(menuviewmodel model , string modifierItemList )
     {
+
+        if (!string.IsNullOrEmpty(modifierItemList))
+        {
+            model.Additem.ItemModifierList = JsonSerializer.Deserialize<List<ItemModifierGroupviewmodel>>(modifierItemList);
+        }
+
         var isAdded = await _userMenu.AddNewItem(model);
+
 
         return RedirectToAction("Index","Home");
     }
 
      public async Task<IActionResult> EditItem(int id)
     {
+        
         var item =await _userMenu.GetEditItem(id);
         item.Itemid = id;
+
+        item.ItemModifierList = await _userMenu.GetAllModifierItemById(id);
+        item.ModifierGroupList = _userMenu.GetModifiers();
 
         return PartialView("_EditItemPartial",item);                                 
     }
 
     [HttpPost]
-    public async Task<IActionResult> EditItems(EditItemviewmodel model)
+    public async Task<IActionResult> EditItems(EditItemviewmodel model , string modifierItemListForEdit)
     {
-        var item = _userMenu.EditItem(model);
+        if (!string.IsNullOrEmpty(modifierItemListForEdit))
+        {
+            model.ItemModifierList = JsonSerializer.Deserialize<List<ItemModifierGroupviewmodel>>(modifierItemListForEdit);
+        }
+
+        var item = await _userMenu.EditItem(model);
         return RedirectToAction("Items");                                  
     }
 
@@ -153,7 +182,6 @@ public class MenuController : Controller
 
         if (result.Equals("true"))
         {
-            // var message = string.Format(isCreated ? NotificationMessages.EntityCreated : NotificationMessages.EntityUpdated, "Modifier Group");
             return Json(new { success = true , message = result});
         }
         else

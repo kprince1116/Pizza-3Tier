@@ -4,6 +4,8 @@ namespace Pizzashop.DAL.ViewModels;
 
 public class AddModifierViewModel
 {
+    public List<ItemModifierGroupviewmodel>? ItemModifierList { get; set; }
+
       public IEnumerable<ModifierGroup> modifiers { get; set; }
 
      public IEnumerable<Unit> units {get; set;} 

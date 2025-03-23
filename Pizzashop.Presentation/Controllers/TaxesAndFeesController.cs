@@ -7,7 +7,7 @@ namespace Pizzashop.Presentation.Controllers;
 public class TaxesAndFeesController : Controller
 {
     private readonly IConfiguration _configuration;
-     private readonly ITaxesAndFessService _taxesAndFeesService;
+    private readonly ITaxesAndFessService _taxesAndFeesService;
 
     public TaxesAndFeesController(IConfiguration configuration , ITaxesAndFessService taxesAndFeesService)
     {

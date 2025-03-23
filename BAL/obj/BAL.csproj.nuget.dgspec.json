@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Project\\3Tier\\BAL\\BAL.csproj": {}
+    "D:\\Pizza-3Tier\\BAL\\BAL.csproj": {}
   },
   "projects": {
-    "D:\\Project\\3Tier\\BAL\\BAL.csproj": {
+    "D:\\Pizza-3Tier\\BAL\\BAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\3Tier\\BAL\\BAL.csproj",
+        "projectUniqueName": "D:\\Pizza-3Tier\\BAL\\BAL.csproj",
         "projectName": "BAL",
-        "projectPath": "D:\\Project\\3Tier\\BAL\\BAL.csproj",
-        "packagesPath": "C:\\Users\\pca187\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\3Tier\\BAL\\obj\\",
+        "projectPath": "D:\\Pizza-3Tier\\BAL\\BAL.csproj",
+        "packagesPath": "C:\\Users\\RAMNIKBHAI DOBARIYA\\.nuget\\packages\\",
+        "outputPath": "D:\\Pizza-3Tier\\BAL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\pca187\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\RAMNIKBHAI DOBARIYA\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -26,8 +26,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\Project\\3Tier\\DAL\\DAL.csproj": {
-                "projectPath": "D:\\Project\\3Tier\\DAL\\DAL.csproj"
+              "D:\\Pizza-3Tier\\DAL\\DAL.csproj": {
+                "projectPath": "D:\\Pizza-3Tier\\DAL\\DAL.csproj"
               }
             }
           }
@@ -71,17 +71,17 @@
         }
       }
     },
-    "D:\\Project\\3Tier\\DAL\\DAL.csproj": {
+    "D:\\Pizza-3Tier\\DAL\\DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\3Tier\\DAL\\DAL.csproj",
+        "projectUniqueName": "D:\\Pizza-3Tier\\DAL\\DAL.csproj",
         "projectName": "DAL",
-        "projectPath": "D:\\Project\\3Tier\\DAL\\DAL.csproj",
-        "packagesPath": "C:\\Users\\pca187\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\3Tier\\DAL\\obj\\",
+        "projectPath": "D:\\Pizza-3Tier\\DAL\\DAL.csproj",
+        "packagesPath": "C:\\Users\\RAMNIKBHAI DOBARIYA\\.nuget\\packages\\",
+        "outputPath": "D:\\Pizza-3Tier\\DAL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\pca187\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\RAMNIKBHAI DOBARIYA\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"

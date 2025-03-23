@@ -92,7 +92,7 @@ namespace Pizzashop.Data.Repositories
                 u.ProfileImage,
                 Status = u.Status ?? true,
                 Userrole = u.Userrole,
-                Rolename = _db.Userroles.Where(r => r.Roleid == u.Userrole).Select(r => r.Rolename).FirstOrDefault()
+                 Rolename = _db.Userroles.Where(r => r.Userroleid == u.Userrole).Select(r =>r.RoleName).FirstOrDefault()
             });
 
             if (!string.IsNullOrWhiteSpace(searchTerm))

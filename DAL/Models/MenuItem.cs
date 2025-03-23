@@ -45,5 +45,7 @@ public partial class MenuItem
 
     public virtual MenuCategory? Category { get; set; }
 
+    public virtual ICollection<Itemmodifiergroup> Itemmodifiergroups { get; set; } = new List<Itemmodifiergroup>();
+
     public virtual Unit? Unit { get; set; }
 }

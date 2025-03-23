@@ -55,12 +55,23 @@ public class UserMenu : IUserMenu
         var modifierItems = _userMenuRepository.GetModifierItems();
         return modifierItems;
     }
+
+    // public  List<ItemModifierGroupviewmodel> GetModifierItem()
+    // {
+    //     var modifierItems = _userMenuRepository.GetModifierItem();
+    //     return modifierItems;
+    // }
      public async Task<paginationviewmodel> GetItemsByCategory(int id , int pageNo = 1 , int pageSize=3 , string search = "")
      {
         var items = await _userMenuRepository.GetItemsByCategory(id,pageNo,pageSize,search);
 
         return items;
      }
+
+      public  Task<ModifierGroupViewModel> GetModifierItemById(int modifierId)
+      {
+        return  _userMenuRepository.GetModifierItemById(modifierId);
+      }
 
      public Task<ModifierItemListViewModel> GetItemsByExistingModifier( int pageNo  , int pageSize, string search = "")
      {
@@ -108,7 +119,6 @@ public class UserMenu : IUserMenu
 
       }
 
-       
 
     public async Task<bool> UpdateCategory(Categoryviewmodel model)
     {
@@ -144,25 +154,7 @@ public class UserMenu : IUserMenu
   
       public async Task<bool> EditItem(EditItemviewmodel model)
       {
-        var existingitem = await _userMenuRepository.GetExistingItem(model.Itemid);
-
-         if(existingitem == null)
-        {
-            return false;
-        }
-        existingitem.Categoryid = model.Categoryid;
-        existingitem.Itemid = model.Itemid;
-        existingitem.Itemname = model.Itemname;
-        existingitem.Description = model.Description;
-        existingitem.Quantity = model.Quantity;
-        existingitem.Rate = model.Rate;
-        existingitem.IsAvailable = model.IsAvailable;
-        existingitem.ShortCode = model.ShortCode;
-        existingitem.Unitid = model.UnitId;
-        existingitem.TaxPercentage = model.TaxPercentage;
-        existingitem.Image = model.Image;
-
-         await _userMenuRepository.UpdateItemAsync(existingitem);
+         await _userMenuRepository.UpdateItem(model);
          return true;
       }
 
@@ -285,4 +277,8 @@ public class UserMenu : IUserMenu
                 return await _userMenuRepository.GetExistingModifierItems(id);
             }
 
+    public Task<List<ItemModifierGroupviewmodel>> GetAllModifierItemById(int id)
+    {
+        return _userMenuRepository.GetAllModifierItemById(id);
+    }
 }

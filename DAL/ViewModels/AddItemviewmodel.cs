@@ -5,6 +5,10 @@ namespace Pizzashop.DAL.ViewModels;
 public class AddItemviewmodel
 {
 
+    public IEnumerable<ModifierGroupViewModel> ModifierGroupList {get; set;}
+
+    public List<ItemModifierGroupviewmodel> ItemModifierList { get; set; } = new List<ItemModifierGroupviewmodel>();
+
     public int Itemid { get; set; }
 
     public int? Categoryid { get; set; }

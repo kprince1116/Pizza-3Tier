@@ -1,7 +1,8 @@
  @model Pizzashop.DAL.ViewModels.EditItemviewmodel
   
-  <form method="post" asp-controller="Menu" asp-action="EditItems" >
-    @* <input type="text" id="EditItemId" asp-for="Itemid"/> *@
+  <form method="post" asp-controller="Menu" asp-action="EditItems" class="modal-content" id="editItemForm">
+    <input type="text" id="EditItemId" asp-for="Itemid"/>
+    <input type="hidden" id="selectedModifierList" name="modifierItemListForEdit">
     <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Menu Item</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -13,15 +14,14 @@
                     <div class="row mb-3">
                         <div class="col">
                             <div class="form-floating">
-                                <input type="hidden" id="EditItemId" />
                                 <input type="hidden" id="Categoryid" >
                                  <select class="form-select" id="categorySelect" asp-for="Categoryid"
                                     aria-label="Floating label select example">
                                     <option value="">Select Category</option>
-                                    @foreach (var category in Model.Categories)
-                                    {
-                                        <option value="@category.Categoryid">@category.Name</option>
-                                    }
+                                @foreach (var category in Model.Categories)
+                      {
+                        <option value="@category.Categoryid">@category.Name</option>
+                      }
                                 </select>
                                 <label for="categorySelect">Category</label>
                             </div>
@@ -128,16 +128,75 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 d-lg-block d-none pt-3" style="background-color: #FDF5E6;">
-                    <select class="form-select" id="autoSizingSelect">
-                        <option value="">Select Modifiers Groups(s)</option>
-                    </select>
+                
+                <!-- Modifier Groups -->
+            <div class="col-lg-4 d-lg-block d-none pt-3" style="background-color: #FDF5E6;" >
+              <!-- Modifiers Group List -->
+              <select class="form-select " id="selectModifiers">
+                <option value="-2">Select Modifiers Groups(s) </option>
+                  @foreach (var modifierGroup in Model.ModifierGroupList)
+                        {
+                            <option value="@modifierGroup.ModifierId">@modifierGroup.Name</option>
+                        }
+              </select>
+               <div id="mgItemLists">
+                
+                @foreach (var modifier in Model.ItemModifierList)
+            {
+               <div class="selectedModifierGroup" style="padding: 16px !important;" data-mgitemid="@modifier.ModifierGroupId">
+                    <div class="d-flex justify-content-between">
+                        <span class="fw-bold fs-5" style="color: rgb(119, 116, 113);">@modifier.Name</span>
+                        <img class="removeModifierGroup" src="~/images/icons/trash (1).svg" alt="" data-mgitemid="@modifier.ModifierGroupId">
+
+                    </div>
+                    <!-- Min Max Select  -->
+                    <div class="d-flex justify-content-between">
+                            <select class="MinAllowed" data-mgitemid="@modifier.ModifierGroupId"
+                                style="width: 50%; border-radius: 20px; height: 40px; margin-right: 15px; padding-left: 10px;">
+                                <option selected value="@modifier.MinAllowed">@modifier.MinAllowed</option>
+                                @for (int i = 1; i <= modifier.ModifierItemList.Count; i++)
+                                {
+                                    <option value="@i">@i</option>
+
+                                }
+                            </select>
+                            <select class="MaxAllowed" data-mgitemid="@modifier.ModifierGroupId"  style="width: 50%; border-radius: 20px; padding-left: 10px;">
+                                <option selected value="@modifier.MaxAllowed">@modifier.MaxAllowed</option>
+                                @for (int i = 1; i <= modifier.ModifierItemList.Count; i++)
+                                {
+                                    <option value="@i">@i</option>
+
+                                }
+                            </select>
+                        </div>
+                        <!-- Modifier align-items-center List  -->
+                        <div>
+                            <ul>
+                                @foreach (var items in modifier.ModifierItemList)
+                                {
+                                    <li>
+                                        <div class="d-flex justify-content-between">
+                                            <span>@items.Name</span>
+                                            <span>@items.Rate</span>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    
                 </div>
+            }
+                </div> 
+
+            </div>
+            <!-- section for modifier Item -->
+           
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" id="submitEditItemBtn" class="btn btn-primary">Save</button>
         <button type="button" class="btn btn-secondary">Cancel</button>
     </div>
 </form>
+
