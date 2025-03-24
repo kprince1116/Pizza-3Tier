@@ -53,7 +53,7 @@ public partial class PizzaShopContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql("Host=localhost;Database=pizza-shop;Username=postgres;password=Happy@007");
+        => optionsBuilder.UseNpgsql("Host=localhost;Database=pizza-shop;Username=postgres;     password=Tatva@123");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -176,7 +176,7 @@ public partial class PizzaShopContext : DbContext
                 .HasMaxLength(150)
                 .HasColumnName("itemname");
             entity.Property(e => e.Itemtype)
-                .HasMaxLength(10)
+                .HasMaxLength(150)
                 .HasColumnName("itemtype");
             entity.Property(e => e.ModifiedBy).HasColumnName("modified_by");
             entity.Property(e => e.ModifiedDate)
@@ -572,6 +572,18 @@ public partial class PizzaShopContext : DbContext
 
         modelBuilder.Entity<Userrole>(entity =>
         {
+            entity.HasKey(e => e.Roleid).HasName("userrole_pkey");
+
+            entity.ToTable("userrole");
+
+            entity.Property(e => e.Roleid).HasColumnName("roleid");
+            entity.Property(e => e.Rolename)
+                .HasMaxLength(150)
+                .HasColumnName("rolename");
+        });
+
+        modelBuilder.Entity<Userrole1>(entity =>
+        {
             entity.HasKey(e => e.Userroleid).HasName("userroles_pkey");
 
             entity.ToTable("userroles");
@@ -591,18 +603,6 @@ public partial class PizzaShopContext : DbContext
             entity.Property(e => e.RoleName)
                 .HasMaxLength(150)
                 .HasColumnName("role_name");
-        });
-
-        modelBuilder.Entity<Userrole1>(entity =>
-        {
-            entity.HasKey(e => e.Roleid).HasName("userrole_pkey");
-
-            entity.ToTable("userrole");
-
-            entity.Property(e => e.Roleid).HasColumnName("roleid");
-            entity.Property(e => e.Rolename)
-                .HasMaxLength(150)
-                .HasColumnName("rolename");
         });
 
         OnModelCreatingPartial(modelBuilder);

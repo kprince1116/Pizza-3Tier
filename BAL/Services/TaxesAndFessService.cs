@@ -66,4 +66,39 @@ public class TaxesAndFessService : ITaxesAndFessService
         return true;
     }
 
+    public async Task<bool> EditTaxAvailabity(int id, bool isAvailable)
+    {
+        var existingtax = await _TaxesAndFessRepository.GetTaxById(id);
+
+        if(existingtax == null)
+        {
+            return false;
+        }
+
+        existingtax.Isactive = isAvailable;
+
+        await _TaxesAndFessRepository.UpdateTaxAsync(existingtax);
+
+        return true;
+
+    }
+    public async Task<bool> EditTaxDefault(int id, bool isAvailable)
+    {
+        var existingtax = await _TaxesAndFessRepository.GetTaxById(id);
+
+        if(existingtax == null)
+        {
+            return false;
+        }
+
+        existingtax.Isdefault = isAvailable;
+
+        await _TaxesAndFessRepository.UpdateTaxAsync(existingtax);
+
+        return true;
+
+    }
+
+
+
 }

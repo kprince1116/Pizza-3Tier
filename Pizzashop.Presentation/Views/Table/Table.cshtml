@@ -38,8 +38,7 @@
                       <div class="d-flex justify-content-between align-items-center">
                         <a href="" data-section-id="@sections.Sectionid"
                           class="sectionBtn d-flex gap-2 pt-2 pb-2 ps-3  nav-link active align-items-center">
-                          <img style="height: 25px;" src="~/images/icons/dots-menu-svgrepo-com.svg">
-                          @* <div onclick="fetchTables(@sections.Sectionid)">@sections.SectionName</div> *@
+                          <img style="height: 25px;" src="~/images/icons/grid.png">
                           <div class="section-name" data-sectionid="@sections.Sectionid">@sections.SectionName</div>
                         </a>
                         <div class="icons">
@@ -101,12 +100,14 @@
       <div class="modal-body">
         <div class="d-flex flex-column gap-2">
           <div class="form-floating">
-            <input type="text" class="form-control" id="floatingInput" name="SectionName" placeholder="Category Name">
+            <input type="text" class="form-control" id="floatingInput" asp-for = "@Model.section.SectionName" placeholder="Category Name">
             <label for="floatingInput">Name</label>
+            <span asp-validation-for="@Model.section.SectionName" class="text-danger"></span>
           </div>
           <div class="form-floating">
-            <input type="text" class="form-control" id="floatingInput" name="Description" placeholder="Description">
+            <input type="text" class="form-control" id="floatingInput"  asp-for = "@Model.section.Description" placeholder="Description">
             <label for="floatingInput">Description</label>
+            <span asp-validation-for="@Model.section.Description" class="text-danger"></span>
           </div>
         </div>
       </div>
@@ -152,14 +153,16 @@
       <div class="modal-body">
         <div class="d-flex flex-column gap-2">
           <div class="form-floating">
-            <input type="hidden" id="SectionEditId" name="Sectionid">
-            <input type="text" class="form-control" id="SectionName" name="SectionName" placeholder="Category Name">
-            <label for="SectionName">Name</label> <!-- Updated for attribute -->
+            <input type="hidden" id="SectionEditId" asp-for="@Model.section.Sectionid" >
+            <input type="text" class="form-control" id="SectionName" asp-for = "@Model.section.SectionName" placeholder="Category Name">
+            <label for="SectionName">Name</label> 
+             <span asp-validation-for="@Model.section.SectionName" class="text-danger"></span>
           </div>
           <div class="form-floating">
-            <input type="text" class="form-control" id="SectionDescription" name="Description"
+            <input type="text" class="form-control" id="SectionDescription" asp-for = "@Model.section.Description"
               placeholder="Description"> <!-- ID corrected -->
-            <label for="SectionDescription">Description</label> <!-- Updated for attribute -->
+            <label for="SectionDescription">Description</label> 
+            <span asp-validation-for="@Model.section.Description" class="text-danger"></span>
           </div>
         </div>
       </div>
@@ -189,6 +192,7 @@
                   <div class="form-floating">
                     <input type="text" class="form-control" asp-for = "@Model.AddTable.TableName" id="tableName" placeholder="Enter table name" required>
                     <label for="tableName">Name</label>
+                    <span asp-validation-for="@Model.AddTable.TableName" class="text-danger"></span>
                   </div>
                 </div>
                 <div class="col">
@@ -208,6 +212,7 @@
                   <div class="form-floating">
                     <input type="number" asp-for="@Model.AddTable.Capacity" class="form-control" id="capacityInput" placeholder="Enter capacity" required>
                     <label for="capacityInput">Capacity</label>
+                    <span asp-validation-for="@Model.AddTable.Capacity" class="text-danger"></span>
                   </div>
                 </div>
                 <div class="col">
@@ -267,6 +272,10 @@
 
 @section scripts {
 
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
   <script>
 

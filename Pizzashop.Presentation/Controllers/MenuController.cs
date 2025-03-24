@@ -49,12 +49,13 @@ public class MenuController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddCategory(Categoryviewmodel model)
+    public async Task<IActionResult> AddCategory(menuviewmodel model)
     {
+
         var isAdded = await _userMenu.AddCategory(model);
         if (isAdded)
         {
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Items", "Menu");
         }
         else
         {
@@ -63,10 +64,10 @@ public class MenuController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> EditCategory(Categoryviewmodel model)
+    public async Task<IActionResult> EditCategory(menuviewmodel model)
     {
         await _userMenu.UpdateCategory(model);
-        return RedirectToAction("Index", "Home");
+        return RedirectToAction("Items", "Menu");
     }
 
 
@@ -75,7 +76,7 @@ public class MenuController : Controller
     {
         var existingCategory = await _userMenu.GetModifierById(id);
 
-        return RedirectToAction("Index", "Home");
+        return RedirectToAction("Items", "Menu");
 
     }
 
@@ -130,6 +131,7 @@ public class MenuController : Controller
     [HttpPost]
     public async Task<IActionResult> EditItems(EditItemviewmodel model , string modifierItemListForEdit)
     {
+
         if (!string.IsNullOrEmpty(modifierItemListForEdit))
         {
             model.ItemModifierList = JsonSerializer.Deserialize<List<ItemModifierGroupviewmodel>>(modifierItemListForEdit);
@@ -137,6 +139,13 @@ public class MenuController : Controller
 
         var item = await _userMenu.EditItem(model);
         return RedirectToAction("Items");                                  
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> EditItemAvailabity(int id , bool isAvailable)
+    {
+         var item =await _userMenu.EditItemAvailabity(id,isAvailable);
+          return Json( new { success = true, message = "hi"});
     }
 
     [HttpPost]
@@ -213,7 +222,7 @@ public class MenuController : Controller
     public async Task<IActionResult> DeleteModifer(int id)
     {
         var existingModifier = await _userMenu.GetModifierByIdForDelete(id);
-        return RedirectToAction("Index", "Home");
+        return RedirectToAction("ItemsByModifier", "Menu");
     }
 
    

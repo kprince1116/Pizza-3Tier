@@ -51,5 +51,5 @@ public partial class User
 
     public virtual State? StateNavigation { get; set; }
 
-    public virtual Userrole1 UserroleNavigation { get; set; } = null!;
+    public virtual Userrole UserroleNavigation { get; set; } = null!;
 }

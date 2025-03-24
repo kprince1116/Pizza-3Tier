@@ -26,11 +26,13 @@ public interface IUserMenu
 
     // public Task<int> GetItemsCountByCategory(int categoryId);
 
-    public Task<bool> AddCategory(Categoryviewmodel model);
+    public Task<bool> AddCategory(menuviewmodel model);
 
     public Task<bool> GetModifierById(int id);
 
-    public Task<bool> UpdateCategory(Categoryviewmodel model);
+    public Task<bool> EditItemAvailabity(int id , bool isAvailable);
+
+    public Task<bool> UpdateCategory(menuviewmodel model);
 
     public Task<bool> AddNewItem( menuviewmodel model);
     

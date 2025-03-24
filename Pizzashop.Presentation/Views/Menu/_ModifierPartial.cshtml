@@ -52,7 +52,7 @@
                       <input class="form-check-input inner-check-deletes" type="checkbox" value="" id="flexCheckChecked" data-degroupid = "@item.ModifierGroupId" data-deid="@item.ModifierItemId">
                       <div class="d-flex align-items-center gap-1">
                         <img style="height: 25px;" src="~/images/dining-menu.png" alt="">
-                        <div class="d-flex align-items-center text-nowrap">@item.Name</div>
+                        <div class="d-flex align-items-center text-nowrap modifier-name">@item.Name</div>
                       </div>
                     </div>
                   </th>
@@ -190,14 +190,12 @@
       const outerCheck = document.getElementById("outerCheckboxes");
       const innerChecks = document.querySelectorAll(".inner-check-deletes");
 
-
       outerCheck.addEventListener("change", function () {
           innerChecks.forEach(checkbox => {
               checkbox.checked = outerCheck.checked;
           });
       });
 
-      
       innerChecks.forEach(checkbox => {
           checkbox.addEventListener("change", function () {
               const allChecked = [...innerChecks].every(cb => cb.checked);

@@ -1,8 +1,9 @@
+@using DAL.Models
  @model Pizzashop.DAL.ViewModels.EditItemviewmodel
   
-  <form method="post" asp-controller="Menu" asp-action="EditItems" class="modal-content" id="editItemForm">
-    <input type="text" id="EditItemId" asp-for="Itemid"/>
-    <input type="hidden" id="selectedModifierList" name="modifierItemListForEdit">
+  <form method="post" enctype="multipart/form-data" asp-controller="Menu" asp-action="EditItems" class="modal-content" id="editItemForm">
+    <input type="text" id="EditItemId" asp-for="Itemid" hidden/>
+    <input type="hidden" id="selectedModifierListForEdit" name="modifierItemListForEdit">
     <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Menu Item</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -11,8 +12,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-8 col-12">
-                    <div class="row mb-3">
-                        <div class="col">
+                    <div class="row ">
+                        <div class="col-lg-6 col-md-6 mb-md-3 mb-3">
                             <div class="form-floating">
                                 <input type="hidden" id="Categoryid" >
                                  <select class="form-select" id="categorySelect" asp-for="Categoryid"
@@ -26,11 +27,12 @@
                                 <label for="categorySelect">Category</label>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-lg-6 col-md-6 mb-md-3 mb-3">
                             <div class="form-floating">
                                 <input asp-for="@Model.Itemname" type="text" class="form-control" id="floatingInput"
                                     placeholder="name@example.com">
                                 <label  for="floatingInput">Name</label>
+                                <span asp-validation-for="@Model.Itemname" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
@@ -44,6 +46,7 @@
                                     <option value="non-veg">Non-veg</option>
                                 </select>
                                 <label for="floatingSelect">Item Type</label>
+                                <span asp-validation-for="@Model.Itemtype" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 mb-md-3 mb-3">
@@ -51,6 +54,7 @@
                                 <input type="text" class="form-control" id="floatingRate" placeholder="name@example.com"
                                     asp-for="@Model.Rate">
                                 <label for="floatingRate">Rate</label>
+                                <span asp-validation-for="@Model.Rate" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 mb-3">
@@ -58,6 +62,7 @@
                                 <input type="text" class="form-control" id="floatingQuantity" placeholder="name@example.com"
                                     asp-for="@Model.Quantity">
                                 <label for="floatingQuantity">Quantity</label>
+                                <span asp-validation-for="@Model.Quantity" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 mb-3">
@@ -94,43 +99,44 @@
                                 <input type="text" class="form-control" id="floatingTaxPercentage" asp-for="@Model.TaxPercentage"
                                     placeholder="name@example.com">
                                 <label for="floatingTaxPercentage">Tax Percentage</label>
+                                <span asp-validation-for="@Model.TaxPercentage" class="text-danger"></span>
                             </div>
-                        </div>
+                            </div>
+                    
                         <div class="col-lg-3 col-md-6 col-12">
                             <div class="form-floating">
                                 <input type="text" class="form-control" id="floatingShortCode" asp-for="@Model.ShortCode"
                                     placeholder="name@example.com">
                                 <label for="floatingShortCode">Short Code</label>
+                                <span asp-validation-for="@Model.ShortCode" class="text-danger"></span>
                             </div>
                         </div>
-                    </div>
+                   </div>
                     <div class="row mb-3">
-                        <div class="col">
+                        <div class="col-12">
                             <textarea class="form-control" id="floatingDescription" style="height: 80px;" type="text" asp-for="@Model.Description"
                                 placeholder="Description"></textarea>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <span>Upload Image</span>
-                            <p style="height: 100px;"
-                                class="form-control align-items-center d-flex flex-column justify-content-center" placeholder="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-cloud-arrow-up" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M7.646 5.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708z" />
-                                    <path
-                                        d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z" />
-                                </svg>
-                                Drag and drops or Browse file
-                                <input type="file" style="opacity: 0%;" name="" id="" asp-for="@Model.Image">
-                            </p>
-                        </div>
-                    </div>
+                      <div class="row mb-3">
+                        <input type="hidden" asp-for ="@Model.Image">
+          <div class="col-12">
+        <span>Upload Image</span>
+       <div class="image-upload-container" style="height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 2px dashed #ccc; border-radius: 10px; padding: 10px;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-arrow-up" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M7.646 5.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708z" />
+        <path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z" />
+      </svg>
+      <span id="uploadTextForEdit">Drag and drop or Browse file</span>
+      <input type="file" style="opacity: 0; position: absolute;" asp-for="@Model.ItemImage" id="imageUpload" onchange="previewImageForEdit(event)">
+      <img id="imagePreviewForEdit" src="#" alt="Image Preview" style="display: none; max-width: 80%; max-height: 80%; object-fit: contain; margin-top: 10px;" />
+       </div>
+          </div>
+                      </div> 
                 </div>
                 
                 <!-- Modifier Groups -->
-            <div class="col-lg-4 d-lg-block d-none pt-3" style="background-color: #FDF5E6;" >
+            <div class="col-lg-4 d-lg-block pt-3" style="background-color: #FDF5E6;" >
               <!-- Modifiers Group List -->
               <select class="form-select " id="selectModifiers">
                 <option value="-2">Select Modifiers Groups(s) </option>
@@ -200,3 +206,11 @@
     </div>
 </form>
 
+@section scripts{
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+}

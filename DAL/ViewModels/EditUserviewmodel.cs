@@ -21,6 +21,8 @@ public class EditUserviewmodel
 
     public IFormFile ProfileImage { get; set; } 
 
+    public string image { get; set; }
+
      public int CountryId { get; set; }
 
     public int StateId { get; set; }

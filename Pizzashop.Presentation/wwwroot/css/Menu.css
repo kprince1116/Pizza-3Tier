@@ -11,6 +11,12 @@
   border-radius: none !important;
 }
 
+.item-name {
+  /* color: #666; */
+  color: black;
+  font-weight: normal; 
+}
+
 
 /* 
 .aaa :hover {

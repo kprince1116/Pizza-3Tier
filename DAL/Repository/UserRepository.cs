@@ -92,7 +92,7 @@ namespace Pizzashop.Data.Repositories
                 u.ProfileImage,
                 Status = u.Status ?? true,
                 Userrole = u.Userrole,
-                 Rolename = _db.Userroles.Where(r => r.Userroleid == u.Userrole).Select(r =>r.RoleName).FirstOrDefault()
+                Rolename = _db.Userroles.Where(r => r.Roleid == u.Userrole).Select(r => r.Rolename).FirstOrDefault()
             });
 
             if (!string.IsNullOrWhiteSpace(searchTerm))
@@ -199,9 +199,6 @@ namespace Pizzashop.Data.Repositories
         }
         public async Task UpdateUserAsync(User existingUser)
         {
-
-            
-
             _db.Users.Update(existingUser);
             await _db.SaveChangesAsync();
         }

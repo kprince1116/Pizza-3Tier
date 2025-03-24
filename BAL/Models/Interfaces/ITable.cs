@@ -8,9 +8,9 @@ public interface ITable
     public List<Sectionviemodel> GetSections();
 
     //CRUD SECTIONS
-    public Task<bool> AddSection(Sectionviemodel model);
+    public Task<bool> AddSection(Tablesviewmodel model);
 
-    public Task<bool> EditSection(Sectionviemodel model);
+    public Task<bool> EditSection(Tablesviewmodel model);
 
     public Task<bool> GetSectionByIdForDelte(int id);
 

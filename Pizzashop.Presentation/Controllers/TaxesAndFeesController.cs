@@ -57,4 +57,18 @@ public class TaxesAndFeesController : Controller
           return  RedirectToAction("TaxesAndFees", "TaxesAndFees");
     }
 
+    [HttpPost]
+    public async Task<IActionResult> EditTaxAvailabity(int id , bool isAvailable)
+    {
+         var item =await _taxesAndFeesService.EditTaxAvailabity(id,isAvailable);
+          return Json( new { success = true, message = "hi"});
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> EditTaxDefault(int id , bool isAvailable)
+    {
+         var item =await _taxesAndFeesService.EditTaxDefault(id,isAvailable);
+          return Json( new { success = true, message = "hi"});
+    }
+
 }

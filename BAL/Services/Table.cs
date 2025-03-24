@@ -30,23 +30,23 @@ public class Table : ITable
 
     //CRUD SECTIONS
 
-    public async Task<bool> AddSection(Sectionviemodel model)
+    public async Task<bool> AddSection(Tablesviewmodel model)
     {
         return await _userTableRepository.AddSection(model);
    
     }
 
-    public async Task<bool> EditSection(Sectionviemodel model)
+    public async Task<bool> EditSection(Tablesviewmodel model)
     {
-        var section = await _userTableRepository.GetSectionByIdForEdit(model.Sectionid);
+        var section = await _userTableRepository.GetSectionByIdForEdit(model.section.Sectionid);
 
         if(section == null)
         {
             return false;
         }
 
-        section.SectionName = model.SectionName;
-        section.Description = model.Description;    
+        section.SectionName = model.section.SectionName;
+        section.Description = model.section.Description;    
 
         await _userTableRepository.UpdateSectionForEditAsync(section);
 

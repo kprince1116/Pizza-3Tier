@@ -16,6 +16,7 @@
                     @* <input type="hidden" > *@
                     <input type="text" class="form-control" asp-for = "@Model.TableName" id="tableName" placeholder="Enter table name" required>
                     <label for="tableName">Name</label>
+                     <span asp-validation-for="@Model.TableName" class="text-danger"></span>
                   </div>
                 </div>
                 <div class="col">
@@ -35,6 +36,7 @@
                   <div class="form-floating">
                     <input type="number" asp-for="@Model.Capacity" class="form-control" id="capacityInput" placeholder="Enter capacity" required>
                     <label for="capacityInput">Capacity</label>
+                     <span asp-validation-for="@Model.Capacity" class="text-danger"></span>
                   </div>
                 </div>
                 <div class="col">
@@ -57,3 +59,8 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
       </div>
 </form>
+
+ <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

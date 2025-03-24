@@ -209,4 +209,54 @@
   $(document).ready(function () {
     changePageForTaxes(1);
      })
+
+
+    $(document).on('change', '.tax-available-switch', function () {
+    var $switch = $(this); 
+    var itemId = $switch.data("id");
+    var newAvailable = $switch.prop('checked'); 
+
+    console.log(itemId);
+    console.log(newAvailable);
+    $.ajax({
+        url: '@Url.Action("EditTaxAvailabity", "TaxesAndFees")', 
+        type: 'POST',
+        data: { id: itemId, isAvailable: newAvailable },
+        success: function (data) {
+            if (data.success) {
+                toastr.success("Tax updated successfully");
+            } else {
+                toastr.error("Failed to update item: " + data.message); 
+            }
+        },
+        error: function (xhr, status, error) {
+            toastr.error("Error updating tax: " + error); 
+        }
+    });
+});
+
+ $(document).on('change', '.tax-default-switch', function () {
+    var $switch = $(this); 
+    var taxId = $switch.data("taxid");
+    var newDefault = $switch.prop('checked'); 
+
+    console.log(taxId);
+    console.log(newDefault);
+    $.ajax({
+        url: '@Url.Action("EditTaxDefault", "TaxesAndFees")', 
+        type: 'POST',
+        data: { id: taxId, isAvailable: newDefault },
+        success: function (data) {
+            if (data.success) {
+                toastr.success("Tax updated successfully");
+            } else {
+                toastr.error("Failed to update item: " + data.message); 
+            }
+        },
+        error: function (xhr, status, error) {
+            toastr.error("Error updating tax: " + error); 
+        }
+    });
+});
+
 </script>

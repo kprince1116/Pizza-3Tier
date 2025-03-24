@@ -1,4 +1,6 @@
+using System.ComponentModel.DataAnnotations;
 using DAL.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Pizzashop.DAL.ViewModels;
 
@@ -16,25 +18,32 @@ public class EditItemviewmodel
 
     public int? Categoryid { get; set; }
 
+    [Required(ErrorMessage = "ItemName is required")]
     public string Itemname { get; set; } = null!;
 
+    [Required(ErrorMessage = "ItemType is required")]
     public string? Itemtype { get; set; }
 
+    [Required(ErrorMessage = "Quantity is required")]
     public int? Quantity { get; set; }
 
+     [Required(ErrorMessage = "Rate is required")]
     public decimal? Rate { get; set; }
 
     public bool IsAvailable { get; set; }
 
     public int? UnitId { get; set; }
 
+    public IFormFile? ItemImage { get; set; }
     public string? Image { get; set; }
     public string? Description { get; set; }
 
+    [Required(ErrorMessage = "TaxPercentage is required")]
     public decimal? TaxPercentage { get; set; }
 
     public bool? IsFavourite { get; set; }
 
+    [Required(ErrorMessage = "ShortCode is required")]
     public string? ShortCode { get; set; }
 
     public bool IsDefaultTax { get; set; }

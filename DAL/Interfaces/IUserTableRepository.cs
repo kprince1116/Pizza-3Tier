@@ -10,7 +10,7 @@ public interface IUserTableRepository
 
     //CRUD SECTIONS
 
-    public Task<bool> AddSection(Sectionviemodel model);
+    public Task<bool> AddSection(Tablesviewmodel model);
 
     public Task<Section> GetSectionByIdForEdit(int Sectionid);
 

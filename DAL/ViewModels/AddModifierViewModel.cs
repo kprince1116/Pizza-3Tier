@@ -1,4 +1,7 @@
 using DAL.Models;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
+
 
 namespace Pizzashop.DAL.ViewModels;
 
@@ -9,17 +12,22 @@ public class AddModifierViewModel
       public IEnumerable<ModifierGroup> modifiers { get; set; }
 
      public IEnumerable<Unit> units {get; set;} 
+
+    [Required(ErrorMessage = "ModifierName is required")]
     public string ModifierName { get; set; } 
 
     public int? ModifierGroupId { get; set; }
     public int? ModifierId { get; set; }
 
+   [Required(ErrorMessage = "Quantity is required")]
     public int? Quantity { get; set; }
 
+    [Required(ErrorMessage = "Rate is required")]
     public decimal? Rate { get; set; }
 
     public int? UnitId { get; set; }
 
+    [Required(ErrorMessage = "Description is required")]
     public string? Description { get; set; }
 
     public decimal? TaxPercentage { get; set; }

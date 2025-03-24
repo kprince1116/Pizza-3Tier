@@ -25,6 +25,13 @@
     .ff{
       padding-inline-start: 30%;
     } */
+
+    .modifier-name{
+      /* color: #666; */
+      color: black;
+      font-weight: normal; 
+    }
+
   .sidebar-elementsformodifier{
     height: 390px; 
     overflow-y: scroll;

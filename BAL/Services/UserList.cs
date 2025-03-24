@@ -91,6 +91,7 @@ public class UserList : IUserList
         existingUser.Phonenumber = user.Phonenumber;
         existingUser.Address = user.Address;
         existingUser.Zipcode = user.Zipcode;
+        existingUser.ProfileImage = user.image;
 
          if (user.ProfileImage != null)
         {

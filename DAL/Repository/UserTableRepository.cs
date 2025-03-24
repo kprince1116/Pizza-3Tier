@@ -23,12 +23,12 @@ public class UserTableRepository : IUserTableRepository
 
     //CRUD SECTIONS
 
-    public async Task<bool> AddSection(Sectionviemodel model)
+    public async Task<bool> AddSection(Tablesviewmodel model)
     {
         var section = new Section
         {
-            SectionName = model.SectionName,
-            Description = model.Description
+            SectionName = model.section.SectionName,
+            Description = model.section.Description
         };
         _db.Sections.Add(section);
         bool success = await _db.SaveChangesAsync() > 0;

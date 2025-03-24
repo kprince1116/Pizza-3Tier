@@ -25,7 +25,7 @@ public interface IUserMenuRepository
 
     public Task<int> GetCount(int categoryId);
 
-    public Task<bool> AddCategory( Categoryviewmodel model);
+    public Task<bool> AddCategory( menuviewmodel model);
 
     public Task<MenuCategory> GetUserByIdForDelete(int id);
 
@@ -37,9 +37,12 @@ public interface IUserMenuRepository
 
     Task AddNewItem(menuviewmodel model);
 
-    public Task<EditItemviewmodel> GetEditItem(int id);
+    public Task<EditItemviewmodel> GetEditItem(int id); 
 
-    
+    public Task<MenuItem> EditItemAvailabity(int id);
+
+    Task UpdateItemAsync(MenuItem existingitem);
+
     public Task<MenuItem> GetExistingItem(int id);
 
     Task<bool> UpdateItem( EditItemviewmodel model);

@@ -8,6 +8,7 @@ public class menuviewmodel
         public IEnumerable<Categoryviewmodel> Categories { get; set; }
         public IEnumerable<ModifierGroupViewModel> Modifiers  { get; set; }
         public List<ModifierItemViewModel> ModifierItems {get; set;}
+        public Categoryviewmodel AddCategory {get; set;}
         public AddItemviewmodel Additem {get; set;}
         public EditItemviewmodel EditItem {get; set;}
         public IEnumerable<Unit> units {get; set;} 

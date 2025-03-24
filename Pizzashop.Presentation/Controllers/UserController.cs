@@ -83,7 +83,7 @@ public class UserController : Controller
             Username = user.Username,
             Email = user.Email,
             Country = countryname,
-            // ProfileImage = user.ProfileImage,
+            image = user.ProfileImage,
             Status = user.Status,
             State = statename,
             City = cityname,

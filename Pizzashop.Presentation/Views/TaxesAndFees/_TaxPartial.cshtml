@@ -36,13 +36,13 @@
                 </td>
                 <td>
            <div class="ff form-check form-switch d-flex " style="text-align: center;">
-          <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckActive" 
+          <input class="form-check-input tax-available-switch " data-id="@tax.TaxId" type="checkbox" role="switch" id="flexSwitchCheckActive_@tax.TaxId" 
                @(tax.IsActive ? "checked" : "")>
           </div>
         </td>
         <td>
       <div class="ff form-check form-switch " style="text-align: center;">
-        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" 
+        <input class="form-check-input tax-default-switch" data-taxid="@tax.TaxId" type="checkbox" role="switch" id="flexSwitchCheckDefault_@tax.TaxId" 
                @(tax.IsDefault ? "checked" : "")>
       </div>
       </td>

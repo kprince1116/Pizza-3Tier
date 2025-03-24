@@ -35,7 +35,7 @@ public class TableController : Controller
 
     //CRUD SECTIONS
     [HttpPost]
-    public async Task<IActionResult> AddSection(Sectionviemodel model)
+    public async Task<IActionResult> AddSection(Tablesviewmodel model)
     {
         var isAdded = await _table.AddSection(model);
         if (isAdded)
@@ -50,7 +50,7 @@ public class TableController : Controller
 
     [HttpPost]
 
-    public async Task<IActionResult> EditSection(Sectionviemodel model)
+    public async Task<IActionResult> EditSection(Tablesviewmodel model)
     {
         await _table.EditSection(model);
     

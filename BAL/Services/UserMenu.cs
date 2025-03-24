@@ -27,7 +27,7 @@ public class UserMenu : IUserMenu
             CategoryId = c.Categoryid,
             CategoryName = c.Name,
             Description = c.Description
-        }).ToList();
+        }).OrderBy(u=>u.CategoryId).ToList();
 
         return categoryViewModels;
     }
@@ -83,7 +83,7 @@ public class UserMenu : IUserMenu
         return await _userMenuRepository.GetCount(categoryId);
     }
 
-     public async Task<bool> AddCategory(Categoryviewmodel model)
+     public async Task<bool> AddCategory(menuviewmodel model)
      {
          return await _userMenuRepository.AddCategory(model);
      }
@@ -120,17 +120,17 @@ public class UserMenu : IUserMenu
       }
 
 
-    public async Task<bool> UpdateCategory(Categoryviewmodel model)
+    public async Task<bool> UpdateCategory(menuviewmodel model)
     {
-        var category = await _userMenuRepository.GetCategoryId(model.CategoryId);
+        var category = await _userMenuRepository.GetCategoryId(model.AddCategory.CategoryId);
 
         if(category == null)
         {
             return false;
         }
 
-        category.Name = model.CategoryName;
-        category.Description = model.Description;
+        category.Name = model.AddCategory.CategoryName;
+        category.Description = model.AddCategory.Description;
 
         await _userMenuRepository.UpdateCategoryAsync(category);
         return true;
@@ -146,6 +146,22 @@ public class UserMenu : IUserMenu
         return true;
      }
 
+     public async Task<bool> EditItemAvailabity(int id , bool isAvailable)
+     {
+        var existingitem = await _userMenuRepository.EditItemAvailabity(id);
+
+        if(existingitem == null)
+        {
+            return false;
+        }
+
+        existingitem.IsAvailable = isAvailable;
+
+        await _userMenuRepository.UpdateItemAsync(existingitem);
+
+        return true;
+     }
+    
      public async Task<EditItemviewmodel> GetEditItem(int id)
      {
         return await _userMenuRepository.GetEditItem(id);

@@ -1,3 +1,4 @@
+using System.Data.Common;
 using DAL.Interfaces;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
@@ -34,7 +35,7 @@ public class UserMenuRepository : IUserMenuRepository
             Rate = u.Rate,
             Quantity = u.Quantity,
             // Description = u.Description
-        }).ToList();
+        }).OrderBy(u=>u.ModifierItemId).ToList();
     }
     
     // public List<ItemModifierGroupviewmodel> GetModifierItem()
@@ -63,7 +64,7 @@ public class UserMenuRepository : IUserMenuRepository
                 Quantity = u.Quantity,
                 IsAvailable = (bool)u.IsAvailable,
                 Image = u.Image,
-            });
+            }).OrderBy(u=>u.Itemid);
 
         var totalRecords = item.Count();
 
@@ -146,12 +147,12 @@ public class UserMenuRepository : IUserMenuRepository
         return query.CountAsync();
     }
 
-    public async Task<bool> AddCategory(Categoryviewmodel model)
+    public async Task<bool> AddCategory(menuviewmodel model)
     {
         var category = new MenuCategory
         {
-            Name = model.CategoryName,
-            Description = model.Description,
+            Name = model.AddCategory.CategoryName,
+            Description = model.AddCategory.Description,
         };
 
         _db.MenuCategories.Add(category);
@@ -192,10 +193,29 @@ public class UserMenuRepository : IUserMenuRepository
             Quantity = model.Additem.Quantity,
             Rate = model.Additem.Rate,
             IsAvailable = model.Additem.IsAvailable,
-            Image = model.Additem.Image,
             Description = model.Additem.Description,
             TaxPercentage = model.Additem.TaxPercentage,
         };
+
+        if(model.Additem.ItemImage !=null)
+        {
+            string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+            if (!Directory.Exists(uploadsFolder))
+            {
+                Directory.CreateDirectory(uploadsFolder);
+            }
+
+            string filename = $"{Guid.NewGuid()}_{model.Additem.ItemImage.FileName}";
+            string filepath = Path.Combine(uploadsFolder, filename);
+
+            using (FileStream fileStream = new FileStream(filepath, FileMode.Create))
+            {
+                await model.Additem.ItemImage.CopyToAsync(fileStream);
+            }
+
+            item.Image = $"/uploads/{filename}"; 
+        }
+
         _db.MenuItems.Update(item);
         await _db.SaveChangesAsync();
 
@@ -284,6 +304,11 @@ public class UserMenuRepository : IUserMenuRepository
         }
     }
 
+    public async Task<MenuItem> EditItemAvailabity(int id)
+    {
+        return await _db.MenuItems.FirstOrDefaultAsync(u=>u.Itemid == id);
+    }
+
     public async Task<EditItemviewmodel> GetEditItem(int id)
     {
         return await _db.MenuItems.Where(u => u.Itemid == id).Select(u => new EditItemviewmodel
@@ -332,6 +357,27 @@ public class UserMenuRepository : IUserMenuRepository
         existingitem.TaxPercentage = model.TaxPercentage;
         existingitem.Image = model.Image;
 
+        
+        if(model.ItemImage !=null)
+        {
+            string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+            if (!Directory.Exists(uploadsFolder))
+            {
+                Directory.CreateDirectory(uploadsFolder);
+            }
+
+            string filename = $"{Guid.NewGuid()}_{model.ItemImage.FileName}";
+            string filepath = Path.Combine(uploadsFolder, filename);
+
+            using (FileStream fileStream = new FileStream(filepath, FileMode.Create))
+            {
+                await model.ItemImage.CopyToAsync(fileStream);
+            }
+
+            existingitem.Image = $"/uploads/{filename}"; 
+        }
+        
+
         _db.MenuItems.Update(existingitem);
         await _db.SaveChangesAsync();
 
@@ -345,7 +391,6 @@ public class UserMenuRepository : IUserMenuRepository
     {
         return await _db.MenuItems.FirstOrDefaultAsync(m => m.Itemid == id);
     }
-
 
     public async Task DeleteItemAsync(MenuItem existingitem)
     {
@@ -636,6 +681,11 @@ public class UserMenuRepository : IUserMenuRepository
         return _db.Modifiers.FirstOrDefaultAsync(m => m.Modifierid == id);
     }
 
+     public async Task UpdateItemAsync(MenuItem existingitem)
+    {
+         _db.MenuItems.Update(existingitem);
+        await _db.SaveChangesAsync();
+    }
     public async Task DeleteModifierItemAsync(Modifier existingModifierItem)
     {
         // _db.Modifiers.Update(existingModifierItem);
@@ -732,4 +782,6 @@ public class UserMenuRepository : IUserMenuRepository
             return model;
         
     }
+
+   
 }

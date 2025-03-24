@@ -14,4 +14,9 @@ public interface ITaxesAndFessService
     public Task<EditTaxviewmodel> GetEditTax(int id);
 
     public Task<bool> EditTax(EditTaxviewmodel model);
+
+    public Task<bool> EditTaxAvailabity(int id, bool isAvailable);
+    public Task<bool> EditTaxDefault(int id, bool isAvailable);
+
+
 }
