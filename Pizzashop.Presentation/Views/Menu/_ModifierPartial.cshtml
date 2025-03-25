@@ -21,7 +21,7 @@
      src="~/images/icons/trash (1).svg" alt="Delete Icon" id="delete-icon-massmodifierdelete"/>
         </div>
         <div class="border new-item d-flex p-lg-3 p-2" data-bs-toggle="modal" data-bs-target="#addmodifieritemmodal"
-          style="background-color: rgb(0, 102, 187); color: white; text-wrap: nowrap;">
+          style="background-color: #0066a7; color: white; text-wrap: nowrap;">
           +New Modifier
         </div>
     </div>
@@ -51,7 +51,7 @@
                     <div class="form-check gap-5"> 
                       <input class="form-check-input inner-check-deletes" type="checkbox" value="" id="flexCheckChecked" data-degroupid = "@item.ModifierGroupId" data-deid="@item.ModifierItemId">
                       <div class="d-flex align-items-center gap-1">
-                        <img style="height: 25px;" src="~/images/dining-menu.png" alt="">
+                        @* <img style="height: 25px;" src="~/images/dining-menu.png" alt=""> *@
                         <div class="d-flex align-items-center text-nowrap modifier-name">@item.Name</div>
                       </div>
                     </div>

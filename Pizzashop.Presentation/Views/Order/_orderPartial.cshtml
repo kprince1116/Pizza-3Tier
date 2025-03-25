@@ -1,0 +1,95 @@
+@model Pizzashop.DAL.ViewModels.Orderviewmodel
+
+ <div class="border bg-white px-3">
+     <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="table-name ">
+           #Order
+            <img src="~/images/icons/arrow-up.svg" class="sort-btn" data-name="OrderNo" data-order="asc" alt=""> 
+            <img src="~/images/icons/arrow-down.svg" class="sort-btn" data-name="OrderNo" data-order="desc" alt="">
+          </th>
+          <th  class="table-name"> Date
+            <img src="~/images/icons/arrow-up.svg" class="sort-btn" data-name="Orderdate" data-order="asc" alt=""> 
+            <img src="~/images/icons/arrow-down.svg" class="sort-btn" data-name="Orderdate" data-order="desc" alt="">   
+          </th>
+          <th scope="col" class="table-name">Customer
+             <img src="~/images/icons/arrow-up.svg" class="sort-btn" data-name="CustomerName" data-order="asc" alt=""> 
+            <img src="~/images/icons/arrow-down.svg" class="sort-btn" data-name="CustomerName" data-order="desc"  alt="">
+          </th>
+          <th class="table-name ">Status</th>
+          <th class="table-name">Payment Mode</th>
+          <th class="table-name">Rating</th>
+          <th class="table-name">
+            <div class="d-flex gap-1 align-items-center" class="table-name">Total Amount
+             <img src="~/images/icons/arrow-up.svg" class="sort-btn" data-name="TotalAmount" data-order="asc" alt=""> 
+            <img src="~/images/icons/arrow-down.svg" class="sort-btn" data-name="TotalAmount" data-order="desc" alt="">
+          </div>
+          </th>
+          <th  class="table-name">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach(var order in Model.Orders)
+        {
+        <tr>
+          <td class="table-field" style="text-wrap: nowrap;">#@order.OrderNo</td>
+          <td class="table-field" style="text-wrap: nowrap;">@order.Orderdate</td>
+          <td class="table-field">@order.CustomerName</td>
+          <td> @order.Status</td>
+          <td> @order.Payment</td>
+          <td> <span class="text-warning">@(new string('★', order.Rating ?? 0))@(new string('☆', 5 - (order.Rating ?? 0)))</span> </td>
+           
+          <td>@order.TotalAmount</td>
+          <td >
+            <img src="~/images/icons/filetype-pdf.svg" style="height: 25px;" alt="">
+            <img style="height: 25px;" src="~/images/icons/eye (1).svg" alt="">
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+      </div> 
+      <div class="d-flex table-footer align-items-center justify-content-end gap-lg-2 gap-md-2 gap-1 me-1 me-md-4 me-lg-4">
+                <div class="d-flex align-items-center gap-1 items">
+                  <span class="ps-5 font2" >Items Per Page</span>
+                  <select class="form-select" onchange="changePageForOrder(1)" id="orderPageSize" aria-label="Floating label select example"
+                    style="width: 68px;">
+                    @if(Model.PageSize!=null)
+                    {
+                    <option value="3" selected="@(Model.PageSize==3 ? true : false)" >3</option>
+                    <option value="5" selected="@(Model.PageSize==5 ? true : false)" >5</option>
+                    <option value="10" selected="@(Model.PageSize==10 ? true : false)" >10</option>
+                    <option value="15" selected="@(Model.PageSize==15 ? true : false)" >15</option>
+                    }
+                  </select>
+                </div>
+                <div class="d-flex align-items-center gap-1">
+                  <span class="font2"> Showing @((Model.CurrentPage- 1) * Model.PageSize +
+                            1)-@Math.Min(Model.CurrentPage * Model.PageSize, Model.TotalRecords) of
+                            @Model.TotalRecords</span>
+                  <div class="pt-3">
+                    <nav aria-label="Page navigation example">
+                      <ul class="pagination gap-2">
+                        <li class="page-item @(Model.CurrentPage>1 ? " " : "disabled") ">
+                          <a class="page-link" aria-label="Previous" onclick="changePageForOrder(@Model.CurrentPage-1)">
+                            <span aria-hidden="true">&laquo;</span>
+                          </a>
+                        </li>
+                        <li>
+                          <span class="page-link">@Model.CurrentPage</span>
+                        </li>
+                        <li class="page-item @(Model.CurrentPage<Model.TotalPages ? " " : "disabled")  ">
+                          <a class="page-link"  aria-label="Next" onclick="changePageForOrder(@Model.CurrentPage+1)">
+                            <span aria-hidden="true">&raquo;</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+ </div>
+</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

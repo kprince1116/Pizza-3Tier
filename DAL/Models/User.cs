@@ -49,6 +49,14 @@ public partial class User
 
     public virtual Country? CountryNavigation { get; set; }
 
+    public virtual ICollection<Customer> CustomerCreatedByNavigations { get; set; } = new List<Customer>();
+
+    public virtual ICollection<Customer> CustomerModifiedByNavigations { get; set; } = new List<Customer>();
+
+    public virtual ICollection<Order> OrderCreatedByNavigations { get; set; } = new List<Order>();
+
+    public virtual ICollection<Order> OrderModifiedByNavigations { get; set; } = new List<Order>();
+
     public virtual State? StateNavigation { get; set; }
 
     public virtual Userrole UserroleNavigation { get; set; } = null!;

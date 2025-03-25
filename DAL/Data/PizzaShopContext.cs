@@ -19,6 +19,8 @@ public partial class PizzaShopContext : DbContext
 
     public virtual DbSet<Country> Countries { get; set; }
 
+    public virtual DbSet<Customer> Customers { get; set; }
+
     public virtual DbSet<Itemmodifiergroup> Itemmodifiergroups { get; set; }
 
     public virtual DbSet<MenuCategory> MenuCategories { get; set; }
@@ -31,6 +33,14 @@ public partial class PizzaShopContext : DbContext
 
     public virtual DbSet<Modifiermapping> Modifiermappings { get; set; }
 
+    public virtual DbSet<Order> Orders { get; set; }
+
+    public virtual DbSet<Order1> Orders1 { get; set; }
+
+    public virtual DbSet<Orderstatus> Orderstatuses { get; set; }
+
+    public virtual DbSet<Paymentmode> Paymentmodes { get; set; }
+
     public virtual DbSet<Permission> Permissions { get; set; }
 
     public virtual DbSet<Rolesandpermission> Rolesandpermissions { get; set; }
@@ -38,6 +48,8 @@ public partial class PizzaShopContext : DbContext
     public virtual DbSet<Section> Sections { get; set; }
 
     public virtual DbSet<State> States { get; set; }
+
+    public virtual DbSet<Status> Statuses { get; set; }
 
     public virtual DbSet<Table> Tables { get; set; }
 
@@ -84,6 +96,45 @@ public partial class PizzaShopContext : DbContext
             entity.Property(e => e.Countryname)
                 .HasMaxLength(150)
                 .HasColumnName("countryname");
+        });
+
+        modelBuilder.Entity<Customer>(entity =>
+        {
+            entity.HasKey(e => e.Customerid).HasName("customers_pkey");
+
+            entity.ToTable("customers");
+
+            entity.HasIndex(e => e.Customeremail, "customers_customeremail_key").IsUnique();
+
+            entity.Property(e => e.Customerid).HasColumnName("customerid");
+            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
+            entity.Property(e => e.CreatedDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("created_date");
+            entity.Property(e => e.Customeremail)
+                .HasMaxLength(250)
+                .HasColumnName("customeremail");
+            entity.Property(e => e.Customername)
+                .HasMaxLength(250)
+                .HasColumnName("customername");
+            entity.Property(e => e.Isdelete)
+                .HasDefaultValueSql("false")
+                .HasColumnName("isdelete");
+            entity.Property(e => e.ModifiedBy).HasColumnName("modified_by");
+            entity.Property(e => e.ModifiedDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("modified_date");
+            entity.Property(e => e.Phonenumber)
+                .HasMaxLength(200)
+                .HasColumnName("phonenumber");
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.CustomerCreatedByNavigations)
+                .HasForeignKey(d => d.CreatedBy)
+                .HasConstraintName("customers_created_by_fkey");
+
+            entity.HasOne(d => d.ModifiedByNavigation).WithMany(p => p.CustomerModifiedByNavigations)
+                .HasForeignKey(d => d.ModifiedBy)
+                .HasConstraintName("customers_modified_by_fkey");
         });
 
         modelBuilder.Entity<Itemmodifiergroup>(entity =>
@@ -299,6 +350,95 @@ public partial class PizzaShopContext : DbContext
                 .HasConstraintName("modifiermapping_modifier_id_fkey");
         });
 
+        modelBuilder.Entity<Order>(entity =>
+        {
+            entity.HasKey(e => e.Orderid).HasName("orders_pkey");
+
+            entity.ToTable("orders");
+
+            entity.Property(e => e.Orderid).HasColumnName("orderid");
+            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
+            entity.Property(e => e.CreatedDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("created_date");
+            entity.Property(e => e.CustomerId).HasColumnName("customer_id");
+            entity.Property(e => e.Instruction)
+                .HasMaxLength(200)
+                .HasColumnName("instruction");
+            entity.Property(e => e.Isdelete)
+                .HasDefaultValueSql("false")
+                .HasColumnName("isdelete");
+            entity.Property(e => e.ModifiedBy).HasColumnName("modified_by");
+            entity.Property(e => e.ModifiedDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("modified_date");
+            entity.Property(e => e.OrderNo).HasColumnName("order_no");
+            entity.Property(e => e.Orderdate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("orderdate");
+            entity.Property(e => e.PaymentMode).HasColumnName("payment_mode");
+            entity.Property(e => e.Rating).HasColumnName("rating");
+            entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.TotalAmount)
+                .HasPrecision(18, 2)
+                .HasColumnName("total_amount");
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.OrderCreatedByNavigations)
+                .HasForeignKey(d => d.CreatedBy)
+                .HasConstraintName("orders_created_by_fkey");
+
+            entity.HasOne(d => d.Customer).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.CustomerId)
+                .HasConstraintName("orders_customer_id_fkey");
+
+            entity.HasOne(d => d.ModifiedByNavigation).WithMany(p => p.OrderModifiedByNavigations)
+                .HasForeignKey(d => d.ModifiedBy)
+                .HasConstraintName("orders_modified_by_fkey");
+
+            entity.HasOne(d => d.PaymentModeNavigation).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.PaymentMode)
+                .HasConstraintName("orders_payment_mode_fkey");
+
+            entity.HasOne(d => d.StatusNavigation).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.Status)
+                .HasConstraintName("orders_status_fkey");
+        });
+
+        modelBuilder.Entity<Order1>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("Orders");
+        });
+
+        modelBuilder.Entity<Orderstatus>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("orderstatus_pkey");
+
+            entity.ToTable("orderstatus");
+
+            entity.HasIndex(e => e.Status, "orderstatus_status_key").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Status)
+                .HasMaxLength(50)
+                .HasColumnName("status");
+        });
+
+        modelBuilder.Entity<Paymentmode>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("paymentmode_pkey");
+
+            entity.ToTable("paymentmode");
+
+            entity.HasIndex(e => e.Status, "paymentmode_status_key").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Status)
+                .HasMaxLength(50)
+                .HasColumnName("status");
+        });
+
         modelBuilder.Entity<Permission>(entity =>
         {
             entity.HasKey(e => e.Permissionid).HasName("permissions_pkey");
@@ -396,6 +536,20 @@ public partial class PizzaShopContext : DbContext
             entity.HasOne(d => d.CountryNavigation).WithMany(p => p.States)
                 .HasForeignKey(d => d.Country)
                 .HasConstraintName("state_country_fkey");
+        });
+
+        modelBuilder.Entity<Status>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("status_pkey");
+
+            entity.ToTable("status");
+
+            entity.HasIndex(e => e.Status1, "status_status_key").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Status1)
+                .HasMaxLength(50)
+                .HasColumnName("status");
         });
 
         modelBuilder.Entity<Table>(entity =>

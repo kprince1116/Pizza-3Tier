@@ -1,0 +1,30 @@
+div.statusTimeDropdown {
+    min-width: 300px;
+    border-radius: 10px;
+  }
+  
+  
+  #export-btn{
+    background-color: #0066A7;
+    color: white;
+    border-radius: 4px;
+  }
+
+  @media (max-width: 991px) {
+    .dateSelection {
+        min-width: 275px;
+    }
+  }
+  
+  @media (max-width: 1450px) {
+    div.statusTimeDropdown {
+        min-width: 200px;
+    }
+  }
+
+  .table-name{
+    color: black;
+    font-weight: normal;
+  }
+
+  

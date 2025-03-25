@@ -28,6 +28,8 @@ builder.Services.AddScoped<ITable,BAL.Services.Table>();
 builder.Services.AddScoped<IUserTableRepository, UserTableRepository>();
 builder.Services.AddScoped<ITaxesAndFessService, TaxesAndFessService>();
 builder.Services.AddScoped<ITaxesAndFessRepository , TaxesAndFess>();
+builder.Services.AddScoped<IOrderRepository , OrderRepository>();
+builder.Services.AddScoped<IOrderservice,Orderservice>();
 // builder.Services.AddScoped<IWebHostEnvironment,WebHostEnvironment>();
 
 builder.Services.AddControllersWithViews();

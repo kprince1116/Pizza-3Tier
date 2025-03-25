@@ -37,6 +37,10 @@
       "PackagePath": "staticwebassets\\css\\login.css"
     },
     {
+      "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\css\\order.css",
+      "PackagePath": "staticwebassets\\css\\order.css"
+    },
+    {
       "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\css\\profile.css",
       "PackagePath": "staticwebassets\\css\\profile.css"
     },
@@ -73,12 +77,20 @@
       "PackagePath": "staticwebassets\\images\\icons\\arrow-clockwise.svg"
     },
     {
+      "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\arrow-down.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\arrow-down.svg"
+    },
+    {
       "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\arrow-left-square.svg",
       "PackagePath": "staticwebassets\\images\\icons\\arrow-left-square.svg"
     },
     {
       "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\arrow-right-square.svg",
       "PackagePath": "staticwebassets\\images\\icons\\arrow-right-square.svg"
+    },
+    {
+      "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\arrow-up.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\arrow-up.svg"
     },
     {
       "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\bag-check.svg",
@@ -121,6 +133,18 @@
       "PackagePath": "staticwebassets\\images\\icons\\exclamation-triangle.svg"
     },
     {
+      "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\export-svgrepo-com (1).svg",
+      "PackagePath": "staticwebassets\\images\\icons\\export-svgrepo-com (1).svg"
+    },
+    {
+      "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\export-svgrepo-com.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\export-svgrepo-com.svg"
+    },
+    {
+      "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\eye (1).svg",
+      "PackagePath": "staticwebassets\\images\\icons\\eye (1).svg"
+    },
+    {
       "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\eye-slash.svg",
       "PackagePath": "staticwebassets\\images\\icons\\eye-slash.svg"
     },
@@ -131,6 +155,10 @@
     {
       "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\eye.svg",
       "PackagePath": "staticwebassets\\images\\icons\\eye.svg"
+    },
+    {
+      "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\filetype-pdf.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\filetype-pdf.svg"
     },
     {
       "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\grid.png",

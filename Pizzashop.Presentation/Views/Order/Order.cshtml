@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="~/css/order.css" asp-append-version="true" />
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="me-3 ms-3" >
+     <div class="heading my-3 d-flex flex-column flex-xl-row flex-warp justify-content-between align-items-center">
+         <p class="fs-2" style="color: #0066a7">Orders</p>
+       
+        <div class="search-element gap-3 d-flex flex-column justify-content-end flex-lg-row mt-2 mt-md-0">
+          <div class="d-flex justify-content-end position-relative align-items-center col-lg-3 col-xl-4 " role="search">
+            <input type="text" class="search form-control border-none" style="height: 56px; width: 100%;" id="orderListSearch" placeholder="Search">
+      <img src="~/images/icons/search.svg" alt="" style="width: 20px; aspect-ratio: 1"
+          class="bg-white position-absolute rounded-2 m-2" />
+          </div>
+
+            <div class="d-flex gap-3 flex-column flex-sm-row">
+                <div class="">
+                        <select class="form-select " aria-label="Status filter" style="width: 270px; height: 58px;" id="statusfilter">
+                            <option selected value="">ALL STATUS</option>
+                            <option value="pending">Pending</option>
+                            <option value="in_progress">In Progress</option>
+                            <option value="on_hold">On Hold</option>
+                            <option value="completed">Completed</option>
+                            <option value="cancelled">Cancelled</option>
+                            <option value="served">Served</option>
+                        </select>
+                    </div>
+
+               <div>
+                        <select class="form-select" aria-label="Time filter" style="width: 270px; height: 58px;" id="timeFilter">
+                            <option selected value="">ALL TIME</option>
+                            <option value="today">Today</option>
+                            <option value="this_week">This Week</option>
+                            <option value="this_month">This Month</option>
+                        </select>
+                    </div>
+            </div>
+
+            <a class="btn w-auto my-1 my-lg-0  d-flex align-items-center justify-content-center gap-2 text-white"
+                id="exportOrderBtn" data-bs-toggle="modal" data-bs-target="#exportModal"
+                style="background-color:#0066a7">
+                <img src="~/images/icons/export-svgrepo-com (1).svg" width="25px">
+                Export
+            </a>
+           
+        </div> 
+        
+    </div>
+
+    <!-- From Date, To Date -->
+    <div class="me-xl-0 me-lg-0 me-md-3 ms-md-3 ms-0" >
+    <div class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-end align-items-center mb-3">
+        <div class="dateSelection form-floating px-2 my-1 my-lg-0 col-sm-8 col-md-10 col-lg-3 col-xl-2">
+            <input type="date" class="form-control" id="orderFromDate">
+            <label for="itemName" class="mx-2"  >From Date</label>
+        </div>
+        <div class="dateSelection form-floating px-2 my-1 my-lg-0 col-sm-8 col-md-10 col-lg-3 col-xl-2">
+            <input type="date" class="form-control" id="orderToDate">
+            <label for="itemName" class="mx-2"  >To Date</label>
+        </div>
+        <div class="d-flex ms-2 p-1">
+            <a class="btn btn-primary d-flex justify-content-center align-items-center px-4"
+                style="background-color:#0066a7" id = "searchinput" >
+                Search
+            </a>
+            <a class="btn cancle_btn d-flex justify-content-center align-items-center ms-2 px-4" style= "border: 2px solid #0066a7; border-radius: 5px; color:#0066a7">
+                Clear
+            </a>
+        </div>
+    </div>
+    </div>
+
+       <div id="orderTableContent" class="table_container">
+        </div>
+</body>
+</html>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+
+    $(document).on("click","#searchinput",function(){
+      changePageForOrder(1);
+    })
+
+  let sortBy = "";
+  let sortDirection = ""; 
+  
+
+  function changePageForOrder(pageNum) { 
+    let pageSize = $('#orderPageSize').val();
+    let search = $('#orderListSearch').val(); 
+    let status = $('#statusfilter').val();
+    let time = $('#timeFilter').val();
+    let fromdate = $('#orderFromDate').val();
+   console.log("date:",fromdate);
+    let todate = $('#orderToDate').val();
+    console.log("date:",todate);
+    console.log("time:",time);
+    console.log("pagesize",pageSize);
+    $.ajax({
+      url: '@Url.Action("GetOrderList", "Order")',
+      type: "GET",
+      data: {  pageSize: pageSize, pageNo: pageNum, searchKey: search , sortby:sortBy , sortdirection:sortDirection , statusFilter : status , timeFilter : time , fromDate: fromdate ,toDate:todate},
+      dataType: "html",
+      success: function (data) {
+        $('#orderTableContent').html(data);
+      },
+      error: function () {
+        $('#orderTableContent').html("No Data Found");
+      }
+    });
+  }
+
+  $(document).on("click",'.sort-btn',function(){
+      sortBy = $(this).data("name");
+      sortDirection = $(this).data("order");
+      changePageForOrder(1);
+  });
+
+    $(document).ready(function(){
+        changePageForOrder(1);
+    });
+
+      $(document).on("input","#orderListSearch", function () {
+        console.log("success");
+        currentPage = 1;
+        changePageForOrder(currentPage);
+      });
+
+
+ </script> 
