@@ -137,7 +137,6 @@
 </body>
 <script src="https://cdnjs.cloudflar  e.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-
 </html>
 
 @section scripts
@@ -186,6 +185,7 @@
 
 
       $(document).on("click", ".editmodifiergroup", function () {
+
         console.log("edit Modifier button clicked");
         selectedModifierId = $(this).data("modifier-edit-id");
         console.log("Selected Modifier IDs:", selectedModifierId);
@@ -332,8 +332,21 @@
 
   <script>
 
+    $(document).on("click","#ExistingModifierListSearch",function(){
+      console.log("succed");
+      changePageSizeForExistingModifiers(1);
+     });
+
+
     $(document).on('click', '.existingmodifierbutton', function () {
-      console.log("existing modifier button clicked");
+       @* selectedExistingModifiers=[];
+        $(".existModifiersForEdit").each(function(){
+            console.log("success");
+            let id = $(this).data("mgitemid");
+            let name = $(this).data("mgitemname");
+            selectedExistingModifiers.push({ ModifierItemId: Number(id), Name: name });
+        });  *@
+      console.log("existing modifier button clicked");  
       changePageSizeForExistingModifiers();
     })
 
@@ -373,23 +386,25 @@
       });
     }
     
+    
     //save existing modifier
     var selectedExistingModifiers = [];
     $(document).on("change", ".modifierItemCheckBox", function () {
-      let id = $(this).data("deid");
-      let name = $(this).data("dename");
+    let id = $(this).data("deid");
+    let name = $(this).data("dename");
 
-      if (!selectedExistingModifiers.some(e => e.ModifierItemId === Number(id))) {
-        selectedExistingModifiers.push({ ModifierItemId: Number(id), Name: name });
-        @* AppendModifiers(id, name); *@
-      }
-      else {
-        selectedExistingModifiers = $.grep(selectedExistingModifiers, function (selectedExistingModifiers) {
-          return selectedExistingModifiers.ModifierItemId !== id;
+    if ($(this).is(':checked')) {
+        if (!selectedExistingModifiers.some(e => e.ModifierItemId === Number(id))) {
+            selectedExistingModifiers.push({ ModifierItemId: Number(id), Name: name });
+        }
+    } else {
+        selectedExistingModifiers = $.grep(selectedExistingModifiers, function (modifier) {
+            return modifier.ModifierItemId !== Number(id);
         });
-        $("span").remove(".existModifiers[data-deid='" + id + "']");
-      }
-    })
+        $("span.existModifiers[data-deid='" + id + "']").remove(); 
+    }
+});
+
 
    function AppendModifiers(id, name) {
     $('.existingModifierLists').append(`
@@ -401,12 +416,12 @@
 }
 
 function saveExistingModifiers() {
-      @* $('.existingModifierLists').empty(); *@
+  $('.existingModifierLists').empty();
       $('#existingModifierModal').modal('hide');
       selectedExistingModifiers.forEach(modifier => {
         AppendModifiers(modifier.ModifierItemId, modifier.Name);
     });
-      @* $('#modifierModal').modal('show'); *@
+
     }
 
 
@@ -489,7 +504,6 @@ function saveExistingModifiers() {
         });
         $("span").remove(".existModifiersForEdit[data-mgitemid='" + removeteModifierItemIDForEdit + "']");
       });
-
 
   </script>
 
@@ -582,7 +596,7 @@ function saveExistingModifiers() {
   <script>
     var selectedModifiersItem = [];
     function SubmitAddItem() {
-      $(".selectedModifierGroup").each(function () {
+      $(".selectedModifierGroup").each(function (e) {
         var id = $(this).data("mgitemid");
         selectedModifiersItem.push({
           ModifierGroupId: id,
@@ -614,7 +628,7 @@ function saveExistingModifiers() {
       SubmitAddItemForEdit();
       console.log("sucees");
       $("#editItemForm").submit();
-    })
+    });
   </script>
 
   <script>
@@ -789,7 +803,7 @@ function saveExistingModifiers() {
 <!-- edit category -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
-    <form method="post" asp-controller="Menu" asp-action="EditCategory" class="modal-content">
+    <form method="post" asp-controller="Menu" asp-action="EditCategory" class="modal-content" id="addItemForm" >
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel1">Edit Category</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -910,8 +924,7 @@ function saveExistingModifiers() {
 
 <div class="modal fade" id="AddItem" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
-    <form method="post" enctype="multipart/form-data" asp-controller="Menu" asp-action="Items" class="modal-content"
-      id="addItemForm">
+    <form method="post" enctype="multipart/form-data" asp-controller="Menu" asp-action="Items" class="modal-content" id="addItemForm">
       <input type="hidden" id="selectedModifierList" name="modifierItemList">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Menu Item</h1>
@@ -1257,7 +1270,6 @@ function saveExistingModifiers() {
   </div>
 </div>
 
-
 <!-- Edit Modifier Group Modal -->
 <div class="modal fade" id="editModifier" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -1298,7 +1310,6 @@ function saveExistingModifiers() {
   </div>
 </div>
 
-
 <!-- Add Existing  Modifier Group Modal -->
 <div class="modal fade" tabindex="-1" id="existingModifierModal" aria-labelleby="modal-title">
   <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -1309,8 +1320,8 @@ function saveExistingModifiers() {
       </div>
       <div class="modal-body" id="existingmodifiermodals">
       </div>
-      <div class="modal-footer">
-        <button type="submit" onclick="saveExistingModifiers()" class="btn btn-primary">Save</button>
+      <div class="modal-footer d-flex justify-content-start ">
+        <button type="submit" onclick="saveExistingModifiers()" class="btn btn-primary">Add</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Cancel
         </button>
@@ -1421,7 +1432,7 @@ function saveExistingModifiers() {
                 <div class="col-lg-4 col-md-6 mb-3">
                   <div class="form-floating">
                     <select class="form-select" id="floatingSelect" aria-label="Floating label select example"
-                      asp-for="@Model.AddModifier.Unit">
+                      asp-for="@Model.AddModifier.UnitId">
                       <option selected>Select a Unit</option>
                       @foreach (var unit in Model.units)
                       {
@@ -1472,3 +1483,83 @@ function saveExistingModifiers() {
 
 
 
+
+<script>
+
+ $(document).ready(function () {
+          
+             @if (TempData["AddCategorySuccess"] != null && (bool)TempData["AddCategorySuccess"])
+            {
+                <text>
+                    showToastrNotification('success', 'Category Added successfully!');
+                </text>
+            }
+             @if (TempData["EditCategorySuccess"] != null && (bool)TempData["EditCategorySuccess"])
+            {
+                <text>
+                    showToastrNotification('success', 'Category Edit successfully!');
+                </text>
+            }
+             @if (TempData["DeleteCategorySuccess"] != null && (bool)TempData["DeleteCategorySuccess"])
+            {
+                <text>
+                    showToastrNotification('success', 'Category Delete successfully!');
+                </text>
+            }
+             @if (TempData["AddItemSuccess"] != null && (bool)TempData["AddItemSuccess"])
+            {
+                <text>
+                    showToastrNotification('success', 'Item Added successfully!');
+                </text>
+            }
+             @if (TempData["EditItemSuccess"] != null && (bool)TempData["EditItemSuccess"])
+            {
+                <text>
+                    showToastrNotification('success', 'Item Edit successfully!');
+                </text>
+            }
+             @if (TempData["DeleteItemSuccess"] != null && (bool)TempData["DeleteItemSuccess"])
+            {
+                <text>
+                    showToastrNotification('success', 'Item Delete successfully!');
+                </text>
+            }
+             @if (TempData["AddModifierSuccess"] != null && (bool)TempData["AddModifierSuccess"])
+            {
+                <text>
+                    showToastrNotification('success', 'Modifier Group Added successfully!');
+                </text>
+            }
+             @if (TempData["EditModifierSuccess"] != null && (bool)TempData["EditModifierSuccess"])
+            {
+                <text>
+                    showToastrNotification('success', 'Modifier Group Edit successfully!');
+                </text>
+            }
+             @if (TempData["DeleteModifierSuccess"] != null && (bool)TempData["DeleteModifierSuccess"])
+            {
+                <text>
+                    showToastrNotification('success', 'Modifier Group Delete successfully!');
+                </text>
+            }
+             @if (TempData["AddModifierItemSuccess"] != null && (bool)TempData["AddModifierItemSuccess"])
+            {
+                <text>
+                    showToastrNotification('success', 'Modifier Item Added successfully!');
+                </text>
+            }
+             @if (TempData["EditModifierItemSuccess"] != null && (bool)TempData["EditModifierItemSuccess"])
+            {
+                <text>
+                    showToastrNotification('success', 'Modifier Item Edit successfully!');
+                </text>
+            }
+             @if (TempData["DeleteModifierItemSuccess"] != null && (bool)TempData["DeleteModifierItemSuccess"])
+            {
+                <text>
+                    showToastrNotification('success', 'Modifier Item Delete successfully!');
+                </text>
+            }
+        });
+
+</Script>

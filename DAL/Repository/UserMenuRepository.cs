@@ -107,14 +107,14 @@ public class UserMenuRepository : IUserMenuRepository
 
     public async Task<ModifierItemListViewModel> GetItemsByExistingModifier(int pageNo = 1, int pageSize = 3, string search = "")
     {
-        var item = _db.Modifiers
-           .Where(u => !u.IsDeleted.HasValue || !u.IsDeleted.Value && (u.Modifiername.ToLower().Contains(search.ToLower()) || u.Description.ToLower().Contains(search.ToLower())))
+        var item = _db.Modifiers.Include(u=>u.Unit)
+           .Where(u => u.IsDeleted == false)
            .Select(u => new ModifierItemViewModel
            {
                ModifierItemId = u.Modifierid,
                Name = u.Modifiername,
                Unit = u.Unitid,
-               Unitname = _db.Units.Where(u => u.Unitid == u.Unitid).Select(u => u.Unitname).FirstOrDefault(),
+               Unitname = u.Unit.Unitname,
                Rate = u.Rate,
                Quantity = u.Quantity
            });
@@ -223,7 +223,7 @@ public class UserMenuRepository : IUserMenuRepository
         
     }
 
-     public async Task<bool> AddItemModifier(int itemId, List<ItemModifierGroupviewmodel> itemModifierList)
+     public async Task<bool>    AddItemModifier(int itemId, List<ItemModifierGroupviewmodel> itemModifierList)
     {
         List<int> exisingModifierIds = await _db.Itemmodifiergroups
                                         .Where(im => im.Itemid == itemId && im.IsDeleted == false )
@@ -532,29 +532,16 @@ public class UserMenuRepository : IUserMenuRepository
     public async Task<ModifierItemListViewModel> GetItemsByModifierId(int id, int pageNo, int pageSize, string search)
     {
  
-        var item = _db.Modifiermappings.Include(m => m.Modifier).Where(u => u.ModifierGroupId == id && u.IsDeleted == false && (u.Modifier.Modifiername.ToLower().Contains(search.ToLower()) || u.Modifier.Description.ToLower().Contains(search.ToLower())) ).Select(u => new ModifierItemViewModel
+        var item = _db.Modifiermappings.Include(m => m.Modifier).ThenInclude(u=>u.Unit).Where(u => u.ModifierGroupId == id && u.IsDeleted == false && (u.Modifier.Modifiername.ToLower().Contains(search.ToLower()) || u.Modifier.Description.ToLower().Contains(search.ToLower())) ).Select(u => new ModifierItemViewModel
         {
             ModifierGroupId = (int)u.ModifierGroupId,
             ModifierItemId = (int)u.ModifierId,
             Name = u.Modifier.Modifiername,
             Rate = u.Modifier.Rate,
             Quantity = u.Modifier.Quantity,
-            Unit = u.Modifier.Unitid,
-            Unitname = _db.Units.Where(u => u.Unitid == u.Unitid).Select(u => u.Unitname).FirstOrDefault(),
+            Unit = u.Modifier.Unit.Unitid,
+            Unitname = u.Modifier.Unit.Unitname,
         });
-
-        // var item = _db.Modifiers
-        //     .Where(u => !u.IsDeleted.HasValue || !u.IsDeleted.Value && u.ModifierGroupId == id && (u.Modifiername.ToLower().Contains(search.ToLower()) || u.Description.ToLower().Contains(search.ToLower())))
-        //     .Select(u => new ModifierItemViewModel
-        //     {
-        //         ModifierItemId = u.Modifierid,
-        //         Name = u.Modifiername,
-        //         Unit = u.Unitid,
-        //         Unitname = _db.Units.Where(u => u.Unitid == u.Unitid).Select(u => u.Unitname).FirstOrDefault(),
-        //         Rate = u.Rate,
-        //         Quantity = u.Quantity
-        //     });
-        
 
 
         var totalRecords = item.Count();
@@ -586,7 +573,8 @@ public class UserMenuRepository : IUserMenuRepository
             Modifiername = model.AddModifier.ModifierName,
             Rate = model.AddModifier.Rate,
             Quantity = model.AddModifier.Quantity,
-            Description = model.AddModifier.Description
+            Description = model.AddModifier.Description,
+            Unitid = model.AddModifier.UnitId
         };
 
         _db.Modifiers.Add(modifier);
@@ -605,7 +593,6 @@ public class UserMenuRepository : IUserMenuRepository
         existingmodifier.Quantity = model.Quantity;
         existingmodifier.Unitid = model.UnitId;
 
-      
         try{
              _db.Modifiers.Update(existingmodifier);
             _db.SaveChanges();

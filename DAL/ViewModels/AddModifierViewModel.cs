@@ -27,6 +27,8 @@ public class AddModifierViewModel
 
     public int? UnitId { get; set; }
 
+    // public string unit {get ; set;}
+
     [Required(ErrorMessage = "Description is required")]
     public string? Description { get; set; }
 

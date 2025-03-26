@@ -7,7 +7,6 @@ public class ModifierItemViewModel
     public string Name { get; set; }
     public decimal? Rate { get; set; }
     public int? Unit { get; set; }
-
     public string Unitname { get; set; }
     
     public int? Quantity { get; set; }

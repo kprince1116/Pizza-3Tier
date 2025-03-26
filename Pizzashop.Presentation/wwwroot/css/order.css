@@ -27,4 +27,36 @@ div.statusTimeDropdown {
     font-weight: normal;
   }
 
+  @media(max-width:1023px)
+  {
+    .heading{
+      align-items: center !important;
+    }
+  }
+
+  @media(min-width:1200px)
+  {
+    .heading{
+      align-items: center !important;
+    }
+  }
+  @media(width:768px){
+    .search {
+      height: 50px !important;
+  }
+  }
+@media (width:425px) {
+  .crpage{
+    display:hidden !important;
+  }
+  .search {
+    height: 55px !important;
+}
+}
   
+@media (width: 375px) {
+  .search {
+      height: 55px !important;
+      width: 270px !important;
+  }
+}

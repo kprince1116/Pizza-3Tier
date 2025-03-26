@@ -72,27 +72,34 @@ public class OrderRepository : IOrderRepository
              }           
            if (startDate != DateTime.MinValue && endDate != DateTime.MaxValue)
             {
-            orders = orders.Where(o =>  o.Orderdate.HasValue && o.Orderdate.Value.ToDateTime(TimeOnly.MinValue) >= startDate &&    o.Orderdate.Value.ToDateTime(TimeOnly.MinValue) <= endDate);
+            orders = orders.Where(o =>  o.Orderdate.HasValue && o.Orderdate.Value >= startDate && o.Orderdate.Value <= endDate);
             }
+                // orders = orders.Where(o => o.Orderdate >= startDate && o.Orderdate <= endDate);
         }
 
        
         if(!string.IsNullOrEmpty(fromDate))
         {
-           if(DateOnly.TryParse(fromDate,out DateOnly parseDate))
+              if (DateTime.TryParse(fromDate, out var fromDateTime))
             {
-                 orders = orders.Where(o => o.Orderdate.HasValue && o.Orderdate.Value == parseDate );
+                orders = orders.Where(o => o.Orderdate.HasValue && o.Orderdate.Value.Date >= fromDateTime.Date);
             }
-   
         }
 
         if(!string.IsNullOrEmpty(toDate))
         {
-           if(DateOnly.TryParse(toDate,out DateOnly parseDate))
+             if (DateTime.TryParse(toDate, out var toDateTime))
             {
-                 orders = orders.Where(o => o.Orderdate.HasValue && o.Orderdate.Value == parseDate );
+                orders = orders.Where(o => o.Orderdate.HasValue && o.Orderdate.Value.Date <= toDateTime.Date);
             }
         }
+
+    //     if (!string.IsNullOrEmpty(fromDate) && !string.IsNullOrEmpty(toDate))
+    // {
+    //     DateTime from = DateTime.Parse(fromDate);
+    //     DateTime to = DateTime.Parse(toDate);
+    //     orders = orders.Where(o => o.Orderdate >= from && o.Orderdate <= to);
+    // }
          
         switch(sortBy)
         {
@@ -109,7 +116,7 @@ public class OrderRepository : IOrderRepository
                      orders = (sortDirection == "asc") ? orders.OrderBy(U=>U.TotalAmount) : orders.OrderByDescending(u=>u.TotalAmount);
                      break;                           
             default:
-                     orders : orders.OrderBy(U=>U.Orderid);
+                     orders = orders.OrderBy(U=>U.Orderdate);
                      break;
         }
     
@@ -128,5 +135,69 @@ public class OrderRepository : IOrderRepository
             TotalRecords = totalRecords,
         };
     }
+
+    public async Task<List<Ordertableviewmodel>> GetOrder(string searchKey, string statusFilter, string timeFilter)
+    {
+        IQueryable<Ordertableviewmodel> orders =  _db.Orders.Where(u=>u.Isdelete == false).Include(u=>u.Customer).Include(u=>u.PaymentModeNavigation).Include(u=>u.StatusNavigation).Select
+        (
+            u => new Ordertableviewmodel
+            {
+                Orderid = u.Orderid,
+                OrderNo = u.OrderNo,
+                Orderdate = u.Orderdate,
+                CustomerName = u.Customer.Customername,
+                Status = u.StatusNavigation.Status,
+                Payment = u.PaymentModeNavigation.Status,
+                Rating = u.Rating,
+                TotalAmount = u.TotalAmount,
+            }
+        );
+    
+        if (!string.IsNullOrEmpty(searchKey))
+        {
+            var lowerSearchQuery = searchKey.ToLower();
+            orders = orders.Where(o => o.CustomerName.ToLower().Contains(lowerSearchQuery) ||
+                                   o.OrderNo.ToString().ToLower().Contains(lowerSearchQuery) ||
+                                   o.Status.ToLower().Contains(lowerSearchQuery));
+        }
+    
+        if(!string.IsNullOrEmpty(statusFilter))
+        {
+            orders = orders.Where(u=>u.Status.ToLower() == statusFilter.ToLower());
+        }
+    
+        if(!string.IsNullOrEmpty(timeFilter))
+        {
+             DateTime startDate = DateTime.MinValue;
+             DateTime endDate = DateTime.MaxValue;
+    
+             switch(timeFilter.ToLower())
+             {
+                case "today":
+                startDate = DateTime.Today;
+                endDate = DateTime.Today.AddDays(1).AddTicks(-1);
+                break;
+    
+                case "this_week":
+                startDate = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek);
+                endDate = startDate.AddDays(7).AddTicks(-1);
+                break;
+    
+                case "this_month":
+                startDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                endDate = startDate.AddMonths(1).AddTicks(-1);
+                break;
+    
+             }  
+                      
+           if (startDate != DateTime.MinValue && endDate != DateTime.MaxValue)
+            {
+               orders = orders.Where(o =>  o.Orderdate.HasValue && o.Orderdate.Value >= startDate && o.Orderdate.Value <= endDate);
+            }
+        }
+    
+         return await orders.ToListAsync();
+    }
+
 
 }

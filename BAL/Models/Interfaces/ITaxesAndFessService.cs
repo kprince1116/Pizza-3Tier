@@ -7,7 +7,7 @@ public interface ITaxesAndFessService
 {
     public Task<Taxviewmodel> GetTaxDeails(int pageNo ,int  pageSize , string search );
 
-    public Task AddTax(Taxviewmodel model);
+    public Task<bool> AddTax(Taxviewmodel model);
 
     public Task<bool> DeleteTax(int id);
 

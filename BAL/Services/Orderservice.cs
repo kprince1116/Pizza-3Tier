@@ -19,4 +19,9 @@ public class Orderservice : IOrderservice
        return orderData;
     }
 
+    public async Task<List<Ordertableviewmodel>> GetOrder( string searchKey, string statusFilter, string timeFilter)
+    {
+        var orderData = await _orderRepository.GetOrder( searchKey,  statusFilter,  timeFilter);
+        return orderData;
+    }
 }

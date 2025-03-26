@@ -406,6 +406,46 @@
         }); *@
       @* });  *@
        
+      $(document).ready(function () {
+       
+             @if (TempData["AddSectionSuccess"] != null && (bool)TempData["AddSectionSuccess"])
+            {
+                <text>
+                    showToastrNotification('success', 'Section Added successfully!');
+                </text>
+            }
+             @if (TempData["EditSectionSuccess"] != null && (bool)TempData["EditSectionSuccess"])
+            {
+                <text>
+                    showToastrNotification('success', 'Section Edit successfully!');
+                </text>
+            }
+             @if (TempData["DeleteSectionSuccess"] != null && (bool)TempData["DeleteSectionSuccess"])
+            {
+                <text>
+                    showToastrNotification('success', 'Section Delete successfully!');
+                </text>
+            }
+             @if (TempData["AddTableSuccess"] != null && (bool)TempData["AddTableSuccess"])
+            {
+                <text>
+                    showToastrNotification('success', 'Table Added successfully!');
+                </text>
+            }
+             @if (TempData["DeleteTaxSuccess"] != null && (bool)TempData["DeleteTaxSuccess"])
+            {
+                <text>
+                    showToastrNotification('success', 'Table Edit successfully!');
+                </text>
+            }
+             @if (TempData["DeleteTableSuccess"] != null && (bool)TempData["DeleteTableSuccess"])
+            {
+                <text>
+                    showToastrNotification('success', 'Table Delete successfully!');
+                </text>
+            }
+        });
 
+     
   </script>
 }

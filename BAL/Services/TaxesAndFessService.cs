@@ -20,9 +20,14 @@ public class TaxesAndFessService : ITaxesAndFessService
         return taxData;
     }
 
-     public async Task AddTax(Taxviewmodel model)
+     public async Task<bool> AddTax(Taxviewmodel model)
      {
-        await _TaxesAndFessRepository.AddTax(model);
+        if(model == null)
+        {
+            return false;
+        }
+         await _TaxesAndFessRepository.AddTax(model);
+        return true;
      }
 
     public async Task<bool> DeleteTax(int id)

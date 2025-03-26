@@ -7,6 +7,8 @@
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
+ <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
 @section Scripts {
     <script>
         $(document).ready(function () {
@@ -14,6 +16,12 @@
             {
                 <text>
                     showToastrNotification('success', 'User logged in successfully!');
+                </text>
+            }
+             @if (TempData["AddSectionSuccess"] != null && (bool)TempData["AddSectionSuccess"])
+            {
+                <text>
+                    showToastrNotification('success', 'Section in successfully!');
                 </text>
             }
         });

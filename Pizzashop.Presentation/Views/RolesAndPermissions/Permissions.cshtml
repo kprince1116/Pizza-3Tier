@@ -42,7 +42,7 @@
               <tr>
                 <div>
                   <th scope="col">
-                    <img src="~/images/icons/dash-square.svg" alt="">
+                     <input class="form-check-input" type="checkbox"  value="" id="out-checkbox">
                     Permissions
                 </div>
                 </th>
@@ -63,7 +63,7 @@
                       <input type="hidden"  asp-for="@Model[i].RoleName">
                       <input type="hidden"  asp-for="@Model[i].Permissionid">
                       <input type="hidden"  asp-for="@Model[i].PermissionName">
-                      <input class="form-check-input" type="checkbox" asp-for="@Model[i].IsSelected" value="" id="flexCheckDefault">
+                      <input class="form-check-input inner-checkbox" type="checkbox" asp-for="@Model[i].IsSelected" value="" id="flexCheckDefault">
                       <label class="form-check-label text-nowrap" for="flexCheckDefault">
                         @Model[i].PermissionName
                     </div>
@@ -104,3 +104,29 @@
 </body>
 
 </html>
+
+@section Scripts{
+<script>
+$(document).ready(function () {
+      const outerCheck = document.getElementById("out-checkbox");
+      const innerChecks = document.querySelectorAll(".inner-checkbox");
+
+      outerCheck.addEventListener("change", function () {
+          innerChecks.forEach(checkbox => {
+              checkbox.checked = outerCheck.checked;
+              $(checkbox).trigger("change");
+          });
+      });
+      
+      innerChecks.forEach(checkbox => {
+          checkbox.addEventListener("change", function () {
+              const allChecked = [...innerChecks].every(cb => cb.checked);
+              const anyChecked = [...innerChecks].some(cb => cb.checked);
+
+              outerCheck.checked = allChecked;
+              outerCheck.indeterminate = !allChecked && anyChecked; 
+          });
+      });
+});
+</script>
+}

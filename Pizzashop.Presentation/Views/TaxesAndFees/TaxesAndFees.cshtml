@@ -258,4 +258,26 @@
     });
 });
 
+      $(document).ready(function () {
+       
+             @if (TempData["AddTaxSuccess"] != null && (bool)TempData["AddTaxSuccess"])
+            {
+                <text>
+                    showToastrNotification('success', 'Tax Added successfully!');
+                </text>
+            }
+             @if (TempData["DeleteTaxSuccess"] != null && (bool)TempData["DeleteTaxSuccess"])
+            {
+                <text>
+                    showToastrNotification('success', 'Tax Delete successfully!');
+                </text>
+            }
+             @if (TempData["EditTaxSuccess"] != null && (bool)TempData["EditTaxSuccess"])
+            {
+                <text>
+                    showToastrNotification('success', 'Tax Edit successfully!');
+                </text>
+            }
+        });
+
 </script>

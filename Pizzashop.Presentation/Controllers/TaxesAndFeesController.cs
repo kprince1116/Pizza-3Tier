@@ -30,16 +30,34 @@ public class TaxesAndFeesController : Controller
     [HttpPost]
     public async Task<IActionResult> AddTax(Taxviewmodel model)
     {
-         await _taxesAndFeesService.AddTax(model);
-        return  RedirectToAction("TaxesAndFees", "TaxesAndFees");
+        var isAdded = await _taxesAndFeesService.AddTax(model);
+
+         if (isAdded)
+        {
+            TempData["AddTaxSuccess"] = true;
+             return  RedirectToAction("TaxesAndFees", "TaxesAndFees");
+        }
+        else
+        {
+            return Content("error");
+        }
+       
     }
 
     [HttpPost]
 
     public async Task<IActionResult> DeleteTax(int id)
     {
-        await _taxesAndFeesService.DeleteTax(id);
-        return  RedirectToAction("TaxesAndFees", "TaxesAndFees");
+        var isdelete = await _taxesAndFeesService.DeleteTax(id);
+         if (isdelete)
+        {
+            TempData["DeleteTaxSuccess"] = true;
+             return  RedirectToAction("TaxesAndFees", "TaxesAndFees");
+        }
+        else
+        {
+            return Content("error");
+        }
     }
 
      public async Task<IActionResult> EditTax(int id)
@@ -53,8 +71,16 @@ public class TaxesAndFeesController : Controller
 
     public async Task<IActionResult> EditTax(EditTaxviewmodel model)
     {
-         await _taxesAndFeesService.EditTax(model);
-          return  RedirectToAction("TaxesAndFees", "TaxesAndFees");
+         var isEdit = await _taxesAndFeesService.EditTax(model);
+          if (isEdit)
+        {
+            TempData["EditTaxSuccess"] = true;
+             return  RedirectToAction("TaxesAndFees", "TaxesAndFees");
+        }
+        else
+        {
+            return Content("error");
+        }
     }
 
     [HttpPost]

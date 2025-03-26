@@ -26,6 +26,10 @@
       padding-inline-start: 30%;
     } */
 
+    .exisiting-table{
+      overflow-y: scroll;
+    }
+
     .modifier-name{
       /* color: #666; */
       color: black;

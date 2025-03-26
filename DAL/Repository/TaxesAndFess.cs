@@ -30,6 +30,15 @@ public class TaxesAndFess : ITaxesAndFessRepository
             }
         ).OrderBy(u=>u.TaxId);
 
+        //  if (!string.IsNullOrEmpty(search))
+        // {
+        //     var lowerSearchQuery = search.ToLower();
+        //     taxes = taxes.Where(o => o.TaxName.ToLower().Contains(lowerSearchQuery) ||
+        //                            o.TaxType.ToString().ToLower().Contains(lowerSearchQuery) ||
+        //                            o.TaxValue.ToLower().Contains(lowerSearchQuery));
+        // }
+
+
          var totalRecords = taxes.Count();
 
          var totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);

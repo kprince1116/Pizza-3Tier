@@ -40,21 +40,30 @@ public class TableController : Controller
         var isAdded = await _table.AddSection(model);
         if (isAdded)
         {
+            TempData["AddSectionSuccess"] = true;
             return RedirectToAction("Table", "Table");
         }
         else
         {
             return Content("error");
         }
+       
     }
 
     [HttpPost]
 
     public async Task<IActionResult> EditSection(Tablesviewmodel model)
     {
-        await _table.EditSection(model);
-    
+        var isEdit = await _table.EditSection(model);
+        if(isEdit)
+        {
+        TempData["EditSectionSuccess"] = true;
         return RedirectToAction("Table", "Table");
+        }
+        else
+        {
+            return Content("error");
+        }
         
     }
 
@@ -63,7 +72,15 @@ public class TableController : Controller
     public async Task<IActionResult> DeleteSection(int id)
     {
         var existingSection = await _table.GetSectionByIdForDelte(id);
-        return  RedirectToAction("Table", "Table");
+        if(existingSection)
+        {
+            TempData["DeleteSectionSuccess"] = true;
+            return  RedirectToAction("Table", "Table");
+        }
+        else
+        {
+            return Content("error");
+        }
     }
 
     public async Task<IActionResult> TablesBySection(int id , int pageNo = 1 , int pageSize=3, string searchKey = "" )
@@ -77,8 +94,16 @@ public class TableController : Controller
 
     public async Task<IActionResult> AddTable(Tablesviewmodel model)
     {
-         await _table.AddTable(model);
-        return  RedirectToAction("Table", "Table");
+        var isAdded =  await _table.AddTable(model);
+        if (isAdded)
+        {
+            TempData["AddTableSuccess"] = true;
+            return RedirectToAction("Table", "Table");
+        }
+        else
+        {
+            return Content("error");
+        }
     }
 
      public async Task<IActionResult> EditTable(int id)
@@ -86,21 +111,39 @@ public class TableController : Controller
         var item =await _table.GetEditTable(id);
         item.Tableid = id;
 
-        return PartialView("_EditTablePartial",item);                                 
+        return PartialView("_EditTablePartial",item);
+                                         
     }
 
     [HttpPost]
     public async Task<IActionResult> EditTable(EditTableviewmodel model)
     {
-         await _table.EditTable(model);
-        return  RedirectToAction("Table", "Table");
+        var isEdit = await _table.EditTable(model);
+         if (isEdit)
+        {
+            TempData["EditTableSuccess"] = true;
+           
+             return RedirectToAction("Table", "Table");
+        }
+        else
+        {
+            return Content("error");
+        }
     }
 
     [HttpPost]
     public async Task<IActionResult> DeleteTable(int id)
     {
-        var existingSection = await _table.GetTableByIdForDelte(id);
-        return  RedirectToAction("Table", "Table");
+        var isDelete = await _table.GetTableByIdForDelte(id);
+         if (isDelete)
+        {
+            TempData["DeleteTableSuccess"] = true;
+            return RedirectToAction("Table", "Table");
+        }
+        else
+        {
+            return Content("error");
+        }
     }
 
     [HttpPost]
