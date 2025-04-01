@@ -158,7 +158,7 @@
                                         }
                                     </td>
                                     <td>
-                                        ₹ @item.Price.ToString()
+                                        ₹ @(item.Price*item.Quantity) 
                                         @if (item.OrderItemModifiers.Any())
                                         {
                                             <ul class="list-unstyled mt-1">
@@ -169,7 +169,7 @@
                                             </ul>
                                         }
                                         @{
-                                            decimal itemTotal =(decimal) item.Price;
+                                            decimal itemTotal =(decimal) (item.Price * item.Quantity) ;
                                             decimal modifierTotal =(decimal) item.OrderItemModifiers.Sum(m => m.Quantity * m.Price);
                                             decimal totalForRow = itemTotal + modifierTotal;
                                             subtotal += totalForRow;

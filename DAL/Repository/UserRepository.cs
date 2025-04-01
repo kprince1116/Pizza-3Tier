@@ -35,6 +35,15 @@ namespace Pizzashop.Data.Repositories
             return await _db.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
 
+        public async Task<bool> IsEmailUniqueAsync(string email)
+    {
+        return !await _db.Users.AnyAsync(u => u.Email == email);
+    }
+
+    public async Task<bool> IsPhoneNumberUniqueAsync(string phoneNumber)
+    {
+        return !await _db.Users.AnyAsync(u => u.Phonenumber == phoneNumber);
+    }
         public async Task UpdateUser(User user)
         {
             _db.Users.Update(user);
@@ -138,6 +147,14 @@ namespace Pizzashop.Data.Repositories
             return query.CountAsync();
         }
 
+        public async Task<bool> EmailExists(string Email)
+        {
+            return await _db.Users.AnyAsync(u=>u.Email == Email);
+        }
+        public async Task<bool> PhoneNumberExists(string Phonenumber)
+        {
+            return await _db.Users.AnyAsync(u=>u.Phonenumber == Phonenumber);
+        }
         public async Task<bool> AddUserAsync(AddUserviewmodel user)
         {
 

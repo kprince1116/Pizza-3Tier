@@ -61,11 +61,11 @@ public interface IUserMenuRepository
     public IEnumerable<ModifierGroup> GetAllModifierGroup();
 
     //ADD Modifier Group
-    public Task<bool> AddModifier(ModifierGroupViewModel  model);
+    public Task<bool> AddModifier(menuviewmodel  model);
 
     public Task<ModifierGroup> GetModifierId(int id);
 
-    public  Task<bool> UpdateModifierAsync(ModifierGroupViewModel model);
+    public  Task<bool> UpdateModifierAsync(menuviewmodel model);
 
      public Task<ModifierGroup> GetModifierByIdForDelete(int id);
 

@@ -25,6 +25,10 @@ public partial class Customer
 
     public int? TotalPersons { get; set; }
 
+    public int? TotalOrders { get; set; }
+
+    public DateTime? CutomerDate { get; set; }
+
     public virtual User? CreatedByNavigation { get; set; }
 
     public virtual User? ModifiedByNavigation { get; set; }

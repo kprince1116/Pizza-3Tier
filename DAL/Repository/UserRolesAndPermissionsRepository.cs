@@ -22,7 +22,7 @@ public class UserRolesAndPermissionsRepository : IUserRolesAndPermissionsReposit
 
     public async Task<List<Rolesandpermission>> GetPermissions( int id)
     {
-        var Permissions = await _db.Rolesandpermissions.Include(r=>r.Userrole).Include(p=>p.Permission).Where(r=>r.Userroleid==id).ToListAsync();
+        var Permissions = await _db.Rolesandpermissions.Include(r=>r.Userrole).Include(p=>p.Permission).Where(r=>r.Userroleid==id).OrderBy(u=>u.Userroleid).ToListAsync();
         return Permissions;
     }
 

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    @* <link rel="stylesheet" href="~/css/dashboard.css" asp-append-version="true" /> *@
+    <link rel="stylesheet" href="~/css/Tax.css" asp-append-version="true" />
     <title>Document</title>
 </head>
 
@@ -19,16 +19,16 @@
                 <div class="ms-3">
                     <p class="fs-2 fw-bold" style="color: rgb(0, 102, 187);">Taxes/Fees</p>
                 </div>
-                <div class="d-flex gap-2 mb-2">
-                    <div class="d-flex justify-content-end position-relative align-items-center">
-                        <input type="text" class="search form-control" style="height: 60px;" id="taxListSearch"
+                <div class="d-flex gap-2 mb-2 ">
+                    <div class="d-flex justify-content-end position-relative align-items-center ">
+                        <input type="text" class="search form-control search-bar" style="height: 60px;"  id="taxListSearch"
                             placeholder="Search" />
                         <img src="~/images/icons/search.svg" alt="" style="width: 20px; aspect-ratio: 1"
                             class="bg-white position-absolute rounded-2 m-2" />
                     </div>
 
-                    <a  class=" add-user border  p-lg-3 p-2"  data-bs-toggle="modal" data-bs-target="#addTax"
-                        style="background-color: #0066a7; text-decoration: none; color: white; text-wrap: nowrap;">
+                    <a class=" add-user border p-lg-3 p-2 fw-bold"   data-bs-toggle="modal" data-bs-target="#addTax"
+                        style="background-color: #0066a7; border-radius: 5px; text-decoration: none; color: white; text-wrap: nowrap;">
                         +Add Tax
                     </a>
                 </div>

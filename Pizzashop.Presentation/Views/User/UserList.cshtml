@@ -43,7 +43,7 @@
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
-                            <tr>
+                            <tr style="opacity: 0.95;" >
                                 <th scope="col">Name
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                         class="bi bi-arrow-down-up" viewBox="0 0 16 16" onclick="sortTable('name')">
@@ -74,7 +74,7 @@
                 <div
                     class="d-flex table-footer align-items-center justify-content-end gap-lg-2 gap-md-2 gap-1 me-1 me-md-4 me-lg-4">
                     <div class="d-flex align-items-center gap-1 items">
-                        <span class="ps-5 font2">Items Per Page</span>
+                        <span class="ps-5 font2 text-nowrap">Items Per Page</span>
                         <select class="form-select" style="width:68px ;" aria-label="Default select example"
                             id="pageSizeDropdown" onchange="changePageSize()">
                             <option selected>@ViewBag.pageSize</option>
@@ -85,7 +85,7 @@
                     </div>
 
                     <div class="d-flex align-items-center gap-1">
-                        <span class="font2">Showing @((ViewBag.CurrentPage - 1) * ViewBag.PageSize +
+                        <span class="font2 text-nowrap">Showing @((ViewBag.CurrentPage - 1) * ViewBag.PageSize +
                             1)-@Math.Min(ViewBag.CurrentPage * ViewBag.PageSize, ViewBag.TotalItems) of
                             @ViewBag.TotalItems</span>
                         <div class="pt-3">

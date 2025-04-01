@@ -1,6 +1,6 @@
 @model Pizzashop.DAL.ViewModels.Orderviewmodel
 
- <div class="border bg-white px-3">
+ <div class="border bg-white px-3" style="border-radius: 5px;">
      <div class="table-responsive">
     <table class="table">
       <thead>
@@ -34,18 +34,18 @@
         @foreach(var order in Model.Orders)
         {
         <tr>
-          <td class="table-field" style="text-wrap: nowrap;">#@order.OrderNo</td>
-          <td class="table-field" style="text-wrap: nowrap;">@order.Orderdate?.ToString("dd-MM-yyyy")</td>
-          <td class="table-field">@order.CustomerName</td>
-          <td> @order.Status</td>
-          <td> @order.Payment</td>
+          <td class="table-field fs-6" style="text-wrap: nowrap;">#@order.OrderNo</td>
+          <td class="table-field fs-6" style="text-wrap: nowrap;">@order.Orderdate?.ToString("dd-MM-yyyy")</td>
+          <td class="table-field fs-6">@order.CustomerName</td>
+          <td class="fs-6" > @order.Status</td>
+          <td class="fs-6" > @order.Payment</td>
           <td>
              <span class="text-warning">@(new string('★', order.Rating ?? 0))@(new string('☆', 5 - (order.Rating ?? 0)))</span> 
           </td>  
-          <td class="text-center" >@order.TotalAmount</td>
+          <td class="text-center fs-6" >@order.TotalAmount</td>
           <td >
-         <img src="~/images/icons/filetype-pdf.svg" class="pdfinvoice" data-orderid="@order.Orderid"  style="height: 25px;" alt="">
-            <a asp-action="OrderDetails" asp-controller="Order" asp-route-orderId="@order.Orderid"><img  style="height: 25px;" src="~/images/icons/eye (1).svg" alt=""></a>
+         <img src="~/images/icons/filetype-pdf.svg" class="pdfinvoice" data-orderid="@order.Orderid"  style="height: 20px;" alt="">
+            <a asp-action="OrderDetails" asp-controller="Order" asp-route-orderId="@order.Orderid"><img  style="height: 20px;" src="~/images/icons/eye (1).svg" alt=""></a>
           </td>
         </tr>
         }

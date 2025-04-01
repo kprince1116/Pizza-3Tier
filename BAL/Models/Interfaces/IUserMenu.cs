@@ -51,9 +51,9 @@ public interface IUserMenu
     // <!-- modifiers --!>
     public IEnumerable<ModifierGroupViewModel> GetAllModifierGroup();
 
-    public Task<bool> AddModifier(ModifierGroupViewModel model);
+    public Task<bool> AddModifier(menuviewmodel model);
   
-    public Task<bool> UpdateModifier(ModifierGroupViewModel model);
+    public Task<bool> UpdateModifier(menuviewmodel model);
 
     public Task<bool> GetModifierByIdForDelete(int id);
 

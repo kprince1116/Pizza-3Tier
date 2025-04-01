@@ -125,6 +125,9 @@ public partial class PizzaShopContext : DbContext
             entity.Property(e => e.Customername)
                 .HasMaxLength(250)
                 .HasColumnName("customername");
+            entity.Property(e => e.CutomerDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("cutomer_date");
             entity.Property(e => e.Isdelete)
                 .HasDefaultValueSql("false")
                 .HasColumnName("isdelete");
@@ -135,6 +138,7 @@ public partial class PizzaShopContext : DbContext
             entity.Property(e => e.Phonenumber)
                 .HasMaxLength(200)
                 .HasColumnName("phonenumber");
+            entity.Property(e => e.TotalOrders).HasColumnName("total_orders");
             entity.Property(e => e.TotalPersons).HasColumnName("total_persons");
 
             entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.CustomerCreatedByNavigations)

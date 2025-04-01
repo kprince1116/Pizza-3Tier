@@ -1,0 +1,82 @@
+@model Pizzashop.DAL.ViewModels.Customerviewmodel
+
+<div class="border bg-white px-3" style="border-radius: 5px;">
+     <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="table-name ">
+           Name
+            <img src="~/images/icons/arrow-up.svg" class="sort-btn" data-name="OrderNo" data-order="asc" alt=""> 
+            <img src="~/images/icons/arrow-down.svg" class="sort-btn" data-name="OrderNo" data-order="desc" alt="">
+          </th>
+           <th class="table-name">Email</th>
+           <th class="table-name">Phone Number</th>
+          <th  class="table-name"> Date
+            <img src="~/images/icons/arrow-up.svg" class="sort-btn" data-name="Orderdate" data-order="asc" alt=""> 
+            <img src="~/images/icons/arrow-down.svg" class="sort-btn" data-name="Orderdate" data-order="desc" alt="">   
+          </th>
+          <th scope="col" class="table-name">Total order
+             <img src="~/images/icons/arrow-up.svg" class="sort-btn" data-name="CustomerName" data-order="asc" alt=""> 
+            <img src="~/images/icons/arrow-down.svg" class="sort-btn" data-name="CustomerName" data-order="desc"  alt="">
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach(var Customer in Model.Customers)
+        {
+        <tr>
+          <td class="table-field fs-6" style="text-wrap: nowrap;">@Customer.Customername</td>
+          <td class="table-field fs-6" style="text-wrap: nowrap;">@Customer.Customeremail</td>
+          <td class="table-field fs-6">@Customer.Phonenumber</td>
+          <td class="table-field fs-6" style="text-wrap: nowrap;">@Customer.CutomerDate?.ToString("dd-MM-yyyy")</td>
+          <td class="fs-6"> @Customer.TotalOrders</td 
+        </tr>
+        }
+      </tbody>
+    </table>
+      </div> 
+      <div class="d-flex table-footer align-items-center justify-content-end gap-lg-2 gap-md-2 gap-1 me-0 me-md-4 me-lg-4">
+                <div class="d-flex align-items-center gap-1 items">
+                  <span class="ps-5 font2" style="text-wrap: nowrap;" >Items Per Page</span>
+                  <select class="form-select" onchange="changePageForCustomer(1)" id="customerPageSize" aria-label="Floating label select example"
+                    style="width: 66  px;">
+                    @if(Model.PageSize!=null)
+                    {
+                    <option value="3" selected="@(Model.PageSize==3 ? true : false)" >3</option>
+                    <option value="5" selected="@(Model.PageSize==5 ? true : false)" >5</option>
+                    <option value="10" selected="@(Model.PageSize==10 ? true : false)" >10</option>
+                    <option value="15" selected="@(Model.PageSize==15 ? true : false)" >15</option>
+                    }
+                  </select>
+                </div>
+                <div class="d-flex align-items-center gap-1">
+                  <span class="font2" style="text-wrap: nowrap;"> Showing @((Model.CurrentPage- 1) * Model.PageSize +
+                            1)-@Math.Min(Model.CurrentPage * Model.PageSize, Model.TotalRecords) of
+                            @Model.TotalRecords</span>
+                  <div class="pt-3">
+                    <nav aria-label="Page navigation example">
+                      <ul class="pagination gap-1">
+                        <li class="page-item @(Model.CurrentPage>1 ? " " : "disabled") ">
+                          <a class="page-link" aria-label="Previous" onclick="changePageForCustomer(@Model.CurrentPage-1)">
+                            <span aria-hidden="true">&laquo;</span>
+                          </a>
+                        </li>
+                        <li>
+                          <span class="page-link crpage ">@Model.CurrentPage</span>
+                        </li>
+                        <li class="page-item @(Model.CurrentPage<Model.TotalPages ? " " : "disabled")  ">
+                          <a class="page-link"  aria-label="Next" onclick="changePageForCustomer(@Model.CurrentPage+1)">
+                            <span aria-hidden="true">&raquo;</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+ </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" ></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" ></script>

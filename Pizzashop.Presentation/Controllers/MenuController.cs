@@ -48,6 +48,7 @@ public class MenuController : Controller
 
     }
 
+     #region Category CRUD
     [HttpPost]
     public async Task<IActionResult> AddCategory(menuviewmodel model)
     {
@@ -96,6 +97,9 @@ public class MenuController : Controller
         }
 
     }
+    #endregion
+
+    #region Item CRUD
 
     [Route("Menu/ItemsByCategory")]
     public async Task<IActionResult> ItemsByCategory(int id , int pageNo = 1 , int pageSize=3, string searchKey = "" )
@@ -157,6 +161,11 @@ public class MenuController : Controller
     public async Task<IActionResult> EditItems(EditItemviewmodel model , string modifierItemListForEdit)
     {
 
+        if (!ModelState.IsValid)
+    {
+        return PartialView("_EditItemPartial", model); 
+    }
+
         if (!string.IsNullOrEmpty(modifierItemListForEdit))
         {
             model.ItemModifierList = JsonSerializer.Deserialize<List<ItemModifierGroupviewmodel>>(modifierItemListForEdit);
@@ -203,7 +212,10 @@ public class MenuController : Controller
         _userMenu.DeleteItemsAsync(itemList);
         return Json( new { success = true, message = "hi"});
     }
-    
+     #endregion
+
+    #region Modifier Group CRUD
+
     //Modifiers
         public IActionResult ModifiersTab(int id)
     {
@@ -213,12 +225,12 @@ public class MenuController : Controller
 
     //Add Modifier
      [HttpPost]
-    public async Task<IActionResult> AddModifier(ModifierGroupViewModel model , string modifierList)
+    public async Task<IActionResult> AddModifier(menuviewmodel model , string modifierList)
     {
         if (!string.IsNullOrEmpty(modifierList))
         {
             
-            model.ModifierItemList = JsonSerializer.Deserialize<List<ModifierItemViewModel>>(modifierList);
+            model.AddModifierGroup.ModifierItemList = JsonSerializer.Deserialize<List<ModifierItemViewModel>>(modifierList);
         }
 
         var isAdded = await _userMenu.AddModifier(model);
@@ -246,12 +258,12 @@ public class MenuController : Controller
     // Edit Modifier
 
     [HttpPost]
-    public async Task<IActionResult> EditModifier(ModifierGroupViewModel model ,  string ExistingmodifierList )
+    public async Task<IActionResult> EditModifier(menuviewmodel model ,  string ExistingmodifierList )
     {
 
         if (!string.IsNullOrEmpty(ExistingmodifierList))
         {
-            model.ModifierItemList = JsonSerializer.Deserialize<List<ModifierItemViewModel>>(ExistingmodifierList);
+            model.AddModifierGroup.ModifierItemList = JsonSerializer.Deserialize<List<ModifierItemViewModel>>(ExistingmodifierList);
         }
 
         var isEdit = await _userMenu.UpdateModifier(model);
@@ -281,8 +293,10 @@ public class MenuController : Controller
             return Content("error");
         }
     }
-
+    #endregion
    
+    #region Modifier Item CRUD
+
     public async Task<IActionResult> ItemsByModifier(int id , int pageNo = 1 , int pageSize=3, string searchKey = "" )
     {
         var items = await _userMenu.GetItemsByModifier(id,pageNo,pageSize, searchKey);
@@ -307,10 +321,10 @@ public class MenuController : Controller
         }
     }
 
-    public async Task<IActionResult> EditModifierItem(int id)
+    public async Task<IActionResult> EditModifierItem(int editid)
     {
-        var item =await _userMenu.GetEditModifierItem(id);
-        item.ModifierId = id;
+        var item =await _userMenu.GetEditModifierItem(editid);
+        item.ModifierId = editid;
 
         return PartialView("_EditModifierItemPartial",item);                                 
     }
@@ -366,5 +380,7 @@ public class MenuController : Controller
         var items = await _userMenu.GetExistingModifierItems(id);
         return PartialView("_EditExistingModifier", items);
     }
+
+    #endregion
 
 }

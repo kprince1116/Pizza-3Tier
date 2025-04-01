@@ -1,18 +1,8 @@
    @model Pizzashop.DAL.ViewModels.ModifierItemListViewModel
   
   
-  <div class=" d-flex align-items-center gap-3 ps-4 justify-content-start mt-5">
-        <div class=" d-flex justify-content-start position-relative align-items-center ">
-          <div class="d-flex justify-content-end position-relative align-items-center">
-            <input type="text" class="search form-control " style="height: 50px;" id="ExistingModifierListSearch"
-              placeholder="Search" />
-            <img src="~/images/icons/search.svg" alt="" style="width: 20px; aspect-ratio: 1"
-              class="bg-white position-absolute rounded-2 m-2" onclick="itemSearch()"/>
-          </div>
-        </div>
-    </div>
-
-   <div class=" mt-3 me-3 ms-3 mb-4 table-responsive">
+  
+   <div class=" mt-3 me-3 ms-3 mb-4 table-responsive" style="height: 250px;"  >
             <table class="table exisiting-table">
               <thead>
                 <tr>
@@ -120,22 +110,6 @@
       });
 
 });
-
-  $(document).ready(function () {
-    console.log("se:",selectedExistingModifiers);
-    if (selectedExistingModifiers.length > 0) {
-        $(".modifierItemCheckBox").each(function () {
-            const id = $(this).data("deid"); 
-            console.log("tick:", id); 
-   
-            if (selectedExistingModifiers.some(u => u.ModifierItemId === Number(id))) {
-                $(this).prop("checked", true); 
-                $(this).trigger("change"); 
-            }
-        });
-    }
-});
-
 
 </script> 
 

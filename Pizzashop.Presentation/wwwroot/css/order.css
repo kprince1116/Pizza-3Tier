@@ -67,3 +67,44 @@ div.statusTimeDropdown {
     margin-left: 930px !important;
   }
 }
+
+@media (min-width: 1000px) {
+  .heading {
+      align-items: center !important;
+  }
+}
+
+@media (min-width: 1000px) {
+  .flex-xl-row {
+      flex-direction: row !important;
+  }
+}
+
+@media(min-width:1000px) 
+{
+  .order-search{
+    width:90% !important;
+}
+    .all-status{
+      width:250px !important;
+    }
+
+    .all-time{
+      width: 250px !important;
+    }
+}
+
+/* @media(max-width:1420px)
+{
+  .order-search{
+    width:90% !important;
+}
+    .all-status{
+      width:250px !important;
+    }
+
+    .all-time{
+      width: 250px !important;
+    }
+} */
+

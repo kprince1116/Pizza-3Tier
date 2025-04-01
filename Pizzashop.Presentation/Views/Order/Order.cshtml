@@ -10,7 +10,7 @@
     <title>Document</title>
 </head>
 
-<body>
+<body>  
 
     <div class="me-3 ms-3" >
      <div class="heading my-3 d-flex flex-column flex-xl-row flex-warp justify-content-between">
@@ -18,14 +18,14 @@
        
         <div class="search-element gap-3 d-flex flex-column justify-content-end flex-lg-row mt-2 mt-md-0">
           <div class="d-flex justify-content-end position-relative align-items-center col-lg-3 col-xl-4 " style=" height: 58px;" role="search">
-            <input type="text" class="search form-control border-none" style="height: 56px; width: 100%;" id="orderListSearch" placeholder="Search">
+            <input type="text" class="order-search search form-control border-none" style="height: 56px; width: 100%;" id="orderListSearch" placeholder="Search">
       <img src="~/images/icons/search.svg" alt="" style="width: 20px; aspect-ratio: 1"
           class="bg-white position-absolute rounded-2 m-2" />
           </div>
 
             <div class="d-flex gap-3 flex-column flex-sm-row">
                 <div class="">
-                        <select class="form-select " aria-label="Status filter" style="width: 270px; height: 58px;" id="statusfilter">
+                        <select class="form-select all-status " aria-label="Status filter" style="width: 270px; height: 58px;" id="statusfilter">
                             <option selected value="">ALL STATUS</option>
                             <option value="pending">Pending</option>
                             <option value="in_progress">In Progress</option>
@@ -38,7 +38,7 @@
                     </div>
 
                <div>
-                        <select class="form-select" aria-label="Time filter" style="width: 270px; height: 58px;" id="timeFilter">
+                        <select class="form-select all-time" aria-label="Time filter" style="width: 270px; height: 58px;" id="timeFilter">
                             <option selected value="">ALL TIME</option>
                             <option value="today">Today</option>
                             <option value="this_week">This Week</option>

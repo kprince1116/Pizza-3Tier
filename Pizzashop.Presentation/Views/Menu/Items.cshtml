@@ -69,10 +69,10 @@
                     @foreach (var category in Model.Categories)
                     {
                       <div class="aaa">
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-between align-items-center sidebar-category">
                           <a style="color: black;" class="d-flex gap-2 pt-2 pb-2 ps-3 nav-link active align-items-center categorygroupbtn"
                             id="category-idforclick" data-category-id="@category.CategoryId">
-                            <img style="height: 25px;" src="~/images/icons/grid.png">
+                            <img style="height: 15px;" src="~/images/icons/grid.png">
                             <div onclick="fetchItems(@category.CategoryId)">@category.CategoryName</div>
                           </a>
                           <div class="icons-forlist">
@@ -110,7 +110,7 @@
                       class="border delete-icon d-flex p-lg-3 p-2" src="~/images/icons/trash (1).svg" alt="Delete Icon"
                       id="delete-icon-massdelete" />
                   </div>
-                  <div class="border new-item d-flex p-lg-3 p-2" data-bs-toggle="modal" data-bs-target="#AddItem"
+                  <div class="border new-item d-flex p-lg-3 p-2 fw-bold" data-bs-toggle="modal" data-bs-target="#AddItem"
                     style="background-color: #0066a7; color: white; text-wrap: nowrap;">
                     +New Item
                   </div>
@@ -124,7 +124,7 @@
 
           <!-- Modifiers Section -->
           <div class="tab-pane fade" id="modifiers-container" role="tabpanel" aria-labelledby="modifiers-tab">
-
+              
           </div>
         </div>
 
@@ -136,6 +136,7 @@
   <!-- Bootstrap & jQuery -->
 </body>
 <script src="https://cdnjs.cloudflar  e.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
 </html>
 
@@ -199,12 +200,23 @@
           data: { id: selectedModifierId },
           success: function (data) {
             $("#existingModifierList").html(data);
+             selectedExistingModifiers = [];
+      
+         $(".existModifiersForEdit").each(function() {
+        let id = $(this).data("mgitemid"); 
+        let name = $(this).data("mgitemname");
+        selectedExistingModifiers.push({ ModifierItemId: Number(id), Name: name });
+        
+       });  
+        console.log("selectedExistingModifiers:", selectedExistingModifiers);
           },
           error: function () {
             console.log("Error occurs");
           }
         });
       }
+
+        
 
       function loadItemsByModifier(modifierId) {
         let pagesize = $("#selectpagesizeForModifiers").val();
@@ -223,6 +235,16 @@
       }
     });
   </script>
+
+  <script>
+    function Tickcheckbox()
+       {
+         $.each(selectedExistingModifiers, function (index, id) {
+          console.log("id",id);
+        $('.modifierItemCheckBox[data-deid="' + id.ModifierItemId + '"]').prop("checked", true);
+      });
+       }
+    </script>
 
   <script>
     function fetchItems(categoryId) {
@@ -277,25 +299,28 @@
     }
 
     $(document).on("click", "#modifierEdit", function () {
-      loadModifierModal($(this).data("editmodifierid"));
-    })
+      const editModifierId = $(this).data("editmodifierid");
+      console.log("edit",editModifierId);
+    if (editModifierId) {
+        loadModifierModal(editModifierId);
+    } else {
+        console.error("No edit modifier ID found.");
+    }
+   });
 
-    function loadModifierModal(id) {
-      $.ajax({
+       function loadModifierModal(id) {
+        $.ajax({
         url: '@Url.Action("EditModifierItem", "Menu")',
         type: "GET",
         data: { editid: id },
-
         success: function (data) {
-          $("#edit-modal-size").html(data);
+              $("#edit-modal-size").html(data);
         },
-        error: function () {
-          console.log("No Projects Found");
-          $("#Editmodifieritemmodal").html('No User Fetched');
+        error: function (xhr, status, error) {
+            console.error("Error occurred: ", status, error);
         }
-      })
-    }
-
+    });
+}
   </script>
 
   <script>
@@ -308,18 +333,19 @@
       document.getElementById("editfordescription").value = description;
     }
 
-    function setEditModifierData(element) {
+  </script>
+
+  <script>
+        function setEditModifierData(element) {
       var modifierId = element.getAttribute("data-modifier-edit-id");
-      console.log(modifierId);
       var modifierName = element.getAttribute("data-modifier-name");
-      console.log(modifierName);
       var description = element.getAttribute("data-description");
-      console.log(description);
       $("#ModifiergId").val(modifierId);
       $("#editformgname").val(modifierName);
       $("#editformgdescription").val(description);
     }
 
+ 
   </script>
 
   <script>
@@ -339,13 +365,7 @@
 
 
     $(document).on('click', '.existingmodifierbutton', function () {
-       @* selectedExistingModifiers=[];
-        $(".existModifiersForEdit").each(function(){
-            console.log("success");
-            let id = $(this).data("mgitemid");
-            let name = $(this).data("mgitemname");
-            selectedExistingModifiers.push({ ModifierItemId: Number(id), Name: name });
-        });  *@
+      
       console.log("existing modifier button clicked");  
       changePageSizeForExistingModifiers();
     })
@@ -361,6 +381,7 @@
         success: function (data) {
           $("#existingmodifiermodals").html(data);
           console.log("success");
+
         },
         error: function () {
           console.log("Error occurs");
@@ -379,6 +400,8 @@
         dataType: "html",
         success: function (data) {
           $('#existingmodifiermodals').html(data);
+          console.log("selected:",selectedExistingModifiers);
+          Tickcheckbox();
         },
         error: function () {
           $('#existingmodifiermodals').html("No Data Found");
@@ -620,16 +643,74 @@ function saveExistingModifiers() {
       $("#selectedModifierListForEdit").val(JSON.stringify(selectedModifiersItemForEdit));
     }
 
-    $(document).on("click", "#submitAddItemBtn", function () {
-      SubmitAddItem();
-      $("#addItemForm").submit();
-    })
-    $(document).on("click", "#submitEditItemBtn", function () {
-      SubmitAddItemForEdit();
-      console.log("sucees");
-      $("#editItemForm").submit();
-    });
+  
+  @* $("#addItemForm").submit(); *@
+    
   </script>
+ @* $("#editItemForm").submit(); *@
+ <script>
+      $(document).on("click", "#submitAddItemBtn", function () {
+      SubmitAddItem();
+
+      var form = $("#addItemForm");
+      var formData = new FormData(form[0]);
+
+      $.ajax({
+        url:form.attr("action"),
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success:function(response){
+          if(response.success){
+            $("#AddItem").modal('hide');
+            toastr.success("Item Added Succesfuly");
+          }
+          else{
+            $("#AddItem").modal('show');
+          }
+        },
+        error: function () {
+          console.log("Error saving item.");
+        }
+      });
+    }); 
+  </script> 
+
+    <script>
+     $(document).on("click", "#submitEditItemBtn", function (e) {
+    e.preventDefault(); 
+
+    var form = $("#editItemForm");
+
+    @* if (!form.valid()) {
+        console.log("Validation failed.");
+        return; 
+    } *@
+
+    var formData = new FormData(form[0]);
+
+    $.ajax({
+        url: form.attr("action"),
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            if (response.success) {
+                $("#editModal2").modal('hide');
+                toastr.success("Item Edited Successfully");
+            } else {
+                $("#editModal2").modal('show');
+                toastr.error("Failed to edit item.");
+            }
+        },
+        error: function () {
+            console.log("Error saving item.");
+        }
+    });
+});
+    </script> 
 
   <script>
 
@@ -901,6 +982,7 @@ function saveExistingModifiers() {
   </div>
 </div>
 
+<!--Delte Category -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -1235,8 +1317,8 @@ function saveExistingModifiers() {
 <!-- Add Modifier Group Modal -->
 
 <div class="modal fade" id="modifierModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <form method="post" action="AddModifier" id="submitModifierGroupForm" class="modal-content">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <form method="post" action="AddModifier" id="submitModifierGroupForm" class="modal-content ">
 
       <input type="hidden" id="existingItemList" name="modifierList">
       <div class="modal-header">
@@ -1246,11 +1328,12 @@ function saveExistingModifiers() {
       <div class="modal-body">
         <div class="d-flex flex-column gap-2">
           <div class="form-floating">
-            <input type="text" class="form-control" name="Name" id="modifierName" placeholder="Name" required>
+            <input type="text" class="form-control" asp-for="@Model.AddModifierGroup.Name"  placeholder="Name" required>
+            <span asp-validation-for="@Model.AddModifierGroup.Name" class="text-danger"></span>
             <label for="modifierName">Name</label>
           </div>
           <div class="form-floating">
-            <input type="text" class="form-control" name="Description" id="modifierDescription"
+            <input type="text" class="form-control" asp-for="@Model.AddModifierGroup.Description"  id="modifierDescription"
               placeholder="Description">
             <label for="modifierDescription">Description</label>
           </div>
@@ -1272,7 +1355,7 @@ function saveExistingModifiers() {
 
 <!-- Edit Modifier Group Modal -->
 <div class="modal fade" id="editModifier" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
     <form method="post" asp-controller="Menu" id="submitModifierGroupFormForEdit" asp-action="EditModifier"
       class="modal-content">
       <input type="hidden" id="existingModifierItemList" name="ExistingmodifierList">
@@ -1283,12 +1366,13 @@ function saveExistingModifiers() {
       <div class="modal-body">
         <div class="d-flex flex-column gap-2">
           <div class="form-floating">
-            <input type="hidden" id="ModifiergId" name="ModifierId">
-            <input type="text" class="form-control" id="editformgname" name="Name" placeholder="Category Name">
+            <input type="hidden" id="ModifiergId" asp-for="@Model.AddModifierGroup.ModifierId">
+            <input type="text" class="form-control" id="editformgname" asp-for="@Model.AddModifierGroup.Name" placeholder="Category Name">
             <label for="editforname">Name</label>
+            <span asp-validation-for="@Model.AddModifierGroup.Name" class="text-danger"></span>
           </div>
           <div class="form-floating">
-            <input type="text" class="form-control" id="editformgdescription" name="Description"
+            <input type="text" class="form-control" id="editformgdescription" asp-for="@Model.AddModifierGroup.Description" 
               placeholder="Description">
             <label for="editfordescription">Description</label>
           </div>
@@ -1299,7 +1383,20 @@ function saveExistingModifiers() {
           data-bs-toggle="modal">+
           Add Existing Modifiers</a>
       </div>
-      <div class="ps-3 pt-2 existingModifierLists" id="existingModifierList">
+      <div class="ps-3 pt-2 existingModifierLists" >
+          <div class=" d-flex align-items-center gap-3 ps-4 justify-content-start mt-5">
+        <div class=" d-flex justify-content-start position-relative align-items-center ">
+          <div class="d-flex justify-content-end position-relative align-items-center">
+            <input type="text" class="search form-control " style="height: 50px;" id="ExistingModifierListSearch"
+              placeholder="Search" />
+            <img src="~/images/icons/search.svg" alt="" style="width: 20px; aspect-ratio: 1"
+              class="bg-white position-absolute rounded-2 m-2" onclick="itemSearch()"/>
+          </div>
+        </div>
+        <div id="existingModifierList">
+
+        </div>
+    </div>
 
       </div>
       <div class="modal-footer">
@@ -1312,14 +1409,26 @@ function saveExistingModifiers() {
 
 <!-- Add Existing  Modifier Group Modal -->
 <div class="modal fade" tabindex="-1" id="existingModifierModal" aria-labelleby="modal-title">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Add Existing Modifer Group</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body" id="existingmodifiermodals">
+     
+      <div class="modal-body" >
+         <div class=" d-flex align-items-center gap-3  justify-content-start mt-5">
+        <div class=" d-flex justify-content-start position-relative align-items-center ">
+          <div class="d-flex justify-content-end position-relative align-items-center">
+            <input type="text" class="search form-control " style="height: 50px; width: 250px;" id="ExistingModifierListSearch"
+              placeholder="Search" />
+            <img src="~/images/icons/search.svg" alt="" style="width: 20px; aspect-ratio: 1"
+              class="bg-white position-absolute rounded-2 m-2" onclick="itemSearch()"/>
+          </div>
+        </div>
+    </div>
       </div>
+      <div id="existingmodifiermodals" ></div>
       <div class="modal-footer d-flex justify-content-start ">
         <button type="submit" onclick="saveExistingModifiers()" class="btn btn-primary">Add</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -1474,18 +1583,13 @@ function saveExistingModifiers() {
   </div>
 </div>
 
-
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
 
-
-
 <script>
-
  $(document).ready(function () {
           
              @if (TempData["AddCategorySuccess"] != null && (bool)TempData["AddCategorySuccess"])
@@ -1561,5 +1665,4 @@ function saveExistingModifiers() {
                 </text>
             }
         });
-
 </Script>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @* <link rel="stylesheet" href="css/bootstrap.min.css"> *@
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="~/css/customer.css" asp-append-version="true" />
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="me-3 ms-3" >
+     <div class="heading my-3 d-flex flex-column flex-md-row flex-lg-row flex-xl-row flex-warp justify-content-between">
+         <p class="fs-2 fw-bold" style="color: rgb(0, 102, 187);">Customers</p>
+       
+        <div class="search-element gap-3 d-flex flex-column justify-content-end flex-lg-row mt-2 mt-md-0">
+          <div class="d-flex justify-content-end position-relative align-items-center col-lg-3 col-xl-4 " style=" height: 58px;" role="search">
+            <input type="text" class="customer-search search form-control border-none" style="height: 58px; width: 400px;" id="customerListSearch" placeholder="Search">
+      <img src="~/images/icons/search.svg" alt="" style="width: 20px; aspect-ratio: 1"
+          class="bg-white position-absolute rounded-2 m-2" />
+          </div>
+
+            <div class="d-flex gap-3 flex-column flex-sm-row">
+                
+               <div>
+                        <select class="form-select all-time" aria-label="Time filter"  id="timeFilter">
+                            <option selected value="">ALL TIME</option>
+                            <option value="today">Today</option>
+                            <option value="this_week">This Week</option>
+                            <option value="this_month">This Month</option>
+                        </select>
+                    </div>
+            </div>
+
+            <a class="btn w-auto  my-lg-0 px-4 my-0 d-flex align-items-center justify-content-center gap-2 text-white"
+                id="exportOrderBtn" data-bs-toggle="modal" data-bs-target="#exportModal"
+                style="background-color:#0066a7 ; height:58px;">
+                <img src="~/images/icons/export-svgrepo-com (1).svg" width="25px">
+                 Export
+            </a>
+           
+        </div> 
+        
+    </div>
+
+    <!-- From Date, To Date -->
+ 
+       <div id="customerTableContent" class="table_container">
+        </div>
+</body>
+</html>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" ></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+    function changePageForCustomer(pageNum) { 
+    let pageSize = $('#customerPageSize').val();
+    console.log("p",pageSize);
+    let search = $('#customerListSearch').val(); 
+    console.log("s",search);
+    $.ajax({
+      url: '@Url.Action("GetCustomerDetails", "Customer")',
+      type: "GET",
+      data: {  pageSize: pageSize, pageNo: pageNum, searchKey: search },
+      dataType: "html",
+      success: function (data) {
+        $('#customerTableContent').html(data);
+      },
+      error: function () {
+        $('#customerTableContent').html("No Data Found");
+      }
+    });
+  }
+      $(document).ready(function(){
+        changePageForCustomer(1);
+    });
+
+      $(document).on("input","#customerListSearch", function () {
+        console.log("success");
+        currentPage = 1;
+        changePageForCustomer(currentPage);
+      });
+
+</script>    

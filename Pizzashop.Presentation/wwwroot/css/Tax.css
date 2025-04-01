@@ -1,0 +1,22 @@
+* {
+    margin: 0%;
+    padding: 0%;
+  }
+
+  @media (width: 375px) {
+    .search-bar {
+        height: 45px !important;
+        /* width: 170px !important; */
+    }
+}
+
+@media (max-width: 463px) {
+    .table-footer{
+         display: flex !important;
+        flex-direction: column !important;
+        margin-right: -10px !important;
+        gap: 0% !important;
+        align-items: center !important;
+        justify-content: center;
+    }
+}

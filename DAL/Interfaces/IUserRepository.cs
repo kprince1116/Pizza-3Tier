@@ -15,6 +15,10 @@ public interface IUserRepository
     public Task<User> GetUserByEmailFor(string email);
     Task UpdateUser(User user);
 
+    public Task<bool> IsEmailUniqueAsync(string email);
+
+    public Task<bool> IsPhoneNumberUniqueAsync(string phoneNumber);
+
     public Task<User> GetUserByEmailForProfile(String email);
 
     Task updateUser(User user);
@@ -33,6 +37,10 @@ public interface IUserRepository
     public Task<int> GetUsercount(string searchTerm);
 
     Task<bool> AddUserAsync(AddUserviewmodel user);
+
+    public  Task<bool> EmailExists(string Email);
+
+    public Task<bool> PhoneNumberExists(string Phonenumber);
 
     public Task<User> GetUserById(int UserId);
 

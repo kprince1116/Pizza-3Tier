@@ -13,6 +13,10 @@ public interface IUserList
 
     public Task AddUserAsync(AddUserviewmodel user);
 
+    public Task<bool> EmailExists(string Email);
+
+    public Task<bool> PhoneNumberExists(string Phonenumber);
+
     public Task<User> GetUserById(int UserId);
     // Task<string?> GetUserById(int? userId);
 

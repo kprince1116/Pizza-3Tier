@@ -1,0 +1,24 @@
+
+.all-time{
+    width: 250px !important; 
+    height: 58px !important;
+}
+
+@media (max-width:425px) {
+    .all-time{
+        width: 393px !important; 
+        height: 58px !important;
+    }
+    .customer-search{
+        height: 58px !important;
+    }
+    
+}
+
+@media (max-width:375px) {
+    .all-time{
+        width: 343px !important; 
+        height: 58px !important;
+    }
+    
+}

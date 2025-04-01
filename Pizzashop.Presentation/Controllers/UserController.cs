@@ -54,6 +54,21 @@ public class UserController : Controller
     [HttpPost]
     public async Task<IActionResult> AddUser(AddUserviewmodel user)
     {
+
+        if (ModelState.IsValid)
+        {
+
+            if (await _userList.EmailExists(user.Email))
+            {
+                ModelState.AddModelError("Email", "This email is already registered.");
+            }
+
+            if (await _userList.PhoneNumberExists(user.Phonenumber))
+            {
+                ModelState.AddModelError("Phonenumber", "This phone number is already registered.");
+            }
+        }
+
         string token = Request.Cookies["jwtToken"];
 
         await _userList.AddUserAsync(user);

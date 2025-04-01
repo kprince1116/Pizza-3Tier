@@ -19,8 +19,8 @@
           <tr>
             <th>
               <div class="d-flex justify-content-between">
-                <div>Role</div>
-                <div>Action</div>
+                <div style="opacity: 0.87;" >Role</div>
+                <div style="opacity: 0.87;" >Action</div>
               </div>
             </th>
           </tr>
@@ -32,8 +32,8 @@
               <tr>
                 <td>
               <div class="d-flex justify-content-between">
-                <div>@role.RoleName</div>
-                <a asp-controller="RolesAndPermissions" asp-action="Permissions" id="@role.Userroleid" asp-route-id = "@role.Userroleid" >
+                <div style="font-size: 18px;" >@role.RoleName</div>
+                <a class="me-3" asp-controller="RolesAndPermissions" asp-action="Permissions" id="@role.Userroleid" asp-route-id = "@role.Userroleid" >
                   <img src="~/images/icons/pen.svg" alt="">
                 </a>
               </div>

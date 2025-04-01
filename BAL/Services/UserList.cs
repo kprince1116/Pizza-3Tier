@@ -34,11 +34,20 @@ public class UserList : IUserList
         return await _userRepository.GetUsercount(searchTerm);
     }
 
+    public async Task<bool> EmailExists(string Email)
+    {
+        return await _userRepository.EmailExists(Email);
+    }
+
+     public async Task<bool> PhoneNumberExists(string Phonenumber)
+     {
+        return await _userRepository.PhoneNumberExists(Phonenumber);
+     }
+
     public async Task AddUserAsync(AddUserviewmodel user)
     {
 
-        
-
+    
         string body = $@"
                        <html>
                        <body>

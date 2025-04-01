@@ -48,7 +48,7 @@
       @media  (width: 375px) {
         .search{
           height: 45px !important;
-          width: 170px !important  ;
+          /* width: 170px !important  ; */
         }
     
  }
@@ -62,7 +62,7 @@
   font-size: 20px; 
 }
 
-@media  (max-width: 375px) {
+@media  (max-width: 463px) {
   .table-footer{
     display: flex !important;
     flex-direction: column;
@@ -84,6 +84,7 @@
   padding-top: 2px;
   border-radius: 10%;
 }
+
 
 /* .table-field{
   padding-top: 14px !important;

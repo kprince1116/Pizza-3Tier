@@ -27,6 +27,7 @@
             </div>
 
             <form method="post" asp-controller="User" asp-action="AddUser" enctype="multipart/form-data" class="bg-white border ms-4 me-4">
+                @* <div asp-validation-summary="All" class="text-danger"></div> *@
                 <div class="row ps-3 pe-3 pt-3">
                     <div class="col-lg-6 pb-3">
                         <div class="form-floating">
@@ -57,6 +58,7 @@
                             <option value="2">Cheaf</option>
                         </select>
                         <label for="floatingSelect">Role</label>
+                        <span asp-validation-for="Userrole" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-lg-6 pb-3">
@@ -90,6 +92,7 @@
                             <img id="imagePreview" src="#" alt="Image Preview" style="display: none; max-width: 80%; max-height: 80%; object-fit: contain; margin-botttom: 20px;" />
                         </p>
                     </div>
+                    <span asp-validation-for="@Model.ProfileImage" class="text-danger"></span>
                 </div>
                 <div class="row ps-3 pe-3 pt-3">
                     <div class="col-lg-4 pb-3">
@@ -149,8 +152,11 @@
     <script src="js/bootstrap.bundle.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
 
-               <script>
+<script>
   function previewImage(event) {
     const input = event.target;
     const preview = document.getElementById('imagePreview');

@@ -196,14 +196,14 @@ public class UserMenu : IUserMenu
 
     //Add Modifier Group
 
-     public Task<bool> AddModifier(ModifierGroupViewModel model)
+     public Task<bool> AddModifier(menuviewmodel model)
      {
          return _userMenuRepository.AddModifier(model);
      }
 
      //Update Modifier Group
 
-     public async Task<bool> UpdateModifier(ModifierGroupViewModel model)
+     public async Task<bool> UpdateModifier(menuviewmodel model)
      {
         return await _userMenuRepository.UpdateModifierAsync( model);
     

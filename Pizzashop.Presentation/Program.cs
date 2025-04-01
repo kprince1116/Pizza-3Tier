@@ -30,7 +30,9 @@ builder.Services.AddScoped<ITaxesAndFessService, TaxesAndFessService>();
 builder.Services.AddScoped<ITaxesAndFessRepository , TaxesAndFess>();
 builder.Services.AddScoped<IOrderRepository , OrderRepository>();
 builder.Services.AddScoped<IOrderservice,Orderservice>();
-// builder.Services.AddScoped<IWebHostEnvironment,WebHostEnvironment>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<ICustomerService,CustomerService>();
+
 
 builder.Services.AddControllersWithViews();
 

@@ -1,27 +1,6 @@
  @model Pizzashop.DAL.ViewModels.ModifierItemListViewModel
 
-  <p class="ps-3 fs-3">Modifiers</p>
 
-    <div class=" d-flex align-items-center gap-3 pe-3 justify-content-end mt-5">
-        <div class=" d-flex justify-content-end position-relative align-items-center ">
-          <div class="d-flex justify-content-end position-relative align-items-center">
-            <input type="text" class="search form-control" style="height: 50px;" id="ModifierListSearch" 
-              placeholder="Search" />
-            <img src="~/images/icons/search.svg" alt="" style="width: 20px; aspect-ratio: 1"
-              class="bg-white position-absolute rounded-2 m-2" onclick="itemSearch()"/>
-          </div>
-        </div>
-
-        <div>
-          <img data-bs-toggle="modal" data-bs-target="#deleteModifierModalForMass" 
-     class="border delete-icon d-flex p-lg-3 p-2" 
-     src="~/images/icons/trash (1).svg" alt="Delete Icon" id="delete-icon-massmodifierdelete"/>
-        </div>
-        <div class="border new-item d-flex p-lg-3 p-2" data-bs-toggle="modal" data-bs-target="#addmodifieritemmodal"
-          style="background-color: #0066a7; color: white; text-wrap: nowrap;">
-          +New Modifier
-        </div>
-    </div>
 
    <div class=" mt-3 me-3 ms-3 mb-4 table-responsive">
             <table class="table">

@@ -24,7 +24,7 @@
         </div>
       </div>
 
-      <form method="post" asp-controller="RolesAndPermissions" asp-action="Permissions" class="bg-white border  ms-4 me-4">
+      <form method="post" asp-controller="RolesAndPermissions" asp-action="Permissions" class="bg-white border ms-4 me-4">
         <div class="row ps-3 pe-3 pt-3">
           <div class="col-lg-4 pb-3 ">
             <div class="form-floating">
@@ -42,7 +42,7 @@
               <tr  style="opacity: 0.95;">
                 <div>
                   <th scope="col">
-                     <input class="form-check-input" type="checkbox"  value="" id="out-checkbox">
+                     <input class="form-check-input" type="checkbox"  value="" id="permission-checkbox">
                     Permissions
                 </div>
                 </th>
@@ -70,19 +70,19 @@
                   </th>
                   <td>
                     <div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" onclick="selectAll()" role="switch" id="flexSwitchCheckDefault"
+                      <input class="form-check-input can-view" type="checkbox" onclick="selectAll()" role="switch" id="flexSwitchCheckDefault"
                         asp-for="@Model[i].CanView" >
                     </div>
                   </td>
                   <td>
                     <div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" onclick="selectAll()" role="switch" id="flexSwitchCheckDefault"
+                      <input class="form-check-input can-add-edit" type="checkbox" onclick="selectAll()" role="switch" id="flexSwitchCheckDefault"
                        asp-for = " @Model[i].CanAddEdit">
                     </div>
                   </td>
                   <td>
                     <div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" onclick="selectAll()" role="switch" id="flexSwitchCheckDefault"
+                      <input class="form-check-input can-delete" type="checkbox" onclick="selectAll()" role="switch" id="flexSwitchCheckDefault"
                         asp-for = "@Model[i].CanDelete">
                     </div>
                   </td>
@@ -105,28 +105,59 @@
 
 </html>
 
-@section Scripts{
+@section Scripts {
 <script>
 $(document).ready(function () {
-      const outerCheck = document.getElementById("out-checkbox");
-      const innerChecks = document.querySelectorAll(".inner-checkbox");
+    const outerCheck = document.getElementById("permission-checkbox");
+    const innerChecks = document.querySelectorAll(".inner-checkbox");
+    const canDeleteCheckboxes = document.querySelectorAll('.can-delete');
+    const canAddEditCheckboxes = document.querySelectorAll('.can-add-edit');
+    const canViewCheckboxes = document.querySelectorAll('.can-view');
 
-      outerCheck.addEventListener("change", function () {
-          innerChecks.forEach(checkbox => {
-              checkbox.checked = outerCheck.checked;
-              $(checkbox).trigger("change");
-          });
-      });
-      
-      innerChecks.forEach(checkbox => {
-          checkbox.addEventListener("change", function () {
-              const allChecked = [...innerChecks].every(cb => cb.checked);
-              const anyChecked = [...innerChecks].some(cb => cb.checked);
+    outerCheck.addEventListener("change", function () {
+        innerChecks.forEach(checkbox => {
+            checkbox.checked = outerCheck.checked;
+            $(checkbox).trigger("change");
+        });
+    });
 
-              outerCheck.checked = allChecked;
-              outerCheck.indeterminate = !allChecked && anyChecked; 
-          });
-      });
+    innerChecks.forEach(checkbox => {
+        checkbox.addEventListener("change", function () {
+            const allChecked = [...innerChecks].every(cb => cb.checked);
+            const anyChecked = [...innerChecks].some(cb => cb.checked);
+
+            outerCheck.checked = allChecked;
+            outerCheck.indeterminate = !allChecked && anyChecked;
+        });
+    });
+  
+
+    const updateViewCheckbox = (index) => {
+        if (canDeleteCheckboxes[index].checked || canAddEditCheckboxes[index].checked) {
+            canViewCheckboxes[index].checked = true;
+        }
+    };
+
+    canDeleteCheckboxes.forEach((checkbox, index) => {
+        checkbox.addEventListener('change', function () {
+            updateViewCheckbox(index);
+        });
+    });
+
+    canAddEditCheckboxes.forEach((checkbox, index) => {
+        checkbox.addEventListener('change', function () {
+            updateViewCheckbox(index);
+        });
+    });
+
+    canViewCheckboxes.forEach((checkbox, index) => {
+        checkbox.addEventListener('change', function () {
+            if (!this.checked && (canDeleteCheckboxes[index].checked || canAddEditCheckboxes[index].checked)) {
+                this.checked = true;
+                alert("Cannot uncheck 'Can View' when 'Can Delete' or 'Can Add/Edit' is selected.");
+            }
+        });
+    });
 });
 </script>
 }

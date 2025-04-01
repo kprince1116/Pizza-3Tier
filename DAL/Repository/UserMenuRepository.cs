@@ -420,9 +420,9 @@ public class UserMenuRepository : IUserMenuRepository
     }
 
     //Add Modifier
-    public async Task<bool> AddModifier(ModifierGroupViewModel model)
+    public async Task<bool> AddModifier(menuviewmodel model)
     {
-        ModifierGroup exisingModifiergroup = await _db.ModifierGroups.Where(u => u.Name == model.Name && (!u.IsDeleted.HasValue || !u.IsDeleted.Value) && u.ModifierGroupId != model.ModifierId).FirstOrDefaultAsync();
+        ModifierGroup exisingModifiergroup = await _db.ModifierGroups.Where(u => u.Name == model.AddModifierGroup.Name && (!u.IsDeleted.HasValue || !u.IsDeleted.Value) && u.ModifierGroupId != model.AddModifierGroup.ModifierId).FirstOrDefaultAsync();
 
         if (exisingModifiergroup != null && exisingModifiergroup.IsDeleted == false)
         {
@@ -440,14 +440,14 @@ public class UserMenuRepository : IUserMenuRepository
         {
             ModifierGroup modifierGroup = new ModifierGroup
             {
-                Name = model.Name,
-                Description = model.Description
+                Name = model.AddModifierGroup.Name,
+                Description = model.AddModifierGroup.Description
             };
 
             _db.ModifierGroups.Add(modifierGroup);
             bool success = await _db.SaveChangesAsync() > 0;
 
-            if(await AddModifierItem(modifierGroup.ModifierGroupId , model.ModifierItemList))
+            if(await AddModifierItem(modifierGroup.ModifierGroupId , model.AddModifierGroup.ModifierItemList))
             {
             return success;
             }
@@ -472,9 +472,9 @@ public class UserMenuRepository : IUserMenuRepository
     }
 
     //edit Modifier
-    public async Task<bool> UpdateModifierAsync(ModifierGroupViewModel model)
+    public async Task<bool> UpdateModifierAsync(menuviewmodel model)
     {
-         ModifierGroup exisingModifiergroup = await _db.ModifierGroups.Where(u => u.Name == model.Name && (!u.IsDeleted.HasValue || !u.IsDeleted.Value) && u.ModifierGroupId != model.ModifierId).FirstOrDefaultAsync();
+         ModifierGroup exisingModifiergroup = await _db.ModifierGroups.Where(u => u.Name == model.AddModifierGroup.Name && (!u.IsDeleted.HasValue || !u.IsDeleted.Value) && u.ModifierGroupId != model.AddModifierGroup.ModifierId).FirstOrDefaultAsync();
 
         if (exisingModifiergroup != null && exisingModifiergroup.IsDeleted == false)
         {
@@ -490,15 +490,15 @@ public class UserMenuRepository : IUserMenuRepository
 
         try
         {
-             ModifierGroup? modifiergroup = _db.ModifierGroups.FirstOrDefault(m => m.ModifierGroupId == model.ModifierId);
+             ModifierGroup? modifiergroup = _db.ModifierGroups.FirstOrDefault(m => m.ModifierGroupId == model.AddModifierGroup.ModifierId);
             
-            modifiergroup.Name = model.Name;
-            modifiergroup.Description = model.Description;
+            modifiergroup.Name = model.AddModifierGroup.Name;
+            modifiergroup.Description = model.AddModifierGroup.Description;
 
             _db.ModifierGroups.Update(modifiergroup);
             bool success = await _db.SaveChangesAsync() > 0;
 
-            if(await AddModifierItem(modifiergroup.ModifierGroupId , model.ModifierItemList))
+            if(await AddModifierItem(modifiergroup.ModifierGroupId , model.AddModifierGroup.ModifierItemList))
             {
             return success;
             }
