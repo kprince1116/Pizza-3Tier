@@ -4,6 +4,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BCrypt.Net" Version="0.1.0" />
+    <PackageReference Include="itext.bouncy-castle-adapter" Version="9.1.0" />
+    <PackageReference Include="itext.bouncy-castle-fips-adapter" Version="9.1.0" />
+    <PackageReference Include="itext7" Version="9.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
   </ItemGroup>
   <PropertyGroup>

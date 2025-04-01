@@ -14,7 +14,7 @@
 
     <div class="me-3 ms-3" >
      <div class="heading my-3 d-flex flex-column flex-xl-row flex-warp justify-content-between">
-         <p class="fs-1" style="color: #0066a7">Orders</p>
+         <p class="fs-2 fw-bold" style="color: rgb(0, 102, 187);">Orders</p>
        
         <div class="search-element gap-3 d-flex flex-column justify-content-end flex-lg-row mt-2 mt-md-0">
           <div class="d-flex justify-content-end position-relative align-items-center col-lg-3 col-xl-4 " style=" height: 58px;" role="search">
@@ -87,10 +87,59 @@
 </html>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" ></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+
+    $(document).on('click','.pdfinvoice',function(){
+      var orderid = $(this).data("orderid");
+      console.log("orderid:",orderid);
+
+    $.ajax({
+          url: '@Url.Action("Invoice", "Order")',
+          type:"GET",
+          data:{orderId:orderid},
+          success:function(response){
+             var tempDiv = $("<div>").css({
+                            "position": "absolute",
+                            "left": "-9999px",
+                            "top": "-9999px", 
+                            "width": "1000px", 
+                            "height": "auto", 
+                            "background": "white",
+                            "z-index": "-1" 
+              }).html(response).appendTo("body");
+
+                setTimeout(function () {
+                            html2canvas(tempDiv[0], { scale: 2, useCORS: true }).then(function (canvas) {
+                                var imgData = canvas.toDataURL("image/png");
+                                var { jsPDF } = window.jspdf;
+                                var pdf = new jsPDF("p", "mm", "a4");
+                                var imgWidth = 210;
+                                var imgHeight = (canvas.height * imgWidth) / canvas.width;
+                                pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+                                pdf.save("invoice_" + orderid + ".pdf");
+                                tempDiv.remove(); 
+                            }).catch(function (error) {
+                                console.error("Error rendering canvas:", error);
+                                toastr.error("Error generating PDF. Please try again.");
+                                tempDiv.remove();
+                            });
+                        }, 10); 
+          },
+          error:function(xhr,status,error){
+            console.log("error",error);
+            }
+    });
+});
+
+</script>
 
 <script>
 
-   
     $(document).on("click","#searchinput",function(){
       changePageForOrder(1);
     });
@@ -124,6 +173,7 @@
     });
   }
 
+   
   $(document).on("click",'.sort-btn',function(){
       sortBy = $(this).data("name");
       sortDirection = $(this).data("order");

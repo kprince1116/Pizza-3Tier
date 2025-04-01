@@ -22,24 +22,24 @@
         <div class="w-100 bg-light">
             <div class="d-flex justify-content-between gap-1 me-3">
                 <div class="ms-3">
-                    <p class="fs-2" style="color: #0066a7;">Users</p>
+                    <p class="fs-2 fw-bold" style="color: rgb(0, 102, 187);">Users</p>
                 </div>
-                <div class="d-flex gap-2 mb-2">
+                <div class="d-flex gap-2 mb-2 align-items-center">
                     <div class="d-flex justify-content-end position-relative align-items-center">
-                        <input type="text" class="search form-control" style="height: 60px;" id="userListSearch"
+                        <input type="text" class="search form-control" style="height: 45px;" id="userListSearch"
                             placeholder="Search" value="@ViewBag.SearchTerm" />
                         <img src="~/images/icons/search.svg" alt="" style="width: 20px; aspect-ratio: 1"
                             class="bg-white position-absolute rounded-2 m-2" />
                     </div>
 
-                    <a asp-controller="User" asp-action="AddUser" class=" add-user border  p-lg-3 p-2"
-                        style="background-color: #0066a7; text-decoration: none; color: white; text-wrap: nowrap;">
+                    <a asp-controller="User" asp-action="AddUser" class=" add-user border fw-bold text-center d-flex align-items-center justify-content-center px-2 py-0"
+                        style="background-color: rgb(0, 102, 187); text-decoration: none; color: white; text-wrap: nowrap; height:45px; border-radius: 5px;">
                         +Add User
                     </a>
                 </div>
             </div>
 
-            <div class="border bg-white ms-3 me-3 " id="changeThis">
+            <div class="border bg-white ms-3 me-3" id="changeThis" style="border-radius: 5px;">
                 <div class="table-responsive">
                     <table class="table">
                         <thead>

@@ -47,5 +47,7 @@ public partial class MenuItem
 
     public virtual ICollection<Itemmodifiergroup> Itemmodifiergroups { get; set; } = new List<Itemmodifiergroup>();
 
+    public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+
     public virtual Unit? Unit { get; set; }
 }

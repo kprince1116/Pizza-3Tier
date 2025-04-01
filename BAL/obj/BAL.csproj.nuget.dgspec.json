@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\Project\\3Tier\\BAL\\BAL.csproj": {}
+    "D:\\Project\\3Tier\\BAL\\BAL.csproj": {}
   },
   "projects": {
-    "d:\\Project\\3Tier\\BAL\\BAL.csproj": {
+    "D:\\Project\\3Tier\\BAL\\BAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\Project\\3Tier\\BAL\\BAL.csproj",
+        "projectUniqueName": "D:\\Project\\3Tier\\BAL\\BAL.csproj",
         "projectName": "BAL",
-        "projectPath": "d:\\Project\\3Tier\\BAL\\BAL.csproj",
+        "projectPath": "D:\\Project\\3Tier\\BAL\\BAL.csproj",
         "packagesPath": "C:\\Users\\pca187\\.nuget\\packages\\",
-        "outputPath": "d:\\Project\\3Tier\\BAL\\obj\\",
+        "outputPath": "D:\\Project\\3Tier\\BAL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\pca187\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -49,6 +49,18 @@
             "Microsoft.AspNetCore.Http.Abstractions": {
               "target": "Package",
               "version": "[2.3.0, )"
+            },
+            "itext.bouncy-castle-adapter": {
+              "target": "Package",
+              "version": "[9.1.0, )"
+            },
+            "itext.bouncy-castle-fips-adapter": {
+              "target": "Package",
+              "version": "[9.1.0, )"
+            },
+            "itext7": {
+              "target": "Package",
+              "version": "[9.1.0, )"
             }
           },
           "imports": [

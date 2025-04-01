@@ -16,10 +16,10 @@
     <div class="w-100 bg-light">
       <div class="d-flex  justify-content-between">
         <div class="ms-4">
-          <p class="fs-2" style="color: rgb(0, 102, 187);">Permission</p>
+          <p class="fs-2 fw-bold" style="color: rgb(0, 102, 187);">Permission</p>
         </div>
         <div class="me-4 mt-2">
-          <a asp-action="UserList" asp-controller="User" class="border p-2" style="background-color:rgb(0, 102, 187); text-decoration: none; color: #ffff;">
+           <a asp-action="Roles" asp-controller="RolesAndPermissions" class="border px-2 py-2 fw-bold" style="background-color:rgb(0, 102, 187); text-decoration: none; color: #ffff; border-radius: 5px !important;">
             < Back</a>
         </div>
       </div>
@@ -39,7 +39,7 @@
         <div class="ms-3 me-3 mb-4  table-responsive">
           <table class="table">
             <thead>
-              <tr>
+              <tr  style="opacity: 0.95;">
                 <div>
                   <th scope="col">
                      <input class="form-check-input" type="checkbox"  value="" id="out-checkbox">
@@ -57,7 +57,7 @@
               {
                   <tr>
                   <th scope="row">
-                    <div class="form-check">
+                    <div class="form-check class="fs-6 fw-bold" style="opacity: 0.85;">
                       <input type="hidden"  asp-for="@Model[i].Rolesandpermissionid">
                       <input type="hidden"  asp-for="@Model[i].Userroleid">
                       <input type="hidden"  asp-for="@Model[i].RoleName">
@@ -86,14 +86,14 @@
                         asp-for = "@Model[i].CanDelete">
                     </div>
                   </td>
-                </tr>
+                  </tr>
               }
             </tbody>
           </table>
         </div>
         <div class="pe-3 pb-4 d-flex justify-content-end gap-2">
-          <button class="btn btn-outline-primary" type="submit">Save</button>
-          <button class="btn btn-primary" type="button" onclick="resetForm()">Cancel</button>
+          <button class="btn btn-outline-primary" type="submit" style="color: rgb(0, 102, 187);">Save</button>
+          <button class="btn btn-primary" type="button" onclick="resetForm()" style="background-color: rgb(0, 102, 187)">Cancel</button>
         </div>
       </form>
     </div>

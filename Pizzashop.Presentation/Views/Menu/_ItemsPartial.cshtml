@@ -27,7 +27,7 @@
                     <div class="form-check gap-5"> 
                       <input class="form-check-input inner-check" type="checkbox" value="" id="flexCheckChecked" data-deleteId="@item.Itemid">
                       <div class="d-flex align-items-center gap-1">
-                        <img style="height: 25px; border-radius: 90%;" src="@(!string.IsNullOrEmpty(item.Image) ? item.Image  : "/images/dining-menu.png")">
+                        <img style="height: 35px; width:35px; border-radius: 90%;" src="@(!string.IsNullOrEmpty(item.Image) ? item.Image  : "/images/dining-menu.png")">
                         <div class="d-flex align-items-center text-nowrap item-name ">@item.Itemname</div>
                       </div>
                     </div>
@@ -59,7 +59,7 @@
 </td>
 
           <td>
-            <a data-bs-toggle="modal" id="itemEdit" data-bs-target="#editModal2" class="edit-item" data-editid="@item.Itemid" ><img src="~/images/icons/pen-fill.svg" a  lt=""></a>
+            <a data-bs-toggle="modal" id="itemEdit" data-bs-target="#editModal2" class="edit-item" data-editid="@item.Itemid" ><img src="~/images/icons/pen.svg" a  lt=""></a>
             <img data-bs-toggle="modal" class="delete-item" data-bs-toggle="modal" data-bs-target="#deleteItemModal" onclick="deleteItem(this)" data-itemid ="@item.Itemid" src="~/images/icons/trash (1).svg" alt="">                                   
           </td>
           </tr>

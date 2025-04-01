@@ -42,10 +42,10 @@
           <td>
              <span class="text-warning">@(new string('★', order.Rating ?? 0))@(new string('☆', 5 - (order.Rating ?? 0)))</span> 
           </td>  
-          <td>@order.TotalAmount</td>
+          <td class="text-center" >@order.TotalAmount</td>
           <td >
-            <img src="~/images/icons/filetype-pdf.svg" style="height: 25px;" alt="">
-            <img style="height: 25px;" src="~/images/icons/eye (1).svg" alt="">
+         <img src="~/images/icons/filetype-pdf.svg" class="pdfinvoice" data-orderid="@order.Orderid"  style="height: 25px;" alt="">
+            <a asp-action="OrderDetails" asp-controller="Order" asp-route-orderId="@order.Orderid"><img  style="height: 25px;" src="~/images/icons/eye (1).svg" alt=""></a>
           </td>
         </tr>
         }
@@ -93,4 +93,6 @@
  </div>
 </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" ></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" ></script>

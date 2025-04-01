@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "W9hpR30BNt2ixixydmarOyzducDgo8uAPpIhkI2CFj0=",
+  "Hash": "8CkyMQTPtauKf77eNQDE5lsy8ktESN6twZ78ZAhTS/8=",
   "Source": "Pizzashop.Presentation",
   "BasePath": "_content/Pizzashop.Presentation",
   "Mode": "Default",
@@ -17,10 +17,10 @@
   ],
   "Assets": [
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\obj\\Debug\\net7.0\\scopedcss\\bundle\\Pizzashop.Presentation.styles.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\obj\\Debug\\net7.0\\scopedcss\\bundle\\Pizzashop.Presentation.styles.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Computed",
-      "ContentRoot": "d:\\Project\\3Tier\\Pizzashop.Presentation\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
+      "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
       "BasePath": "_content/Pizzashop.Presentation",
       "RelativePath": "Pizzashop.Presentation.styles.css",
       "AssetKind": "All",
@@ -31,13 +31,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "d:\\Project\\3Tier\\Pizzashop.Presentation\\obj\\Debug\\net7.0\\scopedcss\\bundle\\Pizzashop.Presentation.styles.css"
+      "OriginalItemSpec": "D:\\Project\\3Tier\\Pizzashop.Presentation\\obj\\Debug\\net7.0\\scopedcss\\bundle\\Pizzashop.Presentation.styles.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\Pizzashop.Presentation.bundle.scp.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\Pizzashop.Presentation.bundle.scp.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Computed",
-      "ContentRoot": "d:\\Project\\3Tier\\Pizzashop.Presentation\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/Pizzashop.Presentation",
       "RelativePath": "Pizzashop.Presentation.bundle.scp.css",
       "AssetKind": "All",
@@ -48,10 +48,10 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "d:\\Project\\3Tier\\Pizzashop.Presentation\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\Pizzashop.Presentation.bundle.scp.css"
+      "OriginalItemSpec": "D:\\Project\\3Tier\\Pizzashop.Presentation\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\Pizzashop.Presentation.bundle.scp.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\css\\changepassword.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\css\\changepassword.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -68,7 +68,7 @@
       "OriginalItemSpec": "wwwroot\\css\\changepassword.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\css\\dashboard.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\css\\dashboard.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -85,7 +85,7 @@
       "OriginalItemSpec": "wwwroot\\css\\dashboard.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\css\\login.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\css\\login.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -102,7 +102,7 @@
       "OriginalItemSpec": "wwwroot\\css\\login.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\css\\Menu.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\css\\Menu.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -119,7 +119,7 @@
       "OriginalItemSpec": "wwwroot\\css\\Menu.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\css\\MenuModifier.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\css\\MenuModifier.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -136,7 +136,7 @@
       "OriginalItemSpec": "wwwroot\\css\\MenuModifier.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\css\\order.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\css\\order.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -153,7 +153,7 @@
       "OriginalItemSpec": "wwwroot\\css\\order.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\css\\profile.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\css\\profile.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -170,7 +170,7 @@
       "OriginalItemSpec": "wwwroot\\css\\profile.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\css\\RoleAndPermission.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\css\\RoleAndPermission.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -187,7 +187,7 @@
       "OriginalItemSpec": "wwwroot\\css\\RoleAndPermission.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\css\\site.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\css\\site.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -204,7 +204,7 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\css\\Table.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\css\\Table.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -221,7 +221,7 @@
       "OriginalItemSpec": "wwwroot\\css\\Table.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\favicon.ico",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\favicon.ico",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -238,7 +238,7 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\dashboard-default.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\dashboard-default.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -255,7 +255,7 @@
       "OriginalItemSpec": "wwwroot\\images\\dashboard-default.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\Default_pfp.svg.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\Default_pfp.svg.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -272,7 +272,7 @@
       "OriginalItemSpec": "wwwroot\\images\\Default_pfp.svg.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\dining-menu.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\dining-menu.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -289,7 +289,7 @@
       "OriginalItemSpec": "wwwroot\\images\\dining-menu.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\dominos_background.jpg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\dominos_background.jpg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -306,7 +306,7 @@
       "OriginalItemSpec": "wwwroot\\images\\dominos_background.jpg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\arrow-clockwise.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\arrow-clockwise.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -323,7 +323,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\arrow-clockwise.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\arrow-down.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\arrow-down.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -340,7 +340,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\arrow-down.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\arrow-left-square.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\arrow-left-square.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -357,7 +357,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\arrow-left-square.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\arrow-right-square.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\arrow-right-square.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -374,7 +374,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\arrow-right-square.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\arrow-up.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\arrow-up.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -391,7 +391,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\arrow-up.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\bag-check.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\bag-check.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -408,7 +408,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\bag-check.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\bar-chart-line-fill.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\bar-chart-line-fill.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -425,7 +425,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\bar-chart-line-fill.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\box-arrow-right.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\box-arrow-right.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -442,7 +442,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\box-arrow-right.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\currency-rupee.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\currency-rupee.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -459,7 +459,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\currency-rupee.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\customer.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\customer.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -476,7 +476,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\customer.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\dash-square.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\dash-square.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -493,7 +493,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\dash-square.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\dice-6.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\dice-6.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -510,7 +510,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\dice-6.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\dinner-table.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\dinner-table.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -527,7 +527,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\dinner-table.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\dots-menu-svgrepo-com.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\dots-menu-svgrepo-com.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -544,7 +544,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\dots-menu-svgrepo-com.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\exclamation-triangle.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\exclamation-triangle.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -561,7 +561,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\exclamation-triangle.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\export-svgrepo-com (1).svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\export-svgrepo-com (1).svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -578,7 +578,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\export-svgrepo-com (1).svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\export-svgrepo-com.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\export-svgrepo-com.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -595,7 +595,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\export-svgrepo-com.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\eye (1).svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\eye (1).svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -612,7 +612,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\eye (1).svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\eye-slash.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\eye-slash.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -629,7 +629,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\eye-slash.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\eye.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\eye.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -646,7 +646,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\eye.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\eye.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\eye.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -663,7 +663,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\eye.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\filetype-pdf.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\filetype-pdf.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -680,7 +680,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\filetype-pdf.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\grid.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\grid.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -697,7 +697,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\grid.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\icons8-delete.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\icons8-delete.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -714,7 +714,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\icons8-delete.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\icons8-edit.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\icons8-edit.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -731,7 +731,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\icons8-edit.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\icons8-search.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\icons8-search.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -748,7 +748,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\icons8-search.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\list.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\list.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -765,7 +765,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\list.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\menu-symbol-of-three-parallel-lines-svgrepo-com.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\menu-symbol-of-three-parallel-lines-svgrepo-com.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -782,7 +782,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\menu-symbol-of-three-parallel-lines-svgrepo-com.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\menu-up.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\menu-up.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -799,7 +799,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\menu-up.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\menu.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\menu.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -816,7 +816,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\menu.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\non-veg-icon.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\non-veg-icon.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -833,7 +833,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\non-veg-icon.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\order-value.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\order-value.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -850,7 +850,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\order-value.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\pen-fill.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\pen-fill.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -867,7 +867,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\pen-fill.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\person-bounding-box.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\person-bounding-box.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -884,7 +884,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\person-bounding-box.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\person-gear.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\person-gear.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -901,7 +901,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\person-gear.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\person.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\person.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -918,7 +918,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\person.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\plus-square.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\plus-square.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -935,7 +935,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\plus-square.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\search.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\search.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -952,7 +952,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\search.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\square-fill.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\square-fill.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -969,7 +969,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\square-fill.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\total-orders.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\total-orders.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -986,7 +986,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\total-orders.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\total-sales.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\total-sales.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1003,7 +1003,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\total-sales.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\trash (1).svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\trash (1).svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1020,7 +1020,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\trash (1).svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\ui-checks-grid.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\ui-checks-grid.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1037,7 +1037,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\ui-checks-grid.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\veg-icon.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\veg-icon.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1054,7 +1054,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\veg-icon.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\vegan-icon.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\vegan-icon.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1071,7 +1071,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\vegan-icon.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\waiting-list.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\waiting-list.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1088,7 +1088,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\waiting-list.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\waiting-time.svg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\icons\\waiting-time.svg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1105,7 +1105,7 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\waiting-time.svg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\logos\\icons8-facebook-48.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\logos\\icons8-facebook-48.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1122,7 +1122,7 @@
       "OriginalItemSpec": "wwwroot\\images\\logos\\icons8-facebook-48.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\logos\\icons8-github-48.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\logos\\icons8-github-48.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1139,7 +1139,7 @@
       "OriginalItemSpec": "wwwroot\\images\\logos\\icons8-github-48.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\logos\\icons8-google-48.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\logos\\icons8-google-48.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1156,7 +1156,7 @@
       "OriginalItemSpec": "wwwroot\\images\\logos\\icons8-google-48.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\logos\\pizzashop_logo.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\logos\\pizzashop_logo.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1173,7 +1173,7 @@
       "OriginalItemSpec": "wwwroot\\images\\logos\\pizzashop_logo.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\profile_div_bg.jpg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\profile_div_bg.jpg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1190,7 +1190,7 @@
       "OriginalItemSpec": "wwwroot\\images\\profile_div_bg.jpg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\qr-code.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\qr-code.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1207,7 +1207,7 @@
       "OriginalItemSpec": "wwwroot\\images\\qr-code.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\QR.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\QR.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1224,7 +1224,7 @@
       "OriginalItemSpec": "wwwroot\\images\\QR.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\toppng.com-warning-icon-2400x2400.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\toppng.com-warning-icon-2400x2400.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1241,7 +1241,7 @@
       "OriginalItemSpec": "wwwroot\\images\\toppng.com-warning-icon-2400x2400.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\transperent-pizza.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\images\\transperent-pizza.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1258,7 +1258,7 @@
       "OriginalItemSpec": "wwwroot\\images\\transperent-pizza.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\js\\site.js",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\js\\site.js",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1275,7 +1275,7 @@
       "OriginalItemSpec": "wwwroot\\js\\site.js"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1292,7 +1292,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1309,7 +1309,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1326,7 +1326,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1343,7 +1343,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1360,7 +1360,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1377,7 +1377,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1394,7 +1394,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1411,7 +1411,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1428,7 +1428,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1445,7 +1445,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1462,7 +1462,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1479,7 +1479,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1496,7 +1496,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1513,7 +1513,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1530,7 +1530,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1547,7 +1547,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1564,7 +1564,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1581,7 +1581,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1598,7 +1598,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1615,7 +1615,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1632,7 +1632,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1649,7 +1649,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1666,7 +1666,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1683,7 +1683,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1700,7 +1700,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1717,7 +1717,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1734,7 +1734,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1751,7 +1751,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1768,7 +1768,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1785,7 +1785,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1802,7 +1802,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1819,7 +1819,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1836,7 +1836,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1853,7 +1853,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1870,7 +1870,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1887,7 +1887,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1904,7 +1904,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1921,7 +1921,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1938,7 +1938,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1955,7 +1955,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1972,7 +1972,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -1989,7 +1989,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2006,7 +2006,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2023,7 +2023,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\bootstrap\\LICENSE",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2040,7 +2040,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\LICENSE"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2057,7 +2057,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2074,7 +2074,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2091,7 +2091,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2108,7 +2108,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2125,7 +2125,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2142,7 +2142,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2159,7 +2159,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2176,7 +2176,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\LICENSE.md"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2193,7 +2193,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.js"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2210,7 +2210,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.min.js"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2227,7 +2227,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2244,7 +2244,7 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\LICENSE.txt"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\ProfileImages\\dominos_background.jpg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\ProfileImages\\dominos_background.jpg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2261,7 +2261,7 @@
       "OriginalItemSpec": "wwwroot\\ProfileImages\\dominos_background.jpg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\020f8a86-28a7-4b8e-bde6-812163fc98d8_transperent-pizza.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\020f8a86-28a7-4b8e-bde6-812163fc98d8_transperent-pizza.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2278,7 +2278,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\020f8a86-28a7-4b8e-bde6-812163fc98d8_transperent-pizza.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\0a3558d6-654c-4c05-ae59-3ad1aaf4465d_dominos_background.jpg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\0a3558d6-654c-4c05-ae59-3ad1aaf4465d_dominos_background.jpg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2295,7 +2295,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\0a3558d6-654c-4c05-ae59-3ad1aaf4465d_dominos_background.jpg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\0e493db2-968c-434d-9872-ef131c96e482_profile_div_bg.jpg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\0e493db2-968c-434d-9872-ef131c96e482_profile_div_bg.jpg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2312,7 +2312,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\0e493db2-968c-434d-9872-ef131c96e482_profile_div_bg.jpg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\10604d15-074b-4bdf-aba1-9c0dd1157f2c_profile_div_bg.jpg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\10604d15-074b-4bdf-aba1-9c0dd1157f2c_profile_div_bg.jpg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2329,7 +2329,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\10604d15-074b-4bdf-aba1-9c0dd1157f2c_profile_div_bg.jpg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\26b354dc-ab3e-45e9-b52e-32f0534d2772_transperent-pizza.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\26b354dc-ab3e-45e9-b52e-32f0534d2772_transperent-pizza.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2346,7 +2346,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\26b354dc-ab3e-45e9-b52e-32f0534d2772_transperent-pizza.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\2b843906-4a3e-4255-9f22-0f7a2d008588_transperent-pizza.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\2b843906-4a3e-4255-9f22-0f7a2d008588_transperent-pizza.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2363,7 +2363,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\2b843906-4a3e-4255-9f22-0f7a2d008588_transperent-pizza.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\41e348fe-e1b4-4cae-93c7-3a16ac6404e0_transperent-pizza.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\41e348fe-e1b4-4cae-93c7-3a16ac6404e0_transperent-pizza.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2380,7 +2380,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\41e348fe-e1b4-4cae-93c7-3a16ac6404e0_transperent-pizza.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\44ea449a-688b-45cf-9a64-84bbceb8d7ac_dominos_background.jpg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\44ea449a-688b-45cf-9a64-84bbceb8d7ac_dominos_background.jpg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2397,7 +2397,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\44ea449a-688b-45cf-9a64-84bbceb8d7ac_dominos_background.jpg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\453dd1a7-1b56-422f-9c38-d7de069f2b1c_dominos_background.jpg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\453dd1a7-1b56-422f-9c38-d7de069f2b1c_dominos_background.jpg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2414,7 +2414,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\453dd1a7-1b56-422f-9c38-d7de069f2b1c_dominos_background.jpg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\468281d6-3f6d-4f61-9af5-b0349a562eff_transperent-pizza.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\468281d6-3f6d-4f61-9af5-b0349a562eff_transperent-pizza.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2431,7 +2431,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\468281d6-3f6d-4f61-9af5-b0349a562eff_transperent-pizza.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\4b0a687f-c061-412a-9b29-c89f79db7a3c_transperent-pizza.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\4b0a687f-c061-412a-9b29-c89f79db7a3c_transperent-pizza.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2448,7 +2448,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\4b0a687f-c061-412a-9b29-c89f79db7a3c_transperent-pizza.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\4b814fa2-6425-4825-9399-e23213bdaa3e_dining-menu.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\4b814fa2-6425-4825-9399-e23213bdaa3e_dining-menu.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2465,7 +2465,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\4b814fa2-6425-4825-9399-e23213bdaa3e_dining-menu.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\4fd3b401-935b-4eb1-b443-7d93befa8100_transperent-pizza.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\4fd3b401-935b-4eb1-b443-7d93befa8100_transperent-pizza.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2482,7 +2482,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\4fd3b401-935b-4eb1-b443-7d93befa8100_transperent-pizza.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\516ae04a-903e-4d4b-b43c-d6eda5d24142_transperent-pizza.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\516ae04a-903e-4d4b-b43c-d6eda5d24142_transperent-pizza.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2499,7 +2499,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\516ae04a-903e-4d4b-b43c-d6eda5d24142_transperent-pizza.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\53a6466c-fe52-4c3a-8338-a38c30958e82_QR.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\53a6466c-fe52-4c3a-8338-a38c30958e82_QR.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2516,7 +2516,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\53a6466c-fe52-4c3a-8338-a38c30958e82_QR.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\5a44363f-ad7b-4188-a917-884314d6fd4e_transperent-pizza.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\5a44363f-ad7b-4188-a917-884314d6fd4e_transperent-pizza.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2533,7 +2533,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\5a44363f-ad7b-4188-a917-884314d6fd4e_transperent-pizza.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\5da8f15a-132c-471a-9018-a9b890227b8f_transperent-pizza.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\5da8f15a-132c-471a-9018-a9b890227b8f_transperent-pizza.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2550,7 +2550,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\5da8f15a-132c-471a-9018-a9b890227b8f_transperent-pizza.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\5f263802-f55e-49bf-b13f-1c715823e3d4_profile_div_bg.jpg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\5f263802-f55e-49bf-b13f-1c715823e3d4_profile_div_bg.jpg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2567,7 +2567,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\5f263802-f55e-49bf-b13f-1c715823e3d4_profile_div_bg.jpg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\71c9b0f5-d626-4950-b6ce-1eaaed6b5aa7_transperent-pizza.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\71c9b0f5-d626-4950-b6ce-1eaaed6b5aa7_transperent-pizza.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2584,7 +2584,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\71c9b0f5-d626-4950-b6ce-1eaaed6b5aa7_transperent-pizza.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\852eaf78-6cd0-4a34-90c5-4a5d4216d79c_dominos_background.jpg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\852eaf78-6cd0-4a34-90c5-4a5d4216d79c_dominos_background.jpg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2601,7 +2601,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\852eaf78-6cd0-4a34-90c5-4a5d4216d79c_dominos_background.jpg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\8f8b6b3e-5938-4e81-ab10-4e9b501a85e5_profile_div_bg.jpg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\8f8b6b3e-5938-4e81-ab10-4e9b501a85e5_profile_div_bg.jpg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2618,7 +2618,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\8f8b6b3e-5938-4e81-ab10-4e9b501a85e5_profile_div_bg.jpg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\97355778-69bf-43bd-bc90-261e635c6cf5_transperent-pizza.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\97355778-69bf-43bd-bc90-261e635c6cf5_transperent-pizza.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2635,7 +2635,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\97355778-69bf-43bd-bc90-261e635c6cf5_transperent-pizza.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\9a12f058-d5fb-4ee0-8ed0-a4d638058074_transperent-pizza.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\9a12f058-d5fb-4ee0-8ed0-a4d638058074_transperent-pizza.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2652,7 +2652,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\9a12f058-d5fb-4ee0-8ed0-a4d638058074_transperent-pizza.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\9f8debc1-67d8-4f94-9c39-58b3cc79000f_dominos_background.jpg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\9f8debc1-67d8-4f94-9c39-58b3cc79000f_dominos_background.jpg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2669,7 +2669,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\9f8debc1-67d8-4f94-9c39-58b3cc79000f_dominos_background.jpg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\bbf57b16-5a86-4504-be84-c8aa01912da9_dining-menu.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\bbf57b16-5a86-4504-be84-c8aa01912da9_dining-menu.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2686,7 +2686,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\bbf57b16-5a86-4504-be84-c8aa01912da9_dining-menu.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\c2826757-097b-4faf-a4c9-0751daf86d1e_dining-menu.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\c2826757-097b-4faf-a4c9-0751daf86d1e_dining-menu.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2703,7 +2703,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\c2826757-097b-4faf-a4c9-0751daf86d1e_dining-menu.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\c28edc5b-a576-407a-b8ba-9b3ec24ff65f_dominos_background.jpg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\c28edc5b-a576-407a-b8ba-9b3ec24ff65f_dominos_background.jpg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2720,7 +2720,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\c28edc5b-a576-407a-b8ba-9b3ec24ff65f_dominos_background.jpg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\c4833bab-7914-4bf5-bd0b-d94945d94630_dominos_background.jpg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\c4833bab-7914-4bf5-bd0b-d94945d94630_dominos_background.jpg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2737,7 +2737,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\c4833bab-7914-4bf5-bd0b-d94945d94630_dominos_background.jpg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\d39f5ee1-48eb-47fb-a885-08e49779d1c6_transperent-pizza.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\d39f5ee1-48eb-47fb-a885-08e49779d1c6_transperent-pizza.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2754,7 +2754,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\d39f5ee1-48eb-47fb-a885-08e49779d1c6_transperent-pizza.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\d4151ff8-b968-4e2a-909c-901f2d4f7673_transperent-pizza.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\d4151ff8-b968-4e2a-909c-901f2d4f7673_transperent-pizza.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2771,7 +2771,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\d4151ff8-b968-4e2a-909c-901f2d4f7673_transperent-pizza.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\d555aeb4-52a8-4885-8baa-e99e9d803341_Default_pfp.svg.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\d555aeb4-52a8-4885-8baa-e99e9d803341_Default_pfp.svg.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2788,7 +2788,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\d555aeb4-52a8-4885-8baa-e99e9d803341_Default_pfp.svg.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\e0e09616-beb0-49b1-918e-e421420ef0c2_transperent-pizza.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\e0e09616-beb0-49b1-918e-e421420ef0c2_transperent-pizza.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2805,7 +2805,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\e0e09616-beb0-49b1-918e-e421420ef0c2_transperent-pizza.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\e5b1751c-7735-4c12-bbae-ea587d057e34_dominos_background.jpg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\e5b1751c-7735-4c12-bbae-ea587d057e34_dominos_background.jpg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2822,7 +2822,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\e5b1751c-7735-4c12-bbae-ea587d057e34_dominos_background.jpg"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\f1fd3868-4175-4def-be13-2199ffa93583_transperent-pizza.png",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\f1fd3868-4175-4def-be13-2199ffa93583_transperent-pizza.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
@@ -2839,7 +2839,7 @@
       "OriginalItemSpec": "wwwroot\\uploads\\f1fd3868-4175-4def-be13-2199ffa93583_transperent-pizza.png"
     },
     {
-      "Identity": "d:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\faead83e-e5ad-4d64-bd5b-ee839c84ba55_profile_div_bg.jpg",
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\faead83e-e5ad-4d64-bd5b-ee839c84ba55_profile_div_bg.jpg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",

@@ -30,4 +30,6 @@ public partial class Taxesandfess
     public DateTime? CreatedDate { get; set; }
 
     public DateTime? ModifiedDate { get; set; }
+
+    public virtual ICollection<OrderTax> OrderTaxes { get; set; } = new List<OrderTax>();
 }

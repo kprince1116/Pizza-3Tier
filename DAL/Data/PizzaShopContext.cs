@@ -37,6 +37,14 @@ public partial class PizzaShopContext : DbContext
 
     public virtual DbSet<Order1> Orders1 { get; set; }
 
+    public virtual DbSet<OrderItem> OrderItems { get; set; }
+
+    public virtual DbSet<OrderItemModifier> OrderItemModifiers { get; set; }
+
+    public virtual DbSet<OrderTable> OrderTables { get; set; }
+
+    public virtual DbSet<OrderTax> OrderTaxes { get; set; }
+
     public virtual DbSet<Orderstatus> Orderstatuses { get; set; }
 
     public virtual DbSet<Paymentmode> Paymentmodes { get; set; }
@@ -127,6 +135,7 @@ public partial class PizzaShopContext : DbContext
             entity.Property(e => e.Phonenumber)
                 .HasMaxLength(200)
                 .HasColumnName("phonenumber");
+            entity.Property(e => e.TotalPersons).HasColumnName("total_persons");
 
             entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.CustomerCreatedByNavigations)
                 .HasForeignKey(d => d.CreatedBy)
@@ -365,6 +374,9 @@ public partial class PizzaShopContext : DbContext
             entity.Property(e => e.Instruction)
                 .HasMaxLength(200)
                 .HasColumnName("instruction");
+            entity.Property(e => e.InvoiceNo)
+                .HasColumnType("character varying")
+                .HasColumnName("Invoice_no");
             entity.Property(e => e.Isdelete)
                 .HasDefaultValueSql("false")
                 .HasColumnName("isdelete");
@@ -409,6 +421,96 @@ public partial class PizzaShopContext : DbContext
             entity
                 .HasNoKey()
                 .ToTable("Orders");
+        });
+
+        modelBuilder.Entity<OrderItem>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("order_item_pkey");
+
+            entity.ToTable("order_item");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.ItemId).HasColumnName("item_id");
+            entity.Property(e => e.OrderId).HasColumnName("order_id");
+            entity.Property(e => e.Price)
+                .HasPrecision(18, 2)
+                .HasColumnName("price");
+            entity.Property(e => e.Quantity).HasColumnName("quantity");
+
+            entity.HasOne(d => d.Item).WithMany(p => p.OrderItems)
+                .HasForeignKey(d => d.ItemId)
+                .HasConstraintName("order_item_item_id_fkey");
+
+            entity.HasOne(d => d.Order).WithMany(p => p.OrderItems)
+                .HasForeignKey(d => d.OrderId)
+                .HasConstraintName("order_item_order_id_fkey");
+        });
+
+        modelBuilder.Entity<OrderItemModifier>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("order_item_modifiers_pkey");
+
+            entity.ToTable("order_item_modifiers");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.ModifierId).HasColumnName("modifier_id");
+            entity.Property(e => e.OrderItemId).HasColumnName("order_item_id");
+            entity.Property(e => e.Price)
+                .HasPrecision(18, 2)
+                .HasColumnName("price");
+            entity.Property(e => e.Quantity).HasColumnName("quantity");
+
+            entity.HasOne(d => d.Modifier).WithMany(p => p.OrderItemModifiers)
+                .HasForeignKey(d => d.ModifierId)
+                .HasConstraintName("order_item_modifiers_modifier_id_fkey");
+
+            entity.HasOne(d => d.OrderItem).WithMany(p => p.OrderItemModifiers)
+                .HasForeignKey(d => d.OrderItemId)
+                .HasConstraintName("order_item_modifiers_order_item_id_fkey");
+        });
+
+        modelBuilder.Entity<OrderTable>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("order_table_pkey");
+
+            entity.ToTable("order_table");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.OrderId).HasColumnName("order_id");
+            entity.Property(e => e.TableId).HasColumnName("table_id");
+
+            entity.HasOne(d => d.Order).WithMany(p => p.OrderTables)
+                .HasForeignKey(d => d.OrderId)
+                .HasConstraintName("order_table_order_id_fkey");
+
+            entity.HasOne(d => d.Table).WithMany(p => p.OrderTables)
+                .HasForeignKey(d => d.TableId)
+                .HasConstraintName("order_table_table_id_fkey");
+        });
+
+        modelBuilder.Entity<OrderTax>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("order_tax_pkey");
+
+            entity.ToTable("order_tax");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.OrderId).HasColumnName("order_id");
+            entity.Property(e => e.TaxFlat)
+                .HasPrecision(18, 2)
+                .HasColumnName("tax_flat");
+            entity.Property(e => e.TaxId).HasColumnName("tax_id");
+            entity.Property(e => e.TaxPercentage)
+                .HasPrecision(18, 2)
+                .HasColumnName("tax_percentage");
+
+            entity.HasOne(d => d.Order).WithMany(p => p.OrderTaxes)
+                .HasForeignKey(d => d.OrderId)
+                .HasConstraintName("order_tax_order_id_fkey");
+
+            entity.HasOne(d => d.Tax).WithMany(p => p.OrderTaxes)
+                .HasForeignKey(d => d.TaxId)
+                .HasConstraintName("order_tax_tax_id_fkey");
         });
 
         modelBuilder.Entity<Orderstatus>(entity =>

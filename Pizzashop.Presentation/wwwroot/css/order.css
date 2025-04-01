@@ -60,3 +60,10 @@ div.statusTimeDropdown {
       width: 270px !important;
   }
 }
+
+@media(min-width:1438px)
+{
+  .back-button{
+    margin-left: 930px !important;
+  }
+}

@@ -198,6 +198,19 @@ public class OrderRepository : IOrderRepository
     
          return await orders.ToListAsync();
     }
+    public async Task<Order> GetDetails(int orderId)
+    {
+        var orderDetails = await _db.Orders.Include(o=>o.Customer)
+                                            .Include(o=>o.StatusNavigation)
+                                            .Include(o=>o.PaymentModeNavigation)
+                                            .Include(o=>o.OrderItems).ThenInclude(o=>o.Item)
+                                            .Include(o=>o.OrderItems) .ThenInclude(o=>o.OrderItemModifiers).ThenInclude(o=>o.Modifier)                                 
+                                            .Include(o=>o.OrderTables).ThenInclude(t=>t.Table).ThenInclude(s=>s.Section)
+                                            .Include(o=>o.OrderTaxes).ThenInclude(t=>t.Tax)
+                                            .FirstOrDefaultAsync(o=>o.Orderid==orderId);
+
+         return orderDetails;
+    }
 
 
 }

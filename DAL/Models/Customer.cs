@@ -23,6 +23,8 @@ public partial class Customer
 
     public bool? Isdelete { get; set; }
 
+    public int? TotalPersons { get; set; }
+
     public virtual User? CreatedByNavigation { get; set; }
 
     public virtual User? ModifiedByNavigation { get; set; }

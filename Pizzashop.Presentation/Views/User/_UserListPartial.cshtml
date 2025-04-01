@@ -5,10 +5,10 @@
 {
     <tr>
         <th scope="row" class="d-flex gap-2" style="text-align: center;">
-            <img class="pt-0" style="height: 35px; border-radius: 50%; "
+            <img class="pt-0" style="height: 35px; width: 45px; border-radius: 50%; "
                 src="@(!string.IsNullOrEmpty(user.ProfileImage) ? user.ProfileImage : "/ProfileImages/dominos_background.jpg")"
                 alt="">
-            <div class="d-flex">@user.Firstname @user.Lastname</div>
+            <div class="d-flex user-name">@user.Firstname @user.Lastname</div>
         </th>
         <td class="table-field">@user.Email</td>
         <td class="table-field text-nowrap">@user.Phonenumber</td>
@@ -21,7 +21,7 @@
 
         <td>
             <a asp-controller="User" asp-action="EditUser" asp-route-userId="@user.UserId"><img
-                    src="~/images/icons/pen-fill.svg" style="height: 20px;" alt=""></a>
+                    src="~/images/icons/pen.svg" style="height: 20px;" alt=""></a>
             <a data-userid="@user.UserId" class="delete-user" data-bs-toggle="modal" data-bs-target="#delete">
                 <img style="height: 20px;" src="~/images/icons/trash (1).svg" alt="Delete">
             </a>

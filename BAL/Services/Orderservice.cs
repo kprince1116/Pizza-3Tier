@@ -1,5 +1,7 @@
 using BAL.Models.Interfaces;
 using DAL.Interfaces;
+using DAL.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Pizzashop.DAL.ViewModels;
 
 namespace BAL.Services;
@@ -24,4 +26,15 @@ public class Orderservice : IOrderservice
         var orderData = await _orderRepository.GetOrder( searchKey,  statusFilter,  timeFilter);
         return orderData;
     }
+
+     public async Task<Order> GetDetails(int orderId)
+     {
+        return await _orderRepository.GetDetails(orderId);
+     }
+
+      // public async Task<Order> ExportToPdf(int orderId)
+      // {
+      //    var order = await _orderRepository.GetDetails(orderId);
+      //    return View(order);
+      // }
 }

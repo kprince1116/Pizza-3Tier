@@ -18,7 +18,7 @@
       <div>
         <div class="d-flex justify-content-between">
           <div class="ms-3">
-            <p class="fs-2" style="color: #0066a7">Menu</p>
+            <p class="fs-2 fw-bold" style="color: rgb(0, 102, 187);">Menu</p>
           </div>
         </div>
 
@@ -70,7 +70,7 @@
                     {
                       <div class="aaa">
                         <div class="d-flex justify-content-between align-items-center">
-                          <a class="d-flex gap-2 pt-2 pb-2 ps-3 nav-link active align-items-center categorygroupbtn"
+                          <a style="color: black;" class="d-flex gap-2 pt-2 pb-2 ps-3 nav-link active align-items-center categorygroupbtn"
                             id="category-idforclick" data-category-id="@category.CategoryId">
                             <img style="height: 25px;" src="~/images/icons/grid.png">
                             <div onclick="fetchItems(@category.CategoryId)">@category.CategoryName</div>
@@ -78,12 +78,12 @@
                           <div class="icons-forlist">
                             <a data-category-edit-id="@category.CategoryId" data-category-name="@category.CategoryName"
                               data-description="@category.Description" onclick="setEditData(this)" class="edit-category"
-                              data-bs-toggle="modal" data-bs-target="#editModal">
-                              <img src="~/images/icons/pen-fill.svg" alt="">
+                              data-bs-toggle="modal" data-bs-target="#editModal" style="text-decoration: none;" >
+                              <img style="text-decoration: none;" src="~/images/icons/pen.svg" alt="">
                             </a>
-                            <a data-category1-id="@category.CategoryId" class="delete-category" data-bs-toggle="modal"
-                              data-bs-target="#deleteModal1">
-                              <img src="~/images/icons/trash (1).svg" alt="">
+                            <a style="text-decoration: none;"  data-category1-id="@category.CategoryId" class="delete-category" data-bs-toggle="modal"
+                              data-bs-target="#deleteModal1" style="text-decoration: none;">
+                              <img style="text-decoration: none;" src="~/images/icons/trash (1).svg"  alt="">
                             </a>
                           </div>
                         </div>

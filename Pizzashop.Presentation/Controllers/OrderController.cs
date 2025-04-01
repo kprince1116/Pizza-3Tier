@@ -29,6 +29,18 @@ public class OrderController : Controller
         return PartialView("_orderPartial",taxlist);
     }
 
+
+     public async Task<IActionResult> OrderDetails(int orderId)
+     {
+        var orderlist = await _orderservice.GetDetails(orderId);
+        return View(orderlist);
+     }
+
+    public async Task<IActionResult> Invoice(int orderId)
+    {
+        var orderlist = await _orderservice.GetDetails(orderId);
+        return View(orderlist);
+    }
      public async Task<IActionResult> ExportOrdersToExcel(string searchKey, string statusFilter, string timeFilter)
     {
         var orders = await _orderservice.GetOrder(searchKey,statusFilter,timeFilter);

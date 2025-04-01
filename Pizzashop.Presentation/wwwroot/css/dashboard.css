@@ -16,14 +16,19 @@
     transform: scale(.85) translateY(-1.9rem) translateX(.15rem) !important ;  
   }  */
  
+.user-name{
+  color: black;
+  font-weight: normal;
+}
+
   .sidebar-name{
     color: black;
   }
 
-  .aa :hover{
+  /* .aa :hover{
     background-color: #B4B4B4;
     color: rgb(0, 102, 187);
-  }
+  } */
 
   @media only screen and (width: 768px) {
     .search{

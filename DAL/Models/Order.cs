@@ -33,11 +33,19 @@ public partial class Order
 
     public bool? Isdelete { get; set; }
 
+    public string? InvoiceNo { get; set; }
+
     public virtual User? CreatedByNavigation { get; set; }
 
     public virtual Customer? Customer { get; set; }
 
     public virtual User? ModifiedByNavigation { get; set; }
+
+    public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+
+    public virtual ICollection<OrderTable> OrderTables { get; set; } = new List<OrderTable>();
+
+    public virtual ICollection<OrderTax> OrderTaxes { get; set; } = new List<OrderTax>();
 
     public virtual Paymentmode? PaymentModeNavigation { get; set; }
 
