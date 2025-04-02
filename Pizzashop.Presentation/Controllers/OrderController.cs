@@ -47,7 +47,7 @@ public class OrderController : Controller
 
         
 
-        using (var package = new ExcelPackage())
+         using (var package = new ExcelPackage())
         {
             var worksheet = package.Workbook.Worksheets.Add("Orders");
 
@@ -293,55 +293,5 @@ public class OrderController : Controller
 
        
     }
-
-//     public async Task<IActionResult> ExportOrdersToExcel(string searchKey, string statusFilter, string timeFilter)
-//     {
-//         var orders = await _orderservice.GetOrder( searchKey,  statusFilter,  timeFilter);
-
-//         using (var package = new ExcelPackage())
-//         {
-//             var worksheet = package.Workbook.Worksheets.Add("Orders");
-
-//             worksheet.Cells[1,1].Value = "Order No";
-//             worksheet.Cells[1,2].Value = "Order Date";
-//             worksheet.Cells[1,3].Value = "Customer Name";
-//             worksheet.Cells[1,4].Value = "Status";
-//             worksheet.Cells[1,5].Value = "Payment Mode";
-//             worksheet.Cells[1,6].Value = "Rating";
-//             worksheet.Cells[1,7].Value = "Total Amount";
-
-//             using (var range = worksheet.Cells[1,1,1,5])
-//             {
-//                 range.Style.Font.Bold = true;
-//                 range.Style.Fill.PatternType = ExcelFillStyle.Solid;
-//                 range.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
-//             }
-
-//             int row = 3;
-
-//             foreach(var order in orders)
-//             {
-//                 worksheet.Cells[row,1].Value = order.OrderNo;
-//                 worksheet.Cells[row,2].Value = order.Orderdate?.ToString("yyyy-MM-dd");
-//                 worksheet.Cells[row,3].Value = order.CustomerName;
-//                 worksheet.Cells[row,4].Value = order.Status;
-//                 worksheet.Cells[row,5].Value = order.Payment;
-//                 worksheet.Cells[row,6].Value = order.Rating;
-//                 worksheet.Cells[row,7].Value = order.TotalAmount;
-//                 row++;
-//             }
-
-//             worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
-
-//             var stream = new MemoryStream();
-//             package.SaveAs(stream);
-//             stream.Position = 0;
-//             var fileName = $"Orders_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
-//             return File(stream,"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",fileName);
-//         }
-
-       
-//     }
-
 
  }

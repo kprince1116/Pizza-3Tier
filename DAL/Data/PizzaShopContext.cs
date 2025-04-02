@@ -125,9 +125,6 @@ public partial class PizzaShopContext : DbContext
             entity.Property(e => e.Customername)
                 .HasMaxLength(250)
                 .HasColumnName("customername");
-            entity.Property(e => e.CutomerDate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("cutomer_date");
             entity.Property(e => e.Isdelete)
                 .HasDefaultValueSql("false")
                 .HasColumnName("isdelete");
@@ -392,6 +389,9 @@ public partial class PizzaShopContext : DbContext
             entity.Property(e => e.Orderdate)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("orderdate");
+            entity.Property(e => e.OrdereType)
+                .HasColumnType("character varying")
+                .HasColumnName("ordere_Type");
             entity.Property(e => e.PaymentMode).HasColumnName("payment_mode");
             entity.Property(e => e.Rating).HasColumnName("rating");
             entity.Property(e => e.Status).HasColumnName("status");

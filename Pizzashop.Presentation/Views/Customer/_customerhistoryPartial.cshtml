@@ -1,0 +1,54 @@
+@model DAL.Models.Customer
+
+@{
+  decimal maxOrder = (decimal) Model.Orders.Max(o=>o.TotalAmount);
+  decimal avgBill = (decimal) Model.Orders.Average(o=>o.TotalAmount);
+}
+
+<div class="modal-header">
+        <h5 class="modal-title" id="customerHistoryModalLabel">Customer History</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row border ms-1 me-1 pt-2 bg-light">
+          <div class="col-lg-6">
+            <p class="border p-2 bg-white" ><strong>Name:</strong> @Model.Customername </p>
+            <p class="border p-2 bg-white" ><strong>Mobile Number:</strong> @Model.Phonenumber </span></p>
+            <p class="border p-2 bg-white" ><strong>Max Order:</strong> @maxOrder</span></p>
+          </div>
+          <div class="col-lg-6">
+            <p class="border p-2 bg-white" ><strong>Average Bill:</strong>@avgBill </span></p>
+            <p class="border p-2 bg-white" ><strong>Coming Since:</strong> @Model.CreatedDate </span></p>
+            <p class="border p-2 bg-white" ><strong>Visits:</strong>@Model.Orders.Count()</span></p>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="table-responsive ps-2 pe-2 ms-3 me-3 border mb-4 bg-light" >
+        <table class="table table-hover">
+                       <thead>
+                         <tr style="opacity: 0.8;" >
+                           <th>Order Date</th>
+                           <th>Order Type</th>
+                           <th>Payment</th>
+                           <th>Items</th>
+                           <th>Total Amount</th>
+                         </tr>
+                       </thead>
+                       <tbody>
+                          @foreach(var order in Model.Orders)
+                          {
+                          <tr>
+                            <td class="text-nowrap" >@order.Orderdate?.ToString("dd-MM-yyyy")</td>
+                            <td>@order.OrdereType</td>
+                            <td>@order.PaymentModeNavigation.Status</td>
+                            <td>@order.OrderItems.Count()</td>
+                            <td>@order.TotalAmount</td>
+                          </tr>
+                          }
+                       </tbody>
+      </table>
+      </div>
+
+ 

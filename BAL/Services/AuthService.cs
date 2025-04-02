@@ -60,6 +60,7 @@ namespace BAL.Services
 
             var claims = new[]
             {
+                // new Claim(ClaimTypes.NameIdentifier,userId),
                 new Claim(ClaimTypes.Email, email),
                 new Claim(ClaimTypes.Role, role),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())

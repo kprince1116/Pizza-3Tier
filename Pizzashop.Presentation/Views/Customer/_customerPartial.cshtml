@@ -1,31 +1,31 @@
 @model Pizzashop.DAL.ViewModels.Customerviewmodel
 
 <div class="border bg-white px-3" style="border-radius: 5px;">
-     <div class="table-responsive">
-    <table class="table">
+     <div class="table-responsive ">
+    <table class="table table-hover">
       <thead>
         <tr>
-          <th class="table-name ">
+          <th class="table-name">
            Name
-            <img src="~/images/icons/arrow-up.svg" class="sort-btn" data-name="OrderNo" data-order="asc" alt=""> 
-            <img src="~/images/icons/arrow-down.svg" class="sort-btn" data-name="OrderNo" data-order="desc" alt="">
+            <img src="~/images/icons/arrow-up.svg" class="sort-btn" data-name="Customername" data-order="asc" alt=""> 
+            <img src="~/images/icons/arrow-down.svg" class="sort-btn" data-name="Customername" data-order="desc" alt="">
           </th>
            <th class="table-name">Email</th>
            <th class="table-name">Phone Number</th>
           <th  class="table-name"> Date
-            <img src="~/images/icons/arrow-up.svg" class="sort-btn" data-name="Orderdate" data-order="asc" alt=""> 
-            <img src="~/images/icons/arrow-down.svg" class="sort-btn" data-name="Orderdate" data-order="desc" alt="">   
+            <img src="~/images/icons/arrow-up.svg" class="sort-btn" data-name="CutomerDate" data-order="asc" alt=""> 
+            <img src="~/images/icons/arrow-down.svg" class="sort-btn" data-name="CutomerDate" data-order="desc" alt="">   
           </th>
           <th scope="col" class="table-name">Total order
-             <img src="~/images/icons/arrow-up.svg" class="sort-btn" data-name="CustomerName" data-order="asc" alt=""> 
-            <img src="~/images/icons/arrow-down.svg" class="sort-btn" data-name="CustomerName" data-order="desc"  alt="">
+             <img src="~/images/icons/arrow-up.svg" class="sort-btn" data-name="TotalOrders" data-order="asc" alt=""> 
+            <img src="~/images/icons/arrow-down.svg" class="sort-btn" data-name="TotalOrders" data-order="desc"  alt="">
           </th>
         </tr>
       </thead>
       <tbody>
         @foreach(var Customer in Model.Customers)
         {
-        <tr>
+        <tr class="customer-modal" data-customer-id = "@Customer.Customerid">
           <td class="table-field fs-6" style="text-wrap: nowrap;">@Customer.Customername</td>
           <td class="table-field fs-6" style="text-wrap: nowrap;">@Customer.Customeremail</td>
           <td class="table-field fs-6">@Customer.Phonenumber</td>
@@ -78,5 +78,4 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" ></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" ></script>
+

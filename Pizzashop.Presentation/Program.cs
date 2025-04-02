@@ -10,6 +10,7 @@ using Pizzashop.Data.Repositories;
 using BAL.Interfaces;
 using DAL.Repository;
 using BAL.Models.Interfaces;
+using System.Security;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,6 +33,9 @@ builder.Services.AddScoped<IOrderRepository , OrderRepository>();
 builder.Services.AddScoped<IOrderservice,Orderservice>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ICustomerService,CustomerService>();
+builder.Services.AddScoped<IPermissions,Permissions>();
+builder.Services.AddScoped<Permissions>();
+
 
 
 builder.Services.AddControllersWithViews();

@@ -1,74 +1,134 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @* <link rel="stylesheet" href="css/bootstrap.min.css"> *@
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <link rel="stylesheet" href="~/css/customer.css" asp-append-version="true" />
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <link rel="stylesheet" href="~/css/customer.css" asp-append-version="true" />
+  <title>Document</title>
 </head>
 
 <body>
 
-    <div class="me-3 ms-3" >
-     <div class="heading my-3 d-flex flex-column flex-md-row flex-lg-row flex-xl-row flex-warp justify-content-between">
-         <p class="fs-2 fw-bold" style="color: rgb(0, 102, 187);">Customers</p>
-       
-        <div class="search-element gap-3 d-flex flex-column justify-content-end flex-lg-row mt-2 mt-md-0">
-          <div class="d-flex justify-content-end position-relative align-items-center col-lg-3 col-xl-4 " style=" height: 58px;" role="search">
-            <input type="text" class="customer-search search form-control border-none" style="height: 58px; width: 400px;" id="customerListSearch" placeholder="Search">
-      <img src="~/images/icons/search.svg" alt="" style="width: 20px; aspect-ratio: 1"
-          class="bg-white position-absolute rounded-2 m-2" />
+  <div class="me-3 ms-3">
+   
+    <div class=" row heading my-3  d-flex flex-column flex-md-row flex-lg-row flex-xl-row flex-warp justify-content-between">
+      <p class="col-xl-6 col-lg-6 fs-2 fw-bold" style="color: rgb(0, 102, 187);">Customers</p>
+
+      <div class="col-xl-6 col-lg-6 search-element gap-3 d-flex flex-sm-row flex-column justify-content-sm-end justify-content-center flex-lg-row flex-md-row mt-2 mt-md-0">
+        <div class="d-flex justify-content-end position-relative align-items-center col-lg-3 col-xl-4 "
+          style=" height: 58px;" role="search">
+          <input type="text" class="customer-search search form-control border-none" style="height: 58px; width: 400px;"
+            id="customerListSearch" placeholder="Search">
+          <img src="~/images/icons/search.svg" alt="" style="width: 20px; aspect-ratio: 1"
+            class="bg-white position-absolute rounded-2 m-2" />
+        </div>
+
+        <div class="d-flex gap-3 flex-column flex-sm-row">
+          <div>
+            <select class="form-select all-time" aria-label="Time filter" id="timeFilter">
+              <option selected value="">ALL TIME</option>
+              <option value="today">Today</option>
+              <option value="this_week">This Week</option>
+              <option value="this_month">This Month</option>
+              <option value="custom">Custom Date</option>
+            </select>
           </div>
+        </div>
 
-            <div class="d-flex gap-3 flex-column flex-sm-row">
-                
-               <div>
-                        <select class="form-select all-time" aria-label="Time filter"  id="timeFilter">
-                            <option selected value="">ALL TIME</option>
-                            <option value="today">Today</option>
-                            <option value="this_week">This Week</option>
-                            <option value="this_month">This Month</option>
-                        </select>
-                    </div>
-            </div>
+        <a class="btn w-auto  my-lg-0 px-4 my-0 d-flex align-items-center justify-content-center gap-2 text-white"
+          id="exportCustomerBtn" data-bs-toggle="modal" data-bs-target="#exportModal"
+          style="background-color:#0066a7 ; height:58px;">
+          <img src="~/images/icons/export-svgrepo-com (1).svg" width="25px">
+          Export
+        </a>
 
-            <a class="btn w-auto  my-lg-0 px-4 my-0 d-flex align-items-center justify-content-center gap-2 text-white"
-                id="exportOrderBtn" data-bs-toggle="modal" data-bs-target="#exportModal"
-                style="background-color:#0066a7 ; height:58px;">
-                <img src="~/images/icons/export-svgrepo-com (1).svg" width="25px">
-                 Export
-            </a>
-           
-        </div> 
-        
+   
+
+    </div>
     </div>
 
     <!-- From Date, To Date -->
- 
-       <div id="customerTableContent" class="table_container">
-        </div>
+
+    <div id="customerTableContent" class="table_container">
+    </div>
+   </div> 
 </body>
+
 </html>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" ></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" ></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<div class="modal fade" id="dateRangeModal" tabindex="-1" aria-labelledby="dateRangeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="dateRangeModalLabel">Select Date Range</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col form-floating mb-3">
+            <input type="date" class="form-control">
+            <label for="startDate" class="form-label ms-2">Start Date</label>
+          </div>
+          <div class="col form-floating mb-2">
+            <input type="date" class="form-control" >
+            <label for="endDate" class="form-label ms-2">End Date</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Apply</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
-    function changePageForCustomer(pageNum) { 
+
+  document.getElementById('timeFilter').addEventListener('change', function () {
+    if (this.value === 'custom') {
+      var myModal = new bootstrap.Modal(document.getElementById('dateRangeModal'));
+      myModal.show();
+    }
+  });
+
+  $(document).on("click", "#applyDateRange", function () {
+    changePageForCustomer(1);
+
+    var Modal = bootstrap.Modal.getInstance(
+      document.getElementById("dateRangeModal")
+    );
+    Modal.hide();
+  });
+
+  $(document).on("click", "#timeFilter", function () {
+    changePageForCustomer(1);
+  });
+
+  let sortBy = "";
+  let sortDirection = "";
+
+  function changePageForCustomer(pageNum) {
     let pageSize = $('#customerPageSize').val();
-    console.log("p",pageSize);
-    let search = $('#customerListSearch').val(); 
-    console.log("s",search);
-    $.ajax({
+    let search = $('#customerListSearch').val();
+    let fromDate = $("#startDate").val();
+    let toDate = $("#endDate").val();
+    let time = $("#timeFilter").val();
+  
+      $.ajax({
       url: '@Url.Action("GetCustomerDetails", "Customer")',
       type: "GET",
-      data: {  pageSize: pageSize, pageNo: pageNum, searchKey: search },
+      data: { pageSize: pageSize, pageNo: pageNum, searchKey: search, sortby: sortBy, sortdirection: sortDirection, timefilter: time, fromdate: fromDate, todate: toDate },
       dataType: "html",
       success: function (data) {
         $('#customerTableContent').html(data);
@@ -78,14 +138,65 @@
       }
     });
   }
-      $(document).ready(function(){
-        changePageForCustomer(1);
-    });
 
-      $(document).on("input","#customerListSearch", function () {
-        console.log("success");
-        currentPage = 1;
-        changePageForCustomer(currentPage);
+  $(document).on("click", ".sort-btn", function () {
+    sortBy = $(this).data("name");
+    sortDirection = $(this).data("order");
+    changePageForCustomer(1);
+  });
+
+  $(document).ready(function () {
+    changePageForCustomer(1);
+  });
+
+  $(document).on("input", "#customerListSearch", function () {
+    console.log("success");
+    currentPage = 1;
+    changePageForCustomer(currentPage);
+  });
+
+  $(document).on("click","#exportCustomerBtn",function(){
+    let search = $("#customerListSearch").val();
+    let time = $("#timeFilter").val();
+    let fromDate = $("#startDate").val();
+    let toDate = $("#endDate").val();
+
+    window.location.href = `/Customer/ExportCustomerToExcel?searchKey=${search}&timeFilter=${time}&fromdate=${fromDate}&todate=${toDate}&`;
+
+  });
+
+  @* Customer History *@
+
+    $(document).on("click",".customer-modal",function(){
+
+      var myModal = new bootstrap.Modal(document.getElementById('Customer-History'));
+      myModal.show();
+
+      var customerId = $(this).data('customer-id');
+      console.log("cust:",customerId);
+
+      $.ajax({
+        url:'@Url.Action("GetCustomerHistory","Customer")', 
+        type:'GET',
+        data: { id: customerId },
+        success:function(data){
+            $('#customerdata').html(data);
+            myModal.show();
+        },
+        error:function(){
+          console.log("error");
+        },
       });
 
-</script>    
+    })
+
+</script>
+ 
+<div class="modal fade" id="Customer-History" style="padding-right: 0px !important;" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content" id="customerdata">
+      
+    </div>
+  </div>
+</div>  
+

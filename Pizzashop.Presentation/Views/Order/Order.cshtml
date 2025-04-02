@@ -154,11 +154,7 @@
     let status = $('#statusfilter').val();
     let time = $('#timeFilter').val();
     let fromdate = $('#orderFromDate').val();
-   console.log("date:",fromdate);
     let todate = $('#orderToDate').val();
-    console.log("date:",todate);
-    console.log("time:",time);
-    console.log("pagesize",pageSize);
     $.ajax({
       url: '@Url.Action("GetOrderList", "Order")',
       type: "GET",

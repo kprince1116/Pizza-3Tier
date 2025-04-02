@@ -130,31 +130,39 @@ $(document).ready(function () {
             outerCheck.indeterminate = !allChecked && anyChecked;
         });
     });
-  
 
-    const updateViewCheckbox = (index) => {
-        if (canDeleteCheckboxes[index].checked || canAddEditCheckboxes[index].checked) {
-            canViewCheckboxes[index].checked = true;
+    const enableDisableAddEditDelete = (index) => {
+        if (canViewCheckboxes[index].checked) {
+            canAddEditCheckboxes[index].disabled = false;
+            canDeleteCheckboxes[index].disabled = false;
+        } else {
+            canAddEditCheckboxes[index].disabled = true;
+            canDeleteCheckboxes[index].disabled = true;
+            canAddEditCheckboxes[index].checked = false; 
+            canDeleteCheckboxes[index].checked = false; 
         }
     };
 
+    canViewCheckboxes.forEach((checkbox, index) => {
+        checkbox.addEventListener('change', function () {
+            enableDisableAddEditDelete(index); 
+        });
+
+        enableDisableAddEditDelete(index);
+    });
+
     canDeleteCheckboxes.forEach((checkbox, index) => {
         checkbox.addEventListener('change', function () {
-            updateViewCheckbox(index);
+            if (canDeleteCheckboxes[index].checked || canAddEditCheckboxes[index].checked) {
+                canViewCheckboxes[index].checked = true;
+            }
         });
     });
 
     canAddEditCheckboxes.forEach((checkbox, index) => {
         checkbox.addEventListener('change', function () {
-            updateViewCheckbox(index);
-        });
-    });
-
-    canViewCheckboxes.forEach((checkbox, index) => {
-        checkbox.addEventListener('change', function () {
-            if (!this.checked && (canDeleteCheckboxes[index].checked || canAddEditCheckboxes[index].checked)) {
-                this.checked = true;
-                alert("Cannot uncheck 'Can View' when 'Can Delete' or 'Can Add/Edit' is selected.");
+            if (canDeleteCheckboxes[index].checked || canAddEditCheckboxes[index].checked) {
+                canViewCheckboxes[index].checked = true;
             }
         });
     });

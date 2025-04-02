@@ -5,10 +5,10 @@
 {
     <tr>
         <th scope="row" class="d-flex gap-2" style="text-align: center;">
-            <img class="pt-0" style="height: 35px; width: 45px; border-radius: 50%; "
+            <img class="pt-0" style="height: 35px;  width: 35px;  border-radius: 90%; "
                 src="@(!string.IsNullOrEmpty(user.ProfileImage) ? user.ProfileImage : "/ProfileImages/dominos_background.jpg")"
                 alt="">
-            <div class="d-flex user-name">@user.Firstname @user.Lastname</div>
+            <div class="d-flex">@user.Firstname @user.Lastname</div>
         </th>
         <td class="table-field">@user.Email</td>
         <td class="table-field text-nowrap">@user.Phonenumber</td>

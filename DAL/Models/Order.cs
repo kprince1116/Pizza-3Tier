@@ -35,6 +35,8 @@ public partial class Order
 
     public string? InvoiceNo { get; set; }
 
+    public string? OrdereType { get; set; }
+
     public virtual User? CreatedByNavigation { get; set; }
 
     public virtual Customer? Customer { get; set; }

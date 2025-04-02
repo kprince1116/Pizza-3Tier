@@ -25,7 +25,7 @@ public class OrderRepository : IOrderRepository
             {
                 Orderid = u.Orderid,
                 OrderNo = u.OrderNo,
-                Orderdate = u.Orderdate,
+                Orderdate = u.CreatedDate,
                 CustomerName = u.Customer.Customername,
                 Status = u.StatusNavigation.Status,
                 Payment = u.PaymentModeNavigation.Status,
@@ -94,12 +94,6 @@ public class OrderRepository : IOrderRepository
             }
         }
 
-    //     if (!string.IsNullOrEmpty(fromDate) && !string.IsNullOrEmpty(toDate))
-    // {
-    //     DateTime from = DateTime.Parse(fromDate);
-    //     DateTime to = DateTime.Parse(toDate);
-    //     orders = orders.Where(o => o.Orderdate >= from && o.Orderdate <= to);
-    // }
          
         switch(sortBy)
         {
