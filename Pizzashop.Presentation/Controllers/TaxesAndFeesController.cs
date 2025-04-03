@@ -1,3 +1,4 @@
+using BAL.Attributes;
 using BAL.Models.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Pizzashop.DAL.ViewModels;
@@ -15,18 +16,20 @@ public class TaxesAndFeesController : Controller
         _taxesAndFeesService = taxesAndFeesService ;
     }
 
+    [_AuthPermissionAttribute("TaxAndFee", ActionPermissions.CanView)]
     public IActionResult TaxesAndFees()
     {
-        return View( new Taxviewmodel() { TaxList = {}, Page = new() }) ;
+        return View() ;
     }
 
+     [_AuthPermissionAttribute("TaxAndFee", ActionPermissions.CanView)]
         public async Task<IActionResult> GetTaxList(int pageNo = 1, int pageSize = 3, string searchKey = "")
     {
         var taxlist = await _taxesAndFeesService.GetTaxDeails( pageNo , pageSize ,  searchKey );
         return PartialView("_TaxPartial",taxlist);
     }
 
-
+    [_AuthPermissionAttribute("TaxAndFee", ActionPermissions.CanAddEdit)]
     [HttpPost]
     public async Task<IActionResult> AddTax(Taxviewmodel model)
     {
@@ -44,8 +47,8 @@ public class TaxesAndFeesController : Controller
        
     }
 
+    [_AuthPermissionAttribute("TaxAndFee", ActionPermissions.CanDelete)]
     [HttpPost]
-
     public async Task<IActionResult> DeleteTax(int id)
     {
         var isdelete = await _taxesAndFeesService.DeleteTax(id);
@@ -60,6 +63,7 @@ public class TaxesAndFeesController : Controller
         }
     }
 
+    [_AuthPermissionAttribute("TaxAndFee", ActionPermissions.CanAddEdit)]
      public async Task<IActionResult> EditTax(int id)
     {
         var item =await _taxesAndFeesService.GetEditTax(id);
@@ -67,8 +71,8 @@ public class TaxesAndFeesController : Controller
         return PartialView("_EditTaxPartial",item);                                 
     }
 
+    [_AuthPermissionAttribute("TaxAndFee", ActionPermissions.CanAddEdit)]
     [HttpPost]
-
     public async Task<IActionResult> EditTax(EditTaxviewmodel model)
     {
          var isEdit = await _taxesAndFeesService.EditTax(model);
@@ -83,6 +87,7 @@ public class TaxesAndFeesController : Controller
         }
     }
 
+    [_AuthPermissionAttribute("TaxAndFee", ActionPermissions.CanAddEdit)]
     [HttpPost]
     public async Task<IActionResult> EditTaxAvailabity(int id , bool isAvailable)
     {
@@ -90,6 +95,7 @@ public class TaxesAndFeesController : Controller
           return Json( new { success = true, message = "hi"});
     }
 
+    [_AuthPermissionAttribute("TaxAndFee", ActionPermissions.CanAddEdit)]
     [HttpPost]
     public async Task<IActionResult> EditTaxDefault(int id , bool isAvailable)
     {

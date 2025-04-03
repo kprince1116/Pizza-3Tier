@@ -1,3 +1,4 @@
+using BAL.Attributes;
 using BAL.Interfaces;
 using DAL.Interfaces;
 using DAL.Models;
@@ -25,6 +26,7 @@ public class UserController : Controller
         _userRepository = userRepository;
     }
 
+    [_AuthPermissionAttribute("Users", ActionPermissions.CanView)]
     public async Task<IActionResult> UserList(int pageNumber = 1, int pageSize = 3, string searchTerm = "", string sortDirection = "asc", string sortBy = "name") 
     {
 
@@ -46,11 +48,13 @@ public class UserController : Controller
 
     }
 
+    [_AuthPermissionAttribute("Users", ActionPermissions.CanAddEdit)]
     public IActionResult AddUser()
     {
         return View();
     }
 
+    [_AuthPermissionAttribute("Users", ActionPermissions.CanAddEdit)]
     [HttpPost]
     public async Task<IActionResult> AddUser(AddUserviewmodel user)
     {
@@ -79,6 +83,7 @@ public class UserController : Controller
 
     }
 
+     [_AuthPermissionAttribute("Users", ActionPermissions.CanAddEdit)]
     public async Task<IActionResult> EditUser(int UserId)
     {
         var user = await _userList.GetUserById(UserId);
@@ -90,6 +95,7 @@ public class UserController : Controller
         var countryname = await _userRepository.GetCountryById(user.Country.Value);
         var statename = await _userRepository.GetStateById(user.State.Value);
         var cityname = await _userRepository.GetCityById(user.City.Value);
+        var role = await _userRepository.GeRoleById(user.Userrole.Value);
 
         var viewModel = new EditUserviewmodel
         {
@@ -102,7 +108,7 @@ public class UserController : Controller
             Status = user.Status,
             State = statename,
             City = cityname,
-            Userrole = user.Userrole,
+            UserRoleName =role,
             Zipcode = user.Zipcode,
             Address = user.Address,
             Phonenumber = user.Phonenumber,
@@ -112,15 +118,16 @@ public class UserController : Controller
         };
 
 
-        ViewData["Country"] = new SelectList(await _userList.GetCountriesAsync(), "Countryid", "Countryname", viewModel.Country);
-        ViewData["State"] = new SelectList(await _userList.GetStatesAsync(), "Stateid", "Statename", viewModel.State);
-        ViewData["City"] = new SelectList(await _userList.GetCitiesAsync(), "Cityid", "Cityname", viewModel.City);
-        ViewData["Userrole"] = new SelectList(await _userList.GetRolesAsync(), "Roleid", "Rolename", viewModel.Userrole);
+        // ViewData["Country"] = new SelectList(await _userList.GetCountriesAsync(), "Countryid", "Countryname", viewModel.Country);
+        // ViewData["State"] = new SelectList(await _userList.GetStatesAsync(), "Stateid", "Statename", viewModel.State);
+        // ViewData["City"] = new SelectList(await _userList.GetCitiesAsync(), "Cityid", "Cityname", viewModel.City);
+        // ViewData["Userrole"] = new SelectList(await _userList.GetRolesAsync(), "Roleid", "Rolename", viewModel.Userrole);
 
 
         return View(viewModel);
     }
 
+    [_AuthPermissionAttribute("Users", ActionPermissions.CanAddEdit)]
     [HttpPost]
 
     public async Task<IActionResult> EditUser(EditUserviewmodel user)
@@ -132,8 +139,8 @@ public class UserController : Controller
         return RedirectToAction("userList", "User");
     }
 
+    [_AuthPermissionAttribute("Users", ActionPermissions.CanDelete)]
     [HttpPost]
-
     public async Task<IActionResult> SoftDelete(int UserId)
     {
         var existinguser = await _userList.GetById(UserId);

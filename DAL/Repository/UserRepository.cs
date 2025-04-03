@@ -61,6 +61,10 @@ namespace Pizzashop.Data.Repositories
             await _db.SaveChangesAsync();
         }
 
+        public List<Userrole1> GetRoles()
+        {
+            return _db.Userroles1.ToList();
+        }
         public List<Country> GetCountries()
         {
             return _db.Countries.ToList();
@@ -101,7 +105,7 @@ namespace Pizzashop.Data.Repositories
                 u.ProfileImage,
                 Status = u.Status ?? true,
                 Userrole = u.Userrole,
-                Rolename = _db.Userroles.Where(r => r.Roleid == u.Userrole).Select(r => r.Rolename).FirstOrDefault()
+                Rolename = _db.Userroles1.Where(r => r.Userroleid == u.Userrole).Select(r => r.RoleName).FirstOrDefault()
             });
 
             if (!string.IsNullOrWhiteSpace(searchTerm))
@@ -220,9 +224,9 @@ namespace Pizzashop.Data.Repositories
             await _db.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Userrole>> GetRolesAsync()
+        public async Task<IEnumerable<Userrole1>> GetRolesAsync()
         {
-            return _db.Userroles.ToList();
+            return _db.Userroles1.ToList();
         }
 
         public async Task<IEnumerable<Country>> GetCountryAsync()
@@ -264,6 +268,11 @@ namespace Pizzashop.Data.Repositories
         public async Task<string> GetCityById(int id)
         {
             return await _db.Cities.Where(c => c.Cityid == id).Select(c => c.Cityname).FirstOrDefaultAsync();
+        }
+
+        public async Task<string> GeRoleById(int id)
+        {
+            return await _db.Userroles1.Where(u=>u.Userroleid == id).Select(u=>u.RoleName).FirstOrDefaultAsync();
         }
 
     }

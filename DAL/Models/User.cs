@@ -15,8 +15,6 @@ public partial class User
 
     public string Password { get; set; } = null!;
 
-    public int Userrole { get; set; }
-
     public string Phonenumber { get; set; } = null!;
 
     public string? ProfileImage { get; set; }
@@ -45,6 +43,8 @@ public partial class User
 
     public bool? Status { get; set; }
 
+    public int? Userrole { get; set; }
+
     public virtual City? CityNavigation { get; set; }
 
     public virtual Country? CountryNavigation { get; set; }
@@ -59,5 +59,5 @@ public partial class User
 
     public virtual State? StateNavigation { get; set; }
 
-    public virtual Userrole UserroleNavigation { get; set; } = null!;
+    public virtual Userrole1? UserroleNavigation { get; set; }
 }

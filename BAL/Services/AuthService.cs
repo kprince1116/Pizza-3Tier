@@ -50,7 +50,7 @@ namespace BAL.Services
                 throw new Exception("User role not found.");
             }
 
-            return GenerateJwtToken(existingUser.Email, existingUser.UserroleNavigation.Rolename);
+            return GenerateJwtToken(existingUser.Email, existingUser.UserroleNavigation.RoleName);
         }
 
         private string GenerateJwtToken(string email, string role)

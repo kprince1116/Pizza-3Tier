@@ -17,6 +17,8 @@ public class EditUserviewmodel
 
     public int Userrole { get; set; }
 
+    public string? UserRoleName {get; set;}
+
     public string Phonenumber { get; set; } = null!;
 
     public IFormFile ProfileImage { get; set; } 
@@ -45,11 +47,11 @@ public class EditUserviewmodel
 
     public bool? Status { get; set; }
 
-    public virtual City? CityNavigation { get; set; }
+    // public virtual City? CityNavigation { get; set; }
 
-    public virtual Country? CountryNavigation { get; set; }
+    // public virtual Country? CountryNavigation { get; set; }
 
-    public virtual State? StateNavigation { get; set; }
+    // public virtual State? StateNavigation { get; set; }
 
-    public virtual Userrole UserroleNavigation { get; set; } = null!;
+    // public virtual Userrole UserroleNavigation { get; set; } = null!;
 }

@@ -35,7 +35,7 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ICustomerService,CustomerService>();
 builder.Services.AddScoped<IPermissions,Permissions>();
 builder.Services.AddScoped<Permissions>();
-
+builder.Services.AddHttpContextAccessor();
 
 
 builder.Services.AddControllersWithViews();

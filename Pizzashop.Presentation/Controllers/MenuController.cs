@@ -1,4 +1,5 @@
 using System.Text.Json;
+using BAL.Attributes;
 using BAL.Interfaces;
 using DAL.Interfaces;
 using DAL.Models;
@@ -19,6 +20,7 @@ public class MenuController : Controller
         _userMenu = userMenu;
     }
 
+    [_AuthPermissionAttribute("Menu", ActionPermissions.CanView)]
     [HttpGet]
     [Route("Menu/Items")]
     public async Task<IActionResult> Items(int id, int pageNo = 1 , int pageSize=3)
@@ -49,6 +51,7 @@ public class MenuController : Controller
     }
 
      #region Category CRUD
+    [_AuthPermissionAttribute("Menu", ActionPermissions.CanAddEdit)]
     [HttpPost]
     public async Task<IActionResult> AddCategory(menuviewmodel model)
     {
@@ -65,6 +68,7 @@ public class MenuController : Controller
         }
     }
 
+    [_AuthPermissionAttribute("Menu", ActionPermissions.CanAddEdit)]
     [HttpPost]
     public async Task<IActionResult> EditCategory(menuviewmodel model)
     {
@@ -80,7 +84,7 @@ public class MenuController : Controller
         }
     }
 
-
+    [_AuthPermissionAttribute("Menu", ActionPermissions.CanDelete)]
     [HttpPost]
     public async Task<IActionResult> DeleteCategory(int id)
     {
@@ -121,7 +125,7 @@ public class MenuController : Controller
         return PartialView("_modifierItemPartialView", await _userMenu.GetModifierItemById(modifierId));
     }
 
-
+    [_AuthPermissionAttribute("Menu", ActionPermissions.CanAddEdit)]
     [HttpPost]
     public async Task<IActionResult> Items(menuviewmodel model , string modifierItemList )
     {
@@ -145,6 +149,7 @@ public class MenuController : Controller
 
     }
 
+    [_AuthPermissionAttribute("Menu", ActionPermissions.CanAddEdit)]
      public async Task<IActionResult> EditItem(int id)
     {
         
@@ -157,14 +162,15 @@ public class MenuController : Controller
         return PartialView("_EditItemPartial",item);                                 
     }
 
+    [_AuthPermissionAttribute("Menu", ActionPermissions.CanAddEdit)]
     [HttpPost]
     public async Task<IActionResult> EditItems(EditItemviewmodel model , string modifierItemListForEdit)
     {
 
-        if (!ModelState.IsValid)
-    {
-        return PartialView("_EditItemPartial", model); 
-    }
+    //     if (!ModelState.IsValid)
+    // {
+    //     return PartialView("_EditItemPartial", model); 
+    // }
 
         if (!string.IsNullOrEmpty(modifierItemListForEdit))
         {
@@ -183,6 +189,7 @@ public class MenuController : Controller
         }                                 
     }
 
+    [_AuthPermissionAttribute("Menu", ActionPermissions.CanAddEdit)]
     [HttpPost]
     public async Task<IActionResult> EditItemAvailabity(int id , bool isAvailable)
     {
@@ -190,6 +197,7 @@ public class MenuController : Controller
          return Json( new { success = true, message = "hi"});
     }
 
+    [_AuthPermissionAttribute("Menu", ActionPermissions.CanDelete)]
     [HttpPost]
     public async Task<IActionResult> MenuListItemDelete(int id)
     {
@@ -206,6 +214,7 @@ public class MenuController : Controller
         }  
     }
     
+    [_AuthPermissionAttribute("Menu", ActionPermissions.CanDelete)]
     [HttpPost]
     public IActionResult DeleteCombine(List<int> itemList)
     {
@@ -224,6 +233,7 @@ public class MenuController : Controller
     }
 
     //Add Modifier
+     [_AuthPermissionAttribute("Menu", ActionPermissions.CanAddEdit)]
      [HttpPost]
     public async Task<IActionResult> AddModifier(menuviewmodel model , string modifierList)
     {
@@ -256,7 +266,7 @@ public class MenuController : Controller
     }
   
     // Edit Modifier
-
+    [_AuthPermissionAttribute("Menu", ActionPermissions.CanAddEdit)]
     [HttpPost]
     public async Task<IActionResult> EditModifier(menuviewmodel model ,  string ExistingmodifierList )
     {
@@ -278,7 +288,7 @@ public class MenuController : Controller
     }
 
     //Delete Modifier
-
+    [_AuthPermissionAttribute("Menu", ActionPermissions.CanDelete)]
     [HttpPost]
 
     public async Task<IActionResult> DeleteModifer(int id)
@@ -306,6 +316,7 @@ public class MenuController : Controller
         return PartialView("_ModifierPartial", items);
     }
 
+    [_AuthPermissionAttribute("Menu", ActionPermissions.CanAddEdit)]
     [HttpPost]
     public async Task<IActionResult> AddModifierItem(menuviewmodel model)
     {
@@ -321,6 +332,7 @@ public class MenuController : Controller
         }
     }
 
+    [_AuthPermissionAttribute("Menu", ActionPermissions.CanAddEdit)]
     public async Task<IActionResult> EditModifierItem(int editid)
     {
         var item =await _userMenu.GetEditModifierItem(editid);
@@ -329,6 +341,7 @@ public class MenuController : Controller
         return PartialView("_EditModifierItemPartial",item);                                 
     }
 
+    [_AuthPermissionAttribute("Menu", ActionPermissions.CanAddEdit)]
     [HttpPost]
     public async Task<IActionResult> EditModifierItems(AddModifierViewModel model)
     {
@@ -345,8 +358,8 @@ public class MenuController : Controller
                                     
     }
 
+    [_AuthPermissionAttribute("Menu", ActionPermissions.CanDelete)]
     [HttpPost]
-
     public async Task<IActionResult> DeleteModifierItem(int id , int modifiergroupId)
     {
         var existingmodifier =  _userMenu.GetModifierItemForDeleteById(id,modifiergroupId);
@@ -361,7 +374,8 @@ public class MenuController : Controller
         }
     }
 
-     [HttpPost]
+    [_AuthPermissionAttribute("Menu", ActionPermissions.CanDelete)]
+    [HttpPost]
     public IActionResult DeleteCombineForModifier(List<int> modifierList , int modifiergroupId)
     {
         _userMenu.DeleteModifiersAsync(modifierList , modifiergroupId);

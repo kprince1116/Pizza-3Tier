@@ -56,6 +56,7 @@
                             <option selected disabled>Select Role</option>
                             <option value="1">Admin</option>
                             <option value="2">Cheaf</option>
+                            <option value="3">Account_Manager</option>
                         </select>
                         <label for="floatingSelect">Role</label>
                         <span asp-validation-for="Userrole" class="text-danger"></span>
@@ -68,9 +69,10 @@
                         <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                     </div>
-                    <div class="col-lg-6 pb-3">
-                        <div class="form-floating">
-                        <input type="password" class="form-control" placeholder="Password" asp-for="Password">
+                    <div class="col-lg-6 pb-3 position-relative">
+                        <div class="form-floating ">
+                        <input id="passwordinput" type="password" class="form-control" placeholder="Password" asp-for="Password">
+                        <div class="img"><img  id="togglepassword" src="~/images/icons/eye.svg" alt=""></div>
                         <label for="floatingInput">Password</label>
                         <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
@@ -157,6 +159,21 @@
 }
 
 <script>
+  document.getElementById("togglepassword").addEventListener("click", function () {
+        var passwordInput = document.getElementById("passwordinput");
+        var icon = document.getElementById("togglepassword");
+        
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            icon.src = '@Url.Content("~/images/icons/eye-slash.svg")'; 
+        } else {
+            passwordInput.type = "password";
+            icon.src = '@Url.Content("~/images/icons/eye.svg")'; 
+        }
+    });
+</script>
+
+<script>
   function previewImage(event) {
     const input = event.target;
     const preview = document.getElementById('imagePreview');
@@ -180,8 +197,6 @@
 </script>
 
     <script>
-
-
 
         $(document).ready(function () {
             $.getJSON('/Profile/GetCountries', function (data) {
@@ -222,6 +237,14 @@
 
 </html>
 
+<style>
+    .img {
+  position: absolute;   
+  right: 10px; 
+  top: 27px;
+  transform: translateY(-50%);
+}
+</style>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>

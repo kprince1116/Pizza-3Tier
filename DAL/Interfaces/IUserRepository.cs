@@ -26,6 +26,8 @@ public interface IUserRepository
     List<State> GetStates(int countryId);
     List<City> GetCities(int stateId);
 
+    List<Userrole1> GetRoles();
+
     public Task<User> GetUserByEmail(String email);
 
     public Task<User> GetUserByEmailForChangePassword(string email);    
@@ -46,7 +48,7 @@ public interface IUserRepository
 
     Task UpdateUserAsync(User existingUser);
 
-    public Task<IEnumerable<Userrole>> GetRolesAsync();
+    public Task<IEnumerable<Userrole1>> GetRolesAsync();
 
     public Task<IEnumerable<Country>> GetCountryAsync();
 
@@ -63,6 +65,8 @@ public interface IUserRepository
     Task<string> GetStateById(int id);
 
     Task<string> GetCityById(int id);
+
+    Task<string> GeRoleById(int id);
     
 }
 

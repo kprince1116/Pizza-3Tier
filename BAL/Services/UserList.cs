@@ -126,7 +126,7 @@ public class UserList : IUserList
       
     }
 
-    public Task<IEnumerable<Userrole>> GetRolesAsync()
+    public Task<IEnumerable<Userrole1>> GetRolesAsync()
     {
         return _userRepository.GetRolesAsync();
     }

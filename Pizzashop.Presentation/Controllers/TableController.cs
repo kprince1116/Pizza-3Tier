@@ -1,3 +1,4 @@
+using BAL.Attributes;
 using BAL.Models.Interfaces;
 using BAL.Services;
 using DAL.ViewModels;
@@ -17,6 +18,7 @@ public class TableController : Controller
         _table = table;
     }
 
+    [_AuthPermissionAttribute("TableAndSection", ActionPermissions.CanView)]
     public async Task<IActionResult> Table(int id, int pageNo = 1 , int pageSize=3 , string searchKey = "" )
     {
         var sections = _table.GetSections();
@@ -33,6 +35,7 @@ public class TableController : Controller
         return View(viewModel);
     }
 
+     [_AuthPermissionAttribute("TableAndSection", ActionPermissions.CanAddEdit)]
     //CRUD SECTIONS
     [HttpPost]
     public async Task<IActionResult> AddSection(Tablesviewmodel model)
@@ -50,8 +53,8 @@ public class TableController : Controller
        
     }
 
+    [_AuthPermissionAttribute("TableAndSection", ActionPermissions.CanAddEdit)]
     [HttpPost]
-
     public async Task<IActionResult> EditSection(Tablesviewmodel model)
     {
         var isEdit = await _table.EditSection(model);
@@ -67,6 +70,7 @@ public class TableController : Controller
         
     }
 
+    [_AuthPermissionAttribute("TableAndSection", ActionPermissions.CanDelete)]
     [HttpPost]
 
     public async Task<IActionResult> DeleteSection(int id)
@@ -90,8 +94,8 @@ public class TableController : Controller
         return PartialView("_TablePartial", tables);
     }
 
+    [_AuthPermissionAttribute("TableAndSection", ActionPermissions.CanAddEdit)]
     [HttpPost]
-
     public async Task<IActionResult> AddTable(Tablesviewmodel model)
     {
         var isAdded =  await _table.AddTable(model);
@@ -106,6 +110,7 @@ public class TableController : Controller
         }
     }
 
+
      public async Task<IActionResult> EditTable(int id)
     {
         var item =await _table.GetEditTable(id);
@@ -115,6 +120,7 @@ public class TableController : Controller
                                          
     }
 
+    [_AuthPermissionAttribute("TableAndSection", ActionPermissions.CanAddEdit)]
     [HttpPost]
     public async Task<IActionResult> EditTable(EditTableviewmodel model)
     {
@@ -122,8 +128,7 @@ public class TableController : Controller
          if (isEdit)
         {
             TempData["EditTableSuccess"] = true;
-           
-             return RedirectToAction("Table", "Table");
+            return RedirectToAction("Table", "Table");
         }
         else
         {
@@ -131,6 +136,7 @@ public class TableController : Controller
         }
     }
 
+    [_AuthPermissionAttribute("TableAndSection", ActionPermissions.CanDelete)]
     [HttpPost]
     public async Task<IActionResult> DeleteTable(int id)
     {
@@ -146,8 +152,8 @@ public class TableController : Controller
         }
     }
 
+     [_AuthPermissionAttribute("TableAndSection", ActionPermissions.CanDelete)]
     [HttpPost]
-
     public async Task<IActionResult> DeleteCombine(List<int> tableLists)
     {
         _table.DeleteTableAsync(tableLists);

@@ -35,8 +35,17 @@ public class RolesAndPermissions : Controller
     [HttpPost]
     public async Task<IActionResult> Permissions(List<RolesAndPermissionsviewmodel> user)
     {
-        await _userRolesAndPermissions.UpdatePermissions(user);
-        return RedirectToAction("Roles","RolesAndPermissions"); 
+        var permission = await _userRolesAndPermissions.UpdatePermissions(user);
+    
+        if(permission != null)
+        {
+            TempData["RAndPSuccess"] = true;
+            return RedirectToAction("Roles","RolesAndPermissions");
+        }
+        else{
+            return Content("error");
+        }
+         
     }
    
 

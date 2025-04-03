@@ -20,4 +20,6 @@ public partial class Userrole1
     public bool? Isdeleted { get; set; }
 
     public virtual ICollection<Rolesandpermission> Rolesandpermissions { get; set; } = new List<Rolesandpermission>();
+
+    public virtual ICollection<User> Users { get; set; } = new List<User>();
 }

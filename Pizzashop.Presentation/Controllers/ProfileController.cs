@@ -39,7 +39,11 @@ public class ProfileController : Controller
 
     }
 
-
+    public IActionResult GetRoles()
+    {
+        var roles = _userDetails.GetRoles();
+        return Json(roles);
+    }
     public IActionResult GetCountries()
     {
         var countries = _userDetails.GetCountries();

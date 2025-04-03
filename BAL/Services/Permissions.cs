@@ -4,6 +4,7 @@ using BAL.Models.Interfaces;
 using Pizzashop.DAL.ViewModels;
 using Microsoft.AspNetCore.Http;
 using DAL.Models;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace BAL.Services
@@ -23,20 +24,45 @@ namespace BAL.Services
 
         public async Task<bool> HasPermission(string module, ActionPermissions action)
         {
-    
+            try
+            {
             var token = _httpContextAccessor.HttpContext?.Request.Cookies["jwtToken"];
-            var userId = _tokenService.GetIdFromToken(token);
+            var userId = await _tokenService.GetIdFromToken(token);
 
             if(userId==null)
             {
+               Console.WriteLine("User ID is null.");
                return false;
             }
 
-            var userIdValue = await userId;
-            var roleid = _db.Users.FirstOrDefault(u => u.UserId == userIdValue).UserroleNavigation.Roleid;
-            var permissionid = _db.Permissions.FirstOrDefault(P=>P.PermissionName.ToLower() == module.ToLower()).Permissionid;
+            var userIdValue =  userId;
+            var user = _db.Users.FirstOrDefault(u => u.UserId == userIdValue);
+            if (user == null)
+             {
+                 Console.WriteLine("User or User role is null.");
+                  return false; 
+             }
 
-            var permission = _db.Rolesandpermissions.FirstOrDefault(p=>p.Userroleid == roleid && p.Permissionid == permissionid);
+            var roleid = user.Userrole;
+
+            var permissions = await  _db.Permissions.FirstOrDefaultAsync(P=>P.PermissionName.ToLower() == module.ToLower());      
+
+            if (permissions == null)
+            {
+                Console.WriteLine("Permissionid is null.");
+                return false; 
+            }
+            else{
+                var PermissionId = permissions.Permissionid;
+                var permission = _db.Rolesandpermissions.FirstOrDefault(p=>p.Userroleid == roleid && p.Permissionid == PermissionId);
+                 if (permission == null)
+             {
+                Console.WriteLine("Permission mapping is null.");
+                return false; 
+             }
+
+            Console.WriteLine($"User ID: {userIdValue}, Role ID: {roleid}, Permission ID: {PermissionId}");
+
 
             if(permission == null)
             {
@@ -50,6 +76,15 @@ namespace BAL.Services
                ActionPermissions.CanDelete => permission.CanDelete,
                _ => false
             }; 
+            }
+           
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Exception",e.Message);
+                return false;
+            }
+
     }
 }
 }

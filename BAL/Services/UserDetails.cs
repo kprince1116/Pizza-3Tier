@@ -49,7 +49,7 @@ public class UserDetails : IUserDetails
             CityName = existingUser.CityNavigation?.Cityname,   
             Address = existingUser.Address,
             Zipcode = existingUser.Zipcode,
-            userrole = existingUser.UserroleNavigation?.Rolename
+            userrole = existingUser.UserroleNavigation?.RoleName
         };
 
     }
@@ -79,6 +79,10 @@ public class UserDetails : IUserDetails
         return true;
     }
 
+     public List<Userrole1> GetRoles()
+     {
+        return _userRepository.GetRoles();
+     }
     public List<Country> GetCountries()
     {
         return _userRepository.GetCountries();

@@ -1,72 +1,76 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>@ViewData["Title"] - PizzaShop</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PizzaShop</title>
 
-  <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-  <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-  @* <link rel="stylesheet" href="~/MyMvcApp.styles.css" asp-append-version="true" /> *@
-  <link rel="stylesheet" href="~/css/dashboard.css" asp-append-version="true" />
-  @* <link rel="stylesheet" href="~/css/s.css" asp-append-version="true" /> *@
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @* <link rel="stylesheet" href="~/MyMvcApp.styles.css" asp-append-version="true" /> *@
+    <link rel="stylesheet" href="~/css/dashboard.css" asp-append-version="true" />
+    @* <link rel="stylesheet" href="~/css/s.css" asp-append-version="true" /> *@
 </head>
 
 <body>
-  <div class="d-flex">
-    <aside class="d-lg-block d-none">
-      <div class="div vh-100 bg-white" style="width: 250px;">
-        <div class="d-flex gap-2 pt-3 mb-2 align-items-center justify-content-start px-4">
-          <img src="~/images/logos/pizzashop_logo.png" style="height: 50px;" alt="">
-          <h5 style="color: #0066bb;">PIZZASHOP</h5>
-        </div>
-        <div class="gap-5 mt-3" style="margin-top: 30px !important;">
-          <div class="aa">
-            <a href="" class="sidebar-tile">
-              <img style="height: 25px;" src="~/images/dashboard-default.svg">
-              <div>Dashboard</div>
-            </a>
-          </div>
-          <div class="aa">
-            <a asp-controller="User" asp-action="UserList" id="sidebar-user-field" class="sidebar-tile" style="">
-              <img style="height: 25px;" src="~/images/icons/person.svg">
-              <div>Users</div>
-            </a>
-          </div>
-          <div class="aa">
-            <a asp-controller="RolesAndPermissions" asp-action="Roles" class="sidebar-tile">
-              <img style="height: 25px;" src="~/images/icons/person-gear.svg">
-              <div>Role and Permission</div>
-            </a>
-          </div>
-          <div class="aa">
-            <a asp-controller="Menu" asp-action="Items" class="sidebar-tile">
-              <img style="height: 25px;" src="~/images/icons/menu-up.svg">
-              <div>Menu</div>
-            </a>
-          </div>
-          <div class="aa">
-            <a  asp-controller="Table" asp-action="Table" class="sidebar-tile">
-              <img style="height: 25px;" src="~/images/icons/square-fill.svg">
-              <div>Table And Section</div>
-            </a>
-          </div>
-          <div class="aa">
-            <a asp-controller="TaxesAndFees" asp-action="TaxesAndFees" class="sidebar-tile">
-              <img style="height: 25px;" src="~/images/icons/currency-rupee.svg">
-              <div>Taxes and Fees</div>
-            </a>
-          </div>
-          <div class="aa">
-            <a asp-controller="Order" asp-action="Order" class="sidebar-tile">
+    <div class="d-flex">
+        <aside class="d-lg-block d-none">
+            <div class="div vh-100 bg-white" style="width: 250px;">
+                <div class="d-flex gap-2 pt-3 mb-2 align-items-center justify-content-start px-4">
+                    <img src="~/images/logos/pizzashop_logo.png" style="height: 50px;" alt="">
+                    <h5 style="color: #0066bb;">PIZZASHOP</h5>
+                </div>
+                <div class="gap-5 mt-3" style="margin-top: 30px !important;">
+                    <div class="aa">
+                        <a href="" class="sidebar-tile">
+                            <img style="height: 25px;" src="~/images/dashboard-default.svg">
+                            <div>Dashboard</div>
+                        </a>
+                    </div>
+                    <div class="aa">
+                        <a asp-controller="User" asp-action="UserList" id="sidebar-user-field" class="sidebar-tile @(ViewContext.RouteData.Values["controller"].ToString() == "User" && ViewContext.RouteData.Values["action"].ToString() == "UserList" ? "active" : "")" style="">
+                            <img style="height: 25px;" src="~/images/icons/person.svg">
+                            <div>Users</div>
+                        </a>
+                    </div>
+                    <div class="aa">
+                        <a asp-controller="RolesAndPermissions" asp-action="Roles" class="sidebar-tile @(ViewContext.RouteData.Values["controller"].ToString() == "RolesAndPermissions" && ViewContext.RouteData.Values["action"].ToString() == "Roles" ? "active" : "")">
+                            <img style="height: 25px;" src="~/images/icons/person-gear.svg">
+                            <div>Role and Permission</div>
+                        </a>
+                    </div>
+                    <div class="aa">
+                        <a asp-controller="Menu" asp-action="Items" class="sidebar-tile @(ViewContext.RouteData.Values["controller"].ToString() == "Menu" && ViewContext.RouteData.Values["action"].ToString() == "Items" ? "active" : "")">
+                            <img style="height: 25px;" src="~/images/icons/menu-up.svg">
+                            <div>Menu</div>
+                        </a>
+                    </div>
+                    <div class="aa">
+                        <a  asp-controller="Table" asp-action="Table" class="sidebar-tile @(ViewContext.RouteData.Values["controller"].ToString() == "Table" && ViewContext.RouteData.Values["action"].ToString() == "Table" ? "active" : "")">
+                            <img style="height: 25px;" src="~/images/icons/square-fill.svg">
+                            <div>Table And Section</div>
+                        </a>
+                    </div>
+                    <div class="aa">
+                        <a asp-controller="TaxesAndFees" asp-action="TaxesAndFees" class="sidebar-tile @(ViewContext.RouteData.Values["controller"].ToString() == "TaxesAndFees" && ViewContext.RouteData.Values["action"].ToString() == "TaxesAndFees" ? "active" : "")">
+                            <img style="height: 25px;" src="~/images/icons/currency-rupee.svg">
+                            <div>Taxes and Fees</div>
+                        </a>
+                    </div>
+                    @* @if(ViewBag.CanViewOrders)   *@
+                    
+          <div class="aa">    
+            <a asp-controller="Order" asp-action="Order" class="sidebar-tile @(ViewContext.RouteData.Values["controller"].ToString() == "Order" && ViewContext.RouteData.Values["action"].ToString() == "Order" ? "active" : "")">
               <img style="height: 25px;" src="~/images/icons/bag-check.svg">
               <div>Orders</div>
             </a>
           </div>
+          
           <div class="aa">
-            <a asp-controller="Customer" asp-action="Customer" class="sidebar-tile">
+            <a asp-controller="Customer" asp-action="Customer" class="sidebar-tile @(ViewContext.RouteData.Values["controller"].ToString() == "Customer" && ViewContext.RouteData.Values["action"].ToString() == "Customer" ? "active" : "")">
               <img style="height: 25px;" src="~/images/icons/customer.svg">
               <div>Customers</div>
             </a>
@@ -85,13 +89,24 @@
         color: inherit;
 
       }
+      
 
       .sidebar-tile:hover {
         background-color: rgb(244, 244, 244);
       }
 
       .sidebar-tile.active {
-        background-color: #e9ecef;
+        background-color: rgb(244, 244, 244);
+        
+      }
+
+      .sidebar-tile.active div{
+          color: #0066bb;
+      }
+
+      .sidebar-tile.active img{
+         height: 35px;
+         filter: brightness(0) saturate(100%) invert(21%) sepia(97%) saturate(595%) hue-rotate(178deg) brightness(100%) contrast(97%);
       }
 
       .sidebar-tile img {

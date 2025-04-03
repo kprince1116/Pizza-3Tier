@@ -10,5 +10,7 @@ public interface IUserDetails
     public List<Country> GetCountries();
     public List<State> GetStates(int countryId);
     public List<City> GetCities(int stateId);
+
+    public List<Userrole1> GetRoles();
     public Task<ChangePasswordviewmodel> ChangePassword(string email , ChangePasswordviewmodel model);
 }

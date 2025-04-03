@@ -1,8 +1,10 @@
 using System.Drawing;
+using BAL.Attributes;
 using BAL.Models.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
+using Pizzashop.DAL.ViewModels;
 
 namespace Pizzashop.Presentation.Controllers;
 
@@ -12,17 +14,23 @@ public class OrderController : Controller
 
      private readonly IOrderservice _orderservice;
 
-      public OrderController(IConfiguration configuration,IOrderservice orderservice)
+      private readonly IPermissions _permissionService;
+
+      public OrderController(IConfiguration configuration,IOrderservice orderservice,IPermissions permissionService)
     {
         _configuration = configuration; 
         _orderservice = orderservice;
     }
 
+
+    [_AuthPermissionAttribute("Order", ActionPermissions.CanView)]
     public IActionResult Order()
     {
         return View();
     }
 
+    [_AuthPermissionAttribute("Order", ActionPermissions.CanView)]
+   
        public async Task<IActionResult> GetOrderList(int pageNo = 1, int pageSize = 3, string searchKey = "" , string sortby = "" , string sortdirection = "" , string statusFilter="" , string timeFilter = "",string  fromDate = "" , string toDate="")
     {
         var taxlist = await _orderservice.GetOrderDetails(pageNo, pageSize, searchKey, sortby, sortdirection, statusFilter, timeFilter, fromDate, toDate);

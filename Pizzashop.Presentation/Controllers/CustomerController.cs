@@ -1,8 +1,10 @@
 using System.Drawing;
+using BAL.Attributes;
 using BAL.Models.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
+using Pizzashop.DAL.ViewModels;
 
 namespace Pizzashop.Presentation.Controllers;
 
@@ -18,17 +20,21 @@ public class CustomerController : Controller
         _customerservice = customerservice;
     }
 
+     [_AuthPermissionAttribute("Customer", ActionPermissions.CanView)]
     public IActionResult Customer()
     {
         return View();
     }
 
+    
+     [_AuthPermissionAttribute("Customer", ActionPermissions.CanView)]
     public async Task<IActionResult> GetCustomerDetails(int pageNo = 1, int pageSize = 3, string searchKey = "" ,  string sortby = "" , string sortdirection ="" ,  string timefilter = "" , string fromdate="" , string todate="")
     {
         var customer = await _customerservice.GetCustomerDetails(pageNo,pageSize,searchKey,sortby,sortdirection,timefilter,fromdate,todate);
          return PartialView("_customerPartial",customer);
     }
 
+    [_AuthPermissionAttribute("Customer", ActionPermissions.CanView)]
     public async Task<IActionResult> GetCustomerHistory(int id)
     {
         var customer = await _customerservice.GetCustomerHistory(id);

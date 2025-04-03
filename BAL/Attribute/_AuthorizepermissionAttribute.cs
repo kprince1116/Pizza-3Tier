@@ -1,10 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Pizzashop.DAL.ViewModels;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using BAL.Models.Interfaces;
 
 namespace BAL.Attributes;
 public class _AuthPermissionAttribute : Attribute, IAsyncAuthorizationFilter
@@ -20,16 +19,17 @@ public class _AuthPermissionAttribute : Attribute, IAsyncAuthorizationFilter
 
     public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
     {
-        // Resolve the required services
-        var permissionService = context.HttpContext.RequestServices.GetService<IAuthorizationSer>();
+        var permissionService = context.HttpContext.RequestServices.GetRequiredService<IPermissions>();
 
-        // Check if the user has the required permission
         var hasPermission = await permissionService.HasPermission(_module, _action);
         if (!hasPermission)
         {
-            
+            context.Result = new RedirectToRouteResult(new RouteValueDictionary
+            {
+                { "controller", "Auth" }, 
+                { "action", "AccessDenied" } 
+            });
         }
     }
 }
 
-\

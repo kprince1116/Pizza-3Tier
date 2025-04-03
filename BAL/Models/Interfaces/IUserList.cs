@@ -25,7 +25,7 @@ public interface IUserList
 
     public Task<IEnumerable<City>> GetCitiesAsync();
 
-     Task<IEnumerable<Userrole>> GetRolesAsync(); 
+     Task<IEnumerable<Userrole1>> GetRolesAsync(); 
 
     public Task EditUserAsync(EditUserviewmodel user);
 

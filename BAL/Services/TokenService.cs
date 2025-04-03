@@ -27,7 +27,7 @@ public class TokenService : ITokenService
         if(jsonToken !=null)
         {
             var email = jsonToken.Claims.FirstOrDefault(c=> c.Type == ClaimTypes.Email).Value;
-            System.Console.WriteLine("email:"+email);
+
             if(email != null)
             {
                 return email;
@@ -46,7 +46,6 @@ public class TokenService : ITokenService
          if(jsonToken !=null)
         {
             var email = jsonToken.Claims.FirstOrDefault(c=> c.Type == ClaimTypes.Email).Value;
-            System.Console.WriteLine("email:"+email);
 
             var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == email);
             

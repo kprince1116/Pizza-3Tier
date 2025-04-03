@@ -4,7 +4,7 @@
      <div class="table-responsive ">
     <table class="table table-hover">
       <thead>
-        <tr>
+        <tr style="opacity: 0.9;" >
           <th class="table-name">
            Name
             <img src="~/images/icons/arrow-up.svg" class="sort-btn" data-name="Customername" data-order="asc" alt=""> 
@@ -30,7 +30,7 @@
           <td class="table-field fs-6" style="text-wrap: nowrap;">@Customer.Customeremail</td>
           <td class="table-field fs-6">@Customer.Phonenumber</td>
           <td class="table-field fs-6" style="text-wrap: nowrap;">@Customer.CutomerDate?.ToString("dd-MM-yyyy")</td>
-          <td class="fs-6"> @Customer.TotalOrders</td 
+          <td class="table-field ps-5 fs-6"> @Customer.TotalOrders</td 
         </tr>
         }
       </tbody>

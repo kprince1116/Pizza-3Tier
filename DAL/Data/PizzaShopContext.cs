@@ -826,7 +826,6 @@ public partial class PizzaShopContext : DbContext
 
             entity.HasOne(d => d.UserroleNavigation).WithMany(p => p.Users)
                 .HasForeignKey(d => d.Userrole)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("users_userrole_fkey");
         });
 

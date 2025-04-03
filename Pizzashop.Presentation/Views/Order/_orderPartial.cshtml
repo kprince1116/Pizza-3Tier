@@ -38,7 +38,7 @@
           <td class="table-field fs-6" style="text-wrap: nowrap;">@order.Orderdate?.ToString("dd-MM-yyyy")</td>
           <td class="table-field fs-6">@order.CustomerName</td>
           <td class="fs-6" > @order.Status</td>
-          <td class="fs-6" > @order.Payment</td>
+          <td class="fs-6 ps-5" > @order.Payment</td>
           <td>
              <span class="text-warning">@(new string('★', order.Rating ?? 0))@(new string('☆', 5 - (order.Rating ?? 0)))</span> 
           </td>  
