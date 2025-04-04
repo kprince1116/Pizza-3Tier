@@ -1,4 +1,13 @@
+@using BAL.Models.Interfaces
+@using Pizzashop.DAL.ViewModels
 @model Pizzashop.DAL.ViewModels.Taxviewmodel
+
+@inject IPermissions PermissionService
+
+@{
+    var canAddTaxes = await PermissionService.HasPermission("TaxAndFee", ActionPermissions.CanAddEdit);
+    var canDeleteTaxes = await PermissionService.HasPermission("TaxAndFee", ActionPermissions.CanDelete);
+}
 
 <div class="border bg-white ms-3 me-3 " id="changeThis" >    
             <div class="table-responsive" >
@@ -14,7 +23,10 @@
                 Default
             </th>
             <th scope="col">Tax Value</th>
+          @if(canAddTaxes || canDeleteTaxes)  
+          {
             <th scope="col">Action</th>
+            }
         </tr>
     </thead>
     <tbody id="userListBody">
@@ -62,10 +74,16 @@
                         </svg>@tax.TaxValue
                     </td>
                 }
+                @if(canAddTaxes || canDeleteTaxes)
+                {
                 <td>
-                  <a data-bs-toggle="modal" data-edittaxid = "@tax.TaxId" data-bs-target="#editTax" class="edit-tax" ><img src="~/images/icons/pen.svg" lt=""></a>
+               @if(canAddTaxes){<a data-bs-toggle="modal" data-edittaxid = "@tax.TaxId" data-bs-target="#editTax" class="edit-tax" ><img src="~/images/icons/pen.svg" lt=""></a>}
+               @if(canDeleteTaxes)
+               {
              <img data-bs-toggle="modal" class="delete-tax" data-taxid = "@tax.TaxId" data-bs-toggle="modal" data-bs-target="#deleteTaxModal"  src="~/images/icons/trash (1).svg" alt=""> 
+             }
                 </td>
+                }
             </tr>
         }
     </tbody>

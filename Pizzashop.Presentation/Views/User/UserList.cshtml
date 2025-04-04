@@ -1,8 +1,17 @@
-@* @model MyMvcApp.ViewModels.UserListviewmodel *@
+@using BAL.Models.Interfaces
+@using Pizzashop.DAL.ViewModels
+
 @model IEnumerable<Pizzashop.DAL.ViewModels.UserListviewmodel>
 @{
     var startIndex = (@ViewBag.CurrentPage - 1) * @ViewBag.PageSize + 1;
 }
+@inject IPermissions PermissionService
+
+@{
+    var canAddUsers = await PermissionService.HasPermission("Users", ActionPermissions.CanAddEdit);
+    var canDeleteUsers = await PermissionService.HasPermission("Users", ActionPermissions.CanDelete);
+}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,11 +40,13 @@
                         <img src="~/images/icons/search.svg" alt="" style="width: 20px; aspect-ratio: 1"
                             class="bg-white position-absolute rounded-2 m-2" />
                     </div>
-
+                    @if(canAddUsers)
+                    {
                     <a asp-controller="User" asp-action="AddUser" class=" add-user border fw-bold text-center d-flex align-items-center justify-content-center px-2 py-0"
                         style="background-color: rgb(0, 102, 187); text-decoration: none; color: white; text-wrap: nowrap; height:45px; border-radius: 5px;">
                         +Add User
                     </a>
+                    }
                 </div>
             </div>
 
@@ -63,7 +74,7 @@
                                     </div>
                                 </th>
                                 <th scope="col">Status</th>
-                                <th scope="col">Action</th>
+                               @if(canAddUsers || canDeleteUsers){ <th scope="col">Action</th> }
                             </tr>
                         </thead>
                         <tbody>

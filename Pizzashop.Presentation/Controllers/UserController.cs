@@ -108,6 +108,7 @@ public class UserController : Controller
             Status = user.Status,
             State = statename,
             City = cityname,
+            Userrole = user.Userrole.Value,
             UserRoleName =role,
             Zipcode = user.Zipcode,
             Address = user.Address,

@@ -10,9 +10,7 @@ namespace BAL.Services;
 public class UserMenu : IUserMenu
 {
     private readonly IUserMenuRepository _userMenuRepository;
-
     private readonly PizzaShopContext _db;
-
 
     public UserMenu(IUserMenuRepository userMenuRepository,PizzaShopContext db)
     {
@@ -56,11 +54,6 @@ public class UserMenu : IUserMenu
         return modifierItems;
     }
 
-    // public  List<ItemModifierGroupviewmodel> GetModifierItem()
-    // {
-    //     var modifierItems = _userMenuRepository.GetModifierItem();
-    //     return modifierItems;
-    // }
      public async Task<paginationviewmodel> GetItemsByCategory(int id , int pageNo = 1 , int pageSize=3 , string search = "")
      {
         var items = await _userMenuRepository.GetItemsByCategory(id,pageNo,pageSize,search);
@@ -118,7 +111,6 @@ public class UserMenu : IUserMenu
          return true;
 
       }
-
 
     public async Task<bool> UpdateCategory(menuviewmodel model)
     {

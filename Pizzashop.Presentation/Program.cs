@@ -10,8 +10,6 @@ using Pizzashop.Data.Repositories;
 using BAL.Interfaces;
 using DAL.Repository;
 using BAL.Models.Interfaces;
-using System.Security;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +32,9 @@ builder.Services.AddScoped<IOrderservice,Orderservice>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ICustomerService,CustomerService>();
 builder.Services.AddScoped<IPermissions,Permissions>();
+builder.Services.AddScoped<IUserroleService, UserRoleService>();
+builder.Services.AddScoped<IKotRepository, KotRepository>();
+builder.Services.AddScoped<IKotService, KotService>();
 builder.Services.AddScoped<Permissions>();
 builder.Services.AddHttpContextAccessor();
 
@@ -82,9 +83,6 @@ if (!app.Environment.IsDevelopment())
    
     app.UseHsts();
 }
-
-
-
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

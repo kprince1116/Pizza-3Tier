@@ -19,6 +19,7 @@
                     <p class="fs-2 fw-bold" style="color: rgb(0, 102, 187);">Edit User</p>
                 </div>
                 <div class="me-4 ">
+    using iText.Forms.Xfdf;
                     <a asp-controller="User" asp-action="UserList"
                         class=" add-user border fw-bold text-center d-flex align-items-center justify-content-center px-2 py-0"
                         style="background-color: rgb(0, 102, 187); text-decoration: none; color: white; text-wrap: nowrap; height:45px; border-radius: 5px;">
@@ -29,10 +30,10 @@
             <form method="post" asp-controller="User" asp-action="EditUser" enctype="multipart/form-data"
                 class="bg-white border ms-4 me-4">
                 <input type="hidden" asp-for="UserId">
-                <input type="hidden" asp-for="CityId">
+                @* <input type="hidden" asp-for="Userrole"> *@
+                @* <input type="hidden" asp-for="CountryId">
                 <input type="hidden" asp-for="StateId">
-                <input type="hidden" asp-for="CountryId">
-                <input type="hidden" asp-for="Userrole">
+                <input type="hidden" asp-for="CityId"> *@
                 <div class="row ps-3 pe-3  pt-3">
                     <div class="col-lg-6 pb-3">
                         <div class="form-floating">
@@ -60,13 +61,15 @@
                     </div>
                     <div class="col-lg-6 pb-3">
                         <div class="form-floating">
-                            <select class="form-select" asp-for="Userrole" placeholder="Role" id="RoleSelect"
+                            <select class="form-select" asp-for="Userrole" id="RoleSelect"
                                 aria-label="Floating label select example">
-                                <option selected>@Model.UserRoleName</option>
+                                <option value="">@Model.UserRoleName</option>
                             </select>
-                            <label for="autoSizingSelect">Role</label>
+                            <label for="RoleSelect">Role</label>
+                            <span asp-validation-for="Userrole" class="text-danger"></span>
                         </div>
                     </div>
+
                     <div class="col-lg-6 pb-3">
                         <div class="form-floating">
                             <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
@@ -92,7 +95,7 @@
 
                 <div class="row ps-3 pe-3 pb-3 pt-3">
                     <div class="col-12">
-                        <input type="hidden" asp-for="@Model.image">
+                        <input type="hidden" asp-for="image">
                         <p style="height: 100px;"
                             class="form-control pt-3 d-flex flex-column align-items-center justify-content-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor"
@@ -114,28 +117,27 @@
                 <div class="row ps-3 pe-3 pt-3">
                     <div class="col-lg-4 pb-3">
                         <div class="form-floating">
-                            <select asp-for="Country" class="form-select" id="countrySelect"
+                            <select asp-for="CountryId" class="form-select" id="countrySelect"
                                 aria-label="Floating label select example">
-                                @* <option selected>@Model.Country</option> *@
+                                <option value="">@Model.Country</option>
                             </select>
                             <label for="countrySelect">Country</label>
                         </div>
                     </div>
                     <div class="col-lg-4 pb-3">
                         <div class="form-floating">
-                            <select asp-for="State" class="form-select" id="stateSelect"
+                            <select asp-for="StateId" class="form-select" id="stateSelect"
                                 aria-label="Floating label select example" disabled>
-                                <option selected>@Model.State</option>
+                                <option value="">@Model.State</option>
                             </select>
                             <label for="stateSelect">State</label>
                         </div>
                     </div>
                     <div class="col-lg-4 pb-3">
                         <div class="form-floating">
-                            <select asp-for="City" class="form-select" id="citySelect"
+                            <select asp-for="CityId" class="form-select" id="citySelect"
                                 aria-label="Floating label select example" disabled>
-                                <option selected>@Model.City</option>
-
+                                <option value="">@Model.City</option>
                             </select>
                             <label for="citySelect">City</label>
                         </div>
@@ -182,38 +184,46 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-  function previewImageForEdit(event) {
-    const inputForEdit = event.target;
-    const previewForEdit = document.getElementById('imagePreviewForEdit');
-    const uploadTextForEdit = document.getElementById('uploadTextForEdit'); 
+    function previewImageForEdit(event) {
+        const inputForEdit = event.target;
+        const previewForEdit = document.getElementById('imagePreviewForEdit');
+        const uploadTextForEdit = document.getElementById('uploadTextForEdit');
 
-    if (inputForEdit.files && inputForEdit.files[0]) {
-      const reader = new FileReader();
+        if (inputForEdit.files && inputForEdit.files[0]) {
+            const reader = new FileReader();
 
-      reader.onload = function(e) {
-        previewForEdit.src = e.target.result;
-        previewForEdit.style.display = 'block';
-        uploadTextForEdit.style.display = 'none';
-      }
+            reader.onload = function (e) {
+                previewForEdit.src = e.target.result;
+                previewForEdit.style.display = 'block';
+                uploadTextForEdit.style.display = 'none';
+            }
 
-      reader.readAsDataURL(inputForEdit.files[0]);
-    } else {
-      previewForEdit.src = '#';
-      previewForEdit.style.display = 'none';
-      uploadTextForEdit.style.display = 'block';
+            reader.readAsDataURL(inputForEdit.files[0]);
+        } else {
+            previewForEdit.src = '#';
+            previewForEdit.style.display = 'none';
+            uploadTextForEdit.style.display = 'block';
+        }
     }
-  }
+</script>
+
+<script>
+    $(document).ready(function () {
+
+    });
+
 </script>
 
 <script>
 
 
     $(document).ready(function () {
+
         $.getJSON('/Profile/GetRoles', function (data) {
             if (data && data.length > 0) {
                 $.each(data, function (index, role) {
                     $('#RoleSelect').append(`<option value="${role.userroleid}">${role.roleName}</option>`);
-                    console.log(role);
+                    console.log("roling:", role);
                 });
             } else {
                 console.error("No roles found or data is empty.");

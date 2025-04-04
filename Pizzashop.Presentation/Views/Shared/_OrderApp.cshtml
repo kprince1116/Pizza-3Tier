@@ -1,0 +1,114 @@
+@* @inject BAL.Interfaces.IAuthServices AuthService *@
+@{
+    @* var hasPermission = AuthService.HasPermission(ViewBag.Role, "View", "Users");
+    Console.WriteLine("insde layout : " + hasPermission); *@
+}
+@* @using DAL.Constants; *@
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"] - Order App</title>
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/_orderApp.css" asp-append-version="true" />
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+    </head>
+    
+    <body>
+
+        <nav class="d-flex justify-content-between align-items-center px-2 m-0 navbar position-sticky">
+            <!-- sidebar logo  -->
+            @* <img src="~/images/sidebar-logo.png" alt="" id="sidebar-logo" class="bg-white border rounded d-flex d-lg-none" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample"> *@
+            
+            <!-- company logo -->
+            <div class="d-flex company-logo justify-content-start align-items-center ps-lg-2 ps-xl-2 ps-md-2 ps-0 m-0 border-lg-rounded">
+                <img src="~/images/logos/pizzashop_logo.png" alt="company-logo" id="company-logo-img">
+                <div class="fs-5 ps-2 d-none d-lg-flex" id="company-name">PIZZASHOP</div>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-end gap-2">
+                <a asp-action="Kot" asp-controller="Kot" style="text-decoration: none;">
+                    <div class="navbar-card @(ViewBag.Active == "Kot" ? "navbar-card-selected" : "")">
+                        <i class="bi bi-clipboard2-minus me-2"></i> 
+                        <span>Kot</span>
+                    </div>
+                </a>
+                <a asp-action="Index" asp-controller="WaitingList" style="text-decoration: none;">
+                    <div class="navbar-card @(ViewBag.Active == "Waiting List" ? "navbar-card-selected" : "")">
+                        <i class="bi bi-clock me-2"></i>
+                        <span class="text-nowrap" >Waiting List</span>
+                    </div>
+                </a>
+                <div class="navbar-card @(ViewBag.Active == "Tables" ? "navbar-card-selected" : "")">
+                     <i class="bi bi-square-fill me-2"></i>
+                    <span>Tables</span>
+                </div>
+                <div class="navbar-card me-2 @(ViewBag.Active == "Menu" ? "navbar-card-selected" : "")">
+                    <i class="bi bi-cake me-2"></i>
+                    <span>Menu</span>
+                </div>
+
+                <div class="container-fluid d-flex justify-content-end">
+            <button class="btn" style="border: none; background: transparent;" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <img style="height: 35px;" src="~/images/Default_pfp.svg.png" alt="Profile Picture">
+            </button>
+            <div class="dropdown-menu dropdown-menu-end">
+              <a class="dropdown-item d-flex align-items-center gap-1" href="/Profile/MyProfile">
+                <img style="height: 25px;" src="~/images/Default_pfp.svg.png"> My profile</a>
+              <a class="dropdown-item d-flex align-items-center gap-1" href="/Profile/ChangePassword">
+                <img style="height: 25px;" src="~/images/icons/arrow-clockwise.svg"> Change Password
+              </a>
+              <a class="dropdown-item d-flex gap-1" data-bs-target="#exampleModal" data-bs-toggle="modal">
+                <img style="height: 25px;" src="~/images/icons/box-arrow-right.svg">Log Out
+              </a>
+            </div>
+          </div>
+            </div>
+
+
+        </nav>
+
+        <div class="main-container">
+            @* <partial name="_Notification"/> *@
+            @RenderBody()
+        </div>
+
+
+    </body>
+
+</html>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Confirmation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex justify-content-center align-items-center flex-column">
+        <img class="" src="images/icons/exclamation-triangle.svg" alt="">
+        <h1 class="fs-5">Are You Sure you want to Logout</h1>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <a asp-controller="Profile" class="btn btn-primary" asp-action="Logout">Yes</a>
+        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/_orderApp.js" asp-append-version="true"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+@await RenderSectionAsync("Scripts", required: false)
+
+

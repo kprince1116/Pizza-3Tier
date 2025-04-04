@@ -1,4 +1,13 @@
+@using BAL.Models.Interfaces
+@using Pizzashop.DAL.ViewModels
 @model Pizzashop.DAL.ViewModels.Taxviewmodel
+@inject IPermissions PermissionService
+
+@{
+    var canAddTaxes = await PermissionService.HasPermission("TaxAndFee", ActionPermissions.CanAddEdit);
+    var canDeleteTxes = await PermissionService.HasPermission("TaxAndFee", ActionPermissions.CanDelete);
+}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,11 +35,13 @@
                         <img src="~/images/icons/search.svg" alt="" style="width: 20px; aspect-ratio: 1"
                             class="bg-white position-absolute rounded-2 m-2" />
                     </div>
-
+                    @if(canAddTaxes)
+                    {
                     <a class=" add-user border p-lg-3 p-2 fw-bold"   data-bs-toggle="modal" data-bs-target="#addTax"
                         style="background-color: #0066a7; border-radius: 5px; text-decoration: none; color: white; text-wrap: nowrap;">
                         +Add Tax
                     </a>
+                    }
                 </div>
             </div>
 

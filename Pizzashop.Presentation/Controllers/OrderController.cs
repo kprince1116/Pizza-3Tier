@@ -14,9 +14,9 @@ public class OrderController : Controller
 
      private readonly IOrderservice _orderservice;
 
-      private readonly IPermissions _permissionService;
+    //   private readonly IPermissions _permissionService;
 
-      public OrderController(IConfiguration configuration,IOrderservice orderservice,IPermissions permissionService)
+      public OrderController(IConfiguration configuration,IOrderservice orderservice,IPermissions permissionService) 
     {
         _configuration = configuration; 
         _orderservice = orderservice;
@@ -26,6 +26,7 @@ public class OrderController : Controller
     [_AuthPermissionAttribute("Order", ActionPermissions.CanView)]
     public IActionResult Order()
     {
+        //  ViewBag.CanViewOrders = _permissionService.HasPermission("Order", ActionPermissions.CanView);
         return View();
     }
 

@@ -1,5 +1,13 @@
+@using BAL.Models.Interfaces
+@using Pizzashop.DAL.ViewModels
  @model Pizzashop.DAL.ViewModels.ModifierItemListViewModel
 
+@inject IPermissions PermissionService
+
+@{
+    var canAddMenu = await PermissionService.HasPermission("Menu", ActionPermissions.CanAddEdit);
+    var canDeleteMenu = await PermissionService.HasPermission("Menu", ActionPermissions.CanDelete);
+}
 
 
    <div class=" mt-3 me-3 ms-3 mb-4 table-responsive">
@@ -17,7 +25,10 @@
                   <th scope="col" style="text-align: center;">Unit</th>
                   <th scope="col" style="text-align: center;">Rate</th>
                   <th scope="col" style="text-align: center;">Quantity</th>
-                  <th scope="col">Action</th>
+                    @if(canAddMenu || canDeleteMenu)
+                    {
+                      <th scope="col">Action</th>
+                      }
                 </tr>
               </thead>
               <tbody>
@@ -31,8 +42,6 @@
                       </div>
                     </div>
                   </th>
-                 
-          
           <td style="text-align: center;">
             @item.Unitname
           </td>
@@ -42,11 +51,18 @@
           <td style="text-align: center;">
             @item.Quantity
           </td>
+          @if(canAddMenu || canDeleteMenu)
+          {
           <td>
-            <a data-bs-toggle="modal" id="modifierEdit" data-bs-toggle="modal" data-bs-target="#Editmodifieritemmodal" class="edit-item" data-editmodifierid="@item.ModifierItemId" ><img src="~/images/icons/pen.svg" a  lt=""></a>
+          @if(canAddMenu) 
+          {<a data-bs-toggle="modal" id="modifierEdit" data-bs-toggle="modal" data-bs-target="#Editmodifieritemmodal" class="edit-item" data-editmodifierid="@item.ModifierItemId" ><img src="~/images/icons/pen.svg" a  lt=""></a>
+          }
+          @if(canDeleteMenu)
+          {
             <img data-bs-toggle="modal" class="delete-modifier" data-bs-toggle="modal" data-bs-target="#deleteModifierModal" onclick="deleteModifier(this)" data-deletemodifierid ="@item.ModifierItemId" data-deletemodifiergroupid = "@item.ModifierGroupId" src="~/images/icons/trash (1).svg" alt="">
-                                                
+             }                                   
           </td>
+          }
           </tr> 
 } 
         </tbody>

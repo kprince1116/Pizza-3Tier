@@ -1,0 +1,203 @@
+@{
+    Layout = "~/Views/Shared/_OrderApp.cshtml";
+    ViewData["Title"] = "KOT";
+    ViewBag.Active = "Kot";
+}
+@model Pizzashop.DAL.ViewModels.Kotviewmodel
+
+<link rel="stylesheet" href="~/css/Kot.css" asp-append-version="true" />
+
+<div class="kot-container">
+
+    <!-- KOT -->
+    <div class="row px-0 d-flex justify-content-between mb-2">
+        <div class="col-sm-1 d-flex fs-2 fw-bold special-color">KOT</div>
+    </div>
+
+    <!-- Item Tab -->
+    <div class="row border rounded kot-list-tab bg-white">
+       <div class="d-flex nav" id="nav-tab" role="tablist" >
+            <button class="nav-link tab-btn active d-flex align-items-center" data-tab-id="0">
+                <div>All</div>
+            </button>
+            
+                @foreach (var tab in Model.Categories)
+                {
+                    <button class="nav-link tab-btn d-flex align-items-center"
+                            data-tab-id="@tab.Categoryid">
+                        <div>@tab.Name</div>
+                    </button>
+                }
+            
+        </div>
+    </div>
+
+      <div class="row kot-list-tab bg-white rounded" style="z-index: 1000;">
+    <div class="tab-content mt-3">
+        <!-- All Content -->
+        <div class="tab-pane" id="content-0" style="display: block;">
+            <div class="d-flex justify-content-between mb-2" >
+            <h3 style="color: #0066A7;">All </h3>  
+            <div class="d-flex gap-2" >
+                <div class="inprogress-ready-btn">
+            In Progress
+        </div>
+        <div class="inprogress-ready-btn">
+            Ready
+        </div>
+         <button class="btn light-btn next-back-btn">
+            <
+        </button>
+        <button class="btn light-btn next-back-btn" >
+            >
+        </button>
+            </div>   
+            </div>
+
+            <div class="KOT-Card-List-Container">
+    <div class="card-wrapper d-flex gap-2" id="cardWrapper">
+
+         @* @foreach(var card in Model.Card)  *@
+    {
+            @* /*---------------------------------- Kot Cards --------------------------*/ *@
+            <div class="d-flex flex-column KOT-Card mb-4">
+
+                @* /*--------------- Header ------------*/ *@
+                <div class="d-flex flex-column Card-Header justify-content-between">
+                    <div class="d-flex justify-content-between">
+                        <span class="special-color fw-bold">
+                        
+                        </span>
+                        <span class="text-secondary d-flex align-items-center order-time">
+                            <i class="bi bi-stopwatch me-1" ></i>
+                            <span class="time-difference">Calculating...</span>
+                        </span>
+
+                    </div>
+                    <div class="d-flex justify-content-start align-items-center fw-bold">
+                        @* <span class="">
+                            @card.SectionName
+                        </span>
+                        <i class="bi bi-dot"></i>
+                        @for(int i=0; i< card.TableNameList.Count; i++)
+                        {
+                            <span>
+                                @card.TableNameList[i]
+                            </span>
+
+                            @if(i == card.TableNameList.Count - 1)
+                                continue;
+                            
+                            <i class="bi bi-dot"></i>
+                        } *@
+
+                    </div>
+                </div>
+
+
+                @* /*--------------- Item List ------------*/ *@
+                
+                <div class="d-flex flex-column Card-Content">
+
+                    @* @foreach(var item in card.ItemList)
+                    {
+                        <div class="d-flex flex-column">
+                            <div class="d-flex justify-content-between">
+                                <div>@item.ItemName</div>
+                                <dir>@item.Quantity</dir>
+                            </div>
+                           
+                            <ul>
+                                @foreach(var modifier in item.ModifiersList)
+                                {
+                                    <li>@modifier.ModifierName</li>
+                                }
+                            </ul>
+
+                        </div>
+                    } *@
+                </div>
+
+
+                @* /*--------------- Fooder ------------*/ *@
+                <div class="Card-Footer flex-wrap">
+                    <span class="special-color fw-bold">Order Instruction :</span>
+                </div>
+            </div>
+    }
+        
+
+    </div>
+
+</div>
+
+        </div>
+
+        <!-- Dynamic Content for Each Category -->
+        @foreach (var tab in Model.Categories)
+        {
+            <div class="tab-pane" id="content-@tab.Categoryid" style="display: none;">
+                  <div class="d-flex justify-content-between mb-2">
+                <h3 style="color: #0066A7;" >@tab.Name</h3>
+                <div class="d-flex gap-2" >
+                <div class="inprogress-ready-btn">
+            In Progress
+        </div>
+        <div class="inprogress-ready-btn">
+            Ready
+        </div>
+         <button class="btn light-btn next-back-btn">
+            
+        </button>
+        <button class="btn light-btn next-back-btn" >
+            >
+        </button>
+            </div>   
+            </div>
+            </div>
+       
+        }
+    </div>
+    </div>
+    
+
+    <!-- Content Section -->
+
+</div>
+
+@* change Quantity Modal *@
+<div id="changeQuanityModalContainer">
+
+</div>
+
+@section Scripts {
+    
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabs = document.querySelectorAll('.tab-btn');
+        const contents = document.querySelectorAll('.tab-pane');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs
+                tabs.forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                this.classList.add('active');
+
+                // Hide all content panes
+                contents.forEach(content => content.style.display = 'none');
+                
+                // Show the selected content pane
+                const tabId = this.getAttribute('data-tab-id');
+                const activeContent = document.getElementById(`content-${tabId}`);
+                if (activeContent) {
+                    activeContent.style.display = 'block';
+                }
+            });
+        });
+    });
+</script>
+
+}
+
+

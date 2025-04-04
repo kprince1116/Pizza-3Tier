@@ -25,7 +25,5 @@ public class BaseController : Controller
     {
         Console.WriteLine(e.Message);
     }
-
-    
 }
 }

@@ -1,4 +1,13 @@
+@using BAL.Models.Interfaces
+@using Pizzashop.DAL.ViewModels
 @model Pizzashop.DAL.ViewModels.menuviewmodel
+
+@inject IPermissions PermissionService
+
+@{
+    var canAddMenu = await PermissionService.HasPermission("Menu", ActionPermissions.CanAddEdit);
+    var canDeleteMenu = await PermissionService.HasPermission("Menu", ActionPermissions.CanDelete);
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,6 +18,7 @@
   <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="~/css/Menu.css">
   <link rel="stylesheet" href="~/css/MenuModifier.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
   <title>Document</title>
 </head>
 
@@ -25,7 +35,7 @@
         <div class="d-flex border ms-3 gap-4 bg-white me-3">
           <ul class="nav" id="menuTabs">
             <li class="nav-item">
-              <a class="nav-link active" id="items-tab" data-bs-toggle="tab" href="#items-container" role="tab"
+              <a class="nav-link active item-nav" id="items-tab" data-bs-toggle="tab" href="#items-container" role="tab"
                 aria-controls="items-container" aria-selected="true">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-ul"
                   viewBox="0 0 16 16">
@@ -36,7 +46,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="modifiers-tab" data-bs-toggle="tab" href="#modifiers-container" role="tab"
+              <a class="nav-link item-nav" id="modifiers-tab" data-bs-toggle="tab" href="#modifiers-container" role="tab"
                 aria-controls="modifiers-container" aria-selected="false">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                   class="bi bi-ui-checks-grid" viewBox="0 0 16 16">
@@ -61,8 +71,10 @@
                   <div class="ms-3 mb-3">
                     <div class="d-flex justify-content-between align-items-center">
                       <div class="fs-3">Category</div>
-                      <img data-bs-toggle="modal" data-bs-target="#exampleModal1" class="pe-2" style="height: 25px;"
+                   @if(canAddMenu) {
+                    <img data-bs-toggle="modal" data-bs-target="#exampleModal1" class="pe-2" style="height: 25px;"
                         src="~/images/icons/plus-square.svg" alt="">
+                        }
                     </div>
                   </div>
                   <div class="sidebar-elements">
@@ -75,17 +87,26 @@
                             <img style="height: 15px;" src="~/images/icons/grid.png">
                             <div onclick="fetchItems(@category.CategoryId)">@category.CategoryName</div>
                           </a>
+                           @if(canAddMenu || canDeleteMenu)
+                           {
                           <div class="icons-forlist">
+                             @if(canAddMenu)
+                             {
                             <a data-category-edit-id="@category.CategoryId" data-category-name="@category.CategoryName"
                               data-description="@category.Description" onclick="setEditData(this)" class="edit-category"
                               data-bs-toggle="modal" data-bs-target="#editModal" style="text-decoration: none;" >
                               <img style="text-decoration: none;" src="~/images/icons/pen.svg" alt="">
                             </a>
+                            }
+                             @if(canDeleteMenu)
+                             {
                             <a style="text-decoration: none;"  data-category1-id="@category.CategoryId" class="delete-category" data-bs-toggle="modal"
                               data-bs-target="#deleteModal1" style="text-decoration: none;">
                               <img style="text-decoration: none;" src="~/images/icons/trash (1).svg"  alt="">
                             </a>
+                            }
                           </div>
+                          }
                         </div>
                       </div>
                     }
@@ -104,16 +125,21 @@
                         class="bg-white position-absolute rounded-2 m-2" />
                     </div>
                   </div>
-
+                  @if(canDeleteMenu)
+                  {
                   <div>
                     <img data-bs-toggle="modal" data-bs-target="#deleteItemModalForMass"
                       class="border delete-icon d-flex p-lg-3 p-2" src="~/images/icons/trash (1).svg" alt="Delete Icon"
                       id="delete-icon-massdelete" />
                   </div>
+                  }
+                   @if(canAddMenu)
+                   {
                   <div class="border new-item d-flex p-lg-3 p-2 fw-bold" data-bs-toggle="modal" data-bs-target="#AddItem"
                     style="background-color: #0066a7; color: white; text-wrap: nowrap;">
                     +New Item
                   </div>
+                  }
                 </div>
                 <div id="items-container-table">
                   @Html.Partial("_ItemsPartial", Model.pagination)
@@ -293,7 +319,7 @@
         },
         error: function () {
           console.log("No Projects Found");
-          $("#editModal2").html('No User Fetched');
+          $("#editItemModal").html('No User Fetched');
         }
       });
     }
@@ -648,6 +674,9 @@ function saveExistingModifiers() {
     
   </script>
  @* $("#editItemForm").submit(); *@
+
+     @*Add Menu-Item Post *@
+
  <script>
       $(document).on("click", "#submitAddItemBtn", function () {
       SubmitAddItem();
@@ -677,17 +706,12 @@ function saveExistingModifiers() {
     }); 
   </script> 
 
+    @*Edit Menu-Item Post *@
     <script>
      $(document).on("click", "#submitEditItemBtn", function (e) {
-    e.preventDefault(); 
+     SubmitAddItemForEdit();
 
     var form = $("#editItemForm");
-
-    @* if (!form.valid()) {
-        console.log("Validation failed.");
-        return; 
-    } *@
-
     var formData = new FormData(form[0]);
 
     $.ajax({
@@ -698,27 +722,29 @@ function saveExistingModifiers() {
         contentType: false,
         success: function (response) {
             if (response.success) {
-                $("#editModal2").modal('hide');
+                $("#editItemModal").modal('hide');
                 toastr.success("Item Edited Successfully");
             } else {
-                $("#editModal2").modal('show');
+                $("#editItemModal").modal('show');
                 toastr.error("Failed to edit item.");
             }
         },
         error: function () {
             console.log("Error saving item.");
         }
+        });
     });
-});
     </script> 
 
   <script>
-
+    //delete single item
     $(document).on('click', '.delete-item', function () {
       var itemId = $(this).data('itemid');
       console.log(itemId);
       $('#ItemId').val(itemId);
     });
+
+    //ajax for menu-items
 
     var selectedcataegoryId;
     $(document).ready(function () {
@@ -766,6 +792,7 @@ function saveExistingModifiers() {
       });
     }
 
+// used for mass delete item
     function getSelectedIds() {
       let selectedIds = [];
 
@@ -780,7 +807,7 @@ function saveExistingModifiers() {
 
     }
 
-
+ @*Item Mass Delte*@
     $(document).ready(function () {
 
       $(document).on('click', '#delete-icon-massdelete', function () {
@@ -824,6 +851,8 @@ function saveExistingModifiers() {
         });
       });
     });
+
+//Item Chechboxes
 
     $(document).ready(function () {
       const outerCheck = document.getElementById("outerCheckForItem");
@@ -1259,7 +1288,7 @@ function saveExistingModifiers() {
 </script>
 
 <!--edit item -->
-<div class="modal fade" id="editModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="editItemModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl editt-modal">
     <div class="modal-content" id="modal-size">
     </div>
@@ -1319,13 +1348,13 @@ function saveExistingModifiers() {
 <div class="modal fade" id="modifierModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <form method="post" action="AddModifier" id="submitModifierGroupForm" class="modal-content ">
-
       <input type="hidden" id="existingItemList" name="modifierList">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel1">Add Modifier</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="d-flex flex-column gap-2">
           <div class="form-floating">
             <input type="text" class="form-control" asp-for="@Model.AddModifierGroup.Name"  placeholder="Name" required>
@@ -1384,7 +1413,7 @@ function saveExistingModifiers() {
           Add Existing Modifiers</a>
       </div>
       <div class="ps-3 pt-2 existingModifierLists" >
-          <div class=" d-flex align-items-center gap-3 ps-4 justify-content-start mt-5">
+          @* <div class=" d-flex align-items-center gap-3 ps-4 justify-content-start mt-5">
         <div class=" d-flex justify-content-start position-relative align-items-center ">
           <div class="d-flex justify-content-end position-relative align-items-center">
             <input type="text" class="search form-control " style="height: 50px;" id="ExistingModifierListSearch"
@@ -1393,12 +1422,16 @@ function saveExistingModifiers() {
               class="bg-white position-absolute rounded-2 m-2" onclick="itemSearch()"/>
           </div>
         </div>
+        </div> *@
         <div id="existingModifierList">
 
         </div>
-    </div>
+    
 
       </div>
+      
+        @* <div class="existingModifierLists mb-3 ms-3 mt-2 "></div> *@
+      
       <div class="modal-footer">
         <button type="submit" id="submitMgBtnForEditModifier" class="btn btn-primary">Save</button>
         <button type="button" class="btn btn-secondary" onclick="resetForm()">Cancel</button>
@@ -1518,6 +1551,7 @@ function saveExistingModifiers() {
                   <div class="form-floating">
                     <input asp-for="@Model.AddModifier.ModifierName" type="text" class="form-control" id="floatingInput"
                       placeholder="name@example.com">
+                    <span asp-validation-for="@Model.AddModifier.ModifierName" class="text-danger"></span>
                     <label for="floatingInput">Name</label>
                   </div>
                 </div>
@@ -1528,6 +1562,7 @@ function saveExistingModifiers() {
                   <div class="form-floating">
                     <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com"
                       asp-for="@Model.AddModifier.Rate">
+                      <span asp-validation-for="@Model.AddModifier.Rate" class="text-danger"></span>
                     <label for="floatingInput">Rate</label>
                   </div>
                 </div>
@@ -1535,6 +1570,7 @@ function saveExistingModifiers() {
                   <div class="form-floating">
                     <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com"
                       asp-for="@Model.AddModifier.Quantity">
+                      <span asp-validation-for="@Model.AddModifier.Quantity" class="text-danger"></span>
                     <label for="floatingInput">Quantity</label>
                   </div>
                 </div>
@@ -1548,6 +1584,7 @@ function saveExistingModifiers() {
                         <option value="@unit.Unitid">@unit.Unitname</option>
                       }
                     </select>
+                    <span asp-validation-for="@Model.AddModifier.Unit" class="text-danger"></span>
                     <label for="floatingSelect">Unit</label>
                   </div>
                 </div>

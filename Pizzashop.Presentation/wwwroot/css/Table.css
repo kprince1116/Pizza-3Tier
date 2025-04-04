@@ -32,7 +32,7 @@
     } */
   .sidebar-elements{
     height: 390px; 
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
   }
   aside {
     width: 300px;

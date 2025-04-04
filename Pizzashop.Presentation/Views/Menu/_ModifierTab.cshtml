@@ -1,7 +1,16 @@
+@using BAL.Models.Interfaces
+@using Pizzashop.DAL.ViewModels
 @model IEnumerable<Pizzashop.DAL.ViewModels.ModifierGroupViewModel>
 
 @{
     var selectedModifierId = ViewBag.SelectedModifierId; 
+}
+
+@inject IPermissions PermissionService
+
+@{
+    var canAddMenu = await PermissionService.HasPermission("Menu", ActionPermissions.CanAddEdit);
+    var canDeleteMenu = await PermissionService.HasPermission("Menu", ActionPermissions.CanDelete);
 }
 
 <div class="d-flex border category-box">
@@ -10,8 +19,11 @@
             <div class="ms-3 mb-3">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="fs-3">Modifier</div>
+                    @if(canAddMenu)
+                    {
                     <img data-bs-toggle="modal" data-bs-target="#modifierModal" class="pe-2" style="height: 25px;"
                         src="~/images/icons/plus-square.svg" alt="Add Category">
+                        }
                 </div>
             </div>
             <div class="sidebar-elementsformodifier">
@@ -27,18 +39,27 @@
                                   <img style=" height: 15px;" src="~/images/icons/grid.png" alt="Menu">          
                                     <div class="text-nowrap">@modifierGroup.Name</div>
                                 </a>
+                                @if(canAddMenu || canDeleteMenu)
+                                {
                                 <div class="modifier-icons-forlist d-flex">
+                                     @if(canAddMenu)
+                                     {
                                     <a style="text-decoration: none;" class="editmodifiergroup" data-modifier-edit-id="@modifierGroup.ModifierId"
                                         data-modifier-name="@modifierGroup.Name" data-description="@modifierGroup.Description"
                                         data-bs-toggle="modal" data-bs-target="#editModifier"
                                         onclick="setEditModifierData(this)">
                                         <img style="text-decoration: none;" src="~/images/icons/pen.svg" alt="Edit">
                                     </a>
+                                    }
+                                    @if(canDeleteMenu)
+                                    {
                                     <a style="text-decoration: none;" data-modifier-delete-id="@modifierGroup.ModifierId" class="delete-modifier"
                                         data-bs-toggle="modal" data-bs-target="#deleteModalformodifier">
                                         <img style="text-decoration: none;" src="~/images/icons/trash (1).svg" alt="Delete">
                                     </a>
+                                    }
                                 </div>
+                                }
                             </div>
                         </div>
                     }
@@ -63,16 +84,21 @@
               class="bg-white position-absolute rounded-2 m-2" onclick="itemSearch()"/>
           </div>
         </div>
-
+        @if(canDeleteMenu)
+        {
         <div>
           <img data-bs-toggle="modal" data-bs-target="#deleteModifierModalForMass" 
      class="border delete-icon d-flex p-lg-3 p-2" 
      src="~/images/icons/trash (1).svg" alt="Delete Icon" id="delete-icon-massmodifierdelete"/>
         </div>
+        }
+        @if(canAddMenu)
+        {
         <div class="border new-item d-flex p-lg-3 p-2 fw-bold" data-bs-toggle="modal" data-bs-target="#addmodifieritemmodal"
           style="background-color: #0066a7; color: white; text-wrap: nowrap;">
           +New Modifier
         </div>
+        }
   </div>
   </div>
 

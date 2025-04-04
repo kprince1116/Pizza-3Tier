@@ -1,5 +1,12 @@
+@using BAL.Models.Interfaces
+@using Pizzashop.DAL.ViewModels
 @model Pizzashop.DAL.ViewModels.Tableviewmodel
+@inject IPermissions PermissionService
 
+@{
+    var canAddTables = await PermissionService.HasPermission("TableAndSection", ActionPermissions.CanAddEdit);
+    var canDeleteTables = await PermissionService.HasPermission("TableAndSection", ActionPermissions.CanDelete);
+}
 
 
 <div class=" mt-3 me-3 mb-4 table-responsive">
@@ -16,7 +23,7 @@
         </th>
         <th scope="col" style="text-align: center;">Capacity</th>
         <th scope="col" style="text-align: center;">Status</th>
-        <th scope="col">Action</th>
+          @if(canAddTables || canDeleteTables){<th scope="col">Action</th>}
       </tr>
     </thead>
     <tbody>
@@ -37,17 +44,24 @@
           </td>
           <td style="text-align: center;">
             <span
-              class="badge fw-bold fs-6 px-4 py-1 rounded-5 @((bool)tables.Isavailable ? "bg-success" : "bg-secondary")">
+              class="badge fw-bold fs-6 px-3 py-1 rounded-5 @((bool)tables.Isavailable ? "bg-success" : "bg-secondary")">
               @((bool)tables.Isavailable ? "Available" : "Occupied")
             </span>
           </td>
-
+        @if(canAddTables || canDeleteTables)
+        {
           <td>
-            <img data-bs-toggle="modal" class="edittable" data-edittableid="@tables.Tableid" data-bs-target="#EditTable"
+            @if(canAddTables)
+                        { <img data-bs-toggle="modal" class="edittable" data-edittableid="@tables.Tableid" data-bs-target="#EditTable"
               src="~/images/icons/pen.svg" alt="">
+              }
+               @if(canDeleteTables)
+                        {
             <img class="delete-table" data-tablesdeleteid="@tables.Tableid" data-bs-toggle="modal"
               data-bs-target="#deletemodalfortable" src="~/images/icons/trash (1).svg" alt="">
+              }
           </td>
+          }
         </tr>
       }
     </tbody>

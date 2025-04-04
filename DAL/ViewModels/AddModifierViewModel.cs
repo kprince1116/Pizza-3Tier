@@ -9,7 +9,7 @@ public class AddModifierViewModel
 {
     public List<ItemModifierGroupviewmodel>? ItemModifierList { get; set; }
 
-      public IEnumerable<ModifierGroup> modifiers { get; set; }
+    public IEnumerable<ModifierGroup> modifiers { get; set; }
 
      public IEnumerable<Unit> units {get; set;} 
 
@@ -25,11 +25,11 @@ public class AddModifierViewModel
     [Required(ErrorMessage = "Rate is required")]
     public decimal? Rate { get; set; }
 
+    [Required(ErrorMessage = "Unit is required")]
     public int? UnitId { get; set; }
 
-    // public string unit {get ; set;}
-
-    [Required(ErrorMessage = "Description is required")]
+    [Required(ErrorMessage = "Unit is required")]
+    public string unit {get ; set;}
     public string? Description { get; set; }
 
     public decimal? TaxPercentage { get; set; }

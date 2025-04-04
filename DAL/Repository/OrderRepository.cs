@@ -132,7 +132,7 @@ public class OrderRepository : IOrderRepository
 
     public async Task<List<Ordertableviewmodel>> GetOrder(string searchKey, string statusFilter, string timeFilter)
     {
-        IQueryable<Ordertableviewmodel> orders =  _db.Orders.Where(u=>u.Isdelete == false).Include(u=>u.Customer).Include(u=>u.PaymentModeNavigation).Include(u=>u.StatusNavigation).Select
+        IQueryable<Ordertableviewmodel> orders =   _db.Orders.Where(u=>u.Isdelete == false).Include(u=>u.Customer).Include(u=>u.PaymentModeNavigation).Include(u=>u.StatusNavigation).Select
         (
             u => new Ordertableviewmodel
             {

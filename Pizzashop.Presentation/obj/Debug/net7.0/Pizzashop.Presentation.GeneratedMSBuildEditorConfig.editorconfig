@@ -40,6 +40,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Project/3Tier/Pizzashop.Presentation/Views/Kot/Kot.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS290XEtvdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Project/3Tier/Pizzashop.Presentation/Views/Login/ForgotPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cRm9yZ290UGFzc3dvcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -100,6 +104,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVudVxfbW9kcGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Project/3Tier/Pizzashop.Presentation/Views/OrderApp/OrderApp.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJBcHBcT3JkZXJBcHAuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Project/3Tier/Pizzashop.Presentation/Views/Order/Invoice.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcSW52b2ljZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -134,6 +142,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Project/3Tier/Pizzashop.Presentation/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/3Tier/Pizzashop.Presentation/Views/Shared/_OrderApp.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9PcmRlckFwcC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Project/3Tier/Pizzashop.Presentation/Views/Shared/_ValidationScriptsPartial.cshtml]
@@ -178,6 +190,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Project/3Tier/Pizzashop.Presentation/Views/User/_UserListPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfVXNlckxpc3RQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/3Tier/Pizzashop.Presentation/Views/WaitingListController/WaitingListController.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FpdGluZ0xpc3RDb250cm9sbGVyXFdhaXRpbmdMaXN0Q29udHJvbGxlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Project/3Tier/Pizzashop.Presentation/Views/_ViewImports.cshtml]

@@ -1,4 +1,12 @@
+@using BAL.Models.Interfaces
+@using Pizzashop.DAL.ViewModels
 @model Pizzashop.DAL.ViewModels.paginationviewmodel
+@inject IPermissions PermissionService
+
+@{
+    var canAddMenu = await PermissionService.HasPermission("Menu", ActionPermissions.CanAddEdit);
+    var canDeleteMenu = await PermissionService.HasPermission("Menu", ActionPermissions.CanDelete);
+}
 
   <div class=" mt-3 me-3 mb-4 table-responsive">
             <table class="table">
@@ -17,7 +25,10 @@
                   <th scope="col" style="text-align: center;">Rate</th>
                   <th scope="col" style="text-align: center;">Quantity</th>
                   <th scope="col">Available</th>
+                @if(canAddMenu || canDeleteMenu)
+                {
                   <th scope="col">Action</th>
+                  }
                 </tr>
               </thead>
               <tbody>
@@ -27,7 +38,7 @@
                     <div class="form-check gap-5"> 
                       <input class="form-check-input inner-check" type="checkbox" value="" id="flexCheckChecked" data-deleteId="@item.Itemid">
                       <div class="d-flex align-items-center gap-1">
-                        <img style="height: 35px; width:35px; border-radius: 90%;" src="@(!string.IsNullOrEmpty(item.Image) ? item.Image  : "/images/dining-menu.png")">
+                        <img style="height: 25px; width:35px; border-radius: 90%;" src="@(!string.IsNullOrEmpty(item.Image) ? item.Image  : "/images/dining-menu.png")">
                         <div class="d-flex align-items-center text-nowrap item-name fs-5" style="font-size: fs-1;" >@item.Itemname</div>
                       </div>
                     </div>
@@ -57,11 +68,18 @@
                @(item.IsAvailable ? "checked" : "")>
     </div>
 </td>
-
+          @if(canAddMenu || canDeleteMenu)
+          {
           <td>
-            <a data-bs-toggle="modal" id="itemEdit" data-bs-target="#editModal2" class="edit-item" data-editid="@item.Itemid" ><img src="~/images/icons/pen.svg" a  lt=""></a>
-            <img data-bs-toggle="modal" class="delete-item" data-bs-toggle="modal" data-bs-target="#deleteItemModal" onclick="deleteItem(this)" data-itemid ="@item.Itemid" src="~/images/icons/trash (1).svg" alt="">                                   
+         @if(canAddMenu){
+          <a data-bs-toggle="modal" id="itemEdit" data-bs-target="#editItemModal" class="edit-item" data-editid="@item.Itemid" ><img src="~/images/icons/pen.svg" a  lt=""></a>
+          }
+          @if(canDeleteMenu)
+          {
+            <img data-bs-toggle="modal" class="delete-item" data-bs-toggle="modal" data-bs-target="#deleteItemModal" onclick="deleteItem(this)" data-itemid ="@item.Itemid" src="~/images/icons/trash (1).svg" alt="">     
+            }                              
           </td>
+          }
           </tr>
 } 
         </tbody>

@@ -1,4 +1,13 @@
+@using BAL.Models.Interfaces
+@using Pizzashop.DAL.ViewModels
 @model Pizzashop.DAL.ViewModels.Tablesviewmodel
+
+@inject IPermissions PermissionService
+
+@{
+    var canAddTables = await PermissionService.HasPermission("TableAndSection", ActionPermissions.CanAddEdit);
+    var canDeleteTables = await PermissionService.HasPermission("TableAndSection", ActionPermissions.CanDelete);
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,8 +36,11 @@
                 <div class="ms-3 mb-3">
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="fs-3">Sections</div>
+                    @if(canAddTables)
+                        {
                     <img data-bs-toggle="modal" data-bs-target="#addsection" class="pe-2" style="height: 25px;"
                       src="~/images/icons/plus-square.svg" alt="">
+                      }
                   </div>
                 </div>
                 <div class="sidebar-elements">
@@ -36,18 +48,25 @@
                   {
                     <div class="sidebar-table">
                       <div class="d-flex justify-content-between align-items-center ">
+                        
                         <div data-section-id="@sections.Sectionid"
                           class="sectionBtn d-flex gap-2 pt-2 pb-2 ps-3 align-items-center">
                           <img style="height: 15px;" src="~/images/icons/grid.png">
                           <div class="section-name" data-sectionid="@sections.Sectionid">@sections.SectionName</div>
                         </div>
+                        
                         <div class="icons">
-                          <img style="height: 17px;" data-sectioneditid="@sections.Sectionid" data-sectionname="@sections.SectionName"
+                       @if(canAddTables)
+                        {   <img style="height: 17px;" data-sectioneditid="@sections.Sectionid" data-sectionname="@sections.SectionName"
                             data-sectiondescription="@sections.Description" data-bs-toggle="modal"
                             data-bs-target="#editsection" onclick="setEditSectionData(this)"
                             src="~/images/icons/pen.svg" alt="">
+                            }
+                        @if(canDeleteTables)
+                        {
                           <img style="height: 17px;" class="delete-section" data-sectiondeleteid="@sections.Sectionid" data-bs-toggle="modal"
                             data-bs-target="#deletesectionModal" src="~/images/icons/trash (1).svg" alt="">
+                            }
                         </div>
                       </div>
                     </div>
@@ -64,14 +83,20 @@
     <img src="~/images/icons/search.svg" alt="" style="width: 20px; aspect-ratio: 1"
       class="bg-white position-absolute rounded-2 m-2" />
   </div>
+   @if(canDeleteTables)
+   {
   <div>
     <img data-bs-toggle="modal" data-bs-target="#deleteTableModalForMass" id="deleteMassTable"
       class="border delete-icon d-flex p-lg-3 " src="~/images/icons/trash (1).svg" alt="">
   </div>
+  }
+  @if(canAddTables)
+  {
   <div class="new-table border new-item d-flex p-lg-3 p-2 fw-bold" data-bs-toggle="modal" data-bs-target="#AddTable"
     style="background-color: #0066a7; color: white; text-wrap: nowrap;">
     +New Table
   </div>
+  }
 </div>
 
               <div id="table-container-table">

@@ -1,4 +1,12 @@
+@using BAL.Models.Interfaces
+@using Pizzashop.DAL.ViewModels
 @model IEnumerable<Pizzashop.DAL.ViewModels.UserListviewmodel>
+@inject IPermissions PermissionService
+
+@{
+    var canAddUsers = await PermissionService.HasPermission("Users", ActionPermissions.CanAddEdit);
+    var canDeleteUsers = await PermissionService.HasPermission("Users", ActionPermissions.CanDelete);
+}
 
 
 @foreach (var user in Model)
@@ -8,7 +16,7 @@
             <img class="pt-0" style="height: 35px;  width: 35px;  border-radius: 90%; "
                 src="@(!string.IsNullOrEmpty(user.ProfileImage) ? user.ProfileImage : "/ProfileImages/dominos_background.jpg")"
                 alt="">
-            <div class="d-flex">@user.Firstname @user.Lastname</div>
+            <div class="d-flex fs-5" style="font-weight: normal;" >@user.Firstname @user.Lastname</div>
         </th>
         <td class="table-field">@user.Email</td>
         <td class="table-field text-nowrap">@user.Phonenumber</td>
@@ -18,13 +26,19 @@
             </span>
 
         </td>
-
+        @if(canAddUsers || canDeleteUsers)
+        {
         <td>
-            <a asp-controller="User" asp-action="EditUser" asp-route-userId="@user.UserId"><img
+           @if(canAddUsers)
+           { <a asp-controller="User" asp-action="EditUser" asp-route-userId="@user.UserId"><img
                     src="~/images/icons/pen.svg" style="height: 20px;" alt=""></a>
-            <a data-userid="@user.UserId" class="delete-user" data-bs-toggle="modal" data-bs-target="#delete">
+        }
+          @if(canDeleteUsers)
+          {  <a data-userid="@user.UserId" class="delete-user" data-bs-toggle="modal" data-bs-target="#delete">
                 <img style="height: 20px;" src="~/images/icons/trash (1).svg" alt="Delete">
             </a>
+            }
         </td>
+        }
     </tr>
 }
