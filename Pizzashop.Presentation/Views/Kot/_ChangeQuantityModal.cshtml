@@ -1,0 +1,138 @@
+@model Pizzashop.DAL.ViewModels.OrderCardviewmodel
+
+<style>
+    .quantity-input::-webkit-outer-spin-button,
+    .quantity-input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .quantity-input {
+        -moz-appearance: textfield;
+    }
+</style>
+
+<!-- Bootstrap Change Quantity Modal -->
+<div class="modal fade" id="changeQuantityModal" tabindex="-1" aria-labelledby="customerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+
+            <div class="modal-header mb-0">
+                <h5 class="modal-title fw-bold" id="customerModalLabel">Order ID: #@Model.OrderNo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form class="modal-body" method="post">
+
+                <input type="text" asp-for="@Model.OrderID">
+                <input type="text" name="OrderStatus" value="@ViewBag.OrderStatus" />
+
+                <table class="table">
+                    <thead>
+                        <tr class="opacity-75">
+                            <th class="text-start">Item</th>
+                            <th class="text-end">Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Grilled Burger Row -->
+                        @if (Model.ItemList != null)
+                        {
+                            @for (int i = 0; i < Model.ItemList.Count; i++)
+                            {
+                                <tr>
+                                    <td class="text-start">
+                                        <input type="checkbox" class="me-1" asp-for="@Model.ItemList[i].IsSelected"> <span
+                                            class="fw-bold fs-6">@Model.ItemList[i].ItemName</span>
+                                        <input type="hidden" asp-for="@Model.ItemList[i].ItemId" />
+                                        <ul>
+                                            @if (Model.ItemList[i].ModifierList != null)
+                                            {
+                                                @foreach (var mod in Model.ItemList[i].ModifierList)
+                                                {
+                                                    <li>@mod.ModifierName</li>
+                                                }
+                                            }
+                                        </ul>
+                                    </td>
+                                    <td class="text-end align-middle">
+                                        <div class="border text-end ms-auto align-middle align-self-center"
+                                            style="width: fit-content;">
+                                            <button type="button" class="btn btn-sm"
+                                                onclick="changeQuantity(@Model.ItemList[i].ItemId, 'decrement', this)">-</button>
+                                            <span id="quantity-@Model.ItemList[i].ItemId">@Model.ItemList[i].ItemQuantity</span>
+                                            <button type="button" class="btn btn-sm"
+                                                onclick="changeQuantity(@Model.ItemList[i].ItemId, 'increment', this)">+</button>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+
+                <div class="d-flex justify-content-end gap-2">
+                    <button type="submit" class="inprogress-ready-btn active-btn submit-quantity">Marked as @ViewBag.OrderStatus
+                    </button>
+                    <button type="button" class="inprogress-ready-btn bg-white" data-bs-dismiss="modal"> Cancel
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    function changeQuantity(itemId, action, button) {
+        var quantityElement = document.getElementById(`quantity-${itemId}`);
+        var currentQuantity = parseInt(quantityElement.innerText);
+
+        if (action === 'increment') {
+            currentQuantity++;
+        } else if (action === 'decrement') {
+            if (currentQuantity > 0) {
+                currentQuantity--;
+            }
+        }
+
+        quantityElement.innerText = currentQuantity;
+
+        // Optionally, make an AJAX call to update the quantity on the server
+        // $.ajax({
+        //     url: '/path/to/update/quantity',
+        //     type: 'POST',
+        //     data: { id: itemId, quantity: currentQuantity },
+        //     success: function(response) {
+        //         console.log("Quantity updated successfully");
+        //     },
+        //     error: function(xhr, status, error) {
+        //         console.error("Error updating quantity:", error);
+        //     }
+        // });
+
+        $(document).on("click",".submit-quantity",function(){
+            $.ajax({
+                url: '/Kot/UpdateQuantity',
+                type: 'POST',
+                data: {
+                    orderId: @Model.OrderID,
+                    itemId: itemId,
+                    quantity: currentQuantity
+                },
+                success: function (response) {
+                    console.log("Quantity updated successfully");
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error updating quantity:", error);
+                }
+            })
+        });
+
+    }
+
+
+</script>

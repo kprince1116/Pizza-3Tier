@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "+yCE2l8lpPaFjRILe6vt4NL5PN3+JjMWErYqsKOK/2k=",
+  "Hash": "rhFgVDXOgPczd2+3Irjskasjy/TOUvoEFYJYL784mUk=",
   "Source": "Pizzashop.Presentation",
   "BasePath": "_content/Pizzashop.Presentation",
   "Mode": "Default",
@@ -2703,6 +2703,23 @@
       "OriginalItemSpec": "wwwroot\\uploads\\2faf2524-0d27-40e8-816d-a667574c781e_Default_pfp.svg.png"
     },
     {
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\33ff230b-8865-45a6-9a03-3b725df82a75_dominos_background.jpg",
+      "SourceId": "Pizzashop.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
+      "BasePath": "_content/Pizzashop.Presentation",
+      "RelativePath": "uploads/33ff230b-8865-45a6-9a03-3b725df82a75_dominos_background.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\33ff230b-8865-45a6-9a03-3b725df82a75_dominos_background.jpg"
+    },
+    {
       "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\38214336-5380-4536-babd-60c455921a82_transperent-pizza.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
@@ -3466,6 +3483,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\d555aeb4-52a8-4885-8baa-e99e9d803341_Default_pfp.svg.png"
+    },
+    {
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\d557f642-830a-4d65-96a4-725d3a7420da_dominos_background.jpg",
+      "SourceId": "Pizzashop.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
+      "BasePath": "_content/Pizzashop.Presentation",
+      "RelativePath": "uploads/d557f642-830a-4d65-96a4-725d3a7420da_dominos_background.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\d557f642-830a-4d65-96a4-725d3a7420da_dominos_background.jpg"
     },
     {
       "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\e0e09616-beb0-49b1-918e-e421420ef0c2_transperent-pizza.png",

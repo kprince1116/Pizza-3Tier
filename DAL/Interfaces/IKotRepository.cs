@@ -1,10 +1,13 @@
 using DAL.Models;
+using Pizzashop.DAL.ViewModels;
 
 namespace DAL.Interfaces;
 
 public interface IKotRepository
 {
-    Task<List<MenuCategory>> GetCategories();
+        Task<Kotviewmodel> GetKotDataAsync(string status,int categoryId);
 
-    Task<List<Order>> GetOrders();
+        Task<OrderCardviewmodel> GetKotDetailsAsync(int id);
+
+        Task<bool> UpdateQuantityAsync(int orderId,int itemId, int quantity);
 }

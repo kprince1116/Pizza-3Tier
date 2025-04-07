@@ -5,7 +5,10 @@ namespace BAL.Models.Interfaces;
 
 public interface IKotService
 {
-    public Task<Kotviewmodel> GetCategories();
+    public Task<Kotviewmodel> GetKotDataAsync(string status,int categoryId);
 
-    public Task<cardviewmodel> GetOrders();
+    public Task<OrderCardviewmodel> GetKotDetailsAsync(int id);
+
+    public Task<bool> UpdateQuantityAsync(int orderId,int itemId, int quantity);
+
 }

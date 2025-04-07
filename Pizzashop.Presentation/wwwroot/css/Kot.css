@@ -9,6 +9,14 @@
     padding: 20px 40px;
 }
 
+.kot-nav {
+    display: flex; 
+    flex-wrap: nowrap; 
+    overflow-x: auto;
+    max-width: 100%; 
+}
+
+
 /* user table  */
 .kot-list-tab{
     padding: 3px 15px;
@@ -102,7 +110,7 @@
 
 .KOT-Card
 {
-    width: 300px;
+    width: 342px !important;
     height: 330px;
     border-radius: 5px;
     border: 1px dashed #c5c5c5;
@@ -129,4 +137,62 @@
 
 .hidden {
     display: none !important;
+}
+
+
+/* General Adjustments */
+.kot-container {
+    padding: 20px 10px; 
+}
+/* 
+@media (min-width: 1024px) {
+    .kot-container {
+        padding: 20px 40px; 
+    }
+    
+} */
+
+.kot-nav {
+    overflow-x: auto; 
+    white-space: nowrap;
+}
+
+.nav-link {
+    flex: 0 0 auto;
+}
+
+.KOT-Card {
+    width: 100%; 
+}
+
+
+@media (max-width: 768px) {
+    .KOT-Card {
+        width: 90%; 
+        margin: 0 auto; 
+    }
+    
+    .tab-btn {
+        font-size: 15px; 
+        padding: 8px 4px; 
+    }
+
+    .inprogress-ready-btn {
+        font-size: 12px; 
+        padding: 4px 8px; 
+    }
+
+    .next-back-btn {
+        width: 25px; 
+    }
+}
+
+@media (max-width: 576px) {
+    .tab-btn {
+        font-size: 14px; 
+    }
+
+    .KOT-Card {
+        height: auto; 
+    }
 }
