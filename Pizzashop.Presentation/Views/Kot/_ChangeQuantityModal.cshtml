@@ -17,13 +17,12 @@
     <div class="modal-dialog modal-dialog-centered modal-md">
         <div class="modal-content">
 
-            <div class="modal-header mb-0">
-                <h5 class="modal-title fw-bold" id="customerModalLabel">Order ID: #@Model.OrderNo</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold" id="orderid" data-orderid="@Model.OrderID">Order ID: #@Model.OrderNo</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <form class="modal-body" method="post">
-
                 <input type="text" asp-for="@Model.OrderID">
                 <input type="text" name="OrderStatus" value="@ViewBag.OrderStatus" />
 
@@ -35,16 +34,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Grilled Burger Row -->
                         @if (Model.ItemList != null)
                         {
                             @for (int i = 0; i < Model.ItemList.Count; i++)
                             {
                                 <tr>
                                     <td class="text-start">
-                                        <input type="checkbox" class="me-1" asp-for="@Model.ItemList[i].IsSelected"> <span
-                                            class="fw-bold fs-6">@Model.ItemList[i].ItemName</span>
-                                        <input type="hidden" asp-for="@Model.ItemList[i].ItemId" />
+                                        <input type="checkbox" class="me-1" data-item-id="@Model.ItemList[i].ItemId">
+                                        <span class="fw-bold fs-6">@Model.ItemList[i].ItemName</span>
                                         <ul>
                                             @if (Model.ItemList[i].ModifierList != null)
                                             {
@@ -56,37 +53,65 @@
                                         </ul>
                                     </td>
                                     <td class="text-end align-middle">
-                                        <div class="border text-end ms-auto align-middle align-self-center"
-                                            style="width: fit-content;">
-                                            <button type="button" class="btn btn-sm"
-                                                onclick="changeQuantity(@Model.ItemList[i].ItemId, 'decrement', this)">-</button>
-                                            <span id="quantity-@Model.ItemList[i].ItemId">@Model.ItemList[i].ItemQuantity</span>
-                                            <button type="button" class="btn btn-sm"
-                                                onclick="changeQuantity(@Model.ItemList[i].ItemId, 'increment', this)">+</button>
+                                        <div class="border text-end ms-auto align-middle align-self-center" style="width: fit-content;">
+                                            <button type="button" class="btn btn-sm" onclick="changeQuantity(@Model.ItemList[i].ItemId, 'decrement', this)">-</button>
+                                            <span id="quantity-@Model.ItemList[i].ItemId" class="orderstatus" data-orderstatus="@Model.OrderStatus">
+                                                @if (Model.OrderStatus == "In Progress")
+                                                {
+                                                    if (Model.ItemList[i].PendigQuantity > 0)
+                                                    {
+                                                        @Model.ItemList[i].PendigQuantity
+                                                    }
+                                                    else if (Model.ItemList[i].ReadyQuantity > 0)
+                                                    {
+                                                        @Model.ItemList[i].ReadyQuantity
+                                                    }
+                                                }
+                                                else if (Model.OrderStatus == "Ready")
+                                                {
+                                                    if (Model.ItemList[i].ReadyQuantity > 0)
+                                                    {
+                                                        @Model.ItemList[i].ReadyQuantity
+                                                    }
+                                                    else if (Model.ItemList[i].PendigQuantity > 0)
+                                                    {
+                                                        @Model.ItemList[i].PendigQuantity
+                                                    }
+                                                }
+                                            </span>
+                                            <button type="button" class="btn btn-sm" onclick="changeQuantity(@Model.ItemList[i].ItemId, 'increment', this)">+</button>
                                         </div>
                                     </td>
-
                                 </tr>
                             }
                         }
                     </tbody>
                 </table>
 
-                <div class="d-flex justify-content-end gap-2">
-                    <button type="submit" class="inprogress-ready-btn active-btn submit-quantity">Marked as @ViewBag.OrderStatus
+                <div class="d-flex justify-content-end gap-2 mb-2 me-2">
+                    <button type="submit" id="submit-quantity" class="inprogress-ready-btn active-btn">
+                        @if (ViewBag.OrderStatus == "In Progress")
+                        {
+                            <span>Marked As Ready</span>
+                        }
+                        else
+                        {
+                            <span>Marked As In Progress</span>
+                        }
                     </button>
-                    <button type="button" class="inprogress-ready-btn bg-white" data-bs-dismiss="modal"> Cancel
-                    </button>
+                    <button type="button" class="inprogress-ready-btn bg-white" data-bs-dismiss="modal">Cancel</button>
                 </div>
-
             </form>
         </div>
     </div>
 </div>
 
 
-<script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+<script>
     function changeQuantity(itemId, action, button) {
         var quantityElement = document.getElementById(`quantity-${itemId}`);
         var currentQuantity = parseInt(quantityElement.innerText);
@@ -101,28 +126,33 @@
 
         quantityElement.innerText = currentQuantity;
 
-        // Optionally, make an AJAX call to update the quantity on the server
-        // $.ajax({
-        //     url: '/path/to/update/quantity',
-        //     type: 'POST',
-        //     data: { id: itemId, quantity: currentQuantity },
-        //     success: function(response) {
-        //         console.log("Quantity updated successfully");
-        //     },
-        //     error: function(xhr, status, error) {
-        //         console.error("Error updating quantity:", error);
-        //     }
-        // });
+        $(document).on("click","#submit-quantity",function(){
 
-        $(document).on("click",".submit-quantity",function(){
+        var updates = [];
+
+        $("input[type=checkbox]:checked").each(function () {
+            var itemId = $(this).data("item-id");
+            var quantityElement = document.getElementById(`quantity-${itemId}`);
+            var quantity = parseInt(quantityElement.innerText);
+            
+            updates.push({
+                itemId: itemId,
+                quantity: quantity,
+            });
+        });
+
+        var orderid = $('#orderid').data("orderid");
+        console.log("OrdersIds:",orderid);
+        var status = $('.orderstatus').data("orderstatus");
+
             $.ajax({
-                url: '/Kot/UpdateQuantity',
+                url:'@Url.Action("updateQuantity", "Kot")',
                 type: 'POST',
                 data: {
-                    orderId: @Model.OrderID,
-                    itemId: itemId,
-                    quantity: currentQuantity
-                },
+                   orderId:orderid,
+                   status: status,
+                   updates: updates
+                },  
                 success: function (response) {
                     console.log("Quantity updated successfully");
                 },
@@ -136,3 +166,4 @@
 
 
 </script>
+

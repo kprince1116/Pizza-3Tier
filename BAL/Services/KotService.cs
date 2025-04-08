@@ -19,14 +19,14 @@ public class KotService : IKotService
         return await _kotRepository.GetKotDataAsync(status,categoryId);
     }
 
-     public async Task<OrderCardviewmodel> GetKotDetailsAsync(int id)
+     public async Task<OrderCardviewmodel> GetKotDetailsAsync(int id,string status)
      {
-        return await _kotRepository.GetKotDetailsAsync(id);
+        return await _kotRepository.GetKotDetailsAsync(id,status);
      }
 
-    public async Task<bool> UpdateQuantityAsync(int orderId,int itemId, int quantity)
+    public async Task<bool> UpdateQuantityAsync(int orderId, string status ,int itemId, int quantity)
     {
-        var result = await _kotRepository.UpdateQuantityAsync(orderId,itemId, quantity);
+        var result = await _kotRepository.UpdateQuantityAsync(orderId,status,itemId, quantity);
         return result;
     }
 }

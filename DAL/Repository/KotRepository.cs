@@ -22,15 +22,17 @@ public class KotRepository : IKotRepository
         var orders = await _db.Orders.Include(u => u.OrderTables).ThenInclude(u => u.Table).ThenInclude(u => u.Section)
                                     .Include(u => u.OrderItems).ThenInclude(u => u.Item)
                                     .Include(u => u.OrderItems).ThenInclude(u => u.OrderItemModifiers).ThenInclude(u => u.Modifier)
-                                    .Where(u=>u.OrderItems.Any(oi=> oi.OrderId == u.Orderid && oi.Status == status))
                                     .Select(o => new Kotviewmodel.OrderDetailsViewModel
                                     {
                                         orderId = o.Orderid,
                                         OrderNo = o.OrderNo,
                                         OrderDate = o.CreatedDate.GetValueOrDefault(),
+                                        OrderStatus = status,
                                         TableNo = o.OrderTables.Where(t => t.OrderId == o.Orderid).Select(t=>t.Table).ToList(),
                                         SectionName = o.OrderTables.FirstOrDefault().Table.Section.SectionName,
-                                        Items = o.OrderItems.Select(i => new Kotviewmodel.OrderItemViewModel
+                                        Items = o.OrderItems
+                                        .Where(oi=> status == "In Progress" &&  oi.Quantity-oi.ReadyItem > 0  ||  status == "Ready" && oi.ReadyItem > 0)
+                                        .Select(i => new Kotviewmodel.OrderItemViewModel
                                         {
                                             ItemName = i.Item.Itemname,
                                             Quantity = (int)i.Quantity,
@@ -41,6 +43,8 @@ public class KotRepository : IKotRepository
                                             }).ToList()
                                         }).ToList()
                                     }).ToListAsync();
+
+        
 
         if(categoryId != 0 )
         {
@@ -56,7 +60,7 @@ public class KotRepository : IKotRepository
         return kotViewModel;
     }
 
-    public async Task<OrderCardviewmodel> GetKotDetailsAsync(int id)
+    public async Task<OrderCardviewmodel> GetKotDetailsAsync(int id,string status)
     {
         var orderDetails = await _db.Orders.Include(u => u.OrderItems).ThenInclude(u => u.Item)
             .Include(u => u.OrderItems).ThenInclude(u => u.OrderItemModifiers).ThenInclude(u => u.Modifier)
@@ -65,13 +69,14 @@ public class KotRepository : IKotRepository
             {
                 OrderID = o.Orderid,
                 OrderNo = o.OrderNo, 
-                OrderStatus = o.OrderItems.FirstOrDefault().Status,
+                OrderStatus = status,
                 ItemList = o.OrderItems.Select(i => new OrderCardviewmodel.OrderItemsviewmodel
                 {
                     ItemId = (int)i.ItemId,
                     ItemName = i.Item.Itemname,
                     IsSelected = true,
-                    ItemQuantity = (int)i.Quantity,
+                    ReadyQuantity = (int)i.ReadyItem,
+                    PendigQuantity = (int)i.Quantity -(int) i.ReadyItem,
                     ModifierList = i.OrderItemModifiers.Select(m => new OrderCardviewmodel.OrderItemModifierviewmodel
                     {
                         ModifierId =(int) m.ModifierId,
@@ -84,7 +89,7 @@ public class KotRepository : IKotRepository
         return orderDetails;
     }
 
-    public async Task<bool> UpdateQuantityAsync(int orderId,int itemId, int quantity)
+    public async Task<bool> UpdateQuantityAsync(int orderId,string status,int itemId, int quantity)
     {
         var orderItem = await _db.OrderItems.FirstOrDefaultAsync(u=>u.ItemId == itemId && u.OrderId == orderId);
 
@@ -93,7 +98,15 @@ public class KotRepository : IKotRepository
             return false;
         }
 
-        orderItem.Quantity = quantity ;
+        if(status == "In Progress")
+        {
+            orderItem.ReadyItem = orderItem.ReadyItem + quantity;
+        }
+        else if(status == "Ready")
+        {
+            orderItem.ReadyItem = orderItem.ReadyItem - quantity;
+        }
+      
 
         _db.OrderItems.Update(orderItem);
 

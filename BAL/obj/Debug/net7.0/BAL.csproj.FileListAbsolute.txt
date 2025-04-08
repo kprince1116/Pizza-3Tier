@@ -73,7 +73,7 @@ D:\Pizza-3Tier\BAL\obj\Debug\net7.0\BAL.dll
 D:\Pizza-3Tier\BAL\obj\Debug\net7.0\refint\BAL.dll
 D:\Pizza-3Tier\BAL\obj\Debug\net7.0\BAL.pdb
 D:\Pizza-3Tier\BAL\obj\Debug\net7.0\ref\BAL.dll
-D:\Project\3Tier\BAL\bin\Debug\net7.0\BAL.deps.json
+d:\Project\3Tier\BAL\bin\Debug\net7.0\BAL.deps.json
 D:\Project\3Tier\BAL\bin\Debug\net7.0\BAL.dll
 D:\Project\3Tier\BAL\bin\Debug\net7.0\BAL.pdb
 D:\Project\3Tier\BAL\bin\Debug\net7.0\DAL.dll
@@ -83,8 +83,8 @@ D:\Project\3Tier\BAL\obj\Debug\net7.0\BAL.GeneratedMSBuildEditorConfig.editorcon
 D:\Project\3Tier\BAL\obj\Debug\net7.0\BAL.AssemblyInfoInputs.cache
 D:\Project\3Tier\BAL\obj\Debug\net7.0\BAL.AssemblyInfo.cs
 D:\Project\3Tier\BAL\obj\Debug\net7.0\BAL.csproj.CoreCompileInputs.cache
-D:\Project\3Tier\BAL\obj\Debug\net7.0\BAL.csproj.CopyComplete
+d:\Project\3Tier\BAL\obj\Debug\net7.0\BAL.csproj.CopyComplete
 D:\Project\3Tier\BAL\obj\Debug\net7.0\BAL.dll
 D:\Project\3Tier\BAL\obj\Debug\net7.0\refint\BAL.dll
 D:\Project\3Tier\BAL\obj\Debug\net7.0\BAL.pdb
-D:\Project\3Tier\BAL\obj\Debug\net7.0\ref\BAL.dll
+d:\Project\3Tier\BAL\obj\Debug\net7.0\ref\BAL.dll

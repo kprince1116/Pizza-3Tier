@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Project\\3Tier\\Pizzashop.Presentation\\Pizzashop.Presentation.csproj": {}
+    "d:\\Project\\3Tier\\Pizzashop.Presentation\\Pizzashop.Presentation.csproj": {}
   },
   "projects": {
-    "D:\\Project\\3Tier\\BAL\\BAL.csproj": {
+    "d:\\Project\\3Tier\\BAL\\BAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\3Tier\\BAL\\BAL.csproj",
+        "projectUniqueName": "d:\\Project\\3Tier\\BAL\\BAL.csproj",
         "projectName": "BAL",
-        "projectPath": "D:\\Project\\3Tier\\BAL\\BAL.csproj",
+        "projectPath": "d:\\Project\\3Tier\\BAL\\BAL.csproj",
         "packagesPath": "C:\\Users\\pca187\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\3Tier\\BAL\\obj\\",
+        "outputPath": "d:\\Project\\3Tier\\BAL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\pca187\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -168,14 +168,14 @@
         }
       }
     },
-    "D:\\Project\\3Tier\\Pizzashop.Presentation\\Pizzashop.Presentation.csproj": {
+    "d:\\Project\\3Tier\\Pizzashop.Presentation\\Pizzashop.Presentation.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\3Tier\\Pizzashop.Presentation\\Pizzashop.Presentation.csproj",
+        "projectUniqueName": "d:\\Project\\3Tier\\Pizzashop.Presentation\\Pizzashop.Presentation.csproj",
         "projectName": "Pizzashop.Presentation",
-        "projectPath": "D:\\Project\\3Tier\\Pizzashop.Presentation\\Pizzashop.Presentation.csproj",
+        "projectPath": "d:\\Project\\3Tier\\Pizzashop.Presentation\\Pizzashop.Presentation.csproj",
         "packagesPath": "C:\\Users\\pca187\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\3Tier\\Pizzashop.Presentation\\obj\\",
+        "outputPath": "d:\\Project\\3Tier\\Pizzashop.Presentation\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\pca187\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -190,8 +190,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\Project\\3Tier\\BAL\\BAL.csproj": {
-                "projectPath": "D:\\Project\\3Tier\\BAL\\BAL.csproj"
+              "d:\\Project\\3Tier\\BAL\\BAL.csproj": {
+                "projectPath": "d:\\Project\\3Tier\\BAL\\BAL.csproj"
               },
               "d:\\Project\\3Tier\\DAL\\DAL.csproj": {
                 "projectPath": "d:\\Project\\3Tier\\DAL\\DAL.csproj"

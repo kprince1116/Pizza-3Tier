@@ -1,6 +1,7 @@
 using BAL.Models.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Pizzashop.DAL.ViewModels;
+// using static Pizzashop.DAL.ViewModels.ItemUpdateviewmodel;
 using static Pizzashop.DAL.ViewModels.Kotviewmodel;
 
 namespace Pizzashop.Presentation.Controllers;
@@ -14,26 +15,37 @@ public class KotController : Controller
     {
         _kotService = kotService;
     }
-    public async Task<IActionResult> Kot(string status="In Progress",int categoryId=0)
+    public async Task<IActionResult> Kot(string status = "In Progress", int categoryId = 0)
     {
-        var kotData = await _kotService.GetKotDataAsync(status,categoryId);
+        var kotData = await _kotService.GetKotDataAsync(status, categoryId);
 
         return View(kotData);
     }
 
-    public async Task<IActionResult> ChangeQuantityModal(int id)
+    public async Task<IActionResult> ChangeQuantityModal( int id , string status) 
     {
-        var kotDetails = await _kotService.GetKotDetailsAsync(id);
+        var kotDetails = await _kotService.GetKotDetailsAsync(id,status);
         ViewBag.OrderStatus = kotDetails.OrderStatus;
         return PartialView("_ChangeQuantityModal", kotDetails);
     }
 
     [HttpPost]
-
-    public async Task<IActionResult> updateQuantity(int orderId,int itemId, int quantity)
+    public async Task<IActionResult> updateQuantity(int orderId,string status,List<ItemUpdateModel> updates)
     {
-        var result = await _kotService.UpdateQuantityAsync(orderId,itemId, quantity);
-        if (result)
+        var results = new List<bool>();
+
+        foreach (var update in updates)
+        {
+            if(update.Quantity>0)
+            {
+            var result = await _kotService.UpdateQuantityAsync(orderId,status, update.ItemId, update.Quantity);
+            results.Add(result);      
+            }
+        }
+
+        bool success = results.All(r => r);
+
+        if (success)
         {
             return Json(new { success = true });
         }

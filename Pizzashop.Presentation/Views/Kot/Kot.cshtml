@@ -39,7 +39,7 @@
             <div class="d-flex justify-content-between mb-3 " >
             <h3 style="color: #0066A7;">All </h3>  
             <div class="d-flex gap-2" >
-                <a href="@Url.Action("Kot", "Kot", new { status = "In Progress" , categoryId="0" })" class="inprogress-ready-btn" style="color: white; background-color:#0066A7; text-decoration: none;">
+                <a href="@Url.Action("Kot", "Kot", new { status = "In Progress" , categoryId="0" })" class="inprogress-ready-btn active"style=" text-decoration: none;">
             In Progress
         </a>
         <a href="@Url.Action("Kot", "Kot", new { status = "Ready" , categoryId ="0" })" class="inprogress-ready-btn" style="text-decoration: none;">
@@ -58,8 +58,9 @@
     <div class="card-wrapper d-flex gap-2" id="cardWrapper">
          @foreach(var card in Model.OrderDetails) 
     {
-          
-            <div class="d-flex flex-column KOT-Card mb-4 card-details" id="order-card" data-orderid="@card.orderId">
+          @if(card.Items.Count > 0)
+          {
+            <div class="d-flex flex-column KOT-Card mb-4 card-details" id="order-card" data-status="@card.OrderStatus" data-orderid="@card.orderId">
 
          
                 <div class="d-flex flex-column Card-Header justify-content-between">
@@ -112,6 +113,7 @@
                     <span class="special-color fw-bold">Order Instruction :</span>
                 </div>
             </div>
+            }
     }
         
 
@@ -129,10 +131,10 @@
                 <h3 style="color: #0066A7;" >@tab.Name</h3>
                 
                 <div class="d-flex gap-2" >
-                <div onclick="navigateToStatus('In Progress','@tab.Categoryid')" class="inprogress-ready-btn text-nowrap" style="color: white; background-color:#0066A7; text-decoration: none;" >
+                <div onclick= navigateToStatus('In Progress','@tab.Categoryid')" class="inprogress-ready-btn text-nowrap @(ViewContext.RouteData.Values["controller"].ToString() == "Kot" && ViewContext.RouteData.Values["action"].ToString() == "Kot" ? "active" : "")" style="text-decoration: none;" >
             In Progress
         </div>
-        <div onclick="navigateToStatus('Ready','@tab.Categoryid')" class="inprogress-ready-btn" style="text-decoration: none;">
+        <div onclick=" navigateToStatus('Ready','@tab.Categoryid')" class="inprogress-ready-btn @(ViewContext.RouteData.Values["controller"].ToString() == "Kot" && ViewContext.RouteData.Values["action"].ToString() == "Kot" ? "active" : "")" style="text-decoration: none;">
             Ready
         </div>
          <button class="btn light-btn next-back-btn" onclick="nextslide()">
@@ -153,7 +155,7 @@
 
              if (card.Items.Any(item => item.CategoryId == tab.Categoryid))
              {
-            <div class="d-flex flex-column KOT-Card mb-4" id="order-card-item" data-orderid="@card.orderId">
+            <div class="d-flex flex-column KOT-Card mb-4" id="order-card-item" data-status="@card.OrderStatus" data-orderid="@card.orderId">
 
                 @* /*--------------- Header ------------*/ *@
                 <div class="d-flex flex-column Card-Header justify-content-between"  >
@@ -217,7 +219,6 @@
             </div>
 
             </div>
-       
         }
     </div>
     </div>
@@ -294,35 +295,23 @@ function backslide() {
 </script>    
 
 <script>
-    function filterOrders(status) {
-        const cards = document.querySelectorAll('.KOT-Card');
-
-        cards.forEach(card => {
-            if (status === 'all' || card.getAttribute('data-status') === status) {
-                card.style.display = 'flex'; 
-            } else {
-                card.style.display = 'none'; 
-            }
-        });
-    }
-</script>
-
-<script>
-    function navigateToStatus(status,categoryId) {
-        const url = `/Kot/Kot?status=${status}&categoryId=${categoryId}`;
-        window.location.href = url;
-    }
+   function navigateToStatus(status, categoryId) {
+    const url = `/Kot/Kot?status=${status}&categoryId=${categoryId}`;
+    window.location.href = url;
+}
 </script>
 
 <script>
     $(document).on("click","#order-card",function(){
         var orderid = $(this).data("orderid");
+        var status = $(this).data("status");
+
         console.log("OrdersIds:",orderid);
 
         $.ajax({
             url: '@Url.Action("ChangeQuantityModal", "Kot")',
             type: 'GET',
-            data: { id: orderid },
+            data: { id: orderid, status: status },
             dataType: "html",
             success: function (data) {
                 console.log("Response:",data);
@@ -337,12 +326,13 @@ function backslide() {
 
     $(document).on("click","#order-card-item",function(){
         var orderid = $(this).data("orderid");
+        var status = $(this).data("status");
         console.log("OrdersIds:",orderid);
 
         $.ajax({
             url: '@Url.Action("ChangeQuantityModal", "Kot")',
             type: 'GET',
-            data: { id: orderid },
+            data: { id: orderid , status: status  },
             dataType: "html",
             success: function (data) {
                 console.log("Response:",data);
@@ -356,7 +346,7 @@ function backslide() {
     });
 </script>    
 
+
+
 }
-
-
 

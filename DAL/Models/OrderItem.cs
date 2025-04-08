@@ -17,6 +17,8 @@ public partial class OrderItem
 
     public string? Status { get; set; }
 
+    public int? ReadyItem { get; set; }
+
     public virtual MenuItem? Item { get; set; }
 
     public virtual Order? Order { get; set; }

@@ -7,8 +7,8 @@ public interface IKotService
 {
     public Task<Kotviewmodel> GetKotDataAsync(string status,int categoryId);
 
-    public Task<OrderCardviewmodel> GetKotDetailsAsync(int id);
+    public Task<OrderCardviewmodel> GetKotDetailsAsync(int id,string status);
 
-    public Task<bool> UpdateQuantityAsync(int orderId,int itemId, int quantity);
+    public Task<bool> UpdateQuantityAsync(int orderId, string status ,int itemId, int quantity);
 
 }

@@ -440,6 +440,7 @@ public partial class PizzaShopContext : DbContext
                 .HasPrecision(18, 2)
                 .HasColumnName("price");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
+            entity.Property(e => e.ReadyItem).HasColumnName("Ready_Item");
             entity.Property(e => e.Status)
                 .HasColumnType("character varying")
                 .HasColumnName("status");

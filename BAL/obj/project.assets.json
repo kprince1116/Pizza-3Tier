@@ -10916,11 +10916,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Project\\3Tier\\BAL\\BAL.csproj",
+      "projectUniqueName": "d:\\Project\\3Tier\\BAL\\BAL.csproj",
       "projectName": "BAL",
-      "projectPath": "D:\\Project\\3Tier\\BAL\\BAL.csproj",
+      "projectPath": "d:\\Project\\3Tier\\BAL\\BAL.csproj",
       "packagesPath": "C:\\Users\\pca187\\.nuget\\packages\\",
-      "outputPath": "D:\\Project\\3Tier\\BAL\\obj\\",
+      "outputPath": "d:\\Project\\3Tier\\BAL\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\pca187\\AppData\\Roaming\\NuGet\\NuGet.Config"

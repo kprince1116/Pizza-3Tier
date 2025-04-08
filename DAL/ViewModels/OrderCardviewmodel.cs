@@ -19,7 +19,9 @@ public class OrderItemsviewmodel
 
     public bool IsSelected { get; set; } = false;
 
-    public int ItemQuantity { get; set; }
+    public int PendigQuantity { get; set; }
+
+    public int ReadyQuantity { get; set; }
 
     public List<OrderItemModifierviewmodel> ModifierList { get; set; } = new List<OrderItemModifierviewmodel>();
 }
