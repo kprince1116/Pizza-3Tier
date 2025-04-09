@@ -35,6 +35,8 @@ builder.Services.AddScoped<IPermissions,Permissions>();
 builder.Services.AddScoped<IUserroleService, UserRoleService>();
 builder.Services.AddScoped<IKotRepository, KotRepository>();
 builder.Services.AddScoped<IKotService, KotService>();
+builder.Services.AddScoped<IKotTableRepository, KotTableRepository>();
+builder.Services.AddScoped<IKotTableService, KotTableService>();
 builder.Services.AddScoped<Permissions>();
 builder.Services.AddHttpContextAccessor();
 

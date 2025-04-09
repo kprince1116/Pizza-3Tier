@@ -36,6 +36,8 @@ public class KotRepository : IKotRepository
                                         {
                                             ItemName = i.Item.Itemname,
                                             Quantity = (int)i.Quantity,
+                                            PendigQuantity = (int)i.Quantity - (int)i.ReadyItem,
+                                            ReadyQuantity = (int)i.ReadyItem,
                                             CategoryId = (int)i.Item.Categoryid,
                                             Modifiers = i.OrderItemModifiers.Select(m => new Kotviewmodel.ModifierViewModel
                                             {
@@ -75,6 +77,7 @@ public class KotRepository : IKotRepository
                     ItemId = (int)i.ItemId,
                     ItemName = i.Item.Itemname,
                     IsSelected = true,
+                    TotalQuantity = (int)i.Quantity,
                     ReadyQuantity = (int)i.ReadyItem,
                     PendigQuantity = (int)i.Quantity -(int) i.ReadyItem,
                     ModifierList = i.OrderItemModifiers.Select(m => new OrderCardviewmodel.OrderItemModifierviewmodel

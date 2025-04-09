@@ -517,8 +517,8 @@ D:\Project\3Tier\Pizzashop.Presentation\bin\Debug\net7.0\appsettings.Development
 D:\Project\3Tier\Pizzashop.Presentation\bin\Debug\net7.0\appsettings.json
 D:\Project\3Tier\Pizzashop.Presentation\bin\Debug\net7.0\Pizzashop.Presentation.staticwebassets.runtime.json
 D:\Project\3Tier\Pizzashop.Presentation\bin\Debug\net7.0\Pizzashop.Presentation.exe
-d:\Project\3Tier\Pizzashop.Presentation\bin\Debug\net7.0\Pizzashop.Presentation.deps.json
-d:\Project\3Tier\Pizzashop.Presentation\bin\Debug\net7.0\Pizzashop.Presentation.runtimeconfig.json
+D:\Project\3Tier\Pizzashop.Presentation\bin\Debug\net7.0\Pizzashop.Presentation.deps.json
+D:\Project\3Tier\Pizzashop.Presentation\bin\Debug\net7.0\Pizzashop.Presentation.runtimeconfig.json
 D:\Project\3Tier\Pizzashop.Presentation\bin\Debug\net7.0\Pizzashop.Presentation.dll
 D:\Project\3Tier\Pizzashop.Presentation\bin\Debug\net7.0\Pizzashop.Presentation.pdb
 D:\Project\3Tier\Pizzashop.Presentation\bin\Debug\net7.0\Azure.Core.dll
@@ -654,9 +654,9 @@ D:\Project\3Tier\Pizzashop.Presentation\obj\Debug\net7.0\staticwebassets.develop
 D:\Project\3Tier\Pizzashop.Presentation\obj\Debug\net7.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 D:\Project\3Tier\Pizzashop.Presentation\obj\Debug\net7.0\scopedcss\bundle\Pizzashop.Presentation.styles.css
 D:\Project\3Tier\Pizzashop.Presentation\obj\Debug\net7.0\scopedcss\projectbundle\Pizzashop.Presentation.bundle.scp.css
-d:\Project\3Tier\Pizzashop.Presentation\obj\Debug\net7.0\Pizzashop.Presentation.csproj.CopyComplete
+D:\Project\3Tier\Pizzashop.Presentation\obj\Debug\net7.0\Pizzashop.Presentation.csproj.CopyComplete
 D:\Project\3Tier\Pizzashop.Presentation\obj\Debug\net7.0\Pizzashop.Presentation.dll
 D:\Project\3Tier\Pizzashop.Presentation\obj\Debug\net7.0\refint\Pizzashop.Presentation.dll
 D:\Project\3Tier\Pizzashop.Presentation\obj\Debug\net7.0\Pizzashop.Presentation.pdb
-d:\Project\3Tier\Pizzashop.Presentation\obj\Debug\net7.0\Pizzashop.Presentation.genruntimeconfig.cache
-d:\Project\3Tier\Pizzashop.Presentation\obj\Debug\net7.0\ref\Pizzashop.Presentation.dll
+D:\Project\3Tier\Pizzashop.Presentation\obj\Debug\net7.0\Pizzashop.Presentation.genruntimeconfig.cache
+D:\Project\3Tier\Pizzashop.Presentation\obj\Debug\net7.0\ref\Pizzashop.Presentation.dll

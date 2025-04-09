@@ -11274,11 +11274,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\Project\\3Tier\\Pizzashop.Presentation\\Pizzashop.Presentation.csproj",
+      "projectUniqueName": "D:\\Project\\3Tier\\Pizzashop.Presentation\\Pizzashop.Presentation.csproj",
       "projectName": "Pizzashop.Presentation",
-      "projectPath": "d:\\Project\\3Tier\\Pizzashop.Presentation\\Pizzashop.Presentation.csproj",
+      "projectPath": "D:\\Project\\3Tier\\Pizzashop.Presentation\\Pizzashop.Presentation.csproj",
       "packagesPath": "C:\\Users\\pca187\\.nuget\\packages\\",
-      "outputPath": "d:\\Project\\3Tier\\Pizzashop.Presentation\\obj\\",
+      "outputPath": "D:\\Project\\3Tier\\Pizzashop.Presentation\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\pca187\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -11293,11 +11293,11 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "d:\\Project\\3Tier\\BAL\\BAL.csproj": {
-              "projectPath": "d:\\Project\\3Tier\\BAL\\BAL.csproj"
+            "D:\\Project\\3Tier\\BAL\\BAL.csproj": {
+              "projectPath": "D:\\Project\\3Tier\\BAL\\BAL.csproj"
             },
-            "d:\\Project\\3Tier\\DAL\\DAL.csproj": {
-              "projectPath": "d:\\Project\\3Tier\\DAL\\DAL.csproj"
+            "D:\\Project\\3Tier\\DAL\\DAL.csproj": {
+              "projectPath": "D:\\Project\\3Tier\\DAL\\DAL.csproj"
             }
           }
         }

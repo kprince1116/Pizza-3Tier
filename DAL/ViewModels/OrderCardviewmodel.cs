@@ -1,3 +1,5 @@
+using System.ComponentModel.Design.Serialization;
+
 namespace Pizzashop.DAL.ViewModels;
 
 public class OrderCardviewmodel
@@ -18,6 +20,8 @@ public class OrderItemsviewmodel
     public string ItemName { get; set; }
 
     public bool IsSelected { get; set; } = false;
+
+    public int TotalQuantity { get; set; }
 
     public int PendigQuantity { get; set; }
 

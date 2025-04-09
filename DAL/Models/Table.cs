@@ -25,6 +25,8 @@ public partial class Table
 
     public DateTime? ModifiedDate { get; set; }
 
+    public string? Status { get; set; }
+
     public virtual ICollection<OrderTable> OrderTables { get; set; } = new List<OrderTable>();
 
     public virtual Section? Section { get; set; }

@@ -21,6 +21,10 @@ public class Kotviewmodel
     {
         public string ItemName { get; set; }
         public int Quantity { get; set; }
+
+        public int PendigQuantity { get; set; }
+
+        public int ReadyQuantity { get; set; }
          public int CategoryId { get; set; } 
         public List<ModifierViewModel> Modifiers { get; set; } = new List<ModifierViewModel>();
     }
@@ -28,7 +32,6 @@ public class Kotviewmodel
     public class ModifierViewModel
     {
         public string ModifierName { get; set; }
-        // public decimal ModifierPrice { get; set; }
     }
 
 }

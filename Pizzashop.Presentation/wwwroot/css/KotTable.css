@@ -1,0 +1,61 @@
+.no-spinner::-webkit-outer-spin-button,
+.no-spinner::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+.no-spinner {
+    -moz-appearance: textfield;
+}
+
+:root {
+  --table-running: #5d8dca;
+  --table-assigned: #40f376;
+  --table-available: #bebcbc;
+  --table-running-bg: #cbe0ee;
+  --table-assigned-bg: #defae4;
+  --table-available-bg: #f8f3f3;
+}
+
+.accordion-body {
+  padding: 1rem 1rem !important;
+}
+
+
+
+.accordion-button:not(.collapsed) {
+  color: #0c63e4;
+  background-color: white !important;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .125);
+}
+
+
+.accordion-button:focus 
+{
+  box-shadow: none !important;
+}
+
+
+.accordion-button .accordion-arrow {
+  transition: transform 0.3s ease;
+  transform: rotate(270deg); / default (right) /
+}
+
+.accordion-button:not(.collapsed) .accordion-arrow {
+  transform: rotate(360deg); / down /
+}
+
+.accordion-button::after
+{
+  display: none !important;
+}
+
+.green_border
+{
+  border: 2px solid #99d363 !important;
+}
+
+.custom-blue{
+  color:#0066bb !important;
+}

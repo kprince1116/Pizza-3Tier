@@ -44,10 +44,12 @@
                         <span class="text-nowrap" >Waiting List</span>
                     </div>
                 </a>
-                <div class="navbar-card @(ViewBag.Active == "Tables" ? "navbar-card-selected" : "")">
+                <a asp-action="KotTable" asp-controller="KotTable" style="text-decoration: none; !important" >
+                <div  class="navbar-card @(ViewBag.Active == "Tables" ? "navbar-card-selected" : "")">
                      <i class="bi bi-square-fill me-2"></i>
                     <span>Tables</span>
                 </div>
+                </a>
                 <div class="navbar-card me-2 @(ViewBag.Active == "Menu" ? "navbar-card-selected" : "")">
                     <i class="bi bi-cake me-2"></i>
                     <span>Menu</span>

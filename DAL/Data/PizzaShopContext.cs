@@ -685,6 +685,9 @@ public partial class PizzaShopContext : DbContext
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("modified_date");
             entity.Property(e => e.Sectionid).HasColumnName("sectionid");
+            entity.Property(e => e.Status)
+                .HasColumnType("character varying")
+                .HasColumnName("status");
             entity.Property(e => e.TableName)
                 .HasMaxLength(250)
                 .HasColumnName("table_name");

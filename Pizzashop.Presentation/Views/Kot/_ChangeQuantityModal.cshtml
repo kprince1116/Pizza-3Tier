@@ -55,7 +55,8 @@
                                     <td class="text-end align-middle">
                                         <div class="border text-end ms-auto align-middle align-self-center" style="width: fit-content;">
                                             <button type="button" class="btn btn-sm" onclick="changeQuantity(@Model.ItemList[i].ItemId, 'decrement', this)">-</button>
-                                            <span id="quantity-@Model.ItemList[i].ItemId" class="orderstatus" data-orderstatus="@Model.OrderStatus">
+                                            <span id="quantity-@Model.ItemList[i].ItemId" data-quantity="@Model.ItemList[i].PendigQuantity" 
+                                            data-quantity1="@Model.ItemList[i].ReadyQuantity" class="orderstatus" data-orderstatus="@Model.OrderStatus">
                                                 @if (Model.OrderStatus == "In Progress")
                                                 {
                                                     if (Model.ItemList[i].PendigQuantity > 0)
@@ -86,7 +87,7 @@
                             }
                         }
                     </tbody>
-                </table>
+                </table>                                                     
 
                 <div class="d-flex justify-content-end gap-2 mb-2 me-2">
                     <button type="submit" id="submit-quantity" class="inprogress-ready-btn active-btn">
@@ -104,36 +105,48 @@
             </form>
         </div>
     </div>
-</div>
-
+</div>                                                                                                               
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <script>
     function changeQuantity(itemId, action, button) {
         var quantityElement = document.getElementById(`quantity-${itemId}`);
         var currentQuantity = parseInt(quantityElement.innerText);
+        var maxQuantity = parseInt(quantityElement.getAttribute("data-quantity")); 
+        var maxQuantity1 = parseInt(quantityElement.getAttribute("data-quantity1"));
+        var orderstatus = quantityElement.getAttribute("data-orderstatus");
 
         if (action === 'increment') {
-            currentQuantity++;
+            if( orderstatus == "In Progress" && currentQuantity < maxQuantity) {
+                currentQuantity++;
+            } 
+            else if (orderstatus == "Ready" && currentQuantity < maxQuantity1) {
+                currentQuantity++;
+            }
         } else if (action === 'decrement') {
             if (currentQuantity > 0) {
                 currentQuantity--;
             }
         }
 
-        quantityElement.innerText = currentQuantity;
+        quantityElement.innerText = currentQuantity
 
-        $(document).on("click","#submit-quantity",function(){
+    }
 
+       $(document).on("click","#submit-quantity",function(){
+            debugger;
         var updates = [];
 
         $("input[type=checkbox]:checked").each(function () {
             var itemId = $(this).data("item-id");
+            console.log("ItemId:",itemId);
             var quantityElement = document.getElementById(`quantity-${itemId}`);
             var quantity = parseInt(quantityElement.innerText);
+            console.log("Quantity:",quantity);
             
             updates.push({
                 itemId: itemId,
@@ -155,15 +168,13 @@
                 },  
                 success: function (response) {
                     console.log("Quantity updated successfully");
+                    toastr.success("Item updated successfully");
                 },
                 error: function (xhr, status, error) {
                     console.error("Error updating quantity:", error);
                 }
             })
         });
-
-    }
-
 
 </script>
 

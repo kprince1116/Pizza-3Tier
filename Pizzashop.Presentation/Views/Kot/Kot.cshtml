@@ -5,7 +5,8 @@
 }
 @model Pizzashop.DAL.ViewModels.Kotviewmodel
 
-<link rel="stylesheet" href="~/css/Kot.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/Kot.css" asp-append-version="true"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
 
 <div class="kot-container">
 
@@ -39,10 +40,10 @@
             <div class="d-flex justify-content-between mb-3 " >
             <h3 style="color: #0066A7;">All </h3>  
             <div class="d-flex gap-2" >
-                <a href="@Url.Action("Kot", "Kot", new { status = "In Progress" , categoryId="0" })" class="inprogress-ready-btn active"style=" text-decoration: none;">
+                <a href="@Url.Action("Kot", "Kot", new { status = "In Progress" , categoryId="0" })" id="inProgressBtn"  class="inprogress-ready-btn active  @(ViewContext.RouteData.Values["controller"].ToString() == "Kot" && ViewContext.RouteData.Values["action"].ToString() == "Kot" ? "active" : "")" style=" text-decoration: none;">
             In Progress
         </a>
-        <a href="@Url.Action("Kot", "Kot", new { status = "Ready" , categoryId ="0" })" class="inprogress-ready-btn" style="text-decoration: none;">
+        <a href="@Url.Action("Kot", "Kot", new { status = "Ready" , categoryId ="0" })" id="readyBtn"  class="inprogress-ready-btn" style="text-decoration: none;">
             Ready
         </a>
          <button class="btn light-btn next-back-btn" onclick="backslide()" >
@@ -61,7 +62,6 @@
           @if(card.Items.Count > 0)
           {
             <div class="d-flex flex-column KOT-Card mb-4 card-details" id="order-card" data-status="@card.OrderStatus" data-orderid="@card.orderId">
-
          
                 <div class="d-flex flex-column Card-Header justify-content-between">
                     <div class="d-flex justify-content-between">
@@ -70,7 +70,9 @@
                         </span>
                         <span class="text-secondary d-flex align-items-center order-time">
                             <i class="bi bi-stopwatch me-1" ></i>
-                            <span class="time-difference">@card.OrderDate</span>
+                            <span class="time-difference" data-datecounter="@card.OrderDate.ToString("yyyy-MM-ddTHH:mm:ss")">
+                                <span class="kotDatecountertext"></span>
+                            </span>
                         </span>
 
                     </div>
@@ -88,16 +90,25 @@
                 
                 <div class="d-flex flex-column Card-Content">
 
-                    @foreach(var item in card.Items)
+                    @for(int i = 0; i < card.Items.Count; i++)
                     {
                         <div class="d-flex flex-column">
                             <div class="d-flex justify-content-between">
-                                <div>@item.ItemName</div>
-                                <dir>@item.Quantity</dir>
+                                <div>@card.Items[i].ItemName</div>
+                                <dir>
+                                    @if(Model.OrderDetails[i].OrderStatus == "In Progress")
+                                    {
+                                        @card.Items[i].PendigQuantity
+                                    }
+                                    else if(Model.OrderDetails[i].OrderStatus == "Ready")
+                                    {
+                                        @card.Items[i].ReadyQuantity
+                                    }
+                                </dir>
                             </div>
                            
                             <ul>
-                                @foreach(var modifier in item.Modifiers)
+                                @foreach(var modifier in card.Items[i].Modifiers)
                                 {
                                     <li>@modifier.ModifierName</li>
                                 }
@@ -114,8 +125,7 @@
                 </div>
             </div>
             }
-    }
-        
+    }    
 
     </div>
 
@@ -131,10 +141,10 @@
                 <h3 style="color: #0066A7;" >@tab.Name</h3>
                 
                 <div class="d-flex gap-2" >
-                <div onclick= navigateToStatus('In Progress','@tab.Categoryid')" class="inprogress-ready-btn text-nowrap @(ViewContext.RouteData.Values["controller"].ToString() == "Kot" && ViewContext.RouteData.Values["action"].ToString() == "Kot" ? "active" : "")" style="text-decoration: none;" >
+                <div onclick= navigateToStatus('In Progress','@tab.Categoryid')" class="inprogress-ready-btn text-nowrap active" style="text-decoration: none;">
             In Progress
         </div>
-        <div onclick=" navigateToStatus('Ready','@tab.Categoryid')" class="inprogress-ready-btn @(ViewContext.RouteData.Values["controller"].ToString() == "Kot" && ViewContext.RouteData.Values["action"].ToString() == "Kot" ? "active" : "")" style="text-decoration: none;">
+        <div onclick=" navigateToStatus('Ready','@tab.Categoryid')" class="inprogress-ready-btn" style="text-decoration: none;">
             Ready
         </div>
          <button class="btn light-btn next-back-btn" onclick="nextslide()">
@@ -165,7 +175,9 @@
                         </span>
                         <span class="text-secondary d-flex align-items-center order-time">
                             <i class="bi bi-stopwatch me-1" ></i>
-                            <span class="time-difference">@card.OrderDate</span>
+                             <span class="time-difference" data-datecounter="@card.OrderDate.ToString("yyyy-MM-ddTHH:mm:ss")">
+                                <span class="kotDatecountertext"></span>
+                            </span>
                         </span>
 
                     </div>
@@ -186,16 +198,25 @@
                 
                 <div class="d-flex flex-column Card-Content">
 
-                    @foreach(var item in card.Items)
+                    @for(int i = 0; i < card.Items.Count; i++)
                     {
                         <div class="d-flex flex-column">
                             <div class="d-flex justify-content-between">
-                                <div>@item.ItemName</div>
-                                <dir>@item.Quantity</dir>
+                                <div>@card.Items[i].ItemName</div>
+                                <dir>
+                                    @if(Model.OrderDetails[i].OrderStatus == "In Progress")
+                                    {
+                                        @card.Items[i].PendigQuantity
+                                    }
+                                    else if(Model.OrderDetails[i].OrderStatus == "Ready")
+                                    {
+                                        @card.Items[i].ReadyQuantity
+                                    }
+                                </dir>
                             </div>
                            
                             <ul>
-                                @foreach(var modifier in item.Modifiers)
+                                @foreach(var modifier in card.Items[i].Modifiers)
                                 {
                                     <li>@modifier.ModifierName</li>
                                 }
@@ -234,6 +255,7 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 @section Scripts {
     
@@ -244,15 +266,11 @@
 
         tabs.forEach(tab => {
             tab.addEventListener('click', function() {
-                // Remove active class from all tabs
                 tabs.forEach(t => t.classList.remove('active'));
-                // Add active class to clicked tab
                 this.classList.add('active');
 
-                // Hide all content panes
                 contents.forEach(content => content.style.display = 'none');
                 
-                // Show the selected content pane
                 const tabId = this.getAttribute('data-tab-id');
                 const activeContent = document.getElementById(`content-${tabId}`);
                 if (activeContent) {
@@ -261,6 +279,31 @@
             });
         });
     });
+</script>
+
+<script>
+    function DateTimerKOT() {
+        $(".time-difference").each(function () {
+            var orderdatestring = $(this).data("datecounter");
+
+            var orderdate = new Date(orderdatestring).getTime();
+
+            var current = new Date().getTime();
+
+            var diff = current - orderdate;
+
+            var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            $(this).find(".kotDatecountertext").text(`${days}d ${hours}h ${minutes}m ${seconds}s`);
+        });
+    }
+
+    DateTimerKOT();
+
+    setInterval(DateTimerKOT, 1000);
 </script>
 
 <script>
