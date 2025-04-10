@@ -8,4 +8,10 @@ public interface IKotTableRepository
      Task<List<Section>> GetSections();
 
     Task<List<Table>> GetTablesBySectionIdAsync(int sectionId);
+
+    Task AddWaitingToken(waitingtokenviewmodel model);
+
+    Task<List<Section>> GetSectionList();
+
+    Task<List<waitingtokenviewmodel>> GetWaitingList();
 }

@@ -44,12 +44,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS290VGFibGVcS290VGFibGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Project/3Tier/Pizzashop.Presentation/Views/KotTable/_AddWaitingToken.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS290VGFibGVcX0FkZFdhaXRpbmdUb2tlbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/3Tier/Pizzashop.Presentation/Views/KotTable/_waitingList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS290VGFibGVcX3dhaXRpbmdMaXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Project/3Tier/Pizzashop.Presentation/Views/Kot/Kot.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS290XEtvdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Project/3Tier/Pizzashop.Presentation/Views/Kot/_ChangeQuantityModal.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS290XF9DaGFuZ2VRdWFudGl0eU1vZGFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/3Tier/Pizzashop.Presentation/Views/Kot/_kotcard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS290XF9rb3RjYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Project/3Tier/Pizzashop.Presentation/Views/Login/ForgotPassword.cshtml]

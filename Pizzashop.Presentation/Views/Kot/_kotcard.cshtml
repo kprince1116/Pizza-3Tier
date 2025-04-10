@@ -1,0 +1,80 @@
+@model Pizzashop.DAL.ViewModels.Kotviewmodel
+
+    @foreach (var tab in Model.Categories)
+    {
+    @foreach(var card in Model.OrderDetails) 
+    {
+            @* /*---------------------------------- Kot Cards --------------------------*/ *@
+
+             if (card.Items.Any(item => item.CategoryId == tab.Categoryid))
+             {
+            <div class="d-flex flex-column KOT-Card mb-4" id="order-card-item" data-status="@card.OrderStatus" data-orderid="@card.orderId">
+
+                @* /*--------------- Header ------------*/ *@
+                <div class="d-flex flex-column Card-Header justify-content-between"  >
+                    <div class="d-flex justify-content-between">
+                        <span class="special-color fw-bold">
+                        #@card.OrderNo
+                        </span>
+                        <span class="text-secondary d-flex align-items-center order-time">
+                            <i class="bi bi-stopwatch me-1" ></i>
+                             <span class="time-difference" data-datecounter="@card.OrderDate.ToString("yyyy-MM-ddTHH:mm:ss")">
+                                <span class="kotDatecountertext"></span>
+                            </span>
+                        </span>
+
+                    </div>
+                    <div class="d-flex justify-content-start align-items-center fw-bold">
+                        <span class="">
+                            @card.SectionName
+                        </span>
+                        <i class="bi bi-dot"></i>
+                       @foreach(var table in card.TableNo)
+                       {
+                        <span>@table.TableName</span>
+                       }
+                    </div>
+                </div>
+
+
+                @* /*--------------- Item List ------------*/ *@
+                
+                <div class="d-flex flex-column Card-Content">
+
+                    @for(int i = 0; i < card.Items.Count; i++)
+                    {
+                        <div class="d-flex flex-column">
+                            <div class="d-flex justify-content-between">
+                                <div>@card.Items[i].ItemName</div>
+                                <dir>
+                                    @if(Model.OrderDetails[i].OrderStatus == "In Progress")
+                                    {
+                                        @card.Items[i].PendigQuantity
+                                    }
+                                    else if(Model.OrderDetails[i].OrderStatus == "Ready")
+                                    {
+                                        @card.Items[i].ReadyQuantity
+                                    }
+                                </dir>
+                            </div>
+                           
+                            <ul>
+                                @foreach(var modifier in card.Items[i].Modifiers)
+                                {
+                                    <li>@modifier.ModifierName</li>
+                                }
+                            </ul>
+
+                        </div>
+                    }
+                </div>
+
+
+                @* /*--------------- Fooder ------------*/ *@
+                <div class="Card-Footer flex-wrap">
+                    <span class="special-color fw-bold">Order Instruction :</span>
+                </div>
+            </div>
+            }
+    }
+    }

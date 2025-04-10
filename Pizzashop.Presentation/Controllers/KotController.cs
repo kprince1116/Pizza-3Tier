@@ -18,7 +18,7 @@ public class KotController : Controller
     public async Task<IActionResult> Kot(string status = "In Progress", int categoryId = 0)
     {
         var kotData = await _kotService.GetKotDataAsync(status, categoryId);
-
+        ViewBag.ActivateCategoryId = categoryId;
         return View(kotData);
     }
 

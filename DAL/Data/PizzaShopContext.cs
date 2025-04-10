@@ -71,6 +71,8 @@ public partial class PizzaShopContext : DbContext
 
     public virtual DbSet<Userrole1> Userroles1 { get; set; }
 
+    public virtual DbSet<WaitingToken> WaitingTokens { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseNpgsql("Host=localhost;Database=pizza-shop;Username=postgres;     password=Tatva@123");
@@ -869,6 +871,53 @@ public partial class PizzaShopContext : DbContext
             entity.Property(e => e.RoleName)
                 .HasMaxLength(150)
                 .HasColumnName("role_name");
+        });
+
+        modelBuilder.Entity<WaitingToken>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("waiting_token_pkey");
+
+            entity.ToTable("waiting_token");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
+            entity.Property(e => e.CreatedDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("created_date");
+            entity.Property(e => e.Customerid).HasColumnName("customerid");
+            entity.Property(e => e.IsAssigned)
+                .HasDefaultValueSql("false")
+                .HasColumnName("is_assigned");
+            entity.Property(e => e.IsDeleted)
+                .HasDefaultValueSql("false")
+                .HasColumnName("is_deleted");
+            entity.Property(e => e.ModifiedBy).HasColumnName("modified_by");
+            entity.Property(e => e.ModifiedDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("modified_date");
+            entity.Property(e => e.NoOfPersons).HasColumnName("no_of_persons");
+            entity.Property(e => e.SectionId).HasColumnName("section_id");
+            entity.Property(e => e.TableId).HasColumnName("table_id");
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.WaitingTokenCreatedByNavigations)
+                .HasForeignKey(d => d.CreatedBy)
+                .HasConstraintName("waiting_token_created_by_fkey");
+
+            entity.HasOne(d => d.Customer).WithMany(p => p.WaitingTokens)
+                .HasForeignKey(d => d.Customerid)
+                .HasConstraintName("waiting_token_customerid_fkey");
+
+            entity.HasOne(d => d.ModifiedByNavigation).WithMany(p => p.WaitingTokenModifiedByNavigations)
+                .HasForeignKey(d => d.ModifiedBy)
+                .HasConstraintName("waiting_token_modified_by_fkey");
+
+            entity.HasOne(d => d.Section).WithMany(p => p.WaitingTokens)
+                .HasForeignKey(d => d.SectionId)
+                .HasConstraintName("waiting_token_section_id_fkey");
+
+            entity.HasOne(d => d.Table).WithMany(p => p.WaitingTokens)
+                .HasForeignKey(d => d.TableId)
+                .HasConstraintName("waiting_token_table_id_fkey");
         });
 
         OnModelCreatingPartial(modelBuilder);

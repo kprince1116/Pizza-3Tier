@@ -22,4 +22,6 @@ public partial class Section
     public DateTime? ModifiedDate { get; set; }
 
     public virtual ICollection<Table> Tables { get; set; } = new List<Table>();
+
+    public virtual ICollection<WaitingToken> WaitingTokens { get; set; } = new List<WaitingToken>();
 }

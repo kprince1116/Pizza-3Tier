@@ -60,6 +60,8 @@
          @foreach(var card in Model.OrderDetails) 
     {
           @if(card.Items.Count > 0)
+            
+            @* /*---------------------------------- Kot Cards --------------------------*/ *@
           {
             <div class="d-flex flex-column KOT-Card mb-4 card-details" id="order-card" data-status="@card.OrderStatus" data-orderid="@card.orderId">
          
@@ -69,7 +71,7 @@
                         #@card.OrderNo
                         </span>
                         <span class="text-secondary d-flex align-items-center order-time">
-                            <i class="bi bi-stopwatch me-1" ></i>
+                            <i class="bi bi-stopwatch me-1"></i>
                             <span class="time-difference" data-datecounter="@card.OrderDate.ToString("yyyy-MM-ddTHH:mm:ss")">
                                 <span class="kotDatecountertext"></span>
                             </span>
@@ -141,12 +143,12 @@
                 <h3 style="color: #0066A7;" >@tab.Name</h3>
                 
                 <div class="d-flex gap-2" >
-                <div onclick= navigateToStatus('In Progress','@tab.Categoryid')" class="inprogress-ready-btn text-nowrap active" style="text-decoration: none;">
-            In Progress
-        </div>
-        <div onclick=" navigateToStatus('Ready','@tab.Categoryid')" class="inprogress-ready-btn" style="text-decoration: none;">
-            Ready
-        </div>
+                <div onclick="navigateToStatus('In Progress', '@tab.Categoryid')" class="inprogress-ready-btn text-nowrap active" style="text-decoration: none;">
+                     In Progress
+                 </div>
+                 <div onclick="navigateToStatus('Ready', '@tab.Categoryid')" class="inprogress-ready-btn" style="text-decoration: none;">
+                     Ready
+                 </div>
          <button class="btn light-btn next-back-btn" onclick="nextslide()">
             
         </button>

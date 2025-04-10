@@ -1,0 +1,22 @@
+@model List<Pizzashop.DAL.ViewModels.waitingtokenviewmodel>
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>NAME</th>
+      <th>No Of Person</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>@item.Id</th>
+            <td>@item.Name</td>
+            <td>@item.NoOfPerson</td>
+        </tr>
+    }
+  </tbody>
+</table>

@@ -30,4 +30,6 @@ public partial class Table
     public virtual ICollection<OrderTable> OrderTables { get; set; } = new List<OrderTable>();
 
     public virtual Section? Section { get; set; }
+
+    public virtual ICollection<WaitingToken> WaitingTokens { get; set; } = new List<WaitingToken>();
 }

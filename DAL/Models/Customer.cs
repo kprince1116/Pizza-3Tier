@@ -32,4 +32,6 @@ public partial class Customer
     public virtual User? ModifiedByNavigation { get; set; }
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
+
+    public virtual ICollection<WaitingToken> WaitingTokens { get; set; } = new List<WaitingToken>();
 }

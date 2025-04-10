@@ -60,4 +60,8 @@ public partial class User
     public virtual State? StateNavigation { get; set; }
 
     public virtual Userrole1? UserroleNavigation { get; set; }
+
+    public virtual ICollection<WaitingToken> WaitingTokenCreatedByNavigations { get; set; } = new List<WaitingToken>();
+
+    public virtual ICollection<WaitingToken> WaitingTokenModifiedByNavigations { get; set; } = new List<WaitingToken>();
 }

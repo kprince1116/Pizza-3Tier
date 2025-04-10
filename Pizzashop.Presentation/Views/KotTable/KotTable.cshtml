@@ -8,6 +8,7 @@
 
 <link rel="stylesheet" href="~/css/KotTable.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
 <div>
     <div class="d-flex justify-content-between ">
@@ -19,6 +20,7 @@
                 <span style="color: var(--table-available)"><i class="bi bi-circle-fill"></i></span>
                 <span>Available</span>
             </div>
+
             <div class="d-flex gap-2 align-items-center">
                 <span class="" style="color: var(--table-assigned)"><i class="bi bi-circle"></i></span>
                 <span>Selected</span>
@@ -40,7 +42,7 @@
         {
             <div class="accordion mb-2" id="accordionPanelsStayOpenExample">
                 <div class="accordion-item">
-                    <div class="accordion-header">
+                    <div class="accordion-header" data-section-id = "@i.SectionId" >
                         <div class="d-flex justify-content-between">
                             <button class="accordion-button d-flex justify-content-between" type="button"
                                 data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne-@i.SectionId"
@@ -48,28 +50,34 @@
                                 <div class="d-flex align-items-center gap-4">
                                     <h4 class="custom-blue text-nowrap mt-1">@i.SectionName</h4>
                                 </div>
+                          </button>
                                 <div class="d-flex justify-content-start justify-content-md-end align-items-center gap-3">
-                                    <div class="d-flex gap-2 align-items-center" s>
-                                        <span style="color: var(--table-available)"><i class="bi bi-circle-fill"></i>
+                                    <div class="d-flex gap-2 align-items-center"> 
+                                       <span style="color: var(--table-available)" ><i class="bi bi-circle-fill"></i></span>
+                                        <span style="color: var(--table-available)">
                                             @i.AvailableCount</span>
                                     </div>
                                     <div class="d-flex gap-2 align-items-center">
-                                        <span style="color: var(--table-assigned)"><i class="bi bi-circle-fill"></i>
+                                         <span style="color: var(--table-assigned)" ><i class="bi bi-circle-fill"></i></span>
+                                        <span style="color: var(--table-assigned)">
                                             @i.AssignedCount
                                         </span>
                                     </div>
                                     <div class="d-flex gap-2 align-items-center">
-                                        <span style="color: var(--table-running)"><i class="bi bi-circle-fill"></i>
+                                       <span style="color: var(--table-running)" > <i class="bi bi-circle-fill"></i></span>
+                                        <span style="color: var(--table-running)">
                                             @i.RunningCount</span>
                                     </div>
-                                    <div class="custom-blue-border custom-blue p-2 d-flex align-items-center rounded text-nowrap"
-                                        type="button" onclick="openWaitingTokenModal(this)">
-                                        <span class="py-2 px-3"
-                                            style="color: #0066bb; border-radius: 5px; border: 2px solid #0066bb !important; border-width: 2px;">+
-                                            Waiting Token</span>
-                                    </div>
+                                                                   
+
+                                        <div class="custom-blue-border custom-blue p-2 d-flex align-items-center rounded text-nowrap"
+                                            type="button" onclick="openWaitingTokenModal(this)" data-sectionid="@i.SectionId"   >
+                                            <span class="py-2 px-3" 
+                                                style="color: #0066bb; border-radius: 5px; border: 2px solid #0066bb !important; border-width: 2px;">+
+                                                Waiting Token</span>
+                                        </div>
                                 </div>
-                            </button>
+                                   
                         </div>
                     </div>
                     <div id="panelsStayOpen-collapseOne-@i.SectionId" class="accordion-collapse collapse"
@@ -106,7 +114,7 @@
                                 }
                             </div>
                             <div class="d-flex justify-content-end p-2">
-                                <button type="button" class="btn custom-btn-bg text-white" style="background-color: #0066bb;" data-bs-toggle="offcanvas"
+                                <button type="button" class="btn custom-btn-bg text-white assign-button" style="background-color: #0066bb;" data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                                     Assign
                                 </button>
@@ -128,8 +136,12 @@
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title custom-blue" id="offcanvasRightLabel">Waiting List</h5>
+       
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
+     <div id="waitinglist">
+            
+        </div>
     <div class="offcanvas-body">
         <h5 class="custom-blue">Customer Detail</h5>
         <form id="TableAssignForm" class="d-flex flex-column gap-3">
@@ -208,12 +220,14 @@
 
 <script>
     $(document).ready(function(){
+
+        $('.btn[data-bs-target="#offcanvasRight"]').prop('disabled', true);
+
+
         $(document).on('click', '#selectTable', function () {
         var tableStatus = $(this).data('status');
         var tableId = $(this).data('table-id');
 
-        console.log("tab:", tableStatus);
-        console.log("tableid:", tableId);
 
     if (tableStatus !== "Available") {
         return;
@@ -242,4 +256,107 @@
 });
     });
 
+</script>
+
+<script>
+    
+    @* $(document).on("click",".assign-button",function(){
+        const selectTables = [];
+
+        $("#selectTable.selected").each(function(){
+            const tableId = $(this).data("table-id");
+            const sectionId = $(this).closest('.accordion-item').find('.accordion-header').data('section-id');
+            selectTables.push({
+                TableId:tableId,
+                sectionId:sectionId
+            });
+        });
+        console.log("Selected Tables:", selectTables);
+
+    });    *@
+
+</script>    
+
+<script>
+    function openWaitingTokenModal(button){
+    const sectionId = button.getAttribute('data-sectionid');
+    @* const modal = new bootstrap.Modal(document.getElementById('waitingtokenmodal')); *@
+
+    
+
+    @* modal.show(); *@
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("openWaitingTokenModal", "KotTable")',
+            success : function(data){
+                console.log("Data from server:", data);
+                $('#waitingtokenmodal .modal-content').html(data);
+                $("#sectionwaitingtoken").val(sectionId);
+                @* $("#sectionwaitingtokenHidden").val(sectionId);  *@
+                console.log("Selected Section ID:", sectionId);
+                $('#waitingtokenmodal').modal('show');
+            }
+        })
+    }
+</script>
+
+
+<div class="modal fade" id="waitingtokenmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+    </div>
+    
+  </div>
+</div>
+
+<script>
+  
+   $(document).ready(function () {
+    $(document).on('submit','#addWaitingTokenForm', function (e) {
+        e.preventDefault(); // Prevent the default form submission
+
+        // Create a FormData object from the form
+        var formData = new FormData(this); // Ensure 'this' refers to the form
+
+        console.log("Form data:", formData);
+
+        $.ajax({
+            url: '@Url.Action("AddWaitingToken", "KotTable")',
+            type: 'POST',
+            processData: false, 
+            contentType: false,
+            data: formData,
+            success: function (response) {
+                if (response.success) {
+                    toastr.success("Waiting Token Added Succesfully");
+                    $('#waitingtokenmodal').modal('hide');
+                } else {
+                    alert('Error: ' + response.message);
+                }
+            },
+            error: function () {
+                alert('An error occurred while adding the waiting token.');
+            }
+        });
+    });
+});
+
+</script> 
+
+<script>
+        $(document).off("click",".assign-button").on("click" , ".assign-button" , function(e){
+            e.preventDefault();
+            $.ajax({
+            type: "GET",
+            url: "/KotTable/GetWaitingList",
+            success: function(data){
+            console.log("Data from server:", data);
+            console.log("vansho")
+            $('#waitinglist').html(data);
+            }
+        });
+        });
+        
+    
 </script>
