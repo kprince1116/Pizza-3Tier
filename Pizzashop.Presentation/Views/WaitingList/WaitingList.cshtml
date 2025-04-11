@@ -1,0 +1,249 @@
+@{
+    Layout = "~/Views/Shared/_OrderApp.cshtml";
+    ViewData["Title"] = "KOT";
+    ViewBag.Active = "Kot";
+}
+
+@model Pizzashop.DAL.ViewModels.waitingviemodel
+
+<div>
+    <div class="d-flex justify-content-between" >
+        <h2 class="custom-blue fw-bolder fw-bold" style="color:#0066a7">Waiting List</h2>
+        <div class="custom-blue-border mb-3 d-flex align-items-center rounded text-nowrap" type="button" id="waitingtoken"
+             data-bs-toggle="modal" data-bs-target="#AddWaiting">
+            <span class="py-2 px-3"
+                style="color: #0066bb; border-radius: 5px; border: 2px solid #0066bb !important; border-width: 2px;">+
+                Waiting Token</span>
+        </div>
+    </div>
+    <div class="switching-tabs-section d-flex justify-content-start bg-white px-3 nav shadow overflow-auto flex-nowrap"
+        role="tablist">
+
+        <div class=" d-flex justify-content-center gap-2 active-tab tab-btn p-3" id="all-content" data-bs-toggle="tab"
+            data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false" data-tab-id=0 >
+            <div class="fw-bolder active">All</div>
+
+        </div>
+        @foreach (var c in Model.sections)
+        {
+            <div class="section-tab d-flex justify-content-center gap-2 p-3 text-nowrap tab-btn" id='nav-tab-@c.Sectionid'
+                data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-@c.Sectionid" data-section-id=@c.Sectionid >
+                <div class="fw-bolder" section-id="@c.Sectionid">@c.SectionName</div>
+            </div>
+        }
+
+    </div>
+
+    <div class="order_list_container shadow mt-3 bg-white">
+        <div class="carousel-container">
+            <div id="waitlist">
+                @* @Html.Partial("_waitingListPartialView")  *@
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Add Waiting Token*@
+
+<div class="modal fade" id="AddWaiting" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+   <div class="modal-content">
+
+   </div>
+  </div>
+</div>
+
+@*Edit Waiting Token*@
+<div class="modal fade" id="EditWaiting" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div id="EditWaitingToken">
+
+   </div>
+    </div>
+</div>
+
+@*Delete Waiting Token*@
+
+<div class="modal fade" id="deleteToken" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Confirmation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex justify-content-center align-items-center flex-column">
+        <img class="mb-3" src="~/images/icons/exclamation-triangle.svg" alt="Warning Icon">
+        <h1 class="fs-5 text-center">Are you sure you want to delete this waiting token?</h1>
+      </div>
+      <form method="post" asp-controller="WaitingList" asp-action="DeleteToken"
+            class="modal-footer d-flex justify-content-center">
+        <input type="hidden" id="waitingdeleteid" name="Id">
+        <button type="submit" class="btn btn-primary">Yes</button>
+        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    $(document).on("click", "#delete-token", function () {
+        var id = $(this).data("waitingid");
+        console.log("Waiting Token ID:", id);
+        $('#waitingdeleteid').val(id); // Set the ID in the hidden input field
+    });
+</script>
+
+@*get section list for modal*@
+<script>
+    $(document).on("click","#waitingtoken",function(){
+         $.ajax({
+            type: "GET",
+            url: '@Url.Action("openWaitingTokenModal", "WaitingList")',
+            success : function(data){
+                console.log("Data from server:");
+                $('#AddWaiting .modal-content').html(data);
+                $('#AddWaiting').modal('show');
+                
+            }
+        });
+    });
+
+</script>
+
+<script>
+    $(document).on("click","#EditToken",function(){
+        var id = $(this).data("waiting-id");
+         $.ajax({
+            type: "GET",
+            data :{id:id},
+            url: '@Url.Action("EditToken", "WaitingList")',
+            success : function(data){
+                console.log("Data from server:", data);
+                $('#EditWaitingToken').html(data);
+                @* $('#EditWaiting').modal('show'); *@
+
+                var modal = new bootstrap.Modal(document.getElementById('EditWaiting'));
+                modal.show();
+            }
+        });
+    });
+
+</script>
+
+<script>
+    $(document).on("click", "#all-content", function () {
+        getwaitlist();
+         $(".tab-btn").removeClass("active-tab");
+
+        $(this).addClass("active-tab");
+    });
+
+</script>
+
+@*get waiting list*@
+<script>
+    $(document).ready(function(){
+        getwaitlist();
+        
+    });
+        function getwaitlist(){
+         $.ajax({
+            url: "/WaitingList/GetWaitingList",
+            type: 'GET',
+            data:{sectionId:0},
+            success: function (response) {
+                $('#waitlist').html(response);
+            },
+            error: function (err) {
+                alert('An error occurred while loading the waiting list.');
+               
+            }
+        });
+        }
+       
+</script>
+
+<script>
+    $(document).on("click", ".section-tab", function () {
+        var sectionId = $(this).data("section-id");
+        $.ajax({
+            url: "/WaitingList/GetWaitingList",
+            type: 'GET',
+            data: { sectionId: sectionId },
+            success: function (response) {
+                $('#waitlist').html(response);
+                document.querySelectorAll(".tab-btn").forEach(tab => {
+                    tab.classList.remove("active-tab");
+                });
+                $(this).addClass("active-tab"); 
+            }.bind(this),  // Bind 'this' to ensure it refers to the clicked element
+            error: function (err) {
+                alert('An error occurred while loading the waiting list.');
+            }
+        });
+    });
+</script>
+
+<script>
+   $(document).ready(function () {
+    $(document).on('submit','#addWaitingTokenForm', function (e) {
+        e.preventDefault(); 
+
+        var formData = new FormData(this); 
+
+        console.log("Form data:", formData);
+
+        $.ajax({
+            url: '@Url.Action("AddWaitingToken", "WaitingList")', 
+            type: 'POST',
+            processData: false, 
+            contentType: false,
+            data: formData,
+            success: function (response) {
+                if (response.success) {
+                    toastr.success("Waiting Token Added Succesfully");
+                    $('#AddWaiting').modal('hide');
+                } else {
+                    alert('Error: ' + response.message);
+                }
+            },
+            error: function () {
+                alert('An error occurred while adding the waiting token.');
+            }
+        });
+    });
+});
+</script> 
+
+<script>
+    function DateTimerKOT() {
+        $(".time-difference").each(function () {
+            var orderdatestring = $(this).data("datecounter");
+            var orderdate = new Date(orderdatestring).getTime();
+
+            var current = new Date().getTime();
+
+            var diff = current - orderdate;
+
+            var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            $(this).text(`${hours}h ${minutes}m`);
+        });
+    }
+
+    DateTimerKOT();
+
+    setInterval(DateTimerKOT, 1000);
+</script>
+
+<style>
+    .active-tab{
+        color: #0066bb  !important;
+        border-bottom:3px solid #0066a7 !important;
+    }
+</style>

@@ -38,10 +38,10 @@
                         <span>Kot</span>
                     </div>
                 </a>
-                <a asp-action="Index" asp-controller="WaitingList" style="text-decoration: none;">
+                <a asp-action="WaitingList" asp-controller="WaitingList" id="Allwaiting" style="text-decoration: none;">
                     <div class="navbar-card @(ViewBag.Active == "Waiting List" ? "navbar-card-selected" : "")">
                         <i class="bi bi-clock me-2"></i>
-                        <span class="text-nowrap" >Waiting List</span>
+                        <span class="text-nowrap">Waiting List</span>
                     </div>
                 </a>
                 <a asp-action="KotTable" asp-controller="KotTable" style="text-decoration: none; !important" >

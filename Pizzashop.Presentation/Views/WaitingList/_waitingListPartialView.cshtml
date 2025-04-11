@@ -1,0 +1,51 @@
+@model Pizzashop.DAL.ViewModels.waitingviemodel
+
+<div class="border bg-white px-3" style="border-radius: 5px;">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead style="opacity: 0.9;">
+        <tr>
+          <th class="table-name  text-nowrap">
+            #Token No
+          </th>
+          <th class="table-name text-nowrap"> Created At
+          </th>
+          <th scope="col" class="table-name text-nowrap">Waiting Time
+          </th>
+          <th class="table-name text-nowrap">Name</th>
+          <th class="table-name text-nowrap">No Of Person</th>
+          <th class="table-name text-nowrap">Phone Number</th>
+          <th class="table-name text-nowrap">Email</th>
+          <th class="table-name text-nowrap">Action</th>
+        </tr>
+      </thead>
+      <tbody style="opacity: 0.9;">
+        @foreach (var c in Model.waiting)
+        {
+          <tr>
+            <td class="table-field fs-6 text-nowrap" style="text-wrap: nowrap;">#@c.Id</td>
+            <td class="table-field fs-6 text-nowrap " style="text-wrap: nowrap;">@c.CreatedAt.ToString("dd-MM-yyyy")</td>
+            <td class="table-field fs-6 ps-3 time-difference text-nowrap"
+              data-datecounter="@c.CreatedAt.ToString("yyyy-MM-ddTHH:mm:ss")"></td>
+            <td class="fs-6 text-nowrap"> @c.Name</td>
+            <td class="fs-6 ps-5"> @c.NoOfPerson</td>
+            <td class="fs-6  text-nowrap"> @c.Phone</td>
+            <td class="text-nowrap">
+              @c.Email
+            </td>
+            <td>
+              <img id="EditToken" data-waiting-id="@c.Id" src="~/images/icons/pen.svg">
+              <img id="delete-token" data-waitingid="@c.Id" data-bs-toggle="modal" data-bs-target="#deleteToken"
+                src="~/images/icons/trash (1).svg" alt="Delete Token" style="cursor: pointer;">
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>

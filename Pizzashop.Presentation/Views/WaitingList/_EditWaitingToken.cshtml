@@ -1,0 +1,61 @@
+ @model Pizzashop.DAL.ViewModels.waitingtokenviewmodel
+
+
+   <div class="modal-content">
+         <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+         <form asp-action="UpdateToken" asp-controller="WaitingList" enctype="multipart/form-data" class="d-flex flex-column gap-3">
+         <input type="hidden" asp-for="@Model.Id">
+            <div class="form-floating">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" asp-for ="@Model.Email" >
+                <label for="floatingInput">Email </label>
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingPassword" placeholder="Name" asp-for="@Model.Name">
+                <label for="floatingPassword">Name</label>
+            </div>
+            <div class="form-floating">
+                <input type="Number" maxlength="10" class="form-control" id="floatingPassword" placeholder="Mobile No." asp-for="@Model.Phone">
+
+                <label for="floatingPassword">Mobile</label>
+            </div>
+
+            <div class="d-flex justify-content-between gap-0 row">
+                <div class="col">
+                    <div class="form-floating ">
+                    <input type="number" class="form-control" id="ItemRateForAdd" placeholder="No. Of Person" asp-for="@Model.NoOfPerson">
+                    <label for="ItemRateForAdd">No. Of Person</label>
+                    </div>
+                </div>
+                <div class="col">
+
+                    <div class="form-floating">
+                    <select class="form-select" id="sectionwaitingtoken" asp-for="@Model.sectionId">
+                    <option selected value="">Section</option>
+                     @foreach (var c in Model.sections)
+                    {                
+                        <option value="@c.Sectionid">@c.SectionName</option>     
+                    }
+                </select>
+                <label for="SectionId">Section</label>
+                    </div>
+                    
+                </div>
+            </div>
+   
+      <div class="d-flex justify-content-end gap-2">
+        
+        <button type="submit" style="background-color: #0066bb; color: white; " class="btn custom-btn-bg text-blue">Save</button>
+        <button type="button" style=" border-color: #0066bb; border-width: 2px !important; color: #0066bb; "  class=" btn custom-blue-border" data-bs-dismiss="modal">Cancel</button>
+      </div>
+        </form>
+      </div>
+      
+
+   </div>
+  </div>
+</div>
+

@@ -212,8 +212,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfVXNlckxpc3RQYXJ0aWFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/3Tier/Pizzashop.Presentation/Views/WaitingListController/WaitingListController.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FpdGluZ0xpc3RDb250cm9sbGVyXFdhaXRpbmdMaXN0Q29udHJvbGxlci5jc2h0bWw=
+[D:/Project/3Tier/Pizzashop.Presentation/Views/WaitingList/WaitingList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FpdGluZ0xpc3RcV2FpdGluZ0xpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/3Tier/Pizzashop.Presentation/Views/WaitingList/_AddWaitingPartialview.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FpdGluZ0xpc3RcX0FkZFdhaXRpbmdQYXJ0aWFsdmlldy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/3Tier/Pizzashop.Presentation/Views/WaitingList/_EditWaitingToken.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FpdGluZ0xpc3RcX0VkaXRXYWl0aW5nVG9rZW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/3Tier/Pizzashop.Presentation/Views/WaitingList/_waitingListPartialView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FpdGluZ0xpc3RcX3dhaXRpbmdMaXN0UGFydGlhbFZpZXcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Project/3Tier/Pizzashop.Presentation/Views/_ViewImports.cshtml]

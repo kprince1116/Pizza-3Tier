@@ -17,7 +17,7 @@ public class KotTableRepository : IKotTableRepository
 
     public async Task<List<Models.Section>> GetSections()
     {
-        return await _db.Sections.Where(u => u.Isdeleted == false) .OrderBy(u => u.Sectionid).ToListAsync();
+        return await _db.Sections.Where(u => u.Isdeleted == false).OrderBy(u => u.Sectionid).ToListAsync();
     }
 
     public async Task<List<Table>> GetTablesBySectionIdAsync(int sectionId)

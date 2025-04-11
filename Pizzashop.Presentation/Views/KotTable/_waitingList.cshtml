@@ -4,6 +4,7 @@
 <table class="table">
   <thead>
     <tr>
+      <th></th>
       <th>ID</th>
       <th>NAME</th>
       <th>No Of Person</th>
@@ -13,10 +14,14 @@
     @foreach (var item in Model)
     {
         <tr>
+          <td>
+            <span  class="form-check" >
+         <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+         </span>
+        </td>
             <th>@item.Id</th>
             <td>@item.Name</td>
-            <td>@item.NoOfPerson</td>
+            <td class="ps-5" >@item.NoOfPerson</td>
         </tr>
     }
-  </tbody>
-</table>
+  </tbodtd
