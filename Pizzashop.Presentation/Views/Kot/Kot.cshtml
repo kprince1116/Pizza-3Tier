@@ -3,10 +3,11 @@
     ViewData["Title"] = "KOT";
     ViewBag.Active = "Kot";
 }
+
 @model Pizzashop.DAL.ViewModels.Kotviewmodel
 
 <link rel="stylesheet" href="~/css/Kot.css" asp-append-version="true"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
 
 <div class="kot-container">
 
@@ -18,15 +19,15 @@
     <!-- Item Tab -->
     <div class="row border rounded kot-list-tab bg-white">
        <div class="d-flex nav kot-nav" id="nav-tab" role="tablist" >
-            <button class="nav-link tab-btn active d-flex align-items-center" data-tab-id="0">
+            <button class="nav-link tab-btn active-tab d-flex align-items-center" id="all-content" data-tab-id="0">
                 <div>All</div>
             </button>   
             
                 @foreach (var tab in Model.Categories)
                 {
-                    <button class="nav-link tab-btn d-flex align-items-center"
-                            data-tab-id="@tab.Categoryid">
-                        <div class="text-nowrap" >@tab.Name</div>
+                    <button class="nav-link tab-btn d-flex align-items-center tab-category" data-category-name="@tab.Name"
+                           category-id="@tab.Categoryid" data-tab-id="@tab.Categoryid">
+                        <div class="text-nowrap">@tab.Name</div>
                     </button>
                 }
             
@@ -37,13 +38,13 @@
     <div class="tab-content mt-3">
         <!-- All Content -->
         <div class="tab-pane" id="content-0" style="display: block;">
-            <div class="d-flex justify-content-between mb-3 " >
-            <h3 style="color: #0066A7;">All </h3>  
+            <div class="d-flex justify-content-between mb-3">
+            <h3 style="color: #0066A7;" id="activecategoryName">All </h3>  
             <div class="d-flex gap-2" >
-                <a href="@Url.Action("Kot", "Kot", new { status = "In Progress" , categoryId="0" })" id="inProgressBtn"  class="inprogress-ready-btn active  @(ViewContext.RouteData.Values["controller"].ToString() == "Kot" && ViewContext.RouteData.Values["action"].ToString() == "Kot" ? "active" : "")" style=" text-decoration: none;">
+                <a id="inProgressBtn" class="inprogress-ready-btn tab-btn-content active-content" style=" text-decoration: none;">
             In Progress
         </a>
-        <a href="@Url.Action("Kot", "Kot", new { status = "Ready" , categoryId ="0" })" id="readyBtn"  class="inprogress-ready-btn" style="text-decoration: none;">
+        <a  id="readyBtn"  class="inprogress-ready-btn tab-btn-content" style="text-decoration: none;">
             Ready
         </a>
          <button class="btn light-btn next-back-btn" onclick="backslide()" >
@@ -56,79 +57,8 @@
             </div>
 
             <div class="KOT-Card-List-Container">
-    <div class="card-wrapper d-flex gap-2" id="cardWrapper">
-         @foreach(var card in Model.OrderDetails) 
-    {
-          @if(card.Items.Count > 0)
-            
-            @* /*---------------------------------- Kot Cards --------------------------*/ *@
-          {
-            <div class="d-flex flex-column KOT-Card mb-4 card-details" id="order-card" data-status="@card.OrderStatus" data-orderid="@card.orderId">
-         
-                <div class="d-flex flex-column Card-Header justify-content-between">
-                    <div class="d-flex justify-content-between">
-                        <span class="special-color fw-bold">
-                        #@card.OrderNo
-                        </span>
-                        <span class="text-secondary d-flex align-items-center order-time">
-                            <i class="bi bi-stopwatch me-1"></i>
-                            <span class="time-difference" data-datecounter="@card.OrderDate.ToString("yyyy-MM-ddTHH:mm:ss")">
-                                <span class="kotDatecountertext"></span>
-                            </span>
-                        </span>
-
-                    </div>
-                    <div class="d-flex justify-content-start align-items-center fw-bold">
-                        <span class="">
-                            @card.SectionName
-                        </span>
-                        <i class="bi bi-dot"></i>
-                       @foreach(var table in card.TableNo)
-                       {
-                        <span>@table.TableName</span>
-                       }
-                    </div>
-                </div>
-                
-                <div class="d-flex flex-column Card-Content">
-
-                    @for(int i = 0; i < card.Items.Count; i++)
-                    {
-                        <div class="d-flex flex-column">
-                            <div class="d-flex justify-content-between">
-                                <div>@card.Items[i].ItemName</div>
-                                <dir>
-                                    @if(Model.OrderDetails[i].OrderStatus == "In Progress")
-                                    {
-                                        @card.Items[i].PendigQuantity
-                                    }
-                                    else if(Model.OrderDetails[i].OrderStatus == "Ready")
-                                    {
-                                        @card.Items[i].ReadyQuantity
-                                    }
-                                </dir>
-                            </div>
-                           
-                            <ul>
-                                @foreach(var modifier in card.Items[i].Modifiers)
-                                {
-                                    <li>@modifier.ModifierName</li>
-                                }
-                            </ul>
-
-                        </div>
-                    }
-                </div>
-
-
-     
-                <div class="Card-Footer flex-wrap">
-                    <span class="special-color fw-bold">Order Instruction :</span>
-                </div>
-            </div>
-            }
-    }    
-
+    <div class="card-wrapper d-flex gap-2 " id="cardWrapper">
+      
     </div>
 
             </div>
@@ -136,113 +66,8 @@
         </div>
 
         <!-- Dynamic Content for Each Category -->
-        @foreach (var tab in Model.Categories)
-        {
-            <div class="tab-pane" id="content-@tab.Categoryid" style="display: none;">
-                  <div class="d-flex justify-content-between mb-3">
-                <h3 style="color: #0066A7;" >@tab.Name</h3>
-                
-                <div class="d-flex gap-2" >
-                <div onclick="navigateToStatus('In Progress', '@tab.Categoryid')" class="inprogress-ready-btn text-nowrap active" style="text-decoration: none;">
-                     In Progress
-                 </div>
-                 <div onclick="navigateToStatus('Ready', '@tab.Categoryid')" class="inprogress-ready-btn" style="text-decoration: none;">
-                     Ready
-                 </div>
-         <button class="btn light-btn next-back-btn" onclick="nextslide()">
-            
-        </button>
-        <button class="btn light-btn next-back-btn" onclick="backslide()">
-            >
-        </button>
-            </div>   
-            </div>
-
-            <div class="KOT-Card-List-Container">
-             <div class="card-wrapper d-flex gap-2" id="cardWrapper" >
-
-         @foreach(var card in Model.OrderDetails) 
-    {
-            @* /*---------------------------------- Kot Cards --------------------------*/ *@
-
-             if (card.Items.Any(item => item.CategoryId == tab.Categoryid))
-             {
-            <div class="d-flex flex-column KOT-Card mb-4" id="order-card-item" data-status="@card.OrderStatus" data-orderid="@card.orderId">
-
-                @* /*--------------- Header ------------*/ *@
-                <div class="d-flex flex-column Card-Header justify-content-between"  >
-                    <div class="d-flex justify-content-between">
-                        <span class="special-color fw-bold">
-                        #@card.OrderNo
-                        </span>
-                        <span class="text-secondary d-flex align-items-center order-time">
-                            <i class="bi bi-stopwatch me-1" ></i>
-                             <span class="time-difference" data-datecounter="@card.OrderDate.ToString("yyyy-MM-ddTHH:mm:ss")">
-                                <span class="kotDatecountertext"></span>
-                            </span>
-                        </span>
-
-                    </div>
-                    <div class="d-flex justify-content-start align-items-center fw-bold">
-                        <span class="">
-                            @card.SectionName
-                        </span>
-                        <i class="bi bi-dot"></i>
-                       @foreach(var table in card.TableNo)
-                       {
-                        <span>@table.TableName</span>
-                       }
-                    </div>
-                </div>
-
-
-                @* /*--------------- Item List ------------*/ *@
-                
-                <div class="d-flex flex-column Card-Content">
-
-                    @for(int i = 0; i < card.Items.Count; i++)
-                    {
-                        <div class="d-flex flex-column">
-                            <div class="d-flex justify-content-between">
-                                <div>@card.Items[i].ItemName</div>
-                                <dir>
-                                    @if(Model.OrderDetails[i].OrderStatus == "In Progress")
-                                    {
-                                        @card.Items[i].PendigQuantity
-                                    }
-                                    else if(Model.OrderDetails[i].OrderStatus == "Ready")
-                                    {
-                                        @card.Items[i].ReadyQuantity
-                                    }
-                                </dir>
-                            </div>
-                           
-                            <ul>
-                                @foreach(var modifier in card.Items[i].Modifiers)
-                                {
-                                    <li>@modifier.ModifierName</li>
-                                }
-                            </ul>
-
-                        </div>
-                    }
-                </div>
-
-
-                @* /*--------------- Fooder ------------*/ *@
-                <div class="Card-Footer flex-wrap">
-                    <span class="special-color fw-bold">Order Instruction :</span>
-                </div>
-            </div>
-            }
-    }
         
-
-             </div>
-            </div>
-
-            </div>
-        }
+        
     </div>
     </div>
     
@@ -260,27 +85,15 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 @section Scripts {
-    
+
+
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const tabs = document.querySelectorAll('.tab-btn');
-        const contents = document.querySelectorAll('.tab-pane');
-
-        tabs.forEach(tab => {
-            tab.addEventListener('click', function() {
-                tabs.forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-
-                contents.forEach(content => content.style.display = 'none');
-                
-                const tabId = this.getAttribute('data-tab-id');
-                const activeContent = document.getElementById(`content-${tabId}`);
-                if (activeContent) {
-                    activeContent.style.display = 'block';
-                }
-            });
-        });
+    $(document).on("click", "#all-content", function () {
+        loaddata();
+         $(".tab-btn").removeClass("active-tab");
+        $(this).addClass("active-tab");
     });
+
 </script>
 
 <script>
@@ -337,14 +150,110 @@ function backslide() {
     }
 }
 
-</script>    
+</script>     
 
 <script>
-   function navigateToStatus(status, categoryId) {
-    const url = `/Kot/Kot?status=${status}&categoryId=${categoryId}`;
-    window.location.href = url;
-}
+ $(document).ready(function(){
+        loaddata();
+ });
 </script>
+
+<script>
+    function loaddata(){
+        $("#activecategoryName").text("All");
+        $.ajax({
+            url:"/Kot/KotData",
+            type:"GET",
+            data: {status: "In Progress", categoryId :0},
+            dataType:"html",
+            success: function (data) {
+                console.log("Response:",data);
+                $('#cardWrapper').html(data);
+                DateTimerKOT();
+
+            },
+            error: function (xhr, status, error) {
+                console.error("Error loading modal:", error);
+            }
+        });
+    }
+</script>
+
+<script>
+    $(document).on("click","#inProgressBtn",function(){
+        const categoryid = $('.active-tab').attr('category-id');
+        console.log("categoryid:",categoryid);
+
+        $.ajax({
+            url:"/Kot/KotData",
+            type:"GET",
+            data: {status: "In Progress", categoryId :categoryid},
+            dataType:"html",
+            success: function (data) {
+                $('#cardWrapper').html(data);   
+                document.querySelectorAll(".tab-btn-content").forEach(tab => {
+                    tab.classList.remove("active-content");
+                });
+                $(this).addClass("active-content"); 
+            }.bind(this),
+            error: function (xhr, status, error) {
+                console.error("Error loading modal:", error);
+            }
+        });
+    });
+</script>
+<script>
+        $(document).on("click","#readyBtn",function(){
+        const categoryid = $('.active-tab').attr('category-id');
+        console.log("categoryid:",categoryid);
+        $.ajax({
+            url:"/Kot/KotData",
+            type:"GET",
+            data: {status: "Ready", categoryId :categoryid},
+            dataType:"html",
+            success: function (data) {
+                $('#cardWrapper').html(data); 
+                document.querySelectorAll(".tab-btn-content").forEach(tab => {
+                    tab.classList.remove("active-content");
+                });
+                $(this).addClass("active-content");   
+            }.bind(this),
+            error: function (xhr, status, error) {
+                console.error("Error loading modal:", error);
+            }
+        });
+    })
+
+</script>
+
+<script>
+    $(document).on("click",".tab-category",function(){
+        var id = $(this).data("tab-id");
+        var categoryname = $(this).data("category-name");
+
+        $("#activecategoryName").text(categoryname?categoryname:"All");
+
+        console.log("id:",id);
+        $.ajax({
+            url:"/Kot/KotData",
+            type:"GET",
+            data: {status: "In Progress", categoryId :id},
+            dataType:"html",
+            success: function (data) {
+                $('#cardWrapper').html(data);
+                document.querySelectorAll(".tab-btn").forEach(tab => {
+                    tab.classList.remove("active-tab");
+                });
+                $(this).addClass("active-tab"); 
+            }.bind(this),
+            error: function (xhr, status, error) {
+                console.error("Error loading modal:", error);
+            }
+        });
+    })
+</script>
+
+
 
 <script>
     $(document).on("click","#order-card",function(){
@@ -369,29 +278,19 @@ function backslide() {
         });
     });
 
-    $(document).on("click","#order-card-item",function(){
-        var orderid = $(this).data("orderid");
-        var status = $(this).data("status");
-        console.log("OrdersIds:",orderid);
-
-        $.ajax({
-            url: '@Url.Action("ChangeQuantityModal", "Kot")',
-            type: 'GET',
-            data: { id: orderid , status: status  },
-            dataType: "html",
-            success: function (data) {
-                console.log("Response:",data);
-                $('#changeQuanityModalContainer').html(data);
-                $('#changeQuantityModal').modal('show');
-            },
-            error: function (xhr, status, error) {
-                console.error("Error loading modal:", error);
-            }
-        });
-    });
-</script>    
-
-
+</script>     
 
 }
+
+<style>
+    .active-tab{
+        color: #0066bb  !important;
+        border-bottom:3px solid #0066a7 !important;
+    }
+
+    .active-content{
+        color: white  !important;
+        background-color: #0066a7 !important;
+    }
+</style>
 

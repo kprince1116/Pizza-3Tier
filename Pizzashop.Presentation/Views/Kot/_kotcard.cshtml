@@ -1,24 +1,21 @@
 @model Pizzashop.DAL.ViewModels.Kotviewmodel
 
-    @foreach (var tab in Model.Categories)
+   @foreach(var card in Model.OrderDetails) 
     {
-    @foreach(var card in Model.OrderDetails) 
-    {
+          @if(card.Items.Count > 0)
+            
             @* /*---------------------------------- Kot Cards --------------------------*/ *@
-
-             if (card.Items.Any(item => item.CategoryId == tab.Categoryid))
-             {
-            <div class="d-flex flex-column KOT-Card mb-4" id="order-card-item" data-status="@card.OrderStatus" data-orderid="@card.orderId">
-
-                @* /*--------------- Header ------------*/ *@
-                <div class="d-flex flex-column Card-Header justify-content-between"  >
+          {
+            <div class="d-flex flex-column KOT-Card mb-4 card-details" id="order-card" data-status="@card.OrderStatus" data-orderid="@card.orderId">
+         
+                <div class="d-flex flex-column Card-Header justify-content-between">
                     <div class="d-flex justify-content-between">
                         <span class="special-color fw-bold">
                         #@card.OrderNo
                         </span>
                         <span class="text-secondary d-flex align-items-center order-time">
-                            <i class="bi bi-stopwatch me-1" ></i>
-                             <span class="time-difference" data-datecounter="@card.OrderDate.ToString("yyyy-MM-ddTHH:mm:ss")">
+                            <i class="bi bi-stopwatch me-1"></i>
+                            <span class="time-difference" data-datecounter="@card.OrderDate.ToString("yyyy-MM-ddTHH:mm:ss")">
                                 <span class="kotDatecountertext"></span>
                             </span>
                         </span>
@@ -35,9 +32,6 @@
                        }
                     </div>
                 </div>
-
-
-                @* /*--------------- Item List ------------*/ *@
                 
                 <div class="d-flex flex-column Card-Content">
 
@@ -70,11 +64,10 @@
                 </div>
 
 
-                @* /*--------------- Fooder ------------*/ *@
+     
                 <div class="Card-Footer flex-wrap">
                     <span class="special-color fw-bold">Order Instruction :</span>
                 </div>
             </div>
             }
-    }
-    }
+    }    

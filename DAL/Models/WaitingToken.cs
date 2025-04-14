@@ -13,8 +13,6 @@ public partial class WaitingToken
 
     public int? SectionId { get; set; }
 
-    public int? TableId { get; set; }
-
     public bool? IsDeleted { get; set; }
 
     public bool? IsAssigned { get; set; }
@@ -27,6 +25,8 @@ public partial class WaitingToken
 
     public DateTime? ModifiedDate { get; set; }
 
+    public DateTime? AssignedTime { get; set; }
+
     public virtual User? CreatedByNavigation { get; set; }
 
     public virtual Customer? Customer { get; set; }
@@ -34,6 +34,4 @@ public partial class WaitingToken
     public virtual User? ModifiedByNavigation { get; set; }
 
     public virtual Section? Section { get; set; }
-
-    public virtual Table? Table { get; set; }
 }

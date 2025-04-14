@@ -13,7 +13,16 @@ public class KotService : IKotService
     {
         _kotRepository = kotRepository;
     }
-
+    
+    public async Task<Kotviewmodel> GetCategories()
+    {
+        var category = await _kotRepository.GetCategories();
+        var categories = new Kotviewmodel
+        {
+            Categories = category,
+        };
+        return categories;
+    }
     public async Task<Kotviewmodel> GetKotDataAsync(string status,int categoryId)
     {
         return await _kotRepository.GetKotDataAsync(status,categoryId);

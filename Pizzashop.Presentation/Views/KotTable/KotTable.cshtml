@@ -86,7 +86,7 @@
                             <div class="accordion-body d-flex flex-wrap gap-3 justify-content-start align-items-center">
                                 @foreach (var j in i.Tables)
                                 {
-                                    <div class="card p-3 d-flex flex-column gap-2" id="selectTable" 
+                                    <div class="card p-3 d-flex flex-column gap-2 selectTable" 
                                     data-status = "@j.Status" data-table-id="@j.TableId"
                                         style="width: 270px;
                                 @(j.Status == "Available" ? "background-color:var(--table-available-bg)" : j.Status == "Assigned" ? "background-color: var(--table-assigned-bg)" : j.Status == "Running" ? "background-color: var(--table-running-bg)" : "") ">
@@ -114,7 +114,7 @@
                                 }
                             </div>
                             <div class="d-flex justify-content-end p-2">
-                                <button type="button" class="btn custom-btn-bg text-white assign-button" style="background-color: #0066bb;" data-bs-toggle="offcanvas"
+                                <button type="button" class="btn custom-btn-bg text-white assign-button" data-sectionid ="@i.SectionId" style="background-color: #0066bb;" data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                                     Assign
                                 </button>
@@ -139,56 +139,26 @@
        
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-     <div id="waitinglist">
+     
+    <div class="offcanvas-body">
+        <div id="waitinglist">
             
         </div>
-    <div class="offcanvas-body">
         <h5 class="custom-blue">Customer Detail</h5>
-        <form id="TableAssignForm" class="d-flex flex-column gap-3">
-            <div class="form-floating">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput">Email </label>
-            </div>
-            <div class="form-floating">
-                <input type="text" class="form-control" id="floatingPassword" placeholder="Name">
-                <label for="floatingPassword">Name</label>
-            </div>
-            <div class="form-floating">
-                <input type="Number" maxlength="10" class="form-control" id="floatingPassword" placeholder="Mobile No.">
-                <label for="floatingPassword">Mobile</label>
-            </div>
+        <div id="CustomerDetails">
+     
+        </div>
+    </div>
+</div>
 
-            <div class="d-flex justify-content-between gap-2 row">
-                <div class="col">
-                    <div class="form-floating ">
-                    <input type="number" class="form-control" id="ItemRateForAdd" value="" placeholder="No. Of Person">
-                    <label for="ItemRateForAdd">No. Of Person</label>
-                    @* @ <span class="text-danger" asp-validation-for="Menuitem.Rate"></span> @ *@
-                </div>
-                </div>
-
-                    <select class="form-select col" name="SectionId">
-                    <option selected value="">Section</option>
-                   @* @foreach (var c in Model)
-                    {
-                        
-                        <option value=@c.SectionId>@c.SectionName</option>
-                        
-                    } *@
-                </select>
-      
-                
-               
-            </div>
-            <div class="d-flex justify-content-end gap-2">
-                 <button type="submit" class="btn custom-btn-bg text-white" style="background-color: #0066bb;" >Assign
-            </button>
-            <button type="button" class="btn custom-blue-border" style="border:2px solid #0066bb; color: #0066bb;" >Cancel</button>
-            </div>
-           
-        </form>
+@*Add Waiting Token Modal*@
+<div class="modal fade" id="waitingtokenmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
 
     </div>
+    
+  </div>
 </div>
 
 
@@ -220,11 +190,9 @@
 
 <script>
     $(document).ready(function(){
-
         $('.btn[data-bs-target="#offcanvasRight"]').prop('disabled', true);
 
-
-        $(document).on('click', '#selectTable', function () {
+        $(document).on('click', '.selectTable', function () {
         var tableStatus = $(this).data('status');
         var tableId = $(this).data('table-id');
 
@@ -250,7 +218,7 @@
     }
 
     const parentSection = $(this).closest('.accordion-item'); 
-    const anySelected = parentSection.find('#selectTable.selected').length > 0; 
+    const anySelected = parentSection.find('.selectTable.selected').length > 0; 
 
     parentSection.find('.btn[data-bs-target="#offcanvasRight"]').prop('disabled', !anySelected);
 });
@@ -277,49 +245,32 @@
 
 </script>    
 
+@*Open waiting modal and fetch section list*@
 <script>
     function openWaitingTokenModal(button){
     const sectionId = button.getAttribute('data-sectionid');
-    @* const modal = new bootstrap.Modal(document.getElementById('waitingtokenmodal')); *@
-
-    
+    @* const modal = new bootstrap.Modal(document.getElementById('waitingtokenmodal')); *@  
 
     @* modal.show(); *@
         $.ajax({
             type: "GET",
             url: '@Url.Action("openWaitingTokenModal", "KotTable")',
             success : function(data){
-                console.log("Data from server:", data);
                 $('#waitingtokenmodal .modal-content').html(data);
                 $("#sectionwaitingtoken").val(sectionId);
-                @* $("#sectionwaitingtokenHidden").val(sectionId);  *@
-                console.log("Selected Section ID:", sectionId);
                 $('#waitingtokenmodal').modal('show');
             }
         })
     }
 </script>
 
-
-<div class="modal fade" id="waitingtokenmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-
-    </div>
-    
-  </div>
-</div>
-
+@*Add Waiting Token*@
 <script>
-  
    $(document).ready(function () {
     $(document).on('submit','#addWaitingTokenForm', function (e) {
-        e.preventDefault(); // Prevent the default form submission
+        e.preventDefault(); 
 
-        // Create a FormData object from the form
-        var formData = new FormData(this); // Ensure 'this' refers to the form
-
-        console.log("Form data:", formData);
+        var formData = new FormData(this); 
 
         $.ajax({
             url: '@Url.Action("AddWaitingToken", "KotTable")',
@@ -341,22 +292,105 @@
         });
     });
 });
-
 </script> 
 
+@*Open Off canvas and get waiting list*@
 <script>
+        var sectionId;
         $(document).off("click",".assign-button").on("click" , ".assign-button" , function(e){
-            e.preventDefault();
+            e.preventDefault();      
+
+            var sectionid = $(this).data("sectionid");
+            sectionId = sectionid;
+
             $.ajax({
             type: "GET",
             url: "/KotTable/GetWaitingList",
+            data: { id: sectionid },
             success: function(data){
-            console.log("Data from server:", data);
-            console.log("vansho")
             $('#waitinglist').html(data);
+            $.ajax({
+            type: "GET",
+            url: "/KotTable/GetCustomerDetail",
+            data: { id: 0 },
+            success: function(data){
+                $('#CustomerDetails').html(data);
+                $("#sectionwaitingtoken").val(sectionId);
             }
         });
+            }
         });
-        
-    
+        });  
+</script>
+
+@*Append Customer Data From Waiting List*@
+<script>
+    $(document).off("change",".radio-btn").on("change",".radio-btn",function(){
+        var selectedId = $(this).data("id");
+        console.log("Selected ID:", selectedId);
+
+        $.ajax({
+            type: "GET",
+            url: "/KotTable/GetCustomerDetail",
+            data: { id: selectedId },
+            success: function(data){
+                $('#CustomerDetails').html(data);
+            }
+        });
+    });
+</script>
+
+<script>
+    $('.btn-close').on('click', function () {
+        console.log("Offcanvas closed");
+        $("#TableAssignForm")[0].reset();
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $(document).on('submit','#TableAssignForm', function (e) {
+            e.preventDefault();
+
+            var selectedTables = [];
+          
+           $(".selected").each(function () { 
+            var TableId = $(this).data("table-id");
+            selectedTables.push(TableId);     
+        });
+
+            console.log("Selected Tables:", selectedTables);
+
+            var formData = new FormData(this);
+
+            formData.append("SelectedTables", JSON.stringify(selectedTables));
+
+            console.log("Form Data:",formData);
+           
+            $.ajax({
+                type: 'POST',
+                url: "/KotTable/AssignTable",
+                data: formData,
+                processData: false, 
+                contentType: false, 
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success("Table Assigned Successfully");
+
+                        var offcanvas = bootstrap.Offcanvas.getInstance(document.getElementById('offcanvasRight'));
+                        if (offcanvas) {
+                            offcanvas.hide();
+                        }
+
+                        $('#TableAssignForm')[0].reset();
+                    } else {
+                        toastr.error(response.message);
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while assigning the table.");
+                }
+            });
+        });
+    });
 </script>

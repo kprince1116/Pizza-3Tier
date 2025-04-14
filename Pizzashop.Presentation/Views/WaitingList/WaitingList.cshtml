@@ -22,6 +22,7 @@
         <div class=" d-flex justify-content-center gap-2 active-tab tab-btn p-3" id="all-content" data-bs-toggle="tab"
             data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false" data-tab-id=0 >
             <div class="fw-bolder active">All</div>
+            <div>@Model.sections.Count</div>
 
         </div>
         @foreach (var c in Model.sections)
@@ -29,6 +30,7 @@
             <div class="section-tab d-flex justify-content-center gap-2 p-3 text-nowrap tab-btn" id='nav-tab-@c.Sectionid'
                 data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-@c.Sectionid" data-section-id=@c.Sectionid >
                 <div class="fw-bolder" section-id="@c.Sectionid">@c.SectionName</div>
+                <div>@c.WaitingTokens.Count</div>
             </div>
         }
 
@@ -37,7 +39,6 @@
     <div class="order_list_container shadow mt-3 bg-white">
         <div class="carousel-container">
             <div id="waitlist">
-                @* @Html.Partial("_waitingListPartialView")  *@
             </div>
         </div>
     </div>

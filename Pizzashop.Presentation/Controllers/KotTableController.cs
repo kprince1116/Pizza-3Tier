@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Pizzashop.Presentation.Controllers;
 
-using System.Formats.Asn1;
+using System.Collections.Generic;
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Pizzashop.DAL.ViewModels;
 
@@ -43,12 +44,47 @@ public class KotTableController : Controller
         }
     }
     
-    public async Task<IActionResult> GetWaitingList()
+    public async Task<IActionResult> GetWaitingList(int id)
     {
-        var waitingList = await _kotTableService.GetWaitingList();
+        var waitingList = await _kotTableService.GetWaitingList(id);
         return PartialView("_WaitingList", waitingList);
     }
 
- 
+    public async Task<IActionResult> GetCustomerDetail(int id)
+    {
+        var customerDetails = await _kotTableService.GetCustomerDetails(id);
+        return PartialView("_CustomerDetails", customerDetails);
+    }
+
+    [HttpPost]
+
+        public async Task<IActionResult> AssignTable(waitingtokenviewmodel model, string SelectedTables)
+{
+    try
+    {
+
+        var tableIds = JsonSerializer.Deserialize<List<int>>(SelectedTables);
+
+        foreach (var tableId in tableIds)
+        {
+            model.tableId = tableId;
+
+            var result = await _kotTableService.AssignTable(model);
+
+            if (!result)
+            {
+                return Content($"Error assigning table with ID {tableId}.");
+            }
+        }
+
+        return RedirectToAction("KotTable", "KotTable");
+    }
+    catch (Exception ex)
+    {
+        return Content($"An unexpected error occurred: {ex.Message}");
+    }
+}
+
+    
 }
 

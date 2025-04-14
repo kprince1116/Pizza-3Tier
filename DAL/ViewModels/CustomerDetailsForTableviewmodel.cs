@@ -1,8 +1,9 @@
+
 using DAL.Models;
 
 namespace Pizzashop.DAL.ViewModels;
 
-public class waitingtokenviewmodel
+public class CustomerDetailsForTableviewmodel
 {
     public int Id { get; set; }
 
@@ -15,14 +16,9 @@ public class waitingtokenviewmodel
 
     public int NoOfPerson { get; set; }
 
-    public DateTime CreatedAt { get; set; }
-
-    public int tableId { get; set; }
-
     public int sectionId { get; set; }
 
     public string sectionName { get; set; }
 
     public List<Section> sections { get; set; }
-
 }

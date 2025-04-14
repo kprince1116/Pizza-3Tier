@@ -15,11 +15,17 @@ public class KotController : Controller
     {
         _kotService = kotService;
     }
-    public async Task<IActionResult> Kot(string status = "In Progress", int categoryId = 0)
+
+    public async Task<IActionResult> Kot()
+    {
+        var categories = await _kotService.GetCategories();
+        return View(categories);
+    }
+    public async Task<IActionResult> KotData(string status = "In Progress", int categoryId = 0)
     {
         var kotData = await _kotService.GetKotDataAsync(status, categoryId);
         ViewBag.ActivateCategoryId = categoryId;
-        return View(kotData);
+        return  PartialView("_kotcard",kotData);
     }
 
     public async Task<IActionResult> ChangeQuantityModal( int id , string status) 

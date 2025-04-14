@@ -26,8 +26,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\Project\\3Tier\\DAL\\DAL.csproj": {
-                "projectPath": "D:\\Project\\3Tier\\DAL\\DAL.csproj"
+              "d:\\Project\\3Tier\\DAL\\DAL.csproj": {
+                "projectPath": "d:\\Project\\3Tier\\DAL\\DAL.csproj"
               }
             }
           }
@@ -87,14 +87,14 @@
         }
       }
     },
-    "D:\\Project\\3Tier\\DAL\\DAL.csproj": {
+    "d:\\Project\\3Tier\\DAL\\DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\3Tier\\DAL\\DAL.csproj",
+        "projectUniqueName": "d:\\Project\\3Tier\\DAL\\DAL.csproj",
         "projectName": "DAL",
-        "projectPath": "D:\\Project\\3Tier\\DAL\\DAL.csproj",
+        "projectPath": "d:\\Project\\3Tier\\DAL\\DAL.csproj",
         "packagesPath": "C:\\Users\\pca187\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\3Tier\\DAL\\obj\\",
+        "outputPath": "d:\\Project\\3Tier\\DAL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\pca187\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -193,8 +193,8 @@
               "D:\\Project\\3Tier\\BAL\\BAL.csproj": {
                 "projectPath": "D:\\Project\\3Tier\\BAL\\BAL.csproj"
               },
-              "D:\\Project\\3Tier\\DAL\\DAL.csproj": {
-                "projectPath": "D:\\Project\\3Tier\\DAL\\DAL.csproj"
+              "d:\\Project\\3Tier\\DAL\\DAL.csproj": {
+                "projectPath": "d:\\Project\\3Tier\\DAL\\DAL.csproj"
               }
             }
           }

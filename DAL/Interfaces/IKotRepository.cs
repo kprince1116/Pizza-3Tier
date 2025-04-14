@@ -5,6 +5,8 @@ namespace DAL.Interfaces;
 
 public interface IKotRepository
 {
+
+        Task<List<MenuCategory>> GetCategories();
         Task<Kotviewmodel> GetKotDataAsync(string status,int categoryId);
 
         Task<OrderCardviewmodel> GetKotDetailsAsync(int id,string status);

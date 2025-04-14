@@ -676,6 +676,7 @@ public partial class PizzaShopContext : DbContext
             entity.Property(e => e.CreatedDate)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("created_date");
+            entity.Property(e => e.CustomerId).HasColumnName("customer_id");
             entity.Property(e => e.Isavailable)
                 .HasDefaultValueSql("true")
                 .HasColumnName("isavailable");
@@ -693,6 +694,10 @@ public partial class PizzaShopContext : DbContext
             entity.Property(e => e.TableName)
                 .HasMaxLength(250)
                 .HasColumnName("table_name");
+
+            entity.HasOne(d => d.Customer).WithMany(p => p.Tables)
+                .HasForeignKey(d => d.CustomerId)
+                .HasConstraintName("tables_customer_id_fkey");
 
             entity.HasOne(d => d.Section).WithMany(p => p.Tables)
                 .HasForeignKey(d => d.Sectionid)
@@ -880,6 +885,9 @@ public partial class PizzaShopContext : DbContext
             entity.ToTable("waiting_token");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.AssignedTime)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("assigned_time");
             entity.Property(e => e.CreatedBy).HasColumnName("created_by");
             entity.Property(e => e.CreatedDate)
                 .HasColumnType("timestamp without time zone")
@@ -897,7 +905,6 @@ public partial class PizzaShopContext : DbContext
                 .HasColumnName("modified_date");
             entity.Property(e => e.NoOfPersons).HasColumnName("no_of_persons");
             entity.Property(e => e.SectionId).HasColumnName("section_id");
-            entity.Property(e => e.TableId).HasColumnName("table_id");
 
             entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.WaitingTokenCreatedByNavigations)
                 .HasForeignKey(d => d.CreatedBy)
@@ -914,10 +921,6 @@ public partial class PizzaShopContext : DbContext
             entity.HasOne(d => d.Section).WithMany(p => p.WaitingTokens)
                 .HasForeignKey(d => d.SectionId)
                 .HasConstraintName("waiting_token_section_id_fkey");
-
-            entity.HasOne(d => d.Table).WithMany(p => p.WaitingTokens)
-                .HasForeignKey(d => d.TableId)
-                .HasConstraintName("waiting_token_table_id_fkey");
         });
 
         OnModelCreatingPartial(modelBuilder);

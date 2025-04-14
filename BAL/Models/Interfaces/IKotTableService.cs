@@ -11,5 +11,9 @@ public interface IKotTableService
 
     Task<List<Section>> GetSectionList();
 
-    Task<List<waitingtokenviewmodel>> GetWaitingList();
+    Task<List<waitingtokenviewmodel>> GetWaitingList(int id);
+
+    Task<CustomerDetailsForTableviewmodel> GetCustomerDetails(int id);
+
+    Task<bool> AssignTable(waitingtokenviewmodel model);
 }

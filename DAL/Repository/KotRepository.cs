@@ -14,6 +14,11 @@ public class KotRepository : IKotRepository
         _db = db;
     }
 
+    public async Task<List<MenuCategory>> GetCategories()
+    {
+        var categories = await _db.MenuCategories.Where(u => u.IsDeleted == false).OrderBy(u => u.Categoryid).ToListAsync();
+        return categories;
+    }
     public async Task<Kotviewmodel> GetKotDataAsync(string status,int categoryId)
     {
 

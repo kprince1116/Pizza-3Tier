@@ -16,12 +16,12 @@ public class WaitingRepository : IWaitingRepository
 
     public async Task<List<Section>> GetSections()
     {
-        return await _db.Sections.Where(u=>u.Isdeleted == false).OrderBy(u=>u.Sectionid).ToListAsync();
+        return await _db.Sections.Include(s => s.WaitingTokens.Where(w => w.IsDeleted == false && w.IsAssigned == false)).Where(u=>u.Isdeleted == false).OrderBy(u=>u.Sectionid).ToListAsync();
     }
 
     public async Task<List<waitingtokenviewmodel>> GetWaitingList(int sectionId)
     {
-        var waitingList = await _db.WaitingTokens.Include(u=>u.Customer).Include(u=>u.Section).Where(u=>u.IsDeleted==false).
+        var waitingList = await _db.WaitingTokens.Include(u=>u.Customer).Include(u=>u.Section).Where(u=>u.IsDeleted==false && u.IsAssigned==false).
                                                     Select(u=> new waitingtokenviewmodel
                                                     {
                                                         Id = u.Id,

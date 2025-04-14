@@ -2,7 +2,6 @@ using DAL.Interfaces;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using Pizzashop.DAL.ViewModels;
-using static System.Collections.Specialized.BitVector32;
 
 namespace DAL.Repository;
 
@@ -15,7 +14,7 @@ public class KotTableRepository : IKotTableRepository
         _db = db;
     }
 
-    public async Task<List<Models.Section>> GetSections()
+    public async Task<List<Section>> GetSections()
     {
         return await _db.Sections.Where(u => u.Isdeleted == false).OrderBy(u => u.Sectionid).ToListAsync();
     }
@@ -83,9 +82,9 @@ public class KotTableRepository : IKotTableRepository
         }
     }
 
-        public async Task<List<waitingtokenviewmodel>> GetWaitingList()
+        public async Task<List<waitingtokenviewmodel>> GetWaitingList(int id)
         {
-            var waitinglist = await _db.WaitingTokens.Include(u=>u.Customer).Where(u=>u.IsDeleted == false)
+            var waitinglist = await _db.WaitingTokens.Include(u=>u.Customer).Where(u=> u.SectionId == id && u.IsDeleted == false && u.IsAssigned == false )
             .Select(u=> new waitingtokenviewmodel
             {
                Id = u.Id,
@@ -95,5 +94,55 @@ public class KotTableRepository : IKotTableRepository
 
             return waitinglist;
         }
+
+    public async Task<WaitingToken> GetCustomerDetails(int id)
+    {
+        var customer = await _db.WaitingTokens
+        .Where(u => u.Id == id && u.IsDeleted == false)
+        .Include(u=>u.Customer) 
+        .Include(u=>u.Section)
+        .FirstOrDefaultAsync();
+        
+        return customer;
+    }
+
+    public async Task UpdateTables(Table tables)
+    {
+        try
+        {
+         _db.Tables.Update(tables);
+        await _db.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            
+            Console.WriteLine(e);
+        }
+       
+    }
+
+    public async Task AddCustomer(Customer newcustomer)
+    {
+        try
+        {
+             _db.Customers.Add(newcustomer);
+            await _db.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+    }
+
+     public async Task UpdateCustomer(WaitingToken model)
+     {
+        _db.WaitingTokens.Update(model);
+        await _db.SaveChangesAsync();
+     }
+
+    public async Task<Table> GetTablesByIdAsync(int tableId)
+    {
+        return await _db.Tables.FirstOrDefaultAsync(u => u.Tableid == tableId && u.Isdeleted == false);
+    }
    
 }
