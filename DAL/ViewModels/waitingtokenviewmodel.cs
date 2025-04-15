@@ -5,7 +5,6 @@ namespace Pizzashop.DAL.ViewModels;
 public class waitingtokenviewmodel
 {
     public int Id { get; set; }
-
     public int customerId { get; set; }
     public string Email {get; set;}
 

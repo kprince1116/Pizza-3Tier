@@ -115,7 +115,6 @@ public class KotRepository : IKotRepository
             orderItem.ReadyItem = orderItem.ReadyItem - quantity;
         }
       
-
         _db.OrderItems.Update(orderItem);
 
          await _db.SaveChangesAsync();

@@ -123,7 +123,6 @@
                     </div>
                 </div>
             </div>
-
         }
     </div>
 
@@ -341,6 +340,22 @@
 </script>
 
 <script>
+    $(document).off("change","#CustomerEmail").on("change","#CustomerEmail",function(){
+        var selectedEmail = $(this).val().trim();
+        console.log("Selected email:", selectedEmail);
+
+        $.ajax({
+            type: "GET",
+            url: "/KotTable/GetCustomerDetailByEmail",
+            data: { Email: selectedEmail },
+            success: function(data){
+                $('#CustomerDetails').html(data);
+            }
+        });
+    });
+</script>
+
+<script>
     $('.btn-close').on('click', function () {
         console.log("Offcanvas closed");
         $("#TableAssignForm")[0].reset();
@@ -376,15 +391,12 @@
                 success: function (response) {
                     if (response.success) {
                         toastr.success("Table Assigned Successfully");
-
                         var offcanvas = bootstrap.Offcanvas.getInstance(document.getElementById('offcanvasRight'));
                         if (offcanvas) {
                             offcanvas.hide();
                         }
-
-                        $('#TableAssignForm')[0].reset();
                     } else {
-                        toastr.error(response.message);
+                        toastr.error("Table is not asigned");
                     }
                 },
                 error: function () {

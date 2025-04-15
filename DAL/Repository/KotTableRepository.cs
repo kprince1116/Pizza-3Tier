@@ -106,6 +106,16 @@ public class KotTableRepository : IKotTableRepository
         return customer;
     }
 
+    public Task<Customer> GetCustomerDetailsByEmail(string email)
+    {
+        var customer = _db.Customers
+            .Include(u => u.WaitingTokens.Where(w => w.IsAssigned == false && w.IsDeleted == false))
+            .Where(u => u.Customeremail == email && u.Isdelete == false)
+            .FirstOrDefaultAsync();
+
+        return customer;
+    }
+
     public async Task UpdateTables(Table tables)
     {
         try
@@ -143,6 +153,11 @@ public class KotTableRepository : IKotTableRepository
     public async Task<Table> GetTablesByIdAsync(int tableId)
     {
         return await _db.Tables.FirstOrDefaultAsync(u => u.Tableid == tableId && u.Isdeleted == false);
+    }
+
+    public async Task<Customer> GetCustomerFromCustomerTable(int id)
+    {
+        return await _db.Customers.FirstOrDefaultAsync(u => u.Customerid == id && u.Isdelete == false);
     }
    
 }

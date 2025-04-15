@@ -1,10 +1,10 @@
 @model Pizzashop.DAL.ViewModels.CustomerDetailsForTableviewmodel
 
 <form id="TableAssignForm" class="d-flex flex-column gap-3">
-           <input type="hidden" asp-for = "@Model.Id">
-           <input type="hidden"  asp-for="@Model.customerId">
+           <input type="hidden" asp-for="@Model.Id">
+           <input type="hidden" asp-for="@Model.customerId">
             <div class="form-floating">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" asp-for="@Model.Email">
+                <input type="email"  class="form-control EmailId" id="CustomerEmail" placeholder="name@example.com" asp-for="@Model.Email">
                 <label for="floatingInput">Email </label>
             </div>
             <div class="form-floating">

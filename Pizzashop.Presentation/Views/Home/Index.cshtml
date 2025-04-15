@@ -21,7 +21,13 @@
              @if (TempData["AddSectionSuccess"] != null && (bool)TempData["AddSectionSuccess"])
             {
                 <text>
-                    showToastrNotification('success', 'Section in successfully!');
+                    showToastrNotification('success', 'Section Added successfully!');
+                </text>
+            }
+             @if (TempData["ProfileUpdateSuccess"] != null && (bool)TempData["ProfileUpdateSuccess"])
+            {
+                <text>
+                    showToastrNotification('success', 'Profile Updated successfully!');
                 </text>
             }
         });

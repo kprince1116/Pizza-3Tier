@@ -19,8 +19,11 @@ public class UserDetails : IUserDetails
     private readonly IUserRepository _userRepository;
     private readonly IConfiguration _configuration;
 
-    public UserDetails(IUserRepository userRepository, IConfiguration configuration)
+    private readonly IUserList _userList;
+
+    public UserDetails(IUserRepository userRepository, IConfiguration configuration , IUserList userList)
     {
+        _userList = userList;
         _userRepository = userRepository;
         _configuration = configuration;
     }
@@ -35,7 +38,9 @@ public class UserDetails : IUserDetails
             return null;
         }
 
-        return new ProfileViewmodel
+       
+
+       var viewModel = new ProfileViewmodel
         {
             Firstname = existingUser.Firstname,
             Lastname = existingUser.Lastname,
@@ -51,6 +56,12 @@ public class UserDetails : IUserDetails
             Zipcode = existingUser.Zipcode,
             userrole = existingUser.UserroleNavigation?.RoleName
         };
+
+        viewModel.countrylist = await _userList.GetCountriesAsync();
+        viewModel.statelist = await _userList.GetStatesAsync();
+        viewModel.citylist = await _userList.GetCitiesAsync();
+        
+        return viewModel;  
 
     }
 

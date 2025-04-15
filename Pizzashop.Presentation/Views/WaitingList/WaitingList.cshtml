@@ -19,18 +19,18 @@
     <div class="switching-tabs-section d-flex justify-content-start bg-white px-3 nav shadow overflow-auto flex-nowrap"
         role="tablist">
 
-        <div class=" d-flex justify-content-center gap-2 active-tab tab-btn p-3" id="all-content" data-bs-toggle="tab"
+        <div class=" d-flex justify-content-center align-items-center gap-2 active-tab tab-btn p-3" id="all-content" data-bs-toggle="tab"
             data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false" data-tab-id=0 >
             <div class="fw-bolder active">All</div>
-            <div>@Model.sections.Count</div>
-
+            <div style="font-size: 12px; width: 20px; height: 20px; background-color: gray; border-radius: 50%;" class="text-white m-0 p-0 d-flex align-items-center justify-content-center">@Model.TotalWaiting</div>
+         
         </div>
         @foreach (var c in Model.sections)
         {
-            <div class="section-tab d-flex justify-content-center gap-2 p-3 text-nowrap tab-btn" id='nav-tab-@c.Sectionid'
+            <div class="section-tab d-flex justify-content-center align-items-center gap-2 p-3 text-nowrap tab-btn" id='nav-tab-@c.Sectionid'
                 data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-@c.Sectionid" data-section-id=@c.Sectionid >
                 <div class="fw-bolder" section-id="@c.Sectionid">@c.SectionName</div>
-                <div>@c.WaitingTokens.Count</div>
+                <div style="font-size: 12px; width: 20px; height: 20px; background-color: gray; border-radius: 50%;" class="text-white m-0 p-0 d-flex align-items-center justify-content-center">@c.WaitingTokens.Count</div>
             </div>
         }
 
@@ -82,6 +82,16 @@
         <button type="submit" class="btn btn-primary">Yes</button>
         <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
       </form>
+    </div>
+  </div>
+</div>
+
+@*Assign waiting Token*@
+
+<div class="modal fade" id="AssignTable" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div id="AssignSection">
+
     </div>
   </div>
 </div>
@@ -242,9 +252,83 @@
     setInterval(DateTimerKOT, 1000);
 </script>
 
+@*Assign Table*@
+
+<script>
+  function openAssignTableModal(button) {
+    console.log("Button clicked:");
+    const sectionId = button.getAttribute('data-sectionid');
+    const customerId = button.getAttribute('data-customerid');
+    const waitingId = button.getAttribute('data-waitingid');
+    console.log("Section ID:", sectionId);
+    console.log("Customer ID:", customerId);
+    console.log("Waiting ID:", waitingId);
+
+    $.ajax({
+      type: "GET",
+      url: "/WaitingList/GetTableDeatails",
+      success: function (data) {
+         console.log("Data from server:", data);
+         $('#AssignSection').html(data);
+         $("#sectionselect").val(sectionId);
+         $("#customerselect").val(customerId);
+         $("#waitingselect").val(waitingId);
+         $(`.${sectionId}`).removeClass("d-none");
+         const assignModal = new bootstrap.Modal(document.getElementById('AssignTable'));
+         assignModal.show();
+      },
+      error: function (err) {
+        alert('An error occurred while loading the section list.');
+      }
+    });
+  }
+
+    $(document).on("submit","#PostTable",function(){
+        event.preventDefault();
+        var formData = new FormData(this);
+        console.log("Form data:", formData);
+
+        $.ajax({
+            url:  "/WaitingList/AssignTable",
+            type: 'POST',
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (response) {
+                if (response.success) {
+                    toastr.success("Table Assigned Succesfully");
+                    const modalElement = document.getElementById('AssignTable');
+                    const assignModal = bootstrap.Modal.getInstance(modalElement);
+                    if (assignModal) {
+                    assignModal.hide();
+                    }
+                } else {
+                     toastr.ward("TSomething Get Wrong");
+                }
+            },
+            error: function () {
+                alert('An error occurred while adding the waiting token.');
+            }
+        });
+    });
+
+</script>
+
+
 <style>
     .active-tab{
         color: #0066bb  !important;
         border-bottom:3px solid #0066a7 !important;
     }
+    @* .token-count {
+    background-color: grey;
+    color: white;
+    padding: 2px 1px 1px 2px;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    min-width: 24px;
+    text-align: center; *@
+}
+
 </style>

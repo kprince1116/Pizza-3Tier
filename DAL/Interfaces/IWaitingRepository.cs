@@ -15,4 +15,16 @@ public interface IWaitingRepository
 
     Task Update(WaitingToken waitingToken);
 
+    Task<List<Section>> GetTableDetails();
+
+    Task<List<Table>> GetTablesBySectionId(int id);
+
+    Task<WaitingToken> GetCustomerById(int id);
+
+    Task<Table> GetTableBySectionId(int id);
+
+    Task UpdateTable(Table tables);
+
+    Task UpdateCustomer( WaitingToken customer);
+
 }

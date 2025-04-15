@@ -100,6 +100,34 @@ public class KotTableService : IKotTableService
         return customer;
     }
 
+    public async Task<CustomerDetailsForTableviewmodel> GetCustomerDetailsByEmail(string email)
+    {
+         var section = await _kotTableRepository.GetSectionList();
+
+        if(email==null)
+        {
+            CustomerDetailsForTableviewmodel obj = new CustomerDetailsForTableviewmodel();
+            obj.sections = section;
+            return obj; 
+        }
+
+        var customerDetails = await _kotTableRepository.GetCustomerDetailsByEmail(email);
+
+        var customer = new CustomerDetailsForTableviewmodel
+        {
+            // Id = (int) customerDetails.Id,
+            customerId = (int) customerDetails.Customerid,
+            Name = customerDetails.Customername,
+            Phone = customerDetails.Phonenumber,
+            Email = customerDetails.Customeremail,
+            NoOfPerson =(int) customerDetails.TotalPersons,
+            sectionId = (int) customerDetails.WaitingTokens.FirstOrDefault().SectionId,
+            // sectionName = customerDetails.,
+            sections = section,
+        };
+
+        return customer;
+    }
       public async Task<bool> AssignTable(waitingtokenviewmodel model)
       {
         try
@@ -109,7 +137,12 @@ public class KotTableService : IKotTableService
 
           if (customer == null)
           {
-              var newcustomer = new Customer
+            
+            var existingcustomer = await _kotTableRepository.GetCustomerFromCustomerTable(model.customerId);
+
+            if(existingcustomer == null)
+            {
+                var newcustomer = new Customer
                 {
                     Customername = model.Name,
                     Customeremail = model.Email,
@@ -121,20 +154,41 @@ public class KotTableService : IKotTableService
 
                 tables.CustomerId = newcustomer.Customerid;
                 tables.Status = "Assigned";
+                tables.Isavailable = false;
+
+                  await _kotTableRepository.UpdateTables(tables);
+
+               return true;
+            }
+            else{
+                tables.CustomerId = existingcustomer.Customerid;
+                tables.Status = "Assigned";
+                tables.Isavailable = false;
+
+                  await _kotTableRepository.UpdateTables(tables);
+
+               return true;
+            }
+              
           }
 
           else
             {
           tables.CustomerId = model.customerId;
           tables.Status = "Assigned";
+          tables.Isavailable = false;
           customer.IsAssigned = true;
           customer.AssignedTime = DateTime.Now;
+
+              await _kotTableRepository.UpdateTables(tables);
+             await _kotTableRepository.UpdateCustomer(customer);
+
+                   return true;
             }
 
-        await _kotTableRepository.UpdateTables(tables);
-        await _kotTableRepository.UpdateCustomer(customer);
+        
 
-        return true;
+  
         }
         catch (Exception e)
         {

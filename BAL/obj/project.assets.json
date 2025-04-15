@@ -10935,8 +10935,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "d:\\Project\\3Tier\\DAL\\DAL.csproj": {
-              "projectPath": "d:\\Project\\3Tier\\DAL\\DAL.csproj"
+            "D:\\Project\\3Tier\\DAL\\DAL.csproj": {
+              "projectPath": "D:\\Project\\3Tier\\DAL\\DAL.csproj"
             }
           }
         }

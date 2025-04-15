@@ -149,7 +149,8 @@ public class MenuController : Controller
 
     }
 
-    [_AuthPermissionAttribute("Menu", ActionPermissions.CanAddEdit)]
+
+
      public async Task<IActionResult> EditItem(int id)
     {
         

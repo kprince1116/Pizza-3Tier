@@ -108,12 +108,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 @section Scripts {
 <script>
+
 $(document).ready(function () {
+
     const outerCheck = document.getElementById("permission-checkbox");
     const innerChecks = document.querySelectorAll(".inner-checkbox");
-    const canDeleteCheckboxes = document.querySelectorAll('.can-delete');
-    const canAddEditCheckboxes = document.querySelectorAll('.can-add-edit');
-    const canViewCheckboxes = document.querySelectorAll('.can-view');
 
     outerCheck.addEventListener("change", function () {
         innerChecks.forEach(checkbox => {
@@ -132,6 +131,10 @@ $(document).ready(function () {
         });
     });
 
+    const canDeleteCheckboxes = document.querySelectorAll('.can-delete');
+    const canAddEditCheckboxes = document.querySelectorAll('.can-add-edit');
+    const canViewCheckboxes = document.querySelectorAll('.can-view');
+
     const enableDisableAddEditDelete = (index) => {
         if (canViewCheckboxes[index].checked) {
             canAddEditCheckboxes[index].disabled = false;
@@ -139,14 +142,14 @@ $(document).ready(function () {
         } else {
             canAddEditCheckboxes[index].disabled = true;
             canDeleteCheckboxes[index].disabled = true;
-            canAddEditCheckboxes[index].checked = false; 
-            canDeleteCheckboxes[index].checked = false; 
+            canAddEditCheckboxes[index].checked = false;
+            canDeleteCheckboxes[index].checked = false;
         }
     };
 
     canViewCheckboxes.forEach((checkbox, index) => {
         checkbox.addEventListener('change', function () {
-            enableDisableAddEditDelete(index); 
+            enableDisableAddEditDelete(index);
         });
 
         enableDisableAddEditDelete(index);
@@ -167,7 +170,16 @@ $(document).ready(function () {
             }
         });
     });
+
+    $('form').submit(function (e) {
+        $('.inner-checkbox').each(function () {
+            if (!this.checked) {
+                $(this).siblings('input[type="hidden"]').val('');
+            }
+        });
+    });
 });
+
 
  $(document).ready(function () {
        

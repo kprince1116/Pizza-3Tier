@@ -15,5 +15,7 @@ public interface IKotTableService
 
     Task<CustomerDetailsForTableviewmodel> GetCustomerDetails(int id);
 
+    Task<CustomerDetailsForTableviewmodel> GetCustomerDetailsByEmail(string email);
+
     Task<bool> AssignTable(waitingtokenviewmodel model);
 }

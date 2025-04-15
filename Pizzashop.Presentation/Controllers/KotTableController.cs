@@ -55,7 +55,12 @@ public class KotTableController : Controller
         var customerDetails = await _kotTableService.GetCustomerDetails(id);
         return PartialView("_CustomerDetails", customerDetails);
     }
-
+    public async Task<IActionResult> GetCustomerDetailByEmail(string Email)
+    {
+        var customerDetails = await _kotTableService.GetCustomerDetailsByEmail(Email);
+        return PartialView("_CustomerDetails", customerDetails);
+    }
+  
     [HttpPost]
 
         public async Task<IActionResult> AssignTable(waitingtokenviewmodel model, string SelectedTables)
@@ -68,20 +73,15 @@ public class KotTableController : Controller
         foreach (var tableId in tableIds)
         {
             model.tableId = tableId;
-
+            
             var result = await _kotTableService.AssignTable(model);
-
-            if (!result)
-            {
-                return Content($"Error assigning table with ID {tableId}.");
-            }
         }
 
-        return RedirectToAction("KotTable", "KotTable");
+        return Json(new { success = true });
     }
     catch (Exception ex)
     {
-        return Content($"An unexpected error occurred: {ex.Message}");
+         return Json(new { success = false });
     }
 }
 

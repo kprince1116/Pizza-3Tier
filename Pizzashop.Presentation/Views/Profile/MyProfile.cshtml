@@ -66,8 +66,11 @@
                     <div class="row ps-3 pe-3 pt-3">
                         <div class="col-lg-4 pb-3">
                             <div class="form-floating">
-                                <select class="form-select" id="countrySelect" aria-label="Floating label select example" asp-for="Country"  >
-                                    <option selected>@Model.CountryName</option>
+                                <select class="form-select" id="countrySelect" aria-label="Floating label select example" asp-for="Country">
+                                     @foreach(var country in Model.countrylist)
+                                {
+                                    <option value="@country.Countryid">@country.Countryname</option>
+                                }   
                                 </select>
                                 <label for="countrySelect">Country</label>
                             </div>
@@ -75,15 +78,22 @@
                         <div class="col-lg-4 pb-3">
                             <div class="form-floating">
                                 <select class="form-select" id="stateSelect" aria-label="Floating label select example" asp-for="State" disabled >
-                                    <option selected>@Model.StateName</option>
+                                     @foreach(var state in Model.statelist)
+                                {
+                                    <option value="@state.Stateid">@state.Statename</option>
+                                }
+            
                                 </select>
                                 <label for="stateSelect">State</label>
                             </div>
                         </div>
                         <div class="col-lg-4 pb-3">
                             <div class="form-floating">
-                                <select class="form-select" id="citySelect" aria-label="Floating label select example" asp-for="City"disabled >
-                                    <option selected> @Model.CityName </option>
+                                <select class="form-select" id="citySelect" aria-label="Floating label select example" asp-for="City" disabled>
+                                   @foreach(var city in Model.citylist)
+                                {
+                                    <option value="@city.Cityid">@city.Cityname</option>
+                                }
                                 </select>
                                 <label for="citySelect">City</label>
                             </div>
@@ -122,13 +132,13 @@
 <script>
         $(document).ready(function () {
             
-            $.getJSON('/Profile/GetCountries', function (data) {    
+            @* $.getJSON('/Profile/GetCountries', function (data) {    
                 $.each(data, function (index, country) {
                     $('#countrySelect').append(`<option value="${country.countryid}">${country.countryname}</option>`); 
                     console.log("prince");
                     console.log(data); 
                 });
-            });
+            }); *@
 
             $('#countrySelect').change(function () {
                 var countryId = $(this).val();

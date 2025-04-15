@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 using BAL.Models.Interfaces;
 using DAL.Interfaces;
+using DAL.Models;
 using Pizzashop.DAL.ViewModels;
 
 
@@ -24,6 +25,7 @@ public class WaitingService : IWaitingService
         var waiting = new waitingviemodel
         {
             sections = section,
+            TotalWaiting = section.Sum(s=>s.WaitingTokens.Count(u=>u.IsDeleted == false && u.IsAssigned == false)),
         };
 
         return waiting;
@@ -89,6 +91,61 @@ public class WaitingService : IWaitingService
         waitingtoken.IsDeleted = true;
 
         await _waitingRepository.Update(waitingtoken);
+
+        return true;
+    }
+
+    public async Task<waitingviemodel> GetTableDetails()
+    {
+        var Sections = await _waitingRepository.GetTableDetails();
+    
+        var Tables = new List<waitingviemodel>();
+    
+        foreach(var section in Sections)
+        {
+            var tables= await _waitingRepository.GetTablesBySectionId(section.Sectionid);
+    
+              var waitingTable = new waitingviemodel
+                {
+                   AvailableTables = tables.Select(t=> new WaitingTable
+                   {
+                       sectionId = section.Sectionid,
+                       TableId = t.Tableid,
+                       Name = t.TableName,
+                   }).ToList(),
+                };
+    
+                Tables.Add(waitingTable);
+            
+        } 
+        
+        var table = new waitingviemodel
+        {
+            sections = Sections,
+            AvailableTables = Tables.SelectMany(t => t.AvailableTables).ToList()
+        };
+    
+        return table;
+    }
+
+    public async Task<bool> AssignTable(waitingtokenviewmodel model)
+    {
+        var customer = await _waitingRepository.GetCustomerById(model.Id);
+        var tables = await _waitingRepository.GetTableBySectionId(model.tableId);
+       
+       if(customer == null)
+       {
+        return false;
+       }
+
+       tables.CustomerId = model.customerId;
+       tables.Status = "Assigned";
+        tables.Isavailable = false;
+       customer.IsAssigned = true;
+       customer.AssignedTime = DateTime.Now;
+
+       await _waitingRepository.UpdateTable(tables);
+       await _waitingRepository.UpdateCustomer(customer);
 
         return true;
     }

@@ -1,3 +1,5 @@
+using DAL.Models;
+
 namespace Pizzashop.DAL.ViewModels;
 
 public class ProfileViewmodel
@@ -21,4 +23,8 @@ public class ProfileViewmodel
     public string Address { get; set; } = null!;
     public int Zipcode { get; set; }
     public string? userrole {get ; set;} 
+
+    public IEnumerable<Country> countrylist { get; set; } 
+    public IEnumerable<State> statelist { get; set; } 
+    public IEnumerable<City> citylist { get; set; } 
 }

@@ -407,13 +407,22 @@
         success: function (data) {
           $("#existingmodifiermodals").html(data);
           console.log("success");
-
         },
         error: function () {
           console.log("Error occurs");
         }
       });
     }
+
+    $("#ExistingModifierListSearch").on('input',function(){
+      console.log("successssssssssss");
+    changePageSizeForExistingModifiers();
+    });
+
+    $(document).on("click",".close-add-modal",function(){
+      $("#ExistingModifierListSearch").val("");
+      selectedExistingModifiers = [];
+    });
 
     function changePageSizeForExistingModifiers(pagNum) {
       let pagesize = $('#selectpagesizeForExistingModifiers').val();
@@ -955,8 +964,6 @@ function saveExistingModifiers() {
     $('#ModifierId').val(modifierId);
   });
 
-
-
 </script>
 
 <!--delete category -->
@@ -1446,17 +1453,17 @@ function saveExistingModifiers() {
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Add Existing Modifer Group</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close close-add-modal " data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
      
       <div class="modal-body" >
          <div class=" d-flex align-items-center gap-3  justify-content-start mt-5">
         <div class=" d-flex justify-content-start position-relative align-items-center ">
           <div class="d-flex justify-content-end position-relative align-items-center">
-            <input type="text" class="search form-control " style="height: 50px; width: 250px;" id="ExistingModifierListSearch"
+            <input type="text" class="search form-control " style="height: 50px; width: 250px;" id=""
               placeholder="Search" />
             <img src="~/images/icons/search.svg" alt="" style="width: 20px; aspect-ratio: 1"
-              class="bg-white position-absolute rounded-2 m-2" onclick="itemSearch()"/>
+              class="bg-white position-absolute rounded-2 m-2"/>
           </div>
         </div>
     </div>
@@ -1464,7 +1471,7 @@ function saveExistingModifiers() {
       <div id="existingmodifiermodals" ></div>
       <div class="modal-footer d-flex justify-content-start ">
         <button type="submit" onclick="saveExistingModifiers()" class="btn btn-primary">Add</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        <button type="button" class="btn btn-secondary close-add-modal" data-bs-dismiss="modal">
           Cancel
         </button>
       </div>

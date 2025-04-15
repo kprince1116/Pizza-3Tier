@@ -17,6 +17,8 @@ public interface IKotTableRepository
 
     Task<WaitingToken> GetCustomerDetails(int id);
 
+    Task<Customer> GetCustomerDetailsByEmail(string email);
+
     Task UpdateTables(Table tables);
 
     Task AddCustomer(Customer newcustomer);
@@ -24,4 +26,6 @@ public interface IKotTableRepository
     Task UpdateCustomer( WaitingToken model);
 
     Task<Table> GetTablesByIdAsync(int tableId);
+
+    Task<Customer> GetCustomerFromCustomerTable(int id);
 }

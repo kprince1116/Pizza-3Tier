@@ -19,7 +19,7 @@
                     <p class="fs-2 fw-bold" style="color: rgb(0, 102, 187);">Edit User</p>
                 </div>
                 <div class="me-4 ">
-    using iText.Forms.Xfdf;
+
                     <a asp-controller="User" asp-action="UserList"
                         class=" add-user border fw-bold text-center d-flex align-items-center justify-content-center px-2 py-0"
                         style="background-color: rgb(0, 102, 187); text-decoration: none; color: white; text-wrap: nowrap; height:45px; border-radius: 5px;">
@@ -30,7 +30,7 @@
             <form method="post" asp-controller="User" asp-action="EditUser" enctype="multipart/form-data"
                 class="bg-white border ms-4 me-4">
                 <input type="hidden" asp-for="UserId">
-                @* <input type="hidden" asp-for="Userrole"> *@
+                 @* <input type="hidden" asp-for="Userrole"> *@
                 @* <input type="hidden" asp-for="CountryId">
                 <input type="hidden" asp-for="StateId">
                 <input type="hidden" asp-for="CityId"> *@
@@ -61,13 +61,17 @@
                     </div>
                     <div class="col-lg-6 pb-3">
                         <div class="form-floating">
-                            <select class="form-select" asp-for="Userrole" id="RoleSelect"
-                                aria-label="Floating label select example">
-                                <option value="">@Model.UserRoleName</option>
-                            </select>
-                            <label for="RoleSelect">Role</label>
-                            <span asp-validation-for="Userrole" class="text-danger"></span>
-                        </div>
+                    <select asp-for="@Model.Userrole" class="form-select" aria-label="Floating label select example">
+                        @foreach(var role in Model.roles)
+                        {
+                            <option value="@role.Userroleid">@role.RoleName</option>
+                        }
+                       
+                         </select>
+                         <label for="floatingInput">Role</label>
+                         <span asp-validation-for="Userrole" class="text-danger"></span>
+                    </div>
+
                     </div>
 
                     <div class="col-lg-6 pb-3">
@@ -119,7 +123,10 @@
                         <div class="form-floating">
                             <select asp-for="CountryId" class="form-select" id="countrySelect"
                                 aria-label="Floating label select example">
-                                <option value="">@Model.Country</option>
+                                @foreach(var country in Model.countrylist)
+                                {
+                                    <option value="@country.Countryid">@country.Countryname</option>
+                                }                   
                             </select>
                             <label for="countrySelect">Country</label>
                         </div>
@@ -128,7 +135,11 @@
                         <div class="form-floating">
                             <select asp-for="StateId" class="form-select" id="stateSelect"
                                 aria-label="Floating label select example" disabled>
-                                <option value="">@Model.State</option>
+                                @foreach(var state in Model.statelist)
+                                {
+                                    <option value="@state.Stateid">@state.Statename</option>
+                                }
+            
                             </select>
                             <label for="stateSelect">State</label>
                         </div>
@@ -137,7 +148,10 @@
                         <div class="form-floating">
                             <select asp-for="CityId" class="form-select" id="citySelect"
                                 aria-label="Floating label select example" disabled>
-                                <option value="">@Model.City</option>
+                                @foreach(var city in Model.citylist)
+                                {
+                                    <option value="@city.Cityid">@city.Cityname</option>
+                                }
                             </select>
                             <label for="citySelect">City</label>
                         </div>
@@ -208,35 +222,31 @@
 </script>
 
 <script>
-    $(document).ready(function () {
-
-    });
-
-</script>
-
-<script>
 
 
     $(document).ready(function () {
 
-        $.getJSON('/Profile/GetRoles', function (data) {
+        @* $.getJSON('/Profile/GetRoles', function (data) {
             if (data && data.length > 0) {
                 $.each(data, function (index, role) {
                     $('#RoleSelect').append(`<option value="${role.userroleid}">${role.roleName}</option>`);
-                    console.log("roling:", role);
+                    console.log("roling:", `<option value="${role.userroleid}">${role.roleName}</option>`);
                 });
             } else {
                 console.error("No roles found or data is empty.");
             }
-        });
+        }); *@
 
-        $.getJSON('/Profile/GetCountries', function (data) {
+        @* $.getJSON('/Profile/GetCountries', function (data) {
             $.each(data, function (index, country) {
                 $('#countrySelect').append(`<option value="${country.countryid}">${country.countryname}</option>`);
             });
-        });
+        }); *@
 
-        $('#countrySelect').change(function () {
+        
+    });
+
+    $('#countrySelect').change(function () {
             var countryId = $(this).val();
             $('#stateSelect').empty().append('<option selected>Select state</option>').prop('disabled', false);
             $('#citySelect').empty().append('<option selected>Select city</option>').prop('disabled', true);
@@ -258,7 +268,6 @@
                 });
             });
         });
-    });
 </script>
 
 

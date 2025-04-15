@@ -47,6 +47,11 @@ public class EditUserviewmodel
 
     public bool? Status { get; set; }
 
+    public IEnumerable<Userrole1> roles { get; set; } 
+    public IEnumerable<Country> countrylist { get; set; } 
+    public IEnumerable<State> statelist { get; set; } 
+    public IEnumerable<City> citylist { get; set; } 
+
     // public virtual City? CityNavigation { get; set; }
 
     // public virtual Country? CountryNavigation { get; set; }

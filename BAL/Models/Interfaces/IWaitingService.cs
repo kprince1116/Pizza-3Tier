@@ -1,4 +1,5 @@
 using System.Security.Principal;
+using DAL.Models;
 using Pizzashop.DAL.ViewModels;
 
 namespace BAL.Models.Interfaces;
@@ -14,4 +15,8 @@ public interface IWaitingService
     public Task<bool> UpdateWaitingToken(waitingtokenviewmodel model);
 
     public Task<bool> DeleteToken(int id);
+
+    Task<waitingviemodel> GetTableDetails();
+
+    public Task<bool> AssignTable(waitingtokenviewmodel model);
 }

@@ -25,6 +25,7 @@ public class WaitingRepository : IWaitingRepository
                                                     Select(u=> new waitingtokenviewmodel
                                                     {
                                                         Id = u.Id,
+                                                        customerId = u.Customer.Customerid,
                                                         Email = u.Customer.Customeremail,
                                                         Name = u.Customer.Customername,
                                                         Phone = u.Customer.Phonenumber,
@@ -71,4 +72,39 @@ public class WaitingRepository : IWaitingRepository
         await _db.SaveChangesAsync();
     }
 
+    public async Task<List<Section>> GetTableDetails()
+    {
+        return await _db.Sections.Include(u => u.Tables).Where(u => u.Isdeleted == false).ToListAsync();
+    }
+
+    public async Task<List<Table>> GetTablesBySectionId(int id)
+    {
+        return await _db.Tables.Where(u=>u.Sectionid == id && u.Isdeleted == false && u.Status == "Available")
+                                                                                            .ToListAsync();
+    }
+
+    public async Task<WaitingToken> GetCustomerById(int id)
+    {
+        return await _db.WaitingTokens.Where(u => u.Id == id && u.IsDeleted == false)
+                                        .Include(u => u.Customer)
+                                        .Include(u => u.Section)
+                                        .FirstOrDefaultAsync();
+    }
+
+    public async Task<Table> GetTableBySectionId(int id)
+    {
+        return await _db.Tables.FirstOrDefaultAsync(u=>u.Tableid == id && u.Isdeleted == false);
+    }
+
+    public async Task UpdateTable(Table tables)
+    {
+       _db.Tables.Update(tables);
+       await _db.SaveChangesAsync();
+    }
+
+    public async Task UpdateCustomer(WaitingToken customer)
+    {
+        _db.WaitingTokens.Update(customer);
+        await _db.SaveChangesAsync();
+    }
 }

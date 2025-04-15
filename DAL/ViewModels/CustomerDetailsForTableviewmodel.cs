@@ -6,7 +6,6 @@ namespace Pizzashop.DAL.ViewModels;
 public class CustomerDetailsForTableviewmodel
 {
     public int Id { get; set; }
-
     public int customerId { get; set; }
     public string Email {get; set;}
 

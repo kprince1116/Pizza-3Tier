@@ -1,0 +1,49 @@
+@model Pizzashop.DAL.ViewModels.waitingviemodel
+
+
+<form method="post" id="PostTable" class="modal-content">
+
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Assign Table</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <input type="hidden" id="customerselect" name="customerId" >
+      <input type="hidden" id="waitingselect" name="Id" >
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col">
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-floating">
+                    <select class="form-select" id="sectionselect" aria-label="Floating label select example" name="sectionId" required>
+                      <option value="">Select Section</option>
+                       @foreach (var s in Model.sections) {
+                       <option value="@s.Sectionid" disabled>@s.SectionName</option> 
+                       } 
+                    </select>
+                    <label for="categorySelect">Section</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-floating">
+                    <select class="form-select" id="tableSelect" aria-label="Floating label select example" asp-for="@Model.TableId" required>  
+                      <option value="">Select Table</option>             
+                      @foreach (var t in Model.AvailableTables) 
+                      {
+                        <option class="@t.sectionId d-none" value="@t.TableId">@t.Name</option>
+                      }
+                    </select>
+                    <label for="statusSelect">Status</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+       <button class="btn btn-outline-primary" type="submit" style="background-color: rgb(0, 102, 187); color: white;">Assign</button>
+          <button class="btn btn-primary" type="button" onclick="resetForm()" style="color: rgb(0, 102, 187); background-color: white; " >Cancel</button>
+      </div>
+    </form>

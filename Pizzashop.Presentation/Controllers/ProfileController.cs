@@ -35,10 +35,19 @@ public class ProfileController : Controller
     {
         var result = await _userDetails.UpdateProfile(model);
 
-        return RedirectToAction("Index", "Home");
+        if(result)
+        {
+            TempData["ProfileUpdateSuccess"] = true;
+             return RedirectToAction("Index", "Home");
+        }
+        else
+        {
+            TempData["ProfileUpdateError"] = true;
+             return RedirectToAction("Index", "Home");
+        }
+       
 
     }
-
     public IActionResult GetRoles()
     {
         var roles = _userDetails.GetRoles();

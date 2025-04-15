@@ -19,11 +19,14 @@ public class UserController : Controller
 
     private readonly IUserRepository _userRepository;
 
-    public UserController(IConfiguration configuration, IUserList userList , IUserRepository userRepository)
+    private readonly IUserDetails _userDetails;
+
+    public UserController(IConfiguration configuration, IUserList userList , IUserRepository userRepository , IUserDetails userDetails)
     {
         _configuration = configuration;
         _userList = userList;
         _userRepository = userRepository;
+        _userDetails = userDetails;
     }
 
     [_AuthPermissionAttribute("Users", ActionPermissions.CanView)]
@@ -113,11 +116,15 @@ public class UserController : Controller
             Zipcode = user.Zipcode,
             Address = user.Address,
             Phonenumber = user.Phonenumber,
-            CityId=user.Country.Value,
+            CityId=user.City.Value,
             StateId=user.State.Value,
-            CountryId=user.City.Value,
+            CountryId=user.Country.Value,
         };
 
+        viewModel.roles = await _userList.GetRolesAsync();
+        viewModel.countrylist = await _userList.GetCountriesAsync();
+        viewModel.statelist = await _userList.GetStatesAsync();
+        viewModel.citylist = await _userList.GetCitiesAsync();
 
         // ViewData["Country"] = new SelectList(await _userList.GetCountriesAsync(), "Countryid", "Countryname", viewModel.Country);
         // ViewData["State"] = new SelectList(await _userList.GetStatesAsync(), "Stateid", "Statename", viewModel.State);
@@ -127,6 +134,8 @@ public class UserController : Controller
 
         return View(viewModel);
     }
+
+
 
     [_AuthPermissionAttribute("Users", ActionPermissions.CanAddEdit)]
     [HttpPost]

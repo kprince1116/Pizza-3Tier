@@ -1,4 +1,5 @@
 using BAL.Models.Interfaces;
+using iText.Commons.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Pizzashop.DAL.ViewModels;
 
@@ -34,7 +35,6 @@ public class WaitingListController : Controller
         var waitingList = await _waitingService.GetWaitingList(sectionId);
         return PartialView("_WaitingListPartialView", waitingList);
     }
-
 
     [HttpPost]
     public async Task<IActionResult> AddWaitingToken(waitingtokenviewmodel model)
@@ -77,6 +77,25 @@ public class WaitingListController : Controller
         }
         else{
             return Content("error");
+        }
+    }
+
+    public async Task<IActionResult> GetTableDeatails()
+    {
+        var tableDetails = await _waitingService.GetTableDetails();
+        return PartialView("_AssignTable", tableDetails);
+    }
+
+    [HttpPost]
+
+    public async Task<IActionResult> AssignTable(waitingtokenviewmodel model)
+    {
+        var result = await _waitingService.AssignTable(model);
+        if(result){
+         return Json(new { success = true });
+        }
+        else{
+            return Json(new { success = false });
         }
     }
 
