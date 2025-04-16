@@ -127,9 +127,17 @@
     </div>
 
 </div>
-
-
 </div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- jQuery Validation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
+<!-- jQuery Unobtrusive Validation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+
 
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
@@ -159,9 +167,6 @@
     
   </div>
 </div>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
     function DateTimerKOT() {
@@ -320,6 +325,21 @@
             }
         });
         });  
+
+        $(document).off("change","#CustomerEmail").on("change","#CustomerEmail",function(){
+        var selectedEmail = $(this).val().trim();
+        console.log("Selected email:", selectedEmail);
+
+        $.ajax({
+            type: "GET",
+            url: "/KotTable/GetCustomerDetailByEmail",
+            data: { sectionid:sectionId , Email: selectedEmail },
+            success: function(data){
+                $('#CustomerDetails').html(data);
+            }
+        });
+    });
+
 </script>
 
 @*Append Customer Data From Waiting List*@
@@ -340,19 +360,7 @@
 </script>
 
 <script>
-    $(document).off("change","#CustomerEmail").on("change","#CustomerEmail",function(){
-        var selectedEmail = $(this).val().trim();
-        console.log("Selected email:", selectedEmail);
-
-        $.ajax({
-            type: "GET",
-            url: "/KotTable/GetCustomerDetailByEmail",
-            data: { Email: selectedEmail },
-            success: function(data){
-                $('#CustomerDetails').html(data);
-            }
-        });
-    });
+    
 </script>
 
 <script>
@@ -365,8 +373,13 @@
 <script>
     $(document).ready(function () {
         $(document).on('submit','#TableAssignForm', function (e) {
-            e.preventDefault();
-
+        e.preventDefault();
+       $("#TableAssignForm").removeAttr("novalidate");
+            $.validator.unobtrusive.parse($("#TableAssignForm"));
+            if (!$("#TableAssignForm").valid()) {
+                console.log();
+                return;
+            }
             var selectedTables = [];
           
            $(".selected").each(function () { 
@@ -406,3 +419,13 @@
         });
     });
 </script>
+
+
+@* <!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- jQuery Validation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
+<!-- jQuery Unobtrusive Validation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script> *@

@@ -26,7 +26,7 @@ public class KotTableRepository : IKotTableRepository
 
     public async Task<List<Models.Section>> GetSectionList()
     {
-        return await _db.Sections.Where(u => u.Isdeleted == false).ToListAsync();
+        return await _db.Sections.Where(u => u.Isdeleted == false).OrderBy(u=>u.Sectionid).ToListAsync();
     }
     public async Task AddWaitingToken(waitingtokenviewmodel model)
     {
@@ -106,12 +106,11 @@ public class KotTableRepository : IKotTableRepository
         return customer;
     }
 
-    public Task<Customer> GetCustomerDetailsByEmail(string email)
+    public async Task<Customer> GetCustomerDetailsByEmail(string email)
     {
-        var customer = _db.Customers
-            .Include(u => u.WaitingTokens.Where(w => w.IsAssigned == false && w.IsDeleted == false))
-            .Where(u => u.Customeremail == email && u.Isdelete == false)
-            .FirstOrDefaultAsync();
+        var customer = await _db.Customers
+            .Include(u => u.WaitingTokens)
+            .FirstOrDefaultAsync(u => u.Customeremail == email && u.Isdelete == false);
 
         return customer;
     }

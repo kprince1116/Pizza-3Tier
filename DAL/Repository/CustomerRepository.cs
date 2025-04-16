@@ -125,7 +125,7 @@ public class CustomerRepository : ICustomerRepository
 
     public async Task<List<CustomerDetailsviewmodel>> GetCustomer(string searchKey, string timefilter ,  string fromdate , string todate)
     {
-         var customers = _db.Customers.Where(u=>u.Isdelete == false).Select(
+         IQueryable<CustomerDetailsviewmodel> customers = _db.Customers.Where(u=>u.Isdelete == false).Select(
             u=> new CustomerDetailsviewmodel
             {
                 Customerid = u.Customerid,
@@ -135,7 +135,7 @@ public class CustomerRepository : ICustomerRepository
                 CutomerDate = u.CreatedDate,
                 TotalOrders = u.Orders.Count(),
             }
-        );
+        ).OrderBy(u=>u.Customerid);
 
          if (!string.IsNullOrWhiteSpace(searchKey))
         {

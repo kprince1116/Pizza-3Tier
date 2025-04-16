@@ -6,14 +6,17 @@
             <div class="form-floating">
                 <input type="email"  class="form-control EmailId" id="CustomerEmail" placeholder="name@example.com" asp-for="@Model.Email">
                 <label for="floatingInput">Email </label>
+                <span asp-validation-for="@Model.Email" class="text-danger"></span>
             </div>
             <div class="form-floating">
                 <input type="text" class="form-control" id="floatingPassword" placeholder="Name" asp-for="@Model.Name">
                 <label for="floatingPassword">Name</label>
+                <span asp-validation-for="@Model.Name" class="text-danger"></span>
             </div>
             <div class="form-floating">
                 <input type="Number" maxlength="10" class="form-control" id="floatingPassword" placeholder="Mobile No." asp-for="@Model.Phone">
                 <label for="floatingPassword">Mobile</label>
+                <span asp-validation-for="@Model.Phone" class="text-danger"></span>
             </div>
 
              <div class="d-flex justify-content-between gap-0 row">
@@ -21,6 +24,7 @@
                     <div class="form-floating ">
                     <input type="text" class="form-control" id="ItemRateForAdd" placeholder="No. Of Person" asp-for = "@Model.NoOfPerson" >
                     <label for="ItemRateForAdd">No. Of Person</label>
+                    <span asp-validation-for="@Model.NoOfPerson" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col">

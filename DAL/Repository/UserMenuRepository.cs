@@ -540,7 +540,7 @@ public class UserMenuRepository : IUserMenuRepository
             Quantity = u.Modifier.Quantity,
             Unit = u.Modifier.Unit.Unitid,
             Unitname = u.Modifier.Unit.Unitname,
-        });
+        }).OrderBy(u=>u.ModifierItemId);
 
 
         var totalRecords = item.Count();

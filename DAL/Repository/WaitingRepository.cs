@@ -43,6 +43,12 @@ public class WaitingRepository : IWaitingRepository
         return waitingList;
     }
 
+    public async Task<Customer> GetCustomerDetailsByEmail(string email)
+    {
+        var customer = await _db.Customers .FirstOrDefaultAsync(u => u.Customeremail == email && u.Isdelete == false);
+        return customer;
+    }
+
     public async Task<waitingtokenviewmodel> EditToken(int id)
     {
         var waiting = await _db.WaitingTokens.Include(u=>u.Customer).Include(u=>u.Section).Where(u => u.Id == id && u.IsDeleted == false)

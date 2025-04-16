@@ -33,6 +33,7 @@ public class KotRepository : IKotRepository
                                         OrderNo = o.OrderNo,
                                         OrderDate = o.CreatedDate.GetValueOrDefault(),
                                         OrderStatus = status,
+                                        OrderInstruction = o.Instruction,
                                         TableNo = o.OrderTables.Where(t => t.OrderId == o.Orderid).Select(t=>t.Table).ToList(),
                                         SectionName = o.OrderTables.FirstOrDefault().Table.Section.SectionName,
                                         Items = o.OrderItems
@@ -109,10 +110,19 @@ public class KotRepository : IKotRepository
         if(status == "In Progress")
         {
             orderItem.ReadyItem = orderItem.ReadyItem + quantity;
+            if(orderItem.ReadyItem == orderItem.Quantity)
+            {
+                orderItem.Status = "Ready";
+            }
         }
         else if(status == "Ready")
         {
             orderItem.ReadyItem = orderItem.ReadyItem - quantity;
+            if(orderItem.ReadyItem == 0)
+            {
+                orderItem.Status = "In Progress";
+            }
+            
         }
       
         _db.OrderItems.Update(orderItem);

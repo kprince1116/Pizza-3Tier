@@ -296,13 +296,17 @@
   </div>
 </div>
 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+
 @section scripts {
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-
+   
   <script>
 
     @*edit section*@
@@ -458,7 +462,7 @@
                     showToastrNotification('success', 'Table Added successfully!');
                 </text>
             }
-             @if (TempData["DeleteTaxSuccess"] != null && (bool)TempData["DeleteTaxSuccess"])
+             @if (TempData["EditTableSuccess"] != null && (bool)TempData["EditTableSuccess"])
             {
                 <text>
                     showToastrNotification('success', 'Table Edit successfully!');

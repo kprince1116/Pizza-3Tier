@@ -10,6 +10,7 @@ using Pizzashop.Data.Repositories;
 using BAL.Interfaces;
 using DAL.Repository;
 using BAL.Models.Interfaces;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,7 +50,7 @@ builder.Services.AddControllersWithViews();
 
 var conn = builder.Configuration.GetConnectionString("defaults");
 builder.Services.AddDbContext<PizzaShopContext>(options => options.UseNpgsql(conn));
-
+builder.Services.AddMvc().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 builder.Services.AddControllersWithViews();
 

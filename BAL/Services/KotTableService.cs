@@ -100,7 +100,7 @@ public class KotTableService : IKotTableService
         return customer;
     }
 
-    public async Task<CustomerDetailsForTableviewmodel> GetCustomerDetailsByEmail(string email)
+    public async Task<CustomerDetailsForTableviewmodel> GetCustomerDetailsByEmail(int sectionid , string email)
     {
          var section = await _kotTableRepository.GetSectionList();
 
@@ -121,7 +121,7 @@ public class KotTableService : IKotTableService
             Phone = customerDetails.Phonenumber,
             Email = customerDetails.Customeremail,
             NoOfPerson =(int) customerDetails.TotalPersons,
-            sectionId = (int) customerDetails.WaitingTokens.FirstOrDefault().SectionId,
+            sectionId = (int) sectionid,
             // sectionName = customerDetails.,
             sections = section,
         };

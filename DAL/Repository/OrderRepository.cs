@@ -145,7 +145,7 @@ public class OrderRepository : IOrderRepository
                 Rating = u.Rating,
                 TotalAmount = u.TotalAmount,
             }
-        );
+        ).OrderBy(u=>u.Orderid);
     
         if (!string.IsNullOrEmpty(searchKey))
         {

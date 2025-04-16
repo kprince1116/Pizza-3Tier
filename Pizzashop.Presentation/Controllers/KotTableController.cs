@@ -55,9 +55,9 @@ public class KotTableController : Controller
         var customerDetails = await _kotTableService.GetCustomerDetails(id);
         return PartialView("_CustomerDetails", customerDetails);
     }
-    public async Task<IActionResult> GetCustomerDetailByEmail(string Email)
+    public async Task<IActionResult> GetCustomerDetailByEmail(int sectionid , string Email)
     {
-        var customerDetails = await _kotTableService.GetCustomerDetailsByEmail(Email);
+        var customerDetails = await _kotTableService.GetCustomerDetailsByEmail(sectionid,Email);
         return PartialView("_CustomerDetails", customerDetails);
     }
   

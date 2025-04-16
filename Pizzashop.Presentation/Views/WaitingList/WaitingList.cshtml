@@ -48,7 +48,7 @@
 
 <div class="modal fade" id="AddWaiting" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
-   <div class="modal-content">
+   <div class="modal-content" id="customer-details" >
 
    </div>
   </div>
@@ -96,13 +96,16 @@
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+
 
 <script>
-    $(document).on("click", "#delete-token", function () {
+    $(document).on("click", ".delete-token", function () {
         var id = $(this).data("waitingid");
         console.log("Waiting Token ID:", id);
-        $('#waitingdeleteid').val(id); // Set the ID in the hidden input field
+        $('#waitingdeleteid').val(id);
     });
 </script>
 
@@ -112,11 +115,9 @@
          $.ajax({
             type: "GET",
             url: '@Url.Action("openWaitingTokenModal", "WaitingList")',
-            success : function(data){
-                console.log("Data from server:");
+            success : function(data){   
                 $('#AddWaiting .modal-content').html(data);
-                $('#AddWaiting').modal('show');
-                
+                $('#AddWaiting').modal('show');  
             }
         });
     });
@@ -124,17 +125,15 @@
 </script>
 
 <script>
-    $(document).on("click","#EditToken",function(){
+    $(document).on("click",".edit-token",function(){
         var id = $(this).data("waiting-id");
+        console.log("Waiting Token ID:", id);
          $.ajax({
             type: "GET",
             data :{id:id},
             url: '@Url.Action("EditToken", "WaitingList")',
             success : function(data){
-                console.log("Data from server:", data);
                 $('#EditWaitingToken').html(data);
-                @* $('#EditWaiting').modal('show'); *@
-
                 var modal = new bootstrap.Modal(document.getElementById('EditWaiting'));
                 modal.show();
             }
@@ -189,7 +188,7 @@
                     tab.classList.remove("active-tab");
                 });
                 $(this).addClass("active-tab"); 
-            }.bind(this),  // Bind 'this' to ensure it refers to the clicked element
+            }.bind(this),  
             error: function (err) {
                 alert('An error occurred while loading the waiting list.');
             }
@@ -198,9 +197,15 @@
 </script>
 
 <script>
-   $(document).ready(function () {
     $(document).on('submit','#addWaitingTokenForm', function (e) {
         e.preventDefault(); 
+
+        @* $("#addWaitingTokenForm").removeAttr("novalidate");
+            $.validator.unobtrusive.parse($("#addWaitingTokenForm"));
+            if (!$("#addWaitingTokenForm").valid()) {
+                console.log();
+                return;
+            } *@
 
         var formData = new FormData(this); 
 
@@ -215,7 +220,11 @@
             success: function (response) {
                 if (response.success) {
                     toastr.success("Waiting Token Added Succesfully");
-                    $('#AddWaiting').modal('hide');
+                    const modalElement = document.getElementById('AddWaiting');
+                    const assignModal = bootstrap.Modal.getInstance(modalElement);
+                    if (assignModal) {
+                    assignModal.hide();
+                    }
                 } else {
                     alert('Error: ' + response.message);
                 }
@@ -225,7 +234,15 @@
             }
         });
     });
-});
+
+    $(document).on('click','.add-close',function(){
+        const modalElement = document.getElementById('AddWaiting');
+        const assignModal = bootstrap.Modal.getInstance(modalElement);
+        if (assignModal) {
+        assignModal.hide();
+        }
+    })
+
 </script> 
 
 <script>
@@ -314,21 +331,49 @@
 
 </script>
 
+@*Fetch Already Exists Customer Details*@
+<script>
+     $(document).off("change","#CustomerEmail").on("change","#CustomerEmail",function(){
+        var selectedEmail = $(this).val().trim();
+        console.log("Selected email:", selectedEmail);
+
+        $.ajax({
+            type: "GET",
+            url: "/WaitingList/GetCustomerDetailByEmail",
+            data: { sectionid:0 , Email: selectedEmail },
+            success: function(data){
+                 $('#customer-details').html(data);
+            }
+        });
+    });
+
+     $(document).ready(function () {
+       
+             @if (TempData["EditSuccess"] != null && (bool)TempData["EditSuccess"])
+            {
+                <text>
+                    showToastrNotification('success', 'Waiting Token Edit successfully!');
+                </text>
+            }
+             @if (TempData["DeleteSuccess"] != null && (bool)TempData["DeleteSuccess"])
+            {
+                <text>
+                    showToastrNotification('success', 'Waiting Token Delete successfully!');
+                </text>
+            }
+            
+        });
+ </script>   
+
 
 <style>
     .active-tab{
         color: #0066bb  !important;
         border-bottom:3px solid #0066a7 !important;
     }
-    @* .token-count {
-    background-color: grey;
-    color: white;
-    padding: 2px 1px 1px 2px;
-    border-radius: 25px;
-    font-weight: bold;
-    font-size: 0.9rem;
-    min-width: 24px;
-    text-align: center; *@
 }
 
 </style>
+
+
+ 

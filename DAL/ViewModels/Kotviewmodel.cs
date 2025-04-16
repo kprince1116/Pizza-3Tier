@@ -14,6 +14,8 @@ public class Kotviewmodel
         public List<Table> TableNo { get; set; }
         public string SectionName { get; set; }
         public string OrderStatus { get; set; }
+
+        public string OrderInstruction { get; set; }
         public List<OrderItemViewModel> Items { get; set; } = new List<OrderItemViewModel>();
     }
 

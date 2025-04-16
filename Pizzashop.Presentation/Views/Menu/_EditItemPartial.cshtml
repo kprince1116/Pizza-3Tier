@@ -3,7 +3,7 @@
   
   <form method="post" enctype="multipart/form-data" asp-controller="Menu" asp-action="EditItems" class="modal-content" id="editItemForm">
     <input type="text" id="EditItemId" asp-for="Itemid" hidden/>
-    <input type="hidden" id="selectedModifierListForEdit" name="modifierItemListForEdit">
+    <input type="hidden" id="selectedModifierListForEdit" name="modifierItemListForEdit"/>
     <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Menu Item</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -218,3 +218,22 @@
 <div class="text-danger">
     @Html.ValidationSummary(true, "", new { @class = "text-danger" });
 </div>
+
+    <script>
+       var selectedModifiersItemForEdit = [];
+         function SubmitAddItemForEdit() {
+         console.log($(".selectedModifierGroup"));
+         $(".selectedModifierGroup").each(function () {
+        debugger;
+        var id = $(this).data("mgitemid");
+        console.log($('.MinAllowed[data-mgitemid="' + id + '"]').val())
+        selectedModifiersItemForEdit.push({
+          ModifierGroupId: id,
+          MinAllowed: Number($('.MinAllowed[data-mgitemid="' + id + '"]').val()),
+          MaxAllowed: Number($('.MaxAllowed[data-mgitemid="' + id + '"]').val()),
+        })
+      })
+      $("#selectedModifierListForEdit").val(JSON.stringify(selectedModifiersItemForEdit));
+      Console.log("selectedModifiersItemForEdit",  $("#selectedModifierListForEdit").val);
+    }
+    </script>   

@@ -149,8 +149,6 @@ public class MenuController : Controller
 
     }
 
-
-
      public async Task<IActionResult> EditItem(int id)
     {
         
@@ -167,16 +165,18 @@ public class MenuController : Controller
     [HttpPost]
     public async Task<IActionResult> EditItems(EditItemviewmodel model , string modifierItemListForEdit)
     {
-
-    //     if (!ModelState.IsValid)
-    // {
-    //     return PartialView("_EditItemPartial", model); 
-    // }
-
-        if (!string.IsNullOrEmpty(modifierItemListForEdit))
+        try
+        {
+            if (!string.IsNullOrEmpty(modifierItemListForEdit))
         {
             model.ItemModifierList = JsonSerializer.Deserialize<List<ItemModifierGroupviewmodel>>(modifierItemListForEdit);
         }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+        
 
         var item = await _userMenu.EditItem(model);
         if (item)
@@ -251,7 +251,6 @@ public class MenuController : Controller
             return RedirectToAction("Items", "Menu");
         }
         
-
         string result = "";
         bool isCreated = true;
 
@@ -271,12 +270,19 @@ public class MenuController : Controller
     [HttpPost]
     public async Task<IActionResult> EditModifier(menuviewmodel model ,  string ExistingmodifierList )
     {
-
-        if (!string.IsNullOrEmpty(ExistingmodifierList))
+        try
         {
-            model.AddModifierGroup.ModifierItemList = JsonSerializer.Deserialize<List<ModifierItemViewModel>>(ExistingmodifierList);
+             if(!string.IsNullOrEmpty(ExistingmodifierList))
+        {
+        model.AddModifierGroup.ModifierItemList = JsonSerializer.Deserialize<List<ModifierItemViewModel>>(ExistingmodifierList);
         }
 
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+       
         var isEdit = await _userMenu.UpdateModifier(model);
         if (isEdit)
         {
@@ -350,7 +356,7 @@ public class MenuController : Controller
         if (modifiers !=null)
         {
             TempData["EditModifierItemSuccess"] = true;
-            return RedirectToAction("Items", "Menu");
+            return RedirectToAction("ItemsByModifier", "Menu");
         }
         else
         {
@@ -367,7 +373,7 @@ public class MenuController : Controller
          if (existingmodifier !=null)
         {
             TempData["DeleteModifierItemSuccess"] = true;
-            return RedirectToAction("Items", "Menu");
+            return RedirectToAction("Items","Menu");
         }
         else
         {

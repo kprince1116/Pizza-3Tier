@@ -36,6 +36,12 @@ public class WaitingListController : Controller
         return PartialView("_WaitingListPartialView", waitingList);
     }
 
+    public async Task<IActionResult> GetCustomerDetailByEmail(int sectionid,string Email)
+    {
+        var customerDetails = await _waitingService.GetCustomerDetailsByEmail(sectionid,Email);
+        return PartialView("_AddWaitingPartialview", customerDetails);
+    }
+
     [HttpPost]
     public async Task<IActionResult> AddWaitingToken(waitingtokenviewmodel model)
     {
@@ -60,6 +66,7 @@ public class WaitingListController : Controller
         var result = await _waitingService.UpdateWaitingToken(model);
 
         if(result){
+             TempData["EditSuccess"] = true;
          return RedirectToAction("WaitingList", "WaitingList");
         }
         else{
@@ -68,11 +75,11 @@ public class WaitingListController : Controller
     }
 
     [HttpPost]
-
-    public async Task<IActionResult> DeleteToken(int id)
+    public async Task<IActionResult> DeleteToken(int Id)
     {
-        var result = await _waitingService.DeleteToken(id);
+        var result = await _waitingService.DeleteToken(Id);
          if(result){
+         TempData["DeleteSuccess"] = true;
          return RedirectToAction("WaitingList", "WaitingList");
         }
         else{

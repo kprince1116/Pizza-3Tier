@@ -163,6 +163,7 @@
 </body>
 <script src="https://cdnjs.cloudflar  e.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 </html>
 
@@ -180,7 +181,7 @@
           type: 'GET',
           success: function (data) {
             $('#modifiers-container').html(data);
-
+          
             selectedModifierId = $(".modifierGroupBtn").first().data("modifier-id")
 
             loadItemsByModifier(selectedModifierId);
@@ -384,10 +385,10 @@
 
   <script>
 
-    $(document).on("click","#ExistingModifierListSearch",function(){
+    @* $(document).on("click","#ExistingModifierListSearch",function(){
       console.log("succed");
       changePageSizeForExistingModifiers(1);
-     });
+     }); *@
 
 
     $(document).on('click', '.existingmodifierbutton', function () {
@@ -514,7 +515,7 @@ function saveExistingModifiers() {
           location.reload();
         },
         error: function () {
-          alert("Error saving item.");
+          console.log("Error saving item.");
         }
       });
     });
@@ -542,7 +543,7 @@ function saveExistingModifiers() {
           location.reload();
         },
         error: function () {
-          alert("Error saving item.");
+          console.log("Error saving item.");
         }
       });
     });
@@ -557,6 +558,7 @@ function saveExistingModifiers() {
 
       $(document).on("click", ".removeAddedModifierItemForEdit", function () {
         let removeteModifierItemIDForEdit = $(this).data("mgitemid");
+        console.log("removeteModifierItemIDForEdit:", removeteModifierItemIDForEdit);
         selectedExistingModifiers = $.grep(selectedExistingModifiers, function (selectedExistingModifiers) {
           return selectedExistingModifiers.ModifierItemId !== removeteModifierItemIDForEdit;
         });
@@ -651,40 +653,20 @@ function saveExistingModifiers() {
     });
   </script>
 
-  <script>
-    var selectedModifiersItem = [];
-    function SubmitAddItem() {
-      $(".selectedModifierGroup").each(function (e) {
-        var id = $(this).data("mgitemid");
-        selectedModifiersItem.push({
-          ModifierGroupId: id,
-          MinAllowed: Number($('.MinAllowed[data-mgitemid="' + id + '"]').val()),
-          MaxAllowed: Number($('.MaxAllowed[data-mgitemid="' + id + '"]').val()),
+    <script>
+      var selectedModifiersItem = [];
+      function SubmitAddItem() {
+        $(".selectedModifierGroup").each(function (e) {
+          var id = $(this).data("mgitemid");
+          selectedModifiersItem.push({
+            ModifierGroupId: id,
+            MinAllowed: Number($('.MinAllowed[data-mgitemid="' + id + '"]').val()),
+            MaxAllowed: Number($('.MaxAllowed[data-mgitemid="' + id + '"]').val()),
+          })
         })
-      })
-      $("#selectedModifierList").val(JSON.stringify(selectedModifiersItem));
-    }
-
-    var selectedModifiersItemForEdit = [];
-    function SubmitAddItemForEdit() {
-      $(".selectedModifierGroup").each(function () {
-        var id = $(this).data("mgitemid");
-        selectedModifiersItemForEdit.push({
-          ModifierGroupId: id,
-          MinAllowed: Number($('.MinAllowed[data-mgitemid="' + id + '"]').val()),
-          MaxAllowed: Number($('.MaxAllowed[data-mgitemid="' + id + '"]').val()),
-        })
-      })
-      $("#selectedModifierListForEdit").val(JSON.stringify(selectedModifiersItemForEdit));
-    }
-
-  
-  @* $("#addItemForm").submit(); *@
-    
-  </script>
- @* $("#editItemForm").submit(); *@
-
-     @*Add Menu-Item Post *@
+        $("#selectedModifierList").val(JSON.stringify(selectedModifiersItem));
+      }
+    </script>
 
  <script>
       $(document).on("click", "#submitAddItemBtn", function () {
@@ -723,8 +705,10 @@ function saveExistingModifiers() {
     var form = $("#editItemForm");
     var formData = new FormData(form[0]);
 
+    console.log("form-data-FOR-EDIT:", formData);
+
     $.ajax({
-        url: form.attr("action"),
+        url: "/Menu/EditItems",
         type: "POST",
         data: formData,
         processData: false,
@@ -1460,7 +1444,7 @@ function saveExistingModifiers() {
          <div class=" d-flex align-items-center gap-3  justify-content-start mt-5">
         <div class=" d-flex justify-content-start position-relative align-items-center ">
           <div class="d-flex justify-content-end position-relative align-items-center">
-            <input type="text" class="search form-control " style="height: 50px; width: 250px;" id=""
+            <input type="text" class="search form-control " style="height: 50px; width: 250px;" id="ExistingModifierListSearch"
               placeholder="Search" />
             <img src="~/images/icons/search.svg" alt="" style="width: 20px; aspect-ratio: 1"
               class="bg-white position-absolute rounded-2 m-2"/>
@@ -1527,12 +1511,13 @@ function saveExistingModifiers() {
   </div>
 </div>
 
+
+
 <!-- Add Modifier Item Modal -->
 
 <div class="modal fade" id="addmodifieritemmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <form method="post" asp-controller="Menu" asp-action="AddModifierItem" class="modal-content">
-
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Modifier</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

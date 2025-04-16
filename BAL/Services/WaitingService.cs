@@ -43,6 +43,35 @@ public class WaitingService : IWaitingService
         return waiting;
     }
 
+     public async Task<waitingtokenviewmodel> GetCustomerDetailsByEmail(int sectionid , string email)
+    {
+         var section = await _waitingRepository.GetSections();
+
+        if(email==null)
+        {
+            waitingtokenviewmodel obj = new waitingtokenviewmodel();
+            obj.sections = section;
+            return obj; 
+        }
+
+        var customerDetails = await _waitingRepository.GetCustomerDetailsByEmail(email);
+
+        var customer = new waitingtokenviewmodel
+        {
+            // Id = (int) customerDetails.Id,
+            customerId = (int) customerDetails.Customerid,
+            Name = customerDetails.Customername,
+            Phone = customerDetails.Phonenumber,
+            Email = customerDetails.Customeremail,
+            NoOfPerson =(int) customerDetails.TotalPersons,
+            sectionId = (int) sectionid,
+            // sectionName = customerDetails.,
+            sections = section,
+        };
+
+        return customer;
+    }
+
     public async Task<waitingtokenviewmodel> EditToken(int id)
     {
         var waitingList = await _waitingRepository.EditToken(id);

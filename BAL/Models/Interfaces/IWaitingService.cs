@@ -10,6 +10,8 @@ public interface IWaitingService
 
     public Task<waitingviemodel> GetWaitingList(int sectionId);
 
+    public Task<waitingtokenviewmodel> GetCustomerDetailsByEmail(int sectionid , string email);
+
     public Task<waitingtokenviewmodel> EditToken(int id);
 
     public Task<bool> UpdateWaitingToken(waitingtokenviewmodel model);

@@ -9,6 +9,8 @@ public interface IWaitingRepository
 
     Task<List<waitingtokenviewmodel>> GetWaitingList(int sectionId);
 
+    public  Task<Customer> GetCustomerDetailsByEmail(string email);
+
     Task<waitingtokenviewmodel> EditToken(int id);
 
     Task<WaitingToken> GetTokenId(int id);
