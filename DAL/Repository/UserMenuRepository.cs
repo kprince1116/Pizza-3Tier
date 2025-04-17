@@ -676,7 +676,7 @@ public class UserMenuRepository : IUserMenuRepository
     {
         for (int i = 0; i < modifierList.Count; i++)
         {
-            Modifiermapping modifier = _db.Modifiermappings.Where(e => e.ModifierId == modifierList[i] && e.ModifierGroupId == modifiergroupId ).FirstOrDefault();
+            Modifiermapping modifier = _db.Modifiermappings.Where(e => e.ModifierId == modifierList[i] && e.ModifierGroupId == modifiergroupId && e.IsDeleted==false).FirstOrDefault();
             modifier.IsDeleted = true;
             // _db.Modifiermappings.Update(modifier);
             

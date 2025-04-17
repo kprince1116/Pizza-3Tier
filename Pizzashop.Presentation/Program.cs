@@ -42,6 +42,8 @@ builder.Services.AddScoped<IKotTableRepository, KotTableRepository>();
 builder.Services.AddScoped<IKotTableService, KotTableService>();
 builder.Services.AddScoped<IWaitingRepository,WaitingRepository>();
 builder.Services.AddScoped<IWaitingService,WaitingService >();
+builder.Services.AddScoped<IOrderAppMenu,OrderAppMenu>();
+builder.Services.AddScoped<IOrderAppMenuRepository,OrderAppMenuRepository >();
 builder.Services.AddScoped<Permissions>();
 builder.Services.AddHttpContextAccessor();
 

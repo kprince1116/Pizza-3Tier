@@ -6,7 +6,7 @@
 
 @model Pizzashop.DAL.ViewModels.waitingviemodel
 
-<div>
+<div class="p-lg-5 p-xl-5 p-md-6 p-4" >
     <div class="d-flex justify-content-between" >
         <h2 class="custom-blue fw-bolder fw-bold" style="color:#0066a7">Waiting List</h2>
         <div class="custom-blue-border mb-3 d-flex align-items-center rounded text-nowrap" type="button" id="waitingtoken"
@@ -200,12 +200,12 @@
     $(document).on('submit','#addWaitingTokenForm', function (e) {
         e.preventDefault(); 
 
-        @* $("#addWaitingTokenForm").removeAttr("novalidate");
+        $("#addWaitingTokenForm").removeAttr("novalidate");
             $.validator.unobtrusive.parse($("#addWaitingTokenForm"));
             if (!$("#addWaitingTokenForm").valid()) {
                 console.log();
                 return;
-            } *@
+            }
 
         var formData = new FormData(this); 
 

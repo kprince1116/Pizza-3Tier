@@ -97,6 +97,11 @@ public class WaitingRepository : IWaitingRepository
                                         .FirstOrDefaultAsync();
     }
 
+    public async Task<Customer> GetCustomer(int id)
+    {
+        return await _db.Customers.FirstOrDefaultAsync(u => u.Customerid == id && u.Isdelete == false);
+    }
+
     public async Task<Table> GetTableBySectionId(int id)
     {
         return await _db.Tables.FirstOrDefaultAsync(u=>u.Tableid == id && u.Isdeleted == false);
@@ -111,6 +116,12 @@ public class WaitingRepository : IWaitingRepository
     public async Task UpdateCustomer(WaitingToken customer)
     {
         _db.WaitingTokens.Update(customer);
+        await _db.SaveChangesAsync();
+    }
+
+    public async Task UpdateCustomers(Customer customer)
+    {
+        _db.Customers.Update(customer);
         await _db.SaveChangesAsync();
     }
 }

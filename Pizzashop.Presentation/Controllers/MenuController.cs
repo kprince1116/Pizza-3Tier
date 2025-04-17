@@ -385,7 +385,7 @@ public class MenuController : Controller
     [HttpPost]
     public IActionResult DeleteCombineForModifier(List<int> modifierList , int modifiergroupId)
     {
-        _userMenu.DeleteModifiersAsync(modifierList , modifiergroupId);
+         _userMenu.DeleteModifiersAsync(modifierList , modifiergroupId);
         return Json( new { success = true, message = "hi"});
     }
 

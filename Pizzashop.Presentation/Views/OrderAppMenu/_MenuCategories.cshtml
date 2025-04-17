@@ -1,0 +1,13 @@
+@model Pizzashop.DAL.ViewModels.OrderAppMenuviewmodel
+
+<div> 
+    @foreach(var category in Model.categories)
+    {
+      <div class="aa">
+            <a class="sidebar-tile fs-6 tab-btn category-click" data-categoryid = "@category.CategoryId" data-categoryname="@category.CategoryName">
+                <div class="text-nowrap ">@category.CategoryName</div>
+             </a>
+        </div>
+    }
+</div>  
+

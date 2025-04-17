@@ -120,6 +120,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVudVxfTW9kaWZpZXJUYWIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Project/3Tier/Pizzashop.Presentation/Views/OrderAppMenu/OrderMenu.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJBcHBNZW51XE9yZGVyTWVudS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/3Tier/Pizzashop.Presentation/Views/OrderAppMenu/_MenuCategories.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJBcHBNZW51XF9NZW51Q2F0ZWdvcmllcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/3Tier/Pizzashop.Presentation/Views/OrderAppMenu/_MenuItems.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJBcHBNZW51XF9NZW51SXRlbXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Project/3Tier/Pizzashop.Presentation/Views/OrderApp/OrderApp.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJBcHBcT3JkZXJBcHAuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

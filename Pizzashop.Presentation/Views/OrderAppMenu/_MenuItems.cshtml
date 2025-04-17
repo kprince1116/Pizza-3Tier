@@ -1,0 +1,43 @@
+@model Pizzashop.DAL.ViewModels.OrderAppMenuviewmodel
+
+ @if (Model.items.Any())
+{
+@foreach(var item in Model.items)
+{
+<div class="item-card ">
+        <div class="row">
+                        <div class="col-3">
+                            <div class="card-icon d-flex justify-content-center align-items-center">
+                                <span> <img src="~/images/dining-menu.png" style="height: 40px; width: 40px"></span>
+                            </div>
+                        </div>
+                        <div class="col-9 ">
+                            <div class="card-content">
+                                <h5 class="card-title text-start">@item.ItemName</h5>
+                                <p class="card-text text-start">₹@item.price</p>
+                            </div>
+                            <!-- Item Type Badge -->
+                             @if (item.ItemType == "Veg")
+                            {
+
+                                <span class="badge position-absolute top-0 end-0 m-0" style="color: var(--table-vegetarian)" >Veg</span>
+                            }
+                            else if (item.ItemType == "Non-Veg")
+                            {
+                                <span class=" position-absolute top-0 end-0 m-0">Vegan</span>
+                            }
+                            @* else if (item.ItemType == "non_vegetarian")
+                            
+                                <span class="position-absolute top-0 end-0 m-0">Non-Veg</span>
+                             *@
+                            <!-- Heart Icon -->
+                            <span class="heart position-absolute bottom-0 end-0 m-2">&hearts;</span>
+                        </div>
+        </div>
+</div>
+}
+}
+else
+{
+      <p class="text-muted">No items found.</p>
+}

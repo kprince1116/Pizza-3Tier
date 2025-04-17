@@ -135,8 +135,6 @@ public class UserController : Controller
         return View(viewModel);
     }
 
-
-
     [_AuthPermissionAttribute("Users", ActionPermissions.CanAddEdit)]
     [HttpPost]
 

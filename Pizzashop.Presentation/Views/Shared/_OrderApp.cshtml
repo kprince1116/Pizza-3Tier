@@ -52,10 +52,10 @@
                     <span>Tables</span>
                 </div>
                 </a>
-                <div class="navbar-card me-2 @(ViewBag.Active == "Menu" ? "navbar-card-selected" : "")">
+                <a asp-action="OrderMenu" asp-controller="OrderAppMenu" id="OrderAppMenu" class="navbar-card  @(ViewContext.RouteData.Values["controller"].ToString() == "OrderAppMenu" && ViewContext.RouteData.Values["action"].ToString() == "OrderMenu" ? "active" : "")">
                     <i class="bi bi-cake me-2"></i>
                     <span>Menu</span>
-                </div>
+                </a>
 
                 <div class="container-fluid d-flex justify-content-end">
             <button class="btn" style="border: none; background: transparent;" data-bs-toggle="dropdown"
@@ -78,7 +78,7 @@
 
         </nav>
 
-        <div class="main-container">
+        <div class="main-container p-0">
             @* <partial name="_Notification"/> *@
             @RenderBody()
         </div>

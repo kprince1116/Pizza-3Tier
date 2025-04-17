@@ -1511,8 +1511,6 @@ function saveExistingModifiers() {
   </div>
 </div>
 
-
-
 <!-- Add Modifier Item Modal -->
 
 <div class="modal fade" id="addmodifieritemmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1690,7 +1688,7 @@ function saveExistingModifiers() {
              @if (TempData["DeleteModifierItemSuccess"] != null && (bool)TempData["DeleteModifierItemSuccess"])
             {
                 <text>
-                    showToastrNotification('success', 'Modifier Item Delete successfully!');
+                    showToastrNotification('success', 'Modifier Delete successfully!');
                 </text>
             }
         });

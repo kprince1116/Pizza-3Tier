@@ -253,7 +253,7 @@ public class UserMenu : IUserMenu
 
      public async Task<bool> GetModifierItemForDeleteById(int id , int  modifiergroupId)
         {
-            var existingModifierItem =  _db.Modifiermappings.Where(m => m.ModifierId == id && m.ModifierGroupId == modifiergroupId ).FirstOrDefault();
+            var existingModifierItem =  _db.Modifiermappings.FirstOrDefault(m => m.ModifierId == id && m.ModifierGroupId == modifiergroupId && m.IsDeleted == false);
 
             if(existingModifierItem == null)
             {
@@ -277,7 +277,15 @@ public class UserMenu : IUserMenu
 
            public async Task DeleteModifiersAsync(List<int> modifierList,int modifiergroupId)
            {
-              await _userMenuRepository.DeleteModifiers(modifierList,modifiergroupId);
+            try
+            {
+                  await _userMenuRepository.DeleteModifiers(modifierList,modifiergroupId);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            
            }
 
         public async Task<List<ModifierItemViewModel>> GetExistingModifierItems(int id)

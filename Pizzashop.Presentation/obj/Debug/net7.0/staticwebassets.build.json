@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "kmQVZ8QdO/rCrv//tW6Sv5I+F+L74RMMEEoBkMUwxQ0=",
+  "Hash": "Q3OzEQ4P1TFOGCVQalPgkxJOlcBpZfYSe4svZOe89Ko=",
   "Source": "Pizzashop.Presentation",
   "BasePath": "_content/Pizzashop.Presentation",
   "Mode": "Default",
@@ -236,6 +236,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\order.css"
+    },
+    {
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\css\\OrderAppMenu.css",
+      "SourceId": "Pizzashop.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
+      "BasePath": "_content/Pizzashop.Presentation",
+      "RelativePath": "css/OrderAppMenu.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\OrderAppMenu.css"
     },
     {
       "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\css\\profile.css",
@@ -2635,6 +2652,23 @@
       "OriginalItemSpec": "wwwroot\\uploads\\0cc806c3-0a16-4bff-ad7d-93936fe72fe4_Default_pfp.svg.png"
     },
     {
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\0d8ce35d-f582-438d-bf9a-dc0ff384e9ef_dominos_background.jpg",
+      "SourceId": "Pizzashop.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
+      "BasePath": "_content/Pizzashop.Presentation",
+      "RelativePath": "uploads/0d8ce35d-f582-438d-bf9a-dc0ff384e9ef_dominos_background.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\0d8ce35d-f582-438d-bf9a-dc0ff384e9ef_dominos_background.jpg"
+    },
+    {
       "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\0e493db2-968c-434d-9872-ef131c96e482_profile_div_bg.jpg",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
@@ -2854,6 +2888,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\38214336-5380-4536-babd-60c455921a82_transperent-pizza.png"
+    },
+    {
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\38547c15-df9d-4597-9fbe-fc510d7b99db_transperent-pizza.png",
+      "SourceId": "Pizzashop.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
+      "BasePath": "_content/Pizzashop.Presentation",
+      "RelativePath": "uploads/38547c15-df9d-4597-9fbe-fc510d7b99db_transperent-pizza.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\38547c15-df9d-4597-9fbe-fc510d7b99db_transperent-pizza.png"
     },
     {
       "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\41e348fe-e1b4-4cae-93c7-3a16ac6404e0_transperent-pizza.png",
@@ -3247,6 +3298,23 @@
       "OriginalItemSpec": "wwwroot\\uploads\\731793d7-cd3c-4c6e-9e9b-68242259916b_Default_pfp.svg.png"
     },
     {
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\736796db-c1e2-4de5-956b-aed907324069_transperent-pizza.png",
+      "SourceId": "Pizzashop.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
+      "BasePath": "_content/Pizzashop.Presentation",
+      "RelativePath": "uploads/736796db-c1e2-4de5-956b-aed907324069_transperent-pizza.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\736796db-c1e2-4de5-956b-aed907324069_transperent-pizza.png"
+    },
+    {
       "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\76f40685-10ee-439a-ad85-6ebaac5f36ed_Default_pfp.svg.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
@@ -3468,6 +3536,23 @@
       "OriginalItemSpec": "wwwroot\\uploads\\aab6ae50-57e6-4d08-8e35-9c482bdf3e7d_transperent-pizza.png"
     },
     {
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\ae4f182b-2e2a-4fe2-8c0d-1129a2c98f55_dominos_background.jpg",
+      "SourceId": "Pizzashop.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
+      "BasePath": "_content/Pizzashop.Presentation",
+      "RelativePath": "uploads/ae4f182b-2e2a-4fe2-8c0d-1129a2c98f55_dominos_background.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\ae4f182b-2e2a-4fe2-8c0d-1129a2c98f55_dominos_background.jpg"
+    },
+    {
       "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\b030de78-9dd7-4bcf-acf5-bf0c11b374c9_Default_pfp.svg.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
@@ -3502,6 +3587,23 @@
       "OriginalItemSpec": "wwwroot\\uploads\\b0706170-c03c-4d86-8706-442b10316602_Default_pfp.svg.png"
     },
     {
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\b7f8474f-888b-46e8-9750-1e2d48971ecb_dominos_background.jpg",
+      "SourceId": "Pizzashop.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
+      "BasePath": "_content/Pizzashop.Presentation",
+      "RelativePath": "uploads/b7f8474f-888b-46e8-9750-1e2d48971ecb_dominos_background.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\b7f8474f-888b-46e8-9750-1e2d48971ecb_dominos_background.jpg"
+    },
+    {
       "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\bbf57b16-5a86-4504-be84-c8aa01912da9_dining-menu.png",
       "SourceId": "Pizzashop.Presentation",
       "SourceType": "Discovered",
@@ -3517,6 +3619,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\bbf57b16-5a86-4504-be84-c8aa01912da9_dining-menu.png"
+    },
+    {
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\bd3b2b94-27d8-4482-9f50-6272d88da022_dominos_background.jpg",
+      "SourceId": "Pizzashop.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
+      "BasePath": "_content/Pizzashop.Presentation",
+      "RelativePath": "uploads/bd3b2b94-27d8-4482-9f50-6272d88da022_dominos_background.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\bd3b2b94-27d8-4482-9f50-6272d88da022_dominos_background.jpg"
     },
     {
       "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\beec1334-aff2-431c-ab48-61ff8a2b8006_Default_pfp.svg.png",
@@ -3568,6 +3687,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\c28edc5b-a576-407a-b8ba-9b3ec24ff65f_dominos_background.jpg"
+    },
+    {
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\c3a9e7bd-fd4e-4de8-a690-373d75c2ff1e_dominos_background.jpg",
+      "SourceId": "Pizzashop.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
+      "BasePath": "_content/Pizzashop.Presentation",
+      "RelativePath": "uploads/c3a9e7bd-fd4e-4de8-a690-373d75c2ff1e_dominos_background.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\c3a9e7bd-fd4e-4de8-a690-373d75c2ff1e_dominos_background.jpg"
     },
     {
       "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\c4833bab-7914-4bf5-bd0b-d94945d94630_dominos_background.jpg",
@@ -3874,6 +4010,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\fedd4453-05f6-4ff1-9441-a65a484b101d_Default_pfp.svg.png"
+    },
+    {
+      "Identity": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\ff7f885a-48d2-418e-94b2-b9cc69621452_dining-menu.png",
+      "SourceId": "Pizzashop.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\",
+      "BasePath": "_content/Pizzashop.Presentation",
+      "RelativePath": "uploads/ff7f885a-48d2-418e-94b2-b9cc69621452_dining-menu.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\ff7f885a-48d2-418e-94b2-b9cc69621452_dining-menu.png"
     }
   ]
 }

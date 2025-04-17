@@ -253,6 +253,7 @@
                 processData: false,
                 contentType: false,
                 success: function(data) {
+                   toastr.success("Modifiers Deleted Successfully");
                     location.reload();
                     console.log("Response:", data);
                 },

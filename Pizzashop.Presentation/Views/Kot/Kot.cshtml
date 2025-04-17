@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="~/css/Kot.css" asp-append-version="true"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
 
-<div class="kot-container">
+<div class="kot-container" style="padding: 50px !important;" >
 
     <!-- KOT -->
     <div class="row px-0 d-flex justify-content-between mb-2">
@@ -90,7 +90,7 @@
 <script>
     $(document).on("click", "#all-content", function () {
         loaddata();
-         $(".tab-btn").removeClass("active-tab");
+        $(".tab-btn").removeClass("active-tab");
         $(this).addClass("active-tab");
     });
 

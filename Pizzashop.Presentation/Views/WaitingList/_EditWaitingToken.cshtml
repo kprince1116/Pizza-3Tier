@@ -10,7 +10,7 @@
          <form asp-action="UpdateToken" asp-controller="WaitingList" enctype="multipart/form-data" class="d-flex flex-column gap-3">
          <input type="hidden" asp-for="@Model.Id">
             <div class="form-floating">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" asp-for ="@Model.Email" >
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" asp-for ="@Model.Email" disabled >
                 <label for="floatingInput">Email </label>
             </div>
             <div class="form-floating">

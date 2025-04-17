@@ -98,6 +98,21 @@ public class WaitingService : IWaitingService
 
         await _waitingRepository.Update(waitingToken); 
 
+        var customer = await _waitingRepository.GetCustomer(model.customerId);
+
+        {
+            if (customer == null)
+            {
+                return false;
+            }
+
+            customer.Customername = model.Name;
+            customer.Phonenumber = model.Phone;
+            customer.TotalPersons = model.NoOfPerson;
+
+            await _waitingRepository.UpdateCustomers(customer);
+        }
+
         return true;
        }
        catch (Exception e)
