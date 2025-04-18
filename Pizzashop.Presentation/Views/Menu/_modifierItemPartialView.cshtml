@@ -4,11 +4,11 @@
 <div class="selectedModifierGroup" style="padding: 16px !important;" data-mgitemid="@Model.ModifierId">
     <div class="d-flex justify-content-between">
         <span class="fw-bold fs-5" style="color: rgb(119, 116, 113);">@Model.Name</span>
-        <img class="removeModifierGroup" src="~/images/icons/trash (1).svg" alt="" data-mgitemid="@Model.ModifierId">
+        <img class="removeModifierGroup" src="~/images/icons/trash (1).svg" data-mgitemid="@Model.ModifierId">
     </div>
     <!-- Min Max Select  -->
     <div class="d-flex justify-content-between">
-        <select class="MinAllowed" data-mgitemid="@Model.ModifierId"
+        <select class="MinAllowed" data-mgitemid="@Model.ModifierId" data-total="@Model.ModifierItemList.Count"
             style="width: 50%; border-radius: 20px; height: 40px; margin-right: 15px; padding-left: 10px;">
             <option selected value="0">0</option>
             @for (int i = 1; i <= Model.ModifierItemList.Count; i++)
@@ -17,7 +17,7 @@
 
             }
         </select>
-        <select class="MaxAllowed" data-mgitemid="@Model.ModifierId"  style="width: 50%; border-radius: 20px; padding-left: 10px;">
+        <select class="MaxAllowed" data-mgitemid="@Model.ModifierId" data-total="@Model.ModifierItemList.Count" style="width: 50%; border-radius: 20px; padding-left: 10px;">
             <option selected value="0">0</option>
             @for (int i = 1; i <= Model.ModifierItemList.Count; i++)
             {

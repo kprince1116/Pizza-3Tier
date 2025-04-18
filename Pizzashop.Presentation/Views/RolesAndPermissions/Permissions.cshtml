@@ -171,13 +171,34 @@ $(document).ready(function () {
         });
     });
 
-    $('form').submit(function (e) {
-        $('.inner-checkbox').each(function () {
-            if (!this.checked) {
-                $(this).siblings('input[type="hidden"]').val('');
-            }
+  const isSelectedCheckboxes = document.querySelectorAll('.inner-checkbox');
+
+const updateOuterCheckbox = (index) => {
+    const canView = canViewCheckboxes[index].checked;
+    const canAddEdit = canAddEditCheckboxes[index].checked;
+    const canDelete = canDeleteCheckboxes[index].checked;
+
+    if (canView || canAddEdit || canDelete) {
+        isSelectedCheckboxes[index].checked = true;
+    } else {
+        isSelectedCheckboxes[index].checked = false;
+    }
+
+    $(isSelectedCheckboxes[index]).trigger("change");
+};
+
+isSelectedCheckboxes.forEach((checkbox, index) => {
+    updateOuterCheckbox(index);
+});
+
+[canViewCheckboxes, canAddEditCheckboxes, canDeleteCheckboxes].forEach((checkboxGroup) => {
+    checkboxGroup.forEach((checkbox, index) => {
+        checkbox.addEventListener('change', function () {
+            updateOuterCheckbox(index);
         });
     });
+});
+
 });
 
 

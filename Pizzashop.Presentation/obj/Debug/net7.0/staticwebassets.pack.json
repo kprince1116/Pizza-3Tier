@@ -645,6 +645,10 @@
       "PackagePath": "staticwebassets\\uploads\\1b47b26f-5756-43f2-8a8c-2221f56cb3fa_Default_pfp.svg.png"
     },
     {
+      "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\22bdaa69-d112-41f4-babd-3b5e634d56a2_dining-menu.png",
+      "PackagePath": "staticwebassets\\uploads\\22bdaa69-d112-41f4-babd-3b5e634d56a2_dining-menu.png"
+    },
+    {
       "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\2522bb48-c286-4351-a52b-4f2022efeedd_Default_pfp.svg.png",
       "PackagePath": "staticwebassets\\uploads\\2522bb48-c286-4351-a52b-4f2022efeedd_Default_pfp.svg.png"
     },
@@ -675,6 +679,10 @@
     {
       "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\38547c15-df9d-4597-9fbe-fc510d7b99db_transperent-pizza.png",
       "PackagePath": "staticwebassets\\uploads\\38547c15-df9d-4597-9fbe-fc510d7b99db_transperent-pizza.png"
+    },
+    {
+      "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\3976fa11-97a0-4410-9d49-dd554aaf7678_dining-menu.png",
+      "PackagePath": "staticwebassets\\uploads\\3976fa11-97a0-4410-9d49-dd554aaf7678_dining-menu.png"
     },
     {
       "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\41e348fe-e1b4-4cae-93c7-3a16ac6404e0_transperent-pizza.png",
@@ -745,6 +753,14 @@
       "PackagePath": "staticwebassets\\uploads\\5f263802-f55e-49bf-b13f-1c715823e3d4_profile_div_bg.jpg"
     },
     {
+      "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\61994757-a5a6-45db-90ec-08913936530f_dining-menu.png",
+      "PackagePath": "staticwebassets\\uploads\\61994757-a5a6-45db-90ec-08913936530f_dining-menu.png"
+    },
+    {
+      "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\64e17445-cdff-421b-b849-d5d43a425e7d_dining-menu.png",
+      "PackagePath": "staticwebassets\\uploads\\64e17445-cdff-421b-b849-d5d43a425e7d_dining-menu.png"
+    },
+    {
       "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\6679578e-d570-4592-9a8b-c020a7f256ae_Default_pfp.svg.png",
       "PackagePath": "staticwebassets\\uploads\\6679578e-d570-4592-9a8b-c020a7f256ae_Default_pfp.svg.png"
     },
@@ -793,6 +809,10 @@
       "PackagePath": "staticwebassets\\uploads\\852eaf78-6cd0-4a34-90c5-4a5d4216d79c_dominos_background.jpg"
     },
     {
+      "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\8cdd6ecc-163a-4e9d-a005-cd863258ade7_dining-menu.png",
+      "PackagePath": "staticwebassets\\uploads\\8cdd6ecc-163a-4e9d-a005-cd863258ade7_dining-menu.png"
+    },
+    {
       "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\8f763c14-0785-44ff-8003-8bde9a141bde_Default_pfp.svg.png",
       "PackagePath": "staticwebassets\\uploads\\8f763c14-0785-44ff-8003-8bde9a141bde_Default_pfp.svg.png"
     },
@@ -803,6 +823,14 @@
     {
       "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\9097ab73-aea2-4c50-b65b-a60eceea1615_Default_pfp.svg.png",
       "PackagePath": "staticwebassets\\uploads\\9097ab73-aea2-4c50-b65b-a60eceea1615_Default_pfp.svg.png"
+    },
+    {
+      "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\92048761-db7b-48db-a096-af7b1b07cb93_dining-menu.png",
+      "PackagePath": "staticwebassets\\uploads\\92048761-db7b-48db-a096-af7b1b07cb93_dining-menu.png"
+    },
+    {
+      "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\925fbaf1-4fde-4460-852c-2e2cb52219c8_dominos_background.jpg",
+      "PackagePath": "staticwebassets\\uploads\\925fbaf1-4fde-4460-852c-2e2cb52219c8_dominos_background.jpg"
     },
     {
       "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\97355778-69bf-43bd-bc90-261e635c6cf5_transperent-pizza.png",
@@ -925,8 +953,20 @@
       "PackagePath": "staticwebassets\\uploads\\f144083f-3496-4cae-a387-5f53f5a0f02a_dining-menu.png"
     },
     {
+      "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\f1845bf6-fa03-4686-a96f-a623ba7b8b23_dominos_background.jpg",
+      "PackagePath": "staticwebassets\\uploads\\f1845bf6-fa03-4686-a96f-a623ba7b8b23_dominos_background.jpg"
+    },
+    {
       "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\f1fd3868-4175-4def-be13-2199ffa93583_transperent-pizza.png",
       "PackagePath": "staticwebassets\\uploads\\f1fd3868-4175-4def-be13-2199ffa93583_transperent-pizza.png"
+    },
+    {
+      "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\f45117e3-be67-4d50-9080-912b8485d959_dining-menu.png",
+      "PackagePath": "staticwebassets\\uploads\\f45117e3-be67-4d50-9080-912b8485d959_dining-menu.png"
+    },
+    {
+      "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\f8755dd0-c188-4713-b40e-f1ad298196ce_dining-menu.png",
+      "PackagePath": "staticwebassets\\uploads\\f8755dd0-c188-4713-b40e-f1ad298196ce_dining-menu.png"
     },
     {
       "Id": "D:\\Project\\3Tier\\Pizzashop.Presentation\\wwwroot\\uploads\\faead83e-e5ad-4d64-bd5b-ee839c84ba55_profile_div_bg.jpg",

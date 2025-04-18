@@ -11,58 +11,59 @@
         <div class="div bg-white col-2" style="height: 100vh;">
             <div>
                 <div class="fw-bold ps-3 pb-3 pt-3 fs-5">Category</div>
-                </div>
-                 <div class="aa">
-                    <a href="" class="sidebar-tile fs-6">
-                        <div class="text-nowrap" >Favourite Items</div>
-                    </a>
-                </div>
+            </div>
+            <div class="aa">
+                <a href="" class="sidebar-tile fs-6 tab-btn" id="favourite-items">
+                    <div class="text-nowrap ">Favourite Items</div>
+                </a>
+            </div>
             <div>
                 <div class="aa">
-                    <a class="sidebar-tile fs-6 tab-btn active-tab" id="AllItems">
+                    <a class="sidebar-tile fs-6 tab-btn active-tab" id="AllItems" data-categoryid="0">
                         <div>All</div>
                     </a>
                 </div>
-            <div id="categorydetails" >
+                <div id="categorydetails">
 
-            </div>
+                </div>
             </div>
         </div>
         <div class="div col-10">
-        <div class="main-content d-flex justify-content-between mt-3">
-    <!-- Search Bar -->
-      <div class="d-flex justify-content-end position-relative align-items-center ps-2">
-        <input type="text" class="search form-control search-bar" style="height: 60px; width: 500px !important; "  id="MenuItemSearch" placeholder="Search" />
-        <img src="~/images/icons/search.svg" alt="" style="width: 20px; aspect-ratio: 1"
-                            class="bg-white position-absolute rounded-2 m-2" />
+            <div class="main-content d-flex justify-content-between mt-3">
+                <!-- Search Bar -->
+                <div class="d-flex justify-content-end position-relative align-items-center ps-2">
+                    <input type="text" class="search form-control search-bar"
+                        style="height: 60px; width: 500px !important;" id="MenuItemSearch" placeholder="Search" />
+                    <img src="~/images/icons/search.svg" alt="" style="width: 20px; aspect-ratio: 1"
+                        class="bg-white position-absolute rounded-2 m-2" />
+                </div>
+                <div class="d-flex gap-3">
+                    <div class="d-flex gap-2 align-items-center">
+                        <span style="color: var(--table-vegetarian)"><i class="bi bi-circle-fill"></i></span>
+                        <span>
+                            Vegetarian</span>
+                    </div>
+                    <div class="d-flex gap-2 align-items-center">
+                        <span style="color: var(--table-nonvegetarian)"><i class="bi bi-circle-fill"></i></span>
+                        <span>
+                            Non-Vegetarian
+                        </span>
+                    </div>
+                    <div class="d-flex gap-2 align-items-center">
+                        <span style="color: var(--table-vegan)"> <i class="bi bi-circle-fill"></i></span>
+                        <span>
+                            Vegan</span>
+                    </div>
+                </div>
             </div>
-        <div class="d-flex gap-3">
-             <div class="d-flex gap-2 align-items-center"> 
-                                       <span style="color: var(--table-vegetarian)" ><i class="bi bi-circle-fill"></i></span>
-                                        <span >
-                                            Vegetarian</span>
-                                    </div>
-                                    <div class="d-flex gap-2 align-items-center">
-                                         <span style="color: var(--table-nonvegetarian)" ><i class="bi bi-circle-fill"></i></span>
-                                        <span >
-                                            Non-Vegetarian
-                                        </span>
-                                    </div>
-                                    <div class="d-flex gap-2 align-items-center">
-                                       <span style="color: var(--table-vegan)" > <i class="bi bi-circle-fill"></i></span>
-                                        <span >
-                                            Vegan</span>
-                                    </div>
-        </div>
-          </div>
 
-    <!-- Item Cards -->
+            <!-- Item Cards -->
             <div class="mt-3" id="ItemsContainer">
 
             </div>
         </div>
 
-        </div>
+    </div>
     </div>
 </body>
 
@@ -70,78 +71,109 @@
 
 @section Scripts
 {
-<script>
+    <script>
 
-  $(document).ready(function () {
-     getCategories();
-     GetItems(0);
-});
-
-
-
-// Fetch Categories
-function getCategories() {
-   $.ajax({
-        url: "/OrderAppMenu/GetCategories",
-        type: "GET",
-        success: function (data) {
-            $("#categorydetails").html(data);
-        },
-        error: function (xhr, status, error) {
-            console.error("Error fetching categories:", error);
-        }
-    });
-}
-</script>
-
-<script>
-      //Fetch Category wise Items
-     $(document).off("click",".category-click").on("click",".category-click",function(){
-        console.log("hello");
-        var categoryid = $(this).data("categoryid");
-        console.log("categoryid:",categoryid);
-        GetItems(categoryid);
-
-         $(document).on("input","#MenuItemSearch",function(){
-        GetItems(categoryid);
+        $(document).ready(function () {
+            getCategories();
+            GetItems(0);
         });
-    })
 
-    $(document).on("click","#AllItems",function(){
-        GetItems(0);
-        $(".tab-btn").removeClass("active-tab");
-        $(this).addClass("active-tab");
-        
-         $(document).on("input","#MenuItemSearch",function(){
-        GetItems(0);
-    });
-    });
 
-    function GetItems(categoryid)
-    {
-        let search = $("#MenuItemSearch").val();
-        console.log("Search:",search);
 
-        $.ajax({
-            url: "/OrderAppMenu/GetItems",
+        // Fetch Categories
+        function getCategories() {
+            $.ajax({
+                url: "/OrderAppMenu/GetCategories",
+                type: "GET",
+                success: function (data) {
+                    $("#categorydetails").html(data);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching categories:", error);
+                }
+            });
+        }
+    </script>
+
+    <script>
+
+        //Fetch Category wise Items
+        $(document).off("click", ".category-click").on("click", ".category-click", function () {
+            var categoryid = $(this).data("categoryid");
+            console.log("categoryid:", categoryid);
+            document.querySelectorAll(".tab-btn").forEach(tab => {
+                tab.classList.remove("active-tab");
+            });
+            $(this).addClass("active-tab");
+            GetItems(categoryid);
+        })
+
+        $(document).on("input", "#MenuItemSearch", function () {
+            var categoryid = $(".active-tab").data("categoryid");
+            GetItems(categoryid);
+        });
+
+
+        $(document).on("click", "#AllItems", function () {
+            GetItems(0);
+            $(".tab-btn").removeClass("active-tab");
+            $(this).addClass("active-tab");
+        });
+
+        function GetItems(categoryid) {
+            let search = $("#MenuItemSearch").val();
+
+            $.ajax({
+                url: "/OrderAppMenu/GetItems",
+                type: "GET",
+                data: { Categoryid: categoryid, SearchKey: search },
+                success: function (data) {
+                    $("#ItemsContainer").html(data);
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error: " + error);
+                }
+            });
+        } 
+    </script>
+
+    <script>
+        @* $(document).on("click", ".heart", function () {
+        $(this).toggleClass("bi-heart-fill");
+        $(this).toggleClass("bi-heart heart");
+        });
+    $(document).on("click", ".bi-heart-fill", function () {
+        $(this).toggleClass("bi-heart heart");
+        }); *@
+
+            $(document).on("click", "#favourite-items", function () {
+                 $(".tab-btn").removeClass("active-tab");
+             $(this).addClass("active-tab");
+            });
+
+        $(document).on("click", "#favourite-items", function (e) {
+            e.preventDefault();
+            let search = $("#MenuItemSearch").val();
+            favouriteitems(search)
+        });
+
+        function favouriteitems(search)
+        {
+            $.ajax({
+            url: "/OrderAppMenu/GetFavouriteItems",
             type: "GET",
-            data : {Categoryid : categoryid , SearchKey : search },
+            data: { SearchKey: search },
             success: function (data) {
                 $("#ItemsContainer").html(data);
-                document.querySelectorAll(".tab-btn").forEach(tab => {
-                    tab.classList.remove("active-tab");
-                });
-                $(this).addClass("active-tab");
-            }.bind(this),
+            },
             error: function (xhr, status, error) {
                 console.log("Error: " + error);
             }
         });
-    } 
-</script>
+        }
+        
 
-<script>
-   
-</script>
+    </script>
+
 
 }

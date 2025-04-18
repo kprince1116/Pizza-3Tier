@@ -8,4 +8,6 @@ public interface IOrderAppMenuRepository
     Task<List<MenuCategory>> GetCategories();
 
     Task<List<MenuItem>> GetItems(int CategoryId,string SearchKey);
+
+    Task<List<MenuItem>> GetFavouriteItems(string SearchKey);
 }

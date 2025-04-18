@@ -29,6 +29,13 @@ public class OrderAppMenu : Controller
         var items = await _orderAppMenu.GetItems(CategoryId,SearchKey);
         return PartialView("_MenuItems", items);
     }
+
+    public async Task<IActionResult> GetFavouriteItems(string SearchKey)
+    {
+        var items = await _orderAppMenu.GetFavouriteItems(SearchKey);
+        return PartialView("_MenuItems", items);
+    }
+   
     
 
 }

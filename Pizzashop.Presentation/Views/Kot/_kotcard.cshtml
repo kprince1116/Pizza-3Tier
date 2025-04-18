@@ -40,16 +40,16 @@
                         <div class="d-flex flex-column">
                             <div class="d-flex justify-content-between">
                                 <div>@card.Items[i].ItemName</div>
-                                <dir>
-                                    @if(Model.OrderDetails[i].OrderStatus == "In Progress")
-                                    {
-                                        @card.Items[i].PendigQuantity
-                                    }
-                                    else if(Model.OrderDetails[i].OrderStatus == "Ready")
-                                    {
-                                        @card.Items[i].ReadyQuantity
-                                    }
-                                </dir>
+                                <div>
+                                        @* @if(Model.OrderDetails[i].OrderStatus == "In Progress")
+                                        {
+                                            @card.Items[i].PendigQuantity
+                                        }
+                                        @if(Model.OrderDetails[i].OrderStatus == "Ready")
+                                        {
+                                            @card.Items[i].ReadyQuantity
+                                        } *@
+                                </div>
                             </div>
                            
                             <ul>

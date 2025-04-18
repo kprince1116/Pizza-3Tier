@@ -1,3 +1,4 @@
+
 using DAL.Interfaces;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,8 @@ public class KotRepository : IKotRepository
     {
         _db = db;
     }
+
+     
 
     public async Task<List<MenuCategory>> GetCategories()
     {
@@ -78,14 +81,14 @@ public class KotRepository : IKotRepository
                 OrderID = o.Orderid,
                 OrderNo = o.OrderNo, 
                 OrderStatus = status,
-                ItemList = o.OrderItems.Select(i => new OrderCardviewmodel.OrderItemsviewmodel
+                ItemList = o.OrderItems.Where(oi=> status == "In Progress" &&  oi.Quantity-oi.ReadyItem > 0  ||  status == "Ready" && oi.ReadyItem > 0).Select(i => new OrderCardviewmodel.OrderItemsviewmodel
                 {
                     ItemId = (int)i.ItemId,
                     ItemName = i.Item.Itemname,
                     IsSelected = true,
                     TotalQuantity = (int)i.Quantity,
                     ReadyQuantity = (int)i.ReadyItem,
-                    PendigQuantity = (int)i.Quantity -(int) i.ReadyItem,
+                    PendigQuantity = (int)i.Quantity - (int) i.ReadyItem,
                     ModifierList = i.OrderItemModifiers.Select(m => new OrderCardviewmodel.OrderItemModifierviewmodel
                     {
                         ModifierId =(int) m.ModifierId,
@@ -118,7 +121,7 @@ public class KotRepository : IKotRepository
         else if(status == "Ready")
         {
             orderItem.ReadyItem = orderItem.ReadyItem - quantity;
-            if(orderItem.ReadyItem == 0)
+            if(orderItem.ReadyItem != orderItem.Quantity)
             {
                 orderItem.Status = "In Progress";
             }
@@ -132,5 +135,3 @@ public class KotRepository : IKotRepository
     }
 
 }
-
-

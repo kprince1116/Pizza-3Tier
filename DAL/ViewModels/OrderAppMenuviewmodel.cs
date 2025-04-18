@@ -27,4 +27,6 @@ public class Itemsviewmodel
      public string ItemType {get; set;}
 
      public decimal price {get; set;}
+
+     public bool isFavourite {get; set;}
 }

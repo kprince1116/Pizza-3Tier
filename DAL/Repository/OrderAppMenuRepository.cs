@@ -39,4 +39,18 @@ public class OrderAppMenuRepository : IOrderAppMenuRepository
         return items;
      }
 
+    public async Task<List<MenuItem>> GetFavouriteItems(string SearchKey)
+    {
+        var items = await _db.MenuItems.Where(u=>u.IsDeleted == false && u.IsFavourite == true).OrderBy(u=>u.Itemname).ToListAsync();
+
+        if(!string.IsNullOrEmpty(SearchKey))
+        {
+            var lowerSearchQuery = SearchKey.ToLower();
+
+            items = items.Where(u=>u.Itemname.ToLower().Contains(lowerSearchQuery) || u.Itemtype.ToLower().Contains(lowerSearchQuery) || u.Rate.ToString().Contains(lowerSearchQuery)).ToList();
+        }
+
+        return items;
+    }
+
 }

@@ -4,7 +4,7 @@
 {
 @foreach(var item in Model.items)
 {
-<div class="item-card ">
+<div class="item-card">
         <div class="row">
                         <div class="col-3">
                             <div class="card-icon d-flex justify-content-center align-items-center">
@@ -31,7 +31,15 @@
                                 <span class="position-absolute top-0 end-0 m-0">Non-Veg</span>
                              *@
                             <!-- Heart Icon -->
-                            <span class="heart position-absolute bottom-0 end-0 m-2">&hearts;</span>
+                            @if(item.isFavourite == true)
+                            {
+                                <span class="heart position-absolute bottom-0 end-0 m-2 bi-heart-fill"></span>
+                            }
+                            else
+                            {
+                                <span class="heart position-absolute bottom-0 end-0 m-2 bi-heart"></span>
+                            } 
+
                         </div>
         </div>
 </div>
@@ -41,3 +49,7 @@ else
 {
       <p class="text-muted">No items found.</p>
 }
+
+ 
+
+  

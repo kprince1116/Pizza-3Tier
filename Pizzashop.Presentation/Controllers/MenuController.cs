@@ -227,7 +227,7 @@ public class MenuController : Controller
     #region Modifier Group CRUD
 
     //Modifiers
-        public IActionResult ModifiersTab(int id)
+    public IActionResult ModifiersTab(int id)
     {
         IEnumerable<ModifierGroupViewModel> model = _userMenu.GetAllModifierGroup();
         return PartialView("_ModifierTab", model);

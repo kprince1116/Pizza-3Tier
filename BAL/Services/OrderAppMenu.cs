@@ -40,7 +40,8 @@ public class OrderAppMenu : IOrderAppMenu
                 ItemId = i.Itemid ,
                 ItemName = i.Itemname,
                 ItemType = i.Itemtype,
-                price = (int)i.Rate
+                price = (int)i.Rate,
+                isFavourite = (bool) i.IsFavourite
             }).ToList()
         };
         return viewmodel;
@@ -51,6 +52,24 @@ public class OrderAppMenu : IOrderAppMenu
             return null;
         }
        
+    }
+
+    public async Task<OrderAppMenuviewmodel> GetFavouriteItems(string SearchKey)
+    {
+        var items = await _orderAppMenuRepository.GetFavouriteItems(SearchKey);
+
+        var viewmodel = new OrderAppMenuviewmodel
+        {
+            items = items.Select(i => new Itemsviewmodel
+            {
+                ItemId = i.Itemid,
+                ItemName = i.Itemname,
+                ItemType = i.Itemtype,
+                price = (int)i.Rate,
+                isFavourite = (bool) i.IsFavourite
+            }).ToList()
+        };
+        return viewmodel;
     }
 
 }

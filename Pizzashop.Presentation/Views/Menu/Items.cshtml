@@ -580,12 +580,58 @@ function saveExistingModifiers() {
         success: function (data) {
           console.log("data", data);
           $("#mgItemList").append(data);
+          bindMinMaxEvents();
+          $(".MinAllowed").trigger("change");
+          $(".MaxAllowed").trigger("change");
         },
         error: function () {
           console.log("Error Appending Data");
         }
       });
     }
+
+ function bindMinMaxEvents() {
+ $(".MinAllowed").off("change").on("change", function () {
+  let minVal = parseInt($(this).val());
+  let id = $(this).data("mgitemid");
+  let $maxSelect = $('.MaxAllowed[data-mgitemid="' + id + '"]');
+  let total = $maxSelect.data("total");
+
+  let currentMaxVal = parseInt($maxSelect.val());
+
+  $maxSelect.empty();
+  for (let i = minVal; i <= total; i++) {
+    let option = new Option(i, i);
+    if (i === currentMaxVal) option.selected = true;
+    $maxSelect.append(option);
+  }
+
+  if (currentMaxVal < minVal) {
+    $maxSelect.val(minVal);
+  }
+});
+
+
+  $(".MaxAllowed").off("change").on("change", function () {
+    let maxVal = parseInt($(this).val());
+    let id = $(this).data("mgitemid");
+    let $minSelect = $('.MinAllowed[data-mgitemid="' + id + '"]');
+
+    let currentMinVal = parseInt($minSelect.val());
+
+    $minSelect.empty();
+    for (let i = 0; i <= maxVal; i++) {
+      let option = new Option(i, i);
+      if (i === currentMinVal) option.selected = true;
+      $minSelect.append(option);
+    }
+
+    if (currentMinVal > maxVal) {
+      $minSelect.val(maxVal);
+    }
+  });
+}
+
 
     $(document).on("change", "#selectModifiers", function () {
       var modifierGroupId = Number($(this).val());
@@ -653,15 +699,33 @@ function saveExistingModifiers() {
     });
   </script>
 
-    <script>
-      var selectedModifiersItem = [];
-      function SubmitAddItem() {
-        $(".selectedModifierGroup").each(function (e) {
+    @* <script>
+      var selectedModifiersItemForAddIntoEdit = [];
+      function SubmitAddItemForEdit() {
+        $(".selectedModifierGroupForAddInEdit").each(function (e) {
           var id = $(this).data("mgitemid");
           selectedModifiersItem.push({
             ModifierGroupId: id,
             MinAllowed: Number($('.MinAllowed[data-mgitemid="' + id + '"]').val()),
             MaxAllowed: Number($('.MaxAllowed[data-mgitemid="' + id + '"]').val()),
+          })
+        })
+        $("#selectedModifierList").val(JSON.stringify(selectedModifiersItem));
+      }
+    </script> *@
+
+    <script>
+      var selectedModifiersItem = [];
+      function SubmitAddItem() {
+        $(".selectedModifierGroup").each(function (e) {
+          var id = $(this).data("mgitemid");
+          var minallowed = Number($('.MinAllowed[data-mgitemid="' + id + '"]').val());
+          var maxAllowed = Number($('.MaxAllowed[data-mgitemid="' + id + '"]').val());
+
+          selectedModifiersItem.push({
+            ModifierGroupId: id,
+            MinAllowed:minallowed,
+            MaxAllowed: maxAllowed ,
           })
         })
         $("#selectedModifierList").val(JSON.stringify(selectedModifiersItem));
@@ -684,6 +748,7 @@ function saveExistingModifiers() {
         success:function(response){
           if(response.success){
             $("#AddItem").modal('hide');
+            selectedModifiersItem = [];
             toastr.success("Item Added Succesfuly");
           }
           else{
@@ -1168,53 +1233,6 @@ function saveExistingModifiers() {
               </select>
               <div id="mgItemList">
 
-                @foreach (var modifier in Model.Additem.ItemModifierList)
-                {
-                  <div class="selectedModifierGroup" style="padding: 16px !important;"
-                    data-mgitemid="@modifier.ModifierGroupId">
-                    <div class="d-flex justify-content-between">
-                      <span class="fw-bold fs-5" style="color: rgb(119, 116, 113);">@modifier.Name</span>
-                      <img class="removeModifierGroup" src="~/images/icons/trash (1).svg" alt=""
-                        data-mgitemid="@modifier.ModifierGroupId">
-
-                    </div>
-                    <!-- Min Max Select  -->
-                    <div class="d-flex justify-content-between">
-                      <select class="MinAllowed" data-mgitemid="@modifier.ModifierGroupId"
-                        style="width: 50%; border-radius: 20px; height: 40px; margin-right: 15px; padding-left: 10px;">
-                        <option selected value="@modifier.MinAllowed">@modifier.MinAllowed</option>
-                        @for (int i = 1; i <= modifier.ModifierItemList.Count; i++)
-                        {
-                          <option value="@i">@i</option>
-
-                        }
-                      </select>
-                      <select class="MaxAllowed" data-mgitemid="@modifier.ModifierGroupId"
-                        style="width: 50%; border-radius: 20px; padding-left: 10px;">
-                        <option selected value="@modifier.MaxAllowed">@modifier.MaxAllowed</option>
-                        @for (int i = 1; i <= modifier.ModifierItemList.Count; i++)
-                        {
-                          <option value="@i">@i</option>
-
-                        }
-                      </select>
-                    </div>
-                    <!-- Modifier align-items-center List  -->
-                    <div>
-                      <ul>
-                        @foreach (var items in modifier.ModifierItemList)
-                        {
-                          <li>
-                            <div class="d-flex justify-content-between">
-                              <span>@items.Name</span>
-                              <span>@items.Rate</span>
-                            </div>
-                          </li>
-                        }
-                      </ul>
-                    </div>
-                  </div>
-                }
               </div>
             </div>
             <!-- section for modifier Item -->
