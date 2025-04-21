@@ -18,6 +18,8 @@ public class AddTableviewmodel
 
     public bool? Isavailable { get; set; }
 
+    public string status { get; set; } 
+
     public virtual Section? Sections { get; set; }
 
    

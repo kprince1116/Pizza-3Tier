@@ -67,20 +67,19 @@ public class KotTableController : Controller
 {
     try
     {
-
         var tableIds = JsonSerializer.Deserialize<List<int>>(SelectedTables);
 
         foreach (var tableId in tableIds)
         {
-            model.tableId = tableId;
-            
+            model.tableId = tableId; 
             var result = await _kotTableService.AssignTable(model);
         }
-
-        return Json(new { success = true });
+        var redirectUrl = Url.Action("OrderMenu", "OrderAppMenu");
+        return Json(new { success = true , url = redirectUrl });
     }
     catch (Exception ex)
     {
+        Console.WriteLine(ex.Message);
          return Json(new { success = false });
     }
 }

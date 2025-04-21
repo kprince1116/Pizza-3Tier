@@ -122,6 +122,19 @@
         padding: 10px;
         border: 1px solid #ddd;
     }
+    .item-modifeir-card {
+        display: inline-block;
+        width: 130px;
+        margin: 10px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        /* overflow: hidden; */
+        text-align: center;
+        position: relative;
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
 
     .item-card .card-title {
         font-size: 14px;
@@ -133,6 +146,21 @@
     }
 
     .item-card .card-text {
+        font-size: 12px;
+        color: #666;
+        margin: 5px 0;
+    }
+    
+    .item-modifeir-card .card-title {
+        font-size: 14px;
+        margin: 0;
+        color: #333;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .item-modifeir-card .card-text {
         font-size: 12px;
         color: #666;
         margin: 5px 0;
@@ -150,3 +178,171 @@
     .heart:hover {
         color: #1f73ae;
     }
+
+    .corner-ribbon {
+        width: 100px;
+        height: 15px;
+        background: #e43;
+        position: absolute;
+        top: -12px;
+        right: -30px; 
+        text-align: center;
+        line-height: 50px;
+        letter-spacing: 1px;
+        font-size: 12px;
+        font-weight: bold;
+        color: white;
+        transform: rotate(45deg);
+        box-shadow: 0 0 3px rgba(0,0,0,0.3);
+        z-index: 10;
+        padding: 2px 0;
+    }
+    
+    /* Color Variants */
+    .ribbon-green {
+        background-color: #28a745; 
+    }
+    
+    .ribbon-red {
+        background-color: #dc3545; 
+    }
+    
+    .ribbon-vegan {
+        background-color: #df972c; 
+    }
+    
+    .item-card {
+        position: relative;
+        overflow: hidden;
+    }
+    .item-modifeir-card{
+        position: relative;
+        overflow: hidden;
+    }
+    
+    
+    /*----------- Order App content ---------  */
+.order-app-module
+{
+    min-width: 800px;
+    height: 85vh;
+    background-color: white;
+    border-radius: 10px;
+    padding: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+.dining-table-img
+{
+    background-color: #c9e1f3;
+    width: 33px;
+    height: 33px;
+    padding: 4px;
+}
+.table-details
+{
+    font-size: 12px;
+    color: rgb(32, 32, 32);
+}
+.table-details span
+{
+    font-weight: bold;
+    font-size: 12px;
+    color: black;
+}
+.threeicon
+{
+    border: 1px solid #0066A7;
+    border-radius: 3px;
+    padding: 3px 8px;
+    font-size: 16px;
+    color: #0a69a5;
+}
+
+/*----------- Modifier List Modal ---------  */
+.modifierGroupHeader
+{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.modifierGroupName
+{
+    font-weight: bold;
+    font-size: 17px;
+    opacity: 0.80;
+}
+.modifierGroupDetails
+{
+    font-size: 13px;
+    opacity: 0.75;
+}
+.modifier-card
+{
+    width: 155px;
+    margin-top: 4px;
+    padding: 0px 10px;
+    border: 1px solid rgb(185, 185, 185);
+}
+.modifier-card.selected {
+    border-color: #0066A7;
+    background-color: #e6f0ff;
+}
+.item-row
+{
+    border: 1px solid grey;
+    border-radius: 8px;
+    font-size: 12px;
+}
+.icon-rotate {
+    transition: transform 0.3s ease;
+    padding: 4px;
+    transform: rotate(270deg);
+}
+.drop-class[aria-expanded="true"] .icon-rotate {
+    transform: rotate(360deg);
+    opacity: 1 !important;
+    background-color: #dce6ec;
+    border-radius: 50%;
+}
+
+.quantity-box
+{
+    border: 1px solid rgb(194, 194, 194, 0.5);
+    border-radius: 4px;
+    height: 35px;
+}
+.quantity-box-display
+{
+    margin: 0px 10px;
+    font-weight: bold;
+}
+.item-name-for-order
+{
+font-size: 15px;
+font-weight: 600;
+cursor: pointer;
+}
+.item-end-part-for-order
+{
+display: flex;
+align-items: center;
+gap: 75px;
+margin-right: 40px;
+}
+.item-sums
+{
+font-size: 12px;
+}
+.modifier-list-for-order
+{
+letter-spacing: 1px;
+}
+.item-amount
+{
+letter-spacing: 1px;
+font-size: 15px;
+}
+.quantity-price{
+    margin-right: 150px;
+    gap: 90px;
+}

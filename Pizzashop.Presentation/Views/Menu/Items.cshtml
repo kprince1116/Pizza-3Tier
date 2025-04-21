@@ -135,7 +135,7 @@
                   }
                    @if(canAddMenu)
                    {
-                  <div class="border new-item d-flex p-lg-3 p-2 fw-bold" data-bs-toggle="modal" data-bs-target="#AddItem"
+                  <div class="border new-item d-flex p-lg-3 p-2 fw-bold" id="AddNewItem" 
                     style="background-color: #0066a7; color: white; text-wrap: nowrap;">
                     +New Item
                   </div>
@@ -161,7 +161,7 @@
 
   <!-- Bootstrap & jQuery -->
 </body>
-<script src="https://cdnjs.cloudflar  e.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
@@ -170,6 +170,16 @@
 @section scripts
 {
   <!-- modifier group -->
+
+<script>
+  $(document).off("click","#AddNewItem").on("click", "#AddNewItem", function() {
+    $("#mgItemList").html("");
+    selectedModifiersItem=[];
+    var modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('AddItem'));
+    modal.show();
+  });
+</script>
+
 
   <script>
     var selectedModifierId;
@@ -669,7 +679,10 @@ function saveExistingModifiers() {
         data: { modifierId: modifierGroupId },
         success: function (data) {
           $("#mgItemLists").append(data);
-        },
+             bindMinMaxEvents();
+            $(".MinAllowed").trigger("change");
+            $(".MaxAllowed").trigger("change");
+         },
         error: function () {
           console.log("Error Appending Data");
         }
@@ -698,21 +711,6 @@ function saveExistingModifiers() {
       $("div").remove(".selectedModifierGroup[data-mgitemid='" + removeModifierGroupID + "']");
     });
   </script>
-
-    @* <script>
-      var selectedModifiersItemForAddIntoEdit = [];
-      function SubmitAddItemForEdit() {
-        $(".selectedModifierGroupForAddInEdit").each(function (e) {
-          var id = $(this).data("mgitemid");
-          selectedModifiersItem.push({
-            ModifierGroupId: id,
-            MinAllowed: Number($('.MinAllowed[data-mgitemid="' + id + '"]').val()),
-            MaxAllowed: Number($('.MaxAllowed[data-mgitemid="' + id + '"]').val()),
-          })
-        })
-        $("#selectedModifierList").val(JSON.stringify(selectedModifiersItem));
-      }
-    </script> *@
 
     <script>
       var selectedModifiersItem = [];
@@ -1095,7 +1093,7 @@ function saveExistingModifiers() {
       <input type="hidden" id="selectedModifierList" name="modifierItemList">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Menu Item</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close add-item-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="conatainer-fluid">
@@ -1243,7 +1241,7 @@ function saveExistingModifiers() {
 
       <div class="modal-footer">
         <button type="submit" id="submitAddItemBtn" class="btn btn-primary">Save</button>
-        <button type="button" class="btn btn-secondary">Cancel</button>
+        <button type="button" class="btn btn-secondary add-item-close">Cancel</button>
       </div>
     </form>
   </div>

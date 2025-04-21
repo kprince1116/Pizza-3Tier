@@ -1,0 +1,53 @@
+@model Pizzashop.DAL.ViewModels.MenuItemModalviewmoel
+
+<div class="modal fade" data-bs-backdrop="static" id="ItemModifierGroupModal" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">@Model.ItemName</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="height: 250px; overflow-y: auto;">
+                @foreach (var modifiergroup in Model.ModifierGroupList)
+                {
+                    <div class="mb-1">
+                        <span class="fw-bold text-secondary me-1" id="modifier-name-@modifiergroup.ModifierGroupId" >@modifiergroup.ModifierGroupName</span>
+                        <span class="text-secondary">
+                            (You can choose Minimum-@modifiergroup.Min & Maximum-@modifiergroup.Max options)
+                        </span>
+                    </div>
+                    <div class="d-flex flex-row justify-content-start flex-wrap min_max" 
+                         data-modifiergroupid="@modifiergroup.ModifierGroupId" 
+                         data-minvalue="@modifiergroup.Min" 
+                         data-maxvalue="@modifiergroup.Max">
+                        @foreach (var modifier in modifiergroup.ModifierList)
+                        {
+                            <div class="item-modifeir-card position-relative d-flex flex-column justify-content-start mb-3 me-1 shadow bg-white rounded modifier_card"
+                                 data-modifiergroupid="@modifiergroup.ModifierGroupId"
+                                 data-modifierid = "@modifier.ModifierId" >
+                                <div class="ms-2">
+                                    @modifier.ModifierName
+                                </div>
+                                <div class="ms-2">
+                                    @modifier.Price
+                                </div>
+                                <div class="corner-ribbon ribbon-vegan"></div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="ItemModifierGroupModalModalSubmit" class="btn btn-primary modal_submit_btn">Add</button>
+                <button type="button" class="btn btn-outline-primary modal_close_btn" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .cardSelected {
+        background-color: rgb(176, 205, 238) !important;
+    }
+</style>

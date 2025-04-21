@@ -20,7 +20,7 @@
         <select class="MaxAllowed" data-mgitemid="@Model.ModifierId" data-total="@Model.ModifierItemList.Count" style="width: 50%; border-radius: 20px; padding-left: 10px;">
             <option selected value="0">0</option>
             @for (int i = 1; i <= Model.ModifierItemList.Count; i++)
-            {
+            {       
                 <option value="@i">@i</option>
 
             }

@@ -55,6 +55,7 @@ public class WaitingRepository : IWaitingRepository
                         .Select(u => new waitingtokenviewmodel
                         {
                             Id = u.Id,
+                            customerId = u.Customer.Customerid,
                             Email = u.Customer.Customeremail,
                             Name = u.Customer.Customername,
                             Phone = u.Customer.Phonenumber,

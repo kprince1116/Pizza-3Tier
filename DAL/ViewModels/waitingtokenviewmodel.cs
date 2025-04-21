@@ -8,6 +8,8 @@ public class waitingtokenviewmodel
     public int Id { get; set; }
     public int customerId { get; set; }
 
+    public int OrderId { get; set; }
+
     [Required(ErrorMessage = "Please enter your email address.")]
     public string Email {get; set;}
 

@@ -99,7 +99,7 @@ public class UserTableRepository : IUserTableRepository
             Tableid = model.AddTable.Tableid,
             TableName = model.AddTable.TableName,
             Capacity = model.AddTable.Capacity,
-            Isavailable = model.AddTable.Isavailable
+            Isavailable = model.AddTable.Isavailable,
         };
 
         _db.Tables.Update(table);

@@ -90,7 +90,6 @@ public class WaitingService : IWaitingService
             return false;
         }
 
-        waitingToken.Customer.Customeremail = model.Email;
         waitingToken.Customer.Customername = model.Name;
         waitingToken.Customer.Phonenumber = model.Phone;
         waitingToken.NoOfPersons = model.NoOfPerson;

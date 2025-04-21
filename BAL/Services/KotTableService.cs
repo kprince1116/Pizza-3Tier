@@ -135,6 +135,7 @@ public class KotTableService : IKotTableService
             var customer = await _kotTableRepository.GetCustomerDetails(model.Id);
             var tables = await _kotTableRepository.GetTablesByIdAsync(model.tableId);
 
+ 
           if (customer == null)
           {
             
@@ -174,20 +175,20 @@ public class KotTableService : IKotTableService
 
           else
             {
+
           tables.CustomerId = model.customerId;
           tables.Status = "Assigned";
           tables.Isavailable = false;
           customer.IsAssigned = true;
           customer.AssignedTime = DateTime.Now;
 
-              await _kotTableRepository.UpdateTables(tables);
-             await _kotTableRepository.UpdateCustomer(customer);
+            await _kotTableRepository.UpdateTables(tables);
+            await _kotTableRepository.UpdateCustomer(customer);
 
                    return true;
             }
 
-        
-
+            
   
         }
         catch (Exception e)

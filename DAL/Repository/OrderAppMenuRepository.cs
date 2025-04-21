@@ -53,4 +53,25 @@ public class OrderAppMenuRepository : IOrderAppMenuRepository
         return items;
     }
 
+    public async Task<MenuItem> GetItemById(int ItemId)
+    {
+        var item = await _db.MenuItems.FirstOrDefaultAsync(u=>u.Itemid == ItemId && u.IsDeleted == false);
+        return item;
+    }
+
+    public async Task UpdateItem(MenuItem item)
+    {
+        _db.MenuItems.Update(item);
+        await _db.SaveChangesAsync();
+    }
+
+    public async Task<MenuItem> GetItemForModalById(int ItemId)
+    {
+        var item = await _db.MenuItems.Include(u=>u.Itemmodifiergroups.Where(v=>v.IsDeleted == false))
+                                        .ThenInclude(u=>u.Modifiergroup)
+                                        .ThenInclude(u=>u.Modifiermappings.Where(V=>V.IsDeleted == false))
+                                        .ThenInclude(u=>u.Modifier)
+                                        .FirstOrDefaultAsync(u=>u.Itemid == ItemId && u.IsDeleted == false);
+        return item;
+    }
 }

@@ -28,4 +28,6 @@ public interface IKotTableRepository
     Task<Table> GetTablesByIdAsync(int tableId);
 
     Task<Customer> GetCustomerFromCustomerTable(int id);
+
+    Task<Order> GenerateOrder(Order obj);
 }

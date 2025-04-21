@@ -99,6 +99,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+ <script src="~/lib/jquery/dist/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 
 <script>
@@ -219,12 +221,13 @@
             data: formData,
             success: function (response) {
                 if (response.success) {
-                    toastr.success("Waiting Token Added Succesfully");
                     const modalElement = document.getElementById('AddWaiting');
                     const assignModal = bootstrap.Modal.getInstance(modalElement);
                     if (assignModal) {
                     assignModal.hide();
                     }
+                    location.reload();
+                     toastr.success("Waiting Token Added Succesfully");
                 } else {
                     alert('Error: ' + response.message);
                 }
@@ -260,7 +263,7 @@
             var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-            $(this).text(`${hours}h ${minutes}m`);
+            $(this).text(`${hours}hrs ${minutes}min`);
         });
     }
 
@@ -285,7 +288,6 @@
       type: "GET",
       url: "/WaitingList/GetTableDeatails",
       success: function (data) {
-         console.log("Data from server:", data);
          $('#AssignSection').html(data);
          $("#sectionselect").val(sectionId);
          $("#customerselect").val(customerId);
@@ -319,6 +321,7 @@
                     if (assignModal) {
                     assignModal.hide();
                     }
+                    location.reload();
                 } else {
                      toastr.ward("TSomething Get Wrong");
                 }

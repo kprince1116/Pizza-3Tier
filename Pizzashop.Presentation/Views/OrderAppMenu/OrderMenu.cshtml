@@ -1,71 +1,203 @@
 @{
     Layout = "~/Views/Shared/_OrderApp.cshtml";
-    ViewData["Title"] = "KOT";
+    ViewData["Title"] = "Menu";
     ViewBag.Active = "Kot";
 }
 
 <link rel="stylesheet" href="~/css/OrderAppMenu.css" asp-append-version="true" />
 
-<body>
-    <div class="d-flex m-0 p-0 row">
-        <div class="div bg-white col-2" style="height: 100vh;">
-            <div>
-                <div class="fw-bold ps-3 pb-3 pt-3 fs-5">Category</div>
-            </div>
+<body style="margin: 0; overflow: hidden;"> 
+    <div class="d-flex m-0 p-0">
+        
+        <div class="bg-white col-2 p-0" style="position: sticky; top: 0; height: 100vh; overflow-y: auto;">
+            <div class="fw-bold ps-3 pb-3 pt-3 fs-5">Category</div>
             <div class="aa">
                 <a href="" class="sidebar-tile fs-6 tab-btn" id="favourite-items">
-                    <div class="text-nowrap ">Favourite Items</div>
+                    <div class="text-nowrap">Favourite Items</div>
                 </a>
             </div>
-            <div>
-                <div class="aa">
-                    <a class="sidebar-tile fs-6 tab-btn active-tab" id="AllItems" data-categoryid="0">
-                        <div>All</div>
-                    </a>
-                </div>
-                <div id="categorydetails">
-
-                </div>
+            <div class="aa">
+                <a class="sidebar-tile fs-6 tab-btn active-tab" id="AllItems" data-categoryid="0">
+                    <div>All</div>
+                </a>
             </div>
+            <div id="categorydetails"></div>
         </div>
-        <div class="div col-10">
+
+        <div class="col-10 p-3">
             <div class="main-content d-flex justify-content-between mt-3">
                 <!-- Search Bar -->
                 <div class="d-flex justify-content-end position-relative align-items-center ps-2">
                     <input type="text" class="search form-control search-bar"
-                        style="height: 60px; width: 500px !important;" id="MenuItemSearch" placeholder="Search" />
-                    <img src="~/images/icons/search.svg" alt="" style="width: 20px; aspect-ratio: 1"
+                        style="height: 60px; width: 270px !important;" id="MenuItemSearch" placeholder="Search" />
+                    <img src="~/images/icons/search.svg" alt=""
+                        style="width: 20px; aspect-ratio: 1"
                         class="bg-white position-absolute rounded-2 m-2" />
                 </div>
+
+                <!-- Legends -->
                 <div class="d-flex gap-3">
                     <div class="d-flex gap-2 align-items-center">
                         <span style="color: var(--table-vegetarian)"><i class="bi bi-circle-fill"></i></span>
-                        <span>
-                            Vegetarian</span>
+                        <span>Vegetarian</span>
                     </div>
                     <div class="d-flex gap-2 align-items-center">
                         <span style="color: var(--table-nonvegetarian)"><i class="bi bi-circle-fill"></i></span>
-                        <span>
-                            Non-Vegetarian
-                        </span>
+                        <span>Non-Vegetarian</span>
                     </div>
                     <div class="d-flex gap-2 align-items-center">
-                        <span style="color: var(--table-vegan)"> <i class="bi bi-circle-fill"></i></span>
-                        <span>
-                            Vegan</span>
+                        <span style="color: var(--table-vegan)"><i class="bi bi-circle-fill"></i></span>
+                        <span>Vegan</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Item Cards -->
-            <div class="mt-3" id="ItemsContainer">
-
+            <!-- Scrollable Item Section -->
+            <div class="mt-3 pb-5" id="ItemsContainer" style=" height:900px; overflow-y:auto; ">
+                <!-- Your items here -->
             </div>
         </div>
+        
+            @* <div class="col-5 mt-4 me-5 order-app-module">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center gap-2">
+                        <img src="~/images/icons/dining-set-svgrepo-com.svg" alt="" class="dining-table-img">
+                        <div class="d-flex flex-column table-details">
+                            <div>First Floor</div>
+                            <div><span>Table: </span>T2, T6</div>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <div class="threeicon align-content-center">
+                            <i class="bi bi-qr-code-scan icontext m-0 p-0"></i>
+                        </div>
+                        <div class="threeicon align-content-center">
+                            <i class="bi bi-person-lines-fill icontext fw-bold m-0 p-0"></i>
+                        </div>
+                        <div class="threeicon align-content-center">
+                            <i class="bi bi-chat-left-text icontext m-0 p-0"></i>
+                        </div>
+                    </div>
+                </div>
+                <div id="item-rows-container" class="d-flex flex-column gap-2 mt-4 nothing-added">
+                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-start ps-2">               
+                        <span style="opacity: 0.8;"> Item  </span>  
+                    </div>
+                    <div class="d-flex quantity-price">
+                            <span style="opacity: 0.8;">Quantity</span>
+                            <span style="opacity: 0.8;">Amount</span>
+                    </div>
+                    </div>
+                <div class="item-row w-100 py-1 px-2 d-flex align-items-center justify-content-between border" id="item-row-1">
+                    <div class="accordion mt-2 mb-2" id="item-accordian-1">
+                <div class="d-flex align-items-center gap-2 drop-class" data-bs-toggle="collapse" data-bs-target="#order-item-1" aria-expanded="false" aria-controls="order-item-1">
+                <img src="~/images/dropdownimg.webp" alt="" height="23" class="icon-rotate opacity-50">
+                <span class="item-name-for-order">Pizza</span>
+                </div>
+                <div id="order-item-1" class="p-0 ms-0 collapse" aria-labelledby="headingPizza" data-bs-parent="#item-accordian-1">
+                <ul class="ps-4 mb-0 mt-1 modifier-list-for-order" style="min-width: 90px;" id="modifier-list-for-order-1">
+                    <li>
+                        <div class="d-flex justify-content-between gap-2">
+                            <span>Onion</span>
+                            <span>₹20</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="d-flex justify-content-between gap-2">
+                            <span>Capcicum</span>
+                            <span>₹80</span>
+                        </div>
+                    </li>
+                </ul>
+                </div>
+            </div>
+            <div class="item-end-part-for-order">
+            <!-- Quantity Box -->
+                        <div class="d-flex align-items-center justify-content-between px-2 py-0 gap-1 quantity-box">
+                        <i class="bi bi-dash"></i>
+                        <span class="quantity-box-display">
+                        1
+                        </span>
+                        <i class="bi bi-plus"></i>
+                        </div>
+                        <!-- Price Details -->
+                        <div class="d-flex flex-column align-items-start gap-1 item-sums">
+                        <div class="item-amount">₹800.00</div>
+                        <div class="modifier-amount">₹80.99</div>
+                        </div>
+                        <!-- Delete Icon -->
+                        <div class="d-flex justify-content-center align-items-center">
+                        <i class="bi bi-trash fs-5"></i>
+                        </div>
+                </div>
+                </div>
+                </div>
+                <div class="d-flex justify-content-between p-2 mt-2" >
+                    <span class="fw-bold" style="opacity: 0.8;">SubTotal</span>
+                    <span class="fw-bold" style="opacity: 0.8;" >₹2330.10</span>
+                </div>
+                <div class="d-flex justify-content-between px-2 " >
+                    <span style="opacity: 0.8;">CGST</span>
+                    <span>₹230.10</span>
+                </div>
+                <div class="d-flex justify-content-between px-2 " >
+                    <span style="opacity: 0.8;">GST</span>
+                    <span>₹35.10</span>
+                </div>
+                <div class="d-flex justify-content-between px-2 " >
+                    <span style="opacity: 0.8;">Other</span>
+                    <span>₹23.10</span>
+                </div>
+                <div class="d-flex justify-content-between px-2 ">
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <span style="opacity: 0.8;">SGST</span>
+                </label>
+                </div>
+                    <span>₹23.10</span>
+                </div>
+                <div class="d-flex justify-content-between p-2 mt-2" >
+                    <span class="fw-bold" style="opacity: 0.8;">Total</span>
+                    <span  class="fw-bold" style="opacity: 0.8;" >₹2330.10</span>
+                </div>
+                <div class="d-flex justify-content-between p-2" >
+                    <span>Payment Mehod</span>
+                    <div class="d-flex gap-2" >
+                    <span  class="form-check">
+                    <input class="form-check-input radio-btn" type="radio" name="exampleRadios" id="exampleRadios1" >
+                    Cash
+                    </span>
+                    <span  class="form-check">
+                    <input class="form-check-input radio-btn" type="radio" name="exampleRadios" id="exampleRadios1" >
+                    Card
+                    </span>
+                    <span  class="form-check">
+                    <input class="form-check-input radio-btn" type="radio" name="exampleRadios" id="exampleRadios1" >
+                    UPI
+                    </span>
+                        
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end gap-3 mt-3" >
+                    <button class="btn btn-primary px-5 w-25" type="button" style="background-color: rgb(0, 102, 187); color: white;">Save</button>
+                    <button class="btn btn-primary px-5 w-25" type="button" style="background-color: white; color: rgb(0, 102, 187);  border-color: rgb(0, 102, 187) !important;" disabled>Complete</button>
+                    <button class="btn btn-primary px-5 w-20" type="button" style="background-color: white; color: rgb(0, 102, 187);  border-color: rgb(0, 102, 187) !important;" disabled>Generate Invoice</button>
+                </div>
+                <div class="d-flex justify-content-end gap-3 mt-3" > 
+                    <button class="btn btn-primary px-5 w-25" type="button" style="background-color: white; color: rgb(0, 102, 187);  border-color: rgb(0, 102, 187) !important;">Cancel</button>
+                
+                </div>
+            </div>  *@
+
 
     </div>
-    </div>
 </body>
+
+
+<div id="ItemModalContent" >
+
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -77,7 +209,6 @@
             getCategories();
             GetItems(0);
         });
-
 
 
         // Fetch Categories
@@ -129,6 +260,7 @@
                 data: { Categoryid: categoryid, SearchKey: search },
                 success: function (data) {
                     $("#ItemsContainer").html(data);
+                    $("#MenuItemSearch").val();
                 },
                 error: function (xhr, status, error) {
                     console.log("Error: " + error);
@@ -138,14 +270,7 @@
     </script>
 
     <script>
-        @* $(document).on("click", ".heart", function () {
-        $(this).toggleClass("bi-heart-fill");
-        $(this).toggleClass("bi-heart heart");
-        });
-    $(document).on("click", ".bi-heart-fill", function () {
-        $(this).toggleClass("bi-heart heart");
-        }); *@
-
+      
             $(document).on("click", "#favourite-items", function () {
                  $(".tab-btn").removeClass("active-tab");
              $(this).addClass("active-tab");
@@ -154,7 +279,7 @@
         $(document).on("click", "#favourite-items", function (e) {
             e.preventDefault();
             let search = $("#MenuItemSearch").val();
-            favouriteitems(search)
+            favouriteitems(search);
         });
 
         function favouriteitems(search)
@@ -171,9 +296,148 @@
             }
         });
         }
-        
-
     </script>
 
+  @*Add to Favourites/Remove From Favourites*@
+   <script>
+    $(document).on("click", ".bi-heart", function () {
+        $(this).addClass("bi-heart-fill");
+        $(this).removeClass("bi-heart");
+
+        let itemid = $(this).data("itemid");
+
+        $.ajax({
+            url: "/OrderAppMenu/UpdateFavourite",
+            type: "POST",
+            data: { itemid: itemid },
+            success: function (data) {
+                toastr.success("Item added to favourites");
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+            }
+        });
+    });
+
+    $(document).on("click", ".bi-heart-fill", function () {
+         $(this).addClass("bi-heart");
+        $(this).removeClass("bi-heart-fill");
+        let itemid = $(this).data("itemid");
+
+        $.ajax({
+            url: "/OrderAppMenu/UpdateFavourite",
+            type: "POST",
+            data: { itemid: itemid },
+            success: function (data) {
+                favouriteitems(" ");
+                console.log("Success:", data);
+                toastr.success("Item removed from favourites");
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+            }
+        });
+    });
+</script>
+
+<script>
+    let min_max_modifiergroup = [];
+
+    $(document).off("click", ".item-modifeir-class").on("click", ".item-modifeir-class", function() {
+        var itemid = $(this).data("itemid");
+        var clickedElement = $(this);
+
+        $.ajax({
+            url: "/OrderAppMenu/GetModalData",
+            type: "GET",
+            data: { ItemId: itemid },
+            success: function(data) {
+                if (data.success != false) {
+                    $("#ItemModalContent").html(data);
+                    $("#ItemModifierGroupModal").modal("show");
+
+                    min_max_modifiergroup = [];
+                    selectedmodifiers = {};
+                    $(".min_max").each(function(){
+                        let modifierGroupId = $(this).data("modifiergroupid");
+                        let minValue = $(this).data("minvalue");
+                        let maxValue = $(this).data("maxvalue");
+
+                        min_max_modifiergroup.push({
+                            ModifierGroupId: modifierGroupId,
+                            Min: minValue,
+                            Max: maxValue
+                        });
+                    })
+                    console.log("min_max_modifiergroup:", min_max_modifiergroup);
+                } else {
+                    toastr.error("No modifier group available for this item");
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("Error fetching item modifier group:", error);
+            }
+        });
+    });
+</script>
+
+<script>
+    var selectedmodifiers = {};
+
+    $(document).off("click", ".item-modifeir-card").on("click", ".item-modifeir-card", function() {
+        var modifierGroupId = $(this).data("modifiergroupid");
+        var modifierId = $(this).data("modifierid");
+
+        var current_min_max = min_max_modifiergroup.find(u => u.ModifierGroupId == modifierGroupId);
+        console.log("current_min_max:", current_min_max);
+
+        if (!selectedmodifiers[modifierGroupId]) {
+            selectedmodifiers[modifierGroupId] = [];
+        }
+        console.log("selectedmodifiers:", selectedmodifiers);
+
+        let selected_list = selectedmodifiers[modifierGroupId];
+        let index = selected_list.indexOf(modifierId);
+
+        console.log("selected_list:", selected_list);
+        console.log("index:", index);
+
+        if (index > -1) {
+            selected_list.splice(index, 1);
+            $(this).removeClass("cardSelected");
+            console.log("Modifier removed");
+        }
+        else{
+        if (selected_list.length < current_min_max.Max) {
+            selected_list.push(modifierId);
+            $(this).addClass("cardSelected");
+            console.log("Modifier added");
+        } else {
+            let name = $(`#modifier-name-${modifierGroupId}`).text();
+            toastr.error("You can select a maximum of " + current_min_max.Max + " " + "from" + " " + name);
+        }}
+    });
+</script>
+
+<script>
+    $(document).off("click","#ItemModifierGroupModalModalSubmit").on("click","#ItemModifierGroupModalModalSubmit",function(){
+        for(let i=0;i<min_max_modifiergroup.length;i++){
+            let modifierGroupId = min_max_modifiergroup[i].ModifierGroupId;
+              if (!selectedmodifiers[modifierGroupId]) {
+                  selectedmodifiers[modifierGroupId] = [];
+                 }
+            let selected_list = selectedmodifiers[modifierGroupId];
+            console.log("selected_list:", selected_list);
+            console.log("modifierGroupId",modifierGroupId);
+            if(selected_list.length < min_max_modifiergroup[i].Min){
+                let name = $(`#modifier-name-${modifierGroupId}`).text();
+                toastr.error("You must select a minimum " + min_max_modifiergroup[i].Min+" " + "from" +" "+ name);
+                return;
+            }
+            
+        }
+          $("#ItemModifierGroupModal").modal("hide");
+    });
+</script>
 
 }

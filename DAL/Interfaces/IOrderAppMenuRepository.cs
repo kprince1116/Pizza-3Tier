@@ -10,4 +10,10 @@ public interface IOrderAppMenuRepository
     Task<List<MenuItem>> GetItems(int CategoryId,string SearchKey);
 
     Task<List<MenuItem>> GetFavouriteItems(string SearchKey);
+
+    Task<MenuItem> GetItemById(int ItemId);
+
+    Task UpdateItem(MenuItem item);
+
+    Task<MenuItem> GetItemForModalById(int ItemId);
 }

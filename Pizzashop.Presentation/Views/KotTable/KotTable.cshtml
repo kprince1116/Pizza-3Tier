@@ -228,26 +228,7 @@
 });
     });
 
-</script>
-
-<script>
-    
-    @* $(document).on("click",".assign-button",function(){
-        const selectTables = [];
-
-        $("#selectTable.selected").each(function(){
-            const tableId = $(this).data("table-id");
-            const sectionId = $(this).closest('.accordion-item').find('.accordion-header').data('section-id');
-            selectTables.push({
-                TableId:tableId,
-                sectionId:sectionId
-            });
-        });
-        console.log("Selected Tables:", selectTables);
-
-    });    *@
-
-</script>    
+</script> 
 
 @*Open waiting modal and fetch section list*@
 <script>
@@ -408,6 +389,7 @@
                         if (offcanvas) {
                             offcanvas.hide();
                         }
+                        window.location.href = response.url;
                     } else {
                         toastr.error("Table is not asigned");
                     }
@@ -420,12 +402,3 @@
     });
 </script>
 
-
-@* <!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- jQuery Validation -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-
-<!-- jQuery Unobtrusive Validation -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script> *@

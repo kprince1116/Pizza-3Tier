@@ -158,5 +158,11 @@ public class KotTableRepository : IKotTableRepository
     {
         return await _db.Customers.FirstOrDefaultAsync(u => u.Customerid == id && u.Isdelete == false);
     }
+
+     public async Task<Order> GenerateOrder(Order obj){
+            await _db.Orders.AddAsync(obj);
+            await _db.SaveChangesAsync();
+            return obj;
+        }
    
 }

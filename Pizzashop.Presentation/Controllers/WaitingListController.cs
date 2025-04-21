@@ -66,7 +66,7 @@ public class WaitingListController : Controller
         var result = await _waitingService.UpdateWaitingToken(model);
 
         if(result){
-             TempData["EditSuccess"] = true;
+            TempData["EditSuccess"] = true;
          return RedirectToAction("WaitingList", "WaitingList");
         }
         else{
