@@ -10,4 +10,5 @@ public interface IOrderAppMenu
     public Task<OrderAppMenuviewmodel> GetFavouriteItems(string SearchKey);
     public Task<bool> UpdateFavourite(int ItemId);
     public Task<MenuItemModalviewmoel> GetModalData(int ItemId);
+    public Task<OrderAppMenuviewmodel> GetOrderData(int OrderId);
 }

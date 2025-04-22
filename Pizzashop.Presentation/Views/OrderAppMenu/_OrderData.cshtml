@@ -1,0 +1,172 @@
+@{
+var sectionName = new HashSet<string>();
+bool first = true;
+var tableName = new HashSet<string>();
+}
+ 
+
+@model Pizzashop.DAL.ViewModels.OrderAppMenuviewmodel
+
+
+ <div class="col-4 mt-4 order-app-module">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center gap-2">
+                        <img src="~/images/icons/dining-set-svgrepo-com.svg" alt="" class="dining-table-img">
+                        <div>
+                        <div class="">            
+                            @foreach(var s in Model.tables){
+                                if(!sectionName.Contains(s.sectionName))
+                                {
+                                    if(!first){
+                                        <span> ,</span>
+                                    }    
+                                    <span class="" style="font-size: 15px !important;" >@s.sectionName</span>
+                                    sectionName.Add(s.sectionName);
+                                    first = false;
+                                }
+                            }
+                        </div>
+                        <div class="">
+                            <span class="fw-bold" style="font-size: 15px !important;">Table:</span>
+                            @foreach(var t in Model.tables){
+                                if(!tableName.Contains(t.TableName))
+                                {
+                                    if(first){
+                                        <span> ,</span>
+                                    }
+                                     
+                                   <span style="font-size: 15px !important;" > @t.TableName</span>
+                                    tableName.Add(t.TableName);
+                                    first = true;
+                                }
+                            }
+                        </div>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <div class="threeicon align-content-center">
+                            <i class="bi bi-qr-code-scan icontext m-0 p-0"></i>
+                        </div>
+                        <div class="threeicon align-content-center">
+                            <i class="bi bi-person-lines-fill icontext fw-bold m-0 p-0"></i>
+                        </div>
+                        <div class="threeicon align-content-center">
+                            <i class="bi bi-chat-left-text icontext m-0 p-0"></i>
+                        </div>
+                    </div>
+                </div>
+                <div id="item-rows-container" class="d-flex flex-column gap-2 mt-4 nothing-added">
+                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-start ps-2">               
+                        <span style="opacity: 0.8;"> Item  </span>  
+                    </div>
+                    <div class="d-flex quantity-price">
+                            <span style="opacity: 0.8;">Quantity</span>
+                            <span style="opacity: 0.8;">Amount</span>
+                    </div>
+                   
+                </div>
+                 @foreach(var item in Model.orderitems)
+                {
+                <div class="item-row w-100 py-1 px-2 d-flex align-items-center justify-content-between border" id="item-row-1">
+                    <div class="accordion mt-2 mb-2" id="item-accordian-1">
+                <div class="d-flex align-items-center gap-2 drop-class" data-bs-toggle="collapse" data-bs-target="#order-item-@item.ItemId" aria-expanded="false" aria-controls="order-item-@item.ItemId">
+                <img src="~/images/dropdownimg.webp" alt="" height="23" class="icon-rotate opacity-50">
+                <span class="item-name-for-order">@item.ItemName</span>
+                </div>
+                <div id="order-item-@item.ItemId" class="p-0 ms-0 collapse" aria-labelledby="headingPizza" data-bs-parent="#item-accordian-1">
+                     @foreach (var modifier in item.modifiers)
+                    {
+                <ul class="ps-4 mb-0 mt-1 modifier-list-for-order" style="min-width: 90px;" id="modifier-list-for-order-1">      
+                    <li>
+                        <div class="d-flex justify-content-between gap-2">
+                            <span>@modifier.ModifierName</span>
+                            <span>₹@modifier.price</span>
+                        </div>
+                    </li>
+                   
+                </ul>
+                 }
+                </div>
+            </div>
+            <div class="item-end-part-for-order">
+            <!-- Quantity Box -->
+                        <div class="d-flex align-items-center justify-content-between px-2 py-0 gap-1 quantity-box">
+                        <i class="bi bi-dash" onclick="MinusQuantity(@item.ItemId)" id="minus-quantity-@item.ItemId" ></i>
+                        <span class="quantity-box-display" id="item-quantity-@item.ItemId" data-itemid="@item.ItemId" 
+                         data-itemname="@item.ItemName" data-itemprice="@item.price">
+                        @item.Quantity
+                        </span>
+                        <i class="bi bi-plus" onclick="PlusQuantity(@item.ItemId)" id="minus-quantity-@item.ItemId"></i>
+                        </div>
+                        <!-- Price Details -->
+                        <div class="d-flex flex-column align-items-start gap-1 item-sums">
+                        <div class="item-amount">₹@item.TotalAmount</div>
+                        <div class="modifier-amount">₹80.99</div>
+                        </div>
+                        <!-- Delete Icon -->
+                        <div class="d-flex justify-content-center align-items-center">
+                        <i class="bi bi-trash fs-5"></i>
+                        </div>
+                </div>
+                </div>
+                }
+                <div id="itemdata" >
+                </div>
+                </div>
+                <div class="d-flex justify-content-between p-2 mt-2" >
+                    <span class="fw-bold" style="opacity: 0.8;">SubTotal</span>
+                    <span class="fw-bold" style="opacity: 0.8;" >₹2330.10</span>
+                </div>
+                <div class="d-flex justify-content-between px-2 " >
+                    <span style="opacity: 0.8;">CGST</span>
+                    <span>₹230.10</span>
+                </div>
+                <div class="d-flex justify-content-between px-2 " >
+                    <span style="opacity: 0.8;">GST</span>
+                    <span>₹35.10</span>
+                </div>
+                <div class="d-flex justify-content-between px-2 " >
+                    <span style="opacity: 0.8;">Other</span>
+                    <span>₹23.10</span>
+                </div>
+                <div class="d-flex justify-content-between px-2 ">
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <span style="opacity: 0.8;">SGST</span>
+                </label>
+                </div>
+                    <span>₹23.10</span>
+                </div>
+                <div class="d-flex justify-content-between p-2 mt-2" >
+                    <span class="fw-bold" style="opacity: 0.8;">Total</span>
+                    <span  class="fw-bold" style="opacity: 0.8;" >₹2330.10</span>
+                </div>
+                <div class="d-flex justify-content-between p-2" >
+                    <span>Payment Mehod</span>
+                    <div class="d-flex gap-2" >
+                    <span  class="form-check">
+                    <input class="form-check-input radio-btn" type="radio" name="exampleRadios" id="exampleRadios1" >
+                    Cash
+                    </span>
+                    <span  class="form-check">
+                    <input class="form-check-input radio-btn" type="radio" name="exampleRadios" id="exampleRadios1" >
+                    Card
+                    </span>
+                    <span  class="form-check">
+                    <input class="form-check-input radio-btn" type="radio" name="exampleRadios" id="exampleRadios1" >
+                    UPI
+                    </span>
+                        
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end gap-3 mt-3" >
+                    <button class="btn btn-primary px-5 w-25" type="button" style="background-color: rgb(0, 102, 187); color: white;">Save</button>
+                    <button class="btn btn-primary px-5 w-25" type="button" style="background-color: white; color: rgb(0, 102, 187);  border-color: rgb(0, 102, 187) !important;" disabled>Complete</button>
+                    <button class="btn btn-primary px-5 w-20" type="button" style="background-color: white; color: rgb(0, 102, 187);  border-color: rgb(0, 102, 187) !important;" disabled>Generate Invoice</button>
+                </div>
+                <div class="d-flex justify-content-end gap-3 mt-3" > 
+                    <button class="btn btn-primary px-5 w-25" type="button" style="background-color: white; color: rgb(0, 102, 187);  border-color: rgb(0, 102, 187) !important;">Cancel</button>
+                
+                </div>
+            </div> 

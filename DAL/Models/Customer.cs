@@ -31,6 +31,8 @@ public partial class Customer
 
     public virtual User? ModifiedByNavigation { get; set; }
 
+    public virtual ICollection<OrderTable> OrderTables { get; set; } = new List<OrderTable>();
+
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
     public virtual ICollection<Table> Tables { get; set; } = new List<Table>();

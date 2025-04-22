@@ -35,8 +35,6 @@ public partial class PizzaShopContext : DbContext
 
     public virtual DbSet<Order> Orders { get; set; }
 
-    public virtual DbSet<Order1> Orders1 { get; set; }
-
     public virtual DbSet<OrderItem> OrderItems { get; set; }
 
     public virtual DbSet<OrderItemModifier> OrderItemModifiers { get; set; }
@@ -387,7 +385,12 @@ public partial class PizzaShopContext : DbContext
             entity.Property(e => e.ModifiedDate)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("modified_date");
-            entity.Property(e => e.OrderNo).HasColumnName("order_no");
+            entity.Property(e => e.NoOfPerson).HasColumnName("No_Of_Person");
+            entity.Property(e => e.OrderNo)
+                .ValueGeneratedOnAdd()
+                .UseIdentityAlwaysColumn()
+                .HasIdentityOptions(1008L, null, null, null, null, null)
+                .HasColumnName("order_no");
             entity.Property(e => e.Orderdate)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("orderdate");
@@ -420,13 +423,6 @@ public partial class PizzaShopContext : DbContext
             entity.HasOne(d => d.StatusNavigation).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.Status)
                 .HasConstraintName("orders_status_fkey");
-        });
-
-        modelBuilder.Entity<Order1>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToTable("Orders");
         });
 
         modelBuilder.Entity<OrderItem>(entity =>
@@ -486,8 +482,14 @@ public partial class PizzaShopContext : DbContext
             entity.ToTable("order_table");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.CustomerId).HasColumnName("customer_id");
+            entity.Property(e => e.IsDeleted).HasDefaultValueSql("false");
             entity.Property(e => e.OrderId).HasColumnName("order_id");
             entity.Property(e => e.TableId).HasColumnName("table_id");
+
+            entity.HasOne(d => d.Customer).WithMany(p => p.OrderTables)
+                .HasForeignKey(d => d.CustomerId)
+                .HasConstraintName("order_table_customer_id_fkey");
 
             entity.HasOne(d => d.Order).WithMany(p => p.OrderTables)
                 .HasForeignKey(d => d.OrderId)

@@ -86,8 +86,8 @@
                             <div class="accordion-body d-flex flex-wrap gap-3 justify-content-start align-items-center">
                                 @foreach (var j in i.Tables)
                                 {
-                                    <div class="card p-3 d-flex flex-column gap-2 selectTable" 
-                                    data-status = "@j.Status" data-table-id="@j.TableId"
+                                    <div class="card p-3 d-flex flex-column gap-2 selectTable table-card" 
+                                    data-status = "@j.Status" data-table-id="@j.TableId" data-customerid = @j.CustomerId data-orderid = "@j.OrderId"
                                         style="width: 270px;
                                 @(j.Status == "Available" ? "background-color:var(--table-available-bg)" : j.Status == "Assigned" ? "background-color: var(--table-assigned-bg)" : j.Status == "Running" ? "background-color: var(--table-running-bg)" : "") ">
                                         <div class="d-flex justify-content-between">
@@ -401,4 +401,17 @@
         });
     });
 </script>
+
+ <script>
+    $(document).off("click",".table-card").on("click",".table-card",function(){
+        var customerId = $(this).data("customerid");
+        var orderId = $(this).data("orderid");
+        var tableStatus = $(this).data("status");
+        if (tableStatus == "Available") {
+            return;
+        }
+         window.location.href = "/OrderAppMenu/OrderMenu?customerId=" + customerId + "&orderId=" + orderId;
+         return;
+    });
+</script> 
 

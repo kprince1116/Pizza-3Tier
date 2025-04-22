@@ -126,4 +126,41 @@ public class OrderAppMenu : IOrderAppMenu
         return viewmodel;
     }
 
+    public async Task<OrderAppMenuviewmodel> GetOrderData(int OrderId)
+    {
+        var tableData = await _orderAppMenuRepository.GetTableData(OrderId);
+
+        var itemData = await _orderAppMenuRepository.GetOrderItems(OrderId);
+    
+        var viewmodel = new OrderAppMenuviewmodel
+        {
+            tables = tableData.OrderTables.Select(t => new tableviewmodel
+            {
+                sectionId = (int)t.Table.Section.Sectionid,
+                sectionName = t.Table.Section.SectionName,
+                TableId =(int) t.TableId,
+                TableName = t.Table.TableName
+            }).ToList(),
+
+            orderitems = itemData.Select(i => new OrderItemviewmodel
+            {
+                ItemId = (int) i.ItemId,
+                ItemName = i.Item.Itemname,
+                price = (decimal) i.Item.Rate,
+                Quantity = (int)i.Quantity,
+                TotalAmount = (decimal)(i.Item.Rate * i.Quantity),
+                modifiers = i.OrderItemModifiers.Select(m => new ModiferListModel
+                {
+                    ModifierId = m.Modifier.Modifierid,
+                    ModifierName = m.Modifier.Modifiername,
+                    price = (decimal)m.Modifier.Rate,
+                    Quantity = (int)m.Quantity
+                }).ToList()
+
+            }).ToList()
+        };
+        return viewmodel;       
+    }
+
+
 }

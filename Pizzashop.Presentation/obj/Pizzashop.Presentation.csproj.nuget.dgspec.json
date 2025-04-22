@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Project\\3Tier\\Pizzashop.Presentation\\Pizzashop.Presentation.csproj": {}
+    "D:\\Project\\Pizza-3Tier\\Pizzashop.Presentation\\Pizzashop.Presentation.csproj": {}
   },
   "projects": {
-    "D:\\Project\\3Tier\\BAL\\BAL.csproj": {
+    "D:\\Project\\Pizza-3Tier\\BAL\\BAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\3Tier\\BAL\\BAL.csproj",
+        "projectUniqueName": "D:\\Project\\Pizza-3Tier\\BAL\\BAL.csproj",
         "projectName": "BAL",
-        "projectPath": "D:\\Project\\3Tier\\BAL\\BAL.csproj",
+        "projectPath": "D:\\Project\\Pizza-3Tier\\BAL\\BAL.csproj",
         "packagesPath": "C:\\Users\\pca187\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\3Tier\\BAL\\obj\\",
+        "outputPath": "D:\\Project\\Pizza-3Tier\\BAL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\pca187\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -26,8 +26,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\Project\\3Tier\\DAL\\DAL.csproj": {
-                "projectPath": "D:\\Project\\3Tier\\DAL\\DAL.csproj"
+              "D:\\Project\\Pizza-3Tier\\DAL\\DAL.csproj": {
+                "projectPath": "D:\\Project\\Pizza-3Tier\\DAL\\DAL.csproj"
               }
             }
           }
@@ -87,14 +87,14 @@
         }
       }
     },
-    "D:\\Project\\3Tier\\DAL\\DAL.csproj": {
+    "D:\\Project\\Pizza-3Tier\\DAL\\DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\3Tier\\DAL\\DAL.csproj",
+        "projectUniqueName": "D:\\Project\\Pizza-3Tier\\DAL\\DAL.csproj",
         "projectName": "DAL",
-        "projectPath": "D:\\Project\\3Tier\\DAL\\DAL.csproj",
+        "projectPath": "D:\\Project\\Pizza-3Tier\\DAL\\DAL.csproj",
         "packagesPath": "C:\\Users\\pca187\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\3Tier\\DAL\\obj\\",
+        "outputPath": "D:\\Project\\Pizza-3Tier\\DAL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\pca187\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -168,14 +168,14 @@
         }
       }
     },
-    "D:\\Project\\3Tier\\Pizzashop.Presentation\\Pizzashop.Presentation.csproj": {
+    "D:\\Project\\Pizza-3Tier\\Pizzashop.Presentation\\Pizzashop.Presentation.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\3Tier\\Pizzashop.Presentation\\Pizzashop.Presentation.csproj",
+        "projectUniqueName": "D:\\Project\\Pizza-3Tier\\Pizzashop.Presentation\\Pizzashop.Presentation.csproj",
         "projectName": "Pizzashop.Presentation",
-        "projectPath": "D:\\Project\\3Tier\\Pizzashop.Presentation\\Pizzashop.Presentation.csproj",
+        "projectPath": "D:\\Project\\Pizza-3Tier\\Pizzashop.Presentation\\Pizzashop.Presentation.csproj",
         "packagesPath": "C:\\Users\\pca187\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\3Tier\\Pizzashop.Presentation\\obj\\",
+        "outputPath": "D:\\Project\\Pizza-3Tier\\Pizzashop.Presentation\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\pca187\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -190,11 +190,11 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\Project\\3Tier\\BAL\\BAL.csproj": {
-                "projectPath": "D:\\Project\\3Tier\\BAL\\BAL.csproj"
+              "D:\\Project\\Pizza-3Tier\\BAL\\BAL.csproj": {
+                "projectPath": "D:\\Project\\Pizza-3Tier\\BAL\\BAL.csproj"
               },
-              "D:\\Project\\3Tier\\DAL\\DAL.csproj": {
-                "projectPath": "D:\\Project\\3Tier\\DAL\\DAL.csproj"
+              "D:\\Project\\Pizza-3Tier\\DAL\\DAL.csproj": {
+                "projectPath": "D:\\Project\\Pizza-3Tier\\DAL\\DAL.csproj"
               }
             }
           }

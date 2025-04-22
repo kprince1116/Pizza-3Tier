@@ -3,11 +3,15 @@
     ViewData["Title"] = "Menu";
     ViewBag.Active = "Kot";
 }
+@model Pizzashop.DAL.ViewModels.OrderAppMenuviewmodel
 
 <link rel="stylesheet" href="~/css/OrderAppMenu.css" asp-append-version="true" />
 
+<input type="hidden" id="CustomerData" data-customerid="@Model.CustomerId">
+<input type="hidden" id="OrderData" data-orderid="@Model.OrderId">
+
 <body style="margin: 0; overflow: hidden;"> 
-    <div class="d-flex m-0 p-0">
+    <div class="d-flex m-0 pe-3">
         
         <div class="bg-white col-2 p-0" style="position: sticky; top: 0; height: 100vh; overflow-y: auto;">
             <div class="fw-bold ps-3 pb-3 pt-3 fs-5">Category</div>
@@ -24,7 +28,7 @@
             <div id="categorydetails"></div>
         </div>
 
-        <div class="col-10 p-3">
+        <div class="@(Model.CustomerId !=0 || Model.OrderId !=0 ? "col-5" : "col-10")  p-3">
             <div class="main-content d-flex justify-content-between mt-3">
                 <!-- Search Bar -->
                 <div class="d-flex justify-content-end position-relative align-items-center ps-2">
@@ -58,138 +62,11 @@
             </div>
         </div>
         
-            @* <div class="col-5 mt-4 me-5 order-app-module">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex align-items-center gap-2">
-                        <img src="~/images/icons/dining-set-svgrepo-com.svg" alt="" class="dining-table-img">
-                        <div class="d-flex flex-column table-details">
-                            <div>First Floor</div>
-                            <div><span>Table: </span>T2, T6</div>
-                        </div>
-                    </div>
-                    <div class="d-flex gap-2">
-                        <div class="threeicon align-content-center">
-                            <i class="bi bi-qr-code-scan icontext m-0 p-0"></i>
-                        </div>
-                        <div class="threeicon align-content-center">
-                            <i class="bi bi-person-lines-fill icontext fw-bold m-0 p-0"></i>
-                        </div>
-                        <div class="threeicon align-content-center">
-                            <i class="bi bi-chat-left-text icontext m-0 p-0"></i>
-                        </div>
-                    </div>
-                </div>
-                <div id="item-rows-container" class="d-flex flex-column gap-2 mt-4 nothing-added">
-                    <div class="d-flex justify-content-between">
-                    <div class="d-flex justify-content-start ps-2">               
-                        <span style="opacity: 0.8;"> Item  </span>  
-                    </div>
-                    <div class="d-flex quantity-price">
-                            <span style="opacity: 0.8;">Quantity</span>
-                            <span style="opacity: 0.8;">Amount</span>
-                    </div>
-                    </div>
-                <div class="item-row w-100 py-1 px-2 d-flex align-items-center justify-content-between border" id="item-row-1">
-                    <div class="accordion mt-2 mb-2" id="item-accordian-1">
-                <div class="d-flex align-items-center gap-2 drop-class" data-bs-toggle="collapse" data-bs-target="#order-item-1" aria-expanded="false" aria-controls="order-item-1">
-                <img src="~/images/dropdownimg.webp" alt="" height="23" class="icon-rotate opacity-50">
-                <span class="item-name-for-order">Pizza</span>
-                </div>
-                <div id="order-item-1" class="p-0 ms-0 collapse" aria-labelledby="headingPizza" data-bs-parent="#item-accordian-1">
-                <ul class="ps-4 mb-0 mt-1 modifier-list-for-order" style="min-width: 90px;" id="modifier-list-for-order-1">
-                    <li>
-                        <div class="d-flex justify-content-between gap-2">
-                            <span>Onion</span>
-                            <span>₹20</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="d-flex justify-content-between gap-2">
-                            <span>Capcicum</span>
-                            <span>₹80</span>
-                        </div>
-                    </li>
-                </ul>
-                </div>
-            </div>
-            <div class="item-end-part-for-order">
-            <!-- Quantity Box -->
-                        <div class="d-flex align-items-center justify-content-between px-2 py-0 gap-1 quantity-box">
-                        <i class="bi bi-dash"></i>
-                        <span class="quantity-box-display">
-                        1
-                        </span>
-                        <i class="bi bi-plus"></i>
-                        </div>
-                        <!-- Price Details -->
-                        <div class="d-flex flex-column align-items-start gap-1 item-sums">
-                        <div class="item-amount">₹800.00</div>
-                        <div class="modifier-amount">₹80.99</div>
-                        </div>
-                        <!-- Delete Icon -->
-                        <div class="d-flex justify-content-center align-items-center">
-                        <i class="bi bi-trash fs-5"></i>
-                        </div>
-                </div>
-                </div>
-                </div>
-                <div class="d-flex justify-content-between p-2 mt-2" >
-                    <span class="fw-bold" style="opacity: 0.8;">SubTotal</span>
-                    <span class="fw-bold" style="opacity: 0.8;" >₹2330.10</span>
-                </div>
-                <div class="d-flex justify-content-between px-2 " >
-                    <span style="opacity: 0.8;">CGST</span>
-                    <span>₹230.10</span>
-                </div>
-                <div class="d-flex justify-content-between px-2 " >
-                    <span style="opacity: 0.8;">GST</span>
-                    <span>₹35.10</span>
-                </div>
-                <div class="d-flex justify-content-between px-2 " >
-                    <span style="opacity: 0.8;">Other</span>
-                    <span>₹23.10</span>
-                </div>
-                <div class="d-flex justify-content-between px-2 ">
-                    <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <span style="opacity: 0.8;">SGST</span>
-                </label>
-                </div>
-                    <span>₹23.10</span>
-                </div>
-                <div class="d-flex justify-content-between p-2 mt-2" >
-                    <span class="fw-bold" style="opacity: 0.8;">Total</span>
-                    <span  class="fw-bold" style="opacity: 0.8;" >₹2330.10</span>
-                </div>
-                <div class="d-flex justify-content-between p-2" >
-                    <span>Payment Mehod</span>
-                    <div class="d-flex gap-2" >
-                    <span  class="form-check">
-                    <input class="form-check-input radio-btn" type="radio" name="exampleRadios" id="exampleRadios1" >
-                    Cash
-                    </span>
-                    <span  class="form-check">
-                    <input class="form-check-input radio-btn" type="radio" name="exampleRadios" id="exampleRadios1" >
-                    Card
-                    </span>
-                    <span  class="form-check">
-                    <input class="form-check-input radio-btn" type="radio" name="exampleRadios" id="exampleRadios1" >
-                    UPI
-                    </span>
-                        
-                    </div>
-                </div>
-                <div class="d-flex justify-content-end gap-3 mt-3" >
-                    <button class="btn btn-primary px-5 w-25" type="button" style="background-color: rgb(0, 102, 187); color: white;">Save</button>
-                    <button class="btn btn-primary px-5 w-25" type="button" style="background-color: white; color: rgb(0, 102, 187);  border-color: rgb(0, 102, 187) !important;" disabled>Complete</button>
-                    <button class="btn btn-primary px-5 w-20" type="button" style="background-color: white; color: rgb(0, 102, 187);  border-color: rgb(0, 102, 187) !important;" disabled>Generate Invoice</button>
-                </div>
-                <div class="d-flex justify-content-end gap-3 mt-3" > 
-                    <button class="btn btn-primary px-5 w-25" type="button" style="background-color: white; color: rgb(0, 102, 187);  border-color: rgb(0, 102, 187) !important;">Cancel</button>
-                
-                </div>
-            </div>  *@
-
+            @if(Model.CustomerId != 0 || Model.OrderId !=0)
+            {
+            <div id="OrderMenuData">
+            </div> 
+            }
 
     </div>
 </body>
@@ -342,9 +219,12 @@
 
 <script>
     let min_max_modifiergroup = [];
-
+    let selectedmodifiers = {}; 
+    let selected_items = [];
     $(document).off("click", ".item-modifeir-class").on("click", ".item-modifeir-class", function() {
         var itemid = $(this).data("itemid");
+        var itemname = $(this).data("itemname");
+        var itemprice = $(this).data("itemprice");
         var clickedElement = $(this);
 
         $.ajax({
@@ -352,13 +232,13 @@
             type: "GET",
             data: { ItemId: itemid },
             success: function(data) {
-                if (data.success != false) {
+                if (data.success !== false) {
                     $("#ItemModalContent").html(data);
                     $("#ItemModifierGroupModal").modal("show");
 
-                    min_max_modifiergroup = [];
-                    selectedmodifiers = {};
-                    $(".min_max").each(function(){
+                    min_max_modifiergroup = [];  
+                    selectedmodifiers = {};  
+                    $(".min_max").each(function() {
                         let modifierGroupId = $(this).data("modifiergroupid");
                         let minValue = $(this).data("minvalue");
                         let maxValue = $(this).data("maxvalue");
@@ -368,10 +248,74 @@
                             Min: minValue,
                             Max: maxValue
                         });
-                    })
+                    });
+
                     console.log("min_max_modifiergroup:", min_max_modifiergroup);
                 } else {
-                    toastr.error("No modifier group available for this item");
+                    @* toastr.error("No modifier group available for this item");*@
+
+                    if(!selected_items[itemid]){
+                        selected_items[itemid] = {
+                            itemid: itemid,
+                            itemprice: itemprice,
+                            totalAmount : itemprice,
+                            itemQuantity: 1,
+                        };
+                    }
+                    else{
+                        selected_items[itemid].itemQuantity += 1;
+                        selected_items[itemid].totalAmount = selected_items[itemid].itemprice * selected_items[itemid].itemQuantity;
+                        $(`#item-quantity-${itemid}`).text(selected_items[itemid].itemQuantity);
+                        $(`#item-amount-${itemid}`).text(selected_items[itemid].totalAmount);
+                        return;
+                    }
+
+                    let itemaccordian =
+                        `
+                          <div class="item-row w-100 py-1 px-2 d-flex align-items-center justify-content-between border mt-2" id="accord-${itemid}">
+                    <div class="accordion mt-2 mb-2" id="item-accordian-1">
+                <div class="d-flex align-items-center gap-2 drop-class" data-bs-toggle="collapse" data-bs-target="#order-item-${itemid}" aria-expanded="false" aria-controls="order-item-${itemid}">
+                <img src="~/images/dropdownimg.webp" alt="" height="23" class="icon-rotate opacity-50">
+                <span class="item-name-for-order">${itemname}</span>
+                </div>
+                <div id="order-item-${itemid}" class="p-0 ms-0 collapse" aria-labelledby="headingPizza" data-bs-parent="#item-accordian-1">
+                     
+                <ul class="ps-4 mb-0 mt-1 modifier-list-for-order" style="min-width: 90px;" id="modifier-list-for-order-1">      
+                    <li>
+                        <div class="d-flex justify-content-between gap-2">
+                            <span>Onion</span>
+                            <span>₹20</span>
+                        </div>
+                    </li>
+                   
+                </ul>
+                 
+                </div>
+            </div>
+            <div class="item-end-part-for-order">
+            <!-- Quantity Box -->
+                        <div class="d-flex align-items-center justify-content-between px-2 py-0 gap-1 quantity-box">
+                        <i class="bi bi-dash" onclick="MinusQuantity(${itemid})" id="minus-quantity-${itemid}" ></i>
+                        <span class="quantity-box-display" id="item-quantity-${itemid}">
+                        1
+                        </span>
+                        <i class="bi bi-plus" onclick="PlusQuantity(${itemid})" id="minus-quantity-${itemid}"></i>
+                        </div>
+                        <!-- Price Details -->
+                        <div class="d-flex flex-column align-items-start gap-1 item-sums">
+                        <div class="item-amount" id="item-amount-${itemid}">₹${itemprice}</div>
+                        <div class="modifier-amount">₹80.99</div>
+                        </div>
+                        <!-- Delete Icon -->
+                        <div class="d-flex justify-content-center align-items-center delete-item" data-itemid="${itemid}" >
+                        <i class="bi bi-trash fs-5"></i>
+                        </div>
+                </div>
+                </div>
+                        `;
+
+                      $("#itemdata").append(itemaccordian);
+
                 }
             },
             error: function(xhr, status, error) {
@@ -380,6 +324,53 @@
         });
     });
 </script>
+
+<script>
+    function MinusQuantity(itemid) {
+    let quantityElement = $(`#item-quantity-${itemid}`);
+    let ItemQuantity = parseInt(quantityElement.text());
+
+    if (ItemQuantity === 1) {
+       
+        return;
+    }
+
+    ItemQuantity -= 1;
+    selected_items[itemid].itemQuantity = ItemQuantity;
+
+    selected_items[itemid].totalAmount = selected_items[itemid].itemprice * ItemQuantity;
+
+    quantityElement.text(ItemQuantity);
+    $(`#item-amount-${itemid}`).text(selected_items[itemid].totalAmount);
+}
+
+
+function PlusQuantity(itemid) {
+    let quantityElement = $(`#item-quantity-${itemid}`);
+    let ItemQuantity = parseInt(quantityElement.text());
+
+    console.log("ItemQuantity:", ItemQuantity);
+    ItemQuantity += 1;
+    selected_items[itemid].itemQuantity = ItemQuantity;
+    console.log("ItemQuantity:", ItemQuantity);
+
+
+    selected_items[itemid].totalAmount = selected_items[itemid].itemprice * selected_items[itemid].itemQuantity;
+
+    console.log("ItemQuantity:",  selected_items[itemid].totalAmount);
+
+    quantityElement.text(ItemQuantity);
+    $(`#item-amount-${itemid}`).text(`₹${selected_items[itemid].totalAmount}`);
+}
+
+        $(document).off("click",".delete-item").on("click",".delete-item",function(){
+           var itemid = $(this).data("itemid");
+            console.log("itemid:", itemid);
+            delete selected_items[itemid];
+            $(`#accord-${itemid}`).remove();
+        });
+
+</script>    
 
 <script>
     var selectedmodifiers = {};
@@ -437,6 +428,29 @@
             
         }
           $("#ItemModifierGroupModal").modal("hide");
+    });
+</script>
+
+@*Get Order Data*@
+
+<script>
+    $(document).ready(function () {
+        var orderId = $("#OrderData").data("orderid");
+        console.log("Order ID:", orderId);
+
+        if (orderId != 0) {
+            $.ajax({
+                url: "/OrderAppMenu/GetOrderData",
+                type: "GET",
+                data: { OrderId: orderId },
+                success: function (data) {
+                    $("#OrderMenuData").html(data);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching order data:", error);
+                }
+            });
+        }
     });
 </script>
 

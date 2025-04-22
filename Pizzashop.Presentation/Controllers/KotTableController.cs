@@ -68,13 +68,18 @@ public class KotTableController : Controller
     try
     {
         var tableIds = JsonSerializer.Deserialize<List<int>>(SelectedTables);
-
+        var customerId = 0;
+        var orderId = 0;
         foreach (var tableId in tableIds)
         {
             model.tableId = tableId; 
             var result = await _kotTableService.AssignTable(model);
+             customerId = result.Item1;
+             orderId = result.Item2;
         }
-        var redirectUrl = Url.Action("OrderMenu", "OrderAppMenu");
+       
+        
+        var redirectUrl =  "/OrderAppMenu/OrderMenu?customerId=" + customerId + "&orderId=" + orderId;
         return Json(new { success = true , url = redirectUrl });
     }
     catch (Exception ex)

@@ -1,6 +1,7 @@
 using BAL.Models.Interfaces;
 using iText.Commons.Utils;
 using Microsoft.AspNetCore.Mvc;
+using Pizzashop.DAL.ViewModels;
 
 namespace Pizzashop.Presentation.Controllers;
 
@@ -14,9 +15,14 @@ public class OrderAppMenu : Controller
          _orderAppMenu = orderAppMenu;
     }
 
-    public async Task<IActionResult> OrderMenu()
+    public async Task<IActionResult> OrderMenu(int customerId , int orderId )
     {
-        return View();
+        OrderAppMenuviewmodel model = new OrderAppMenuviewmodel{
+            CustomerId = customerId,
+            OrderId = orderId
+        };
+
+        return View(model);
     }
 
     public async Task<IActionResult> GetCategories()
@@ -61,6 +67,11 @@ public class OrderAppMenu : Controller
         return Json(new { success = false });
     }
     
+    public async Task<IActionResult> GetOrderData(int OrderId)
+    {
+        var orderData = await _orderAppMenu.GetOrderData(OrderId);
+        return PartialView("_OrderData", orderData);
+    }
     
 
 }

@@ -14,6 +14,8 @@ public class KotTableviewmodel
 }
 public class OrderAppTable{
     public int TableId { get; set; }
+    public int CustomerId { get; set; }
+    public int OrderId { get; set; }
     public string Name { get; set; } = null!;
     public decimal Amount {get;set;} = 0;
     public int Capacity { get; set; }

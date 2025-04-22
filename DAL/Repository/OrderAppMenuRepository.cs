@@ -74,4 +74,22 @@ public class OrderAppMenuRepository : IOrderAppMenuRepository
                                         .FirstOrDefaultAsync(u=>u.Itemid == ItemId && u.IsDeleted == false);
         return item;
     }
+
+    public async Task<Order> GetTableData( int OrderId)
+    {
+        var table = await _db.Orders.Include(u=>u.OrderTables)
+                                    .ThenInclude(u=>u.Table).
+                                    ThenInclude(u=>u.Section).Where(u=>u.Orderid == OrderId).FirstOrDefaultAsync();
+                                   
+        return table;
+    }
+
+    public async Task<List<OrderItem>> GetOrderItems(int OrderId)
+    {
+        var orderItems = await _db.OrderItems.Include(u=>u.Item)
+                                            .Include(u=>u.OrderItemModifiers).ThenInclude(u=>u.Modifier)
+                                             .Where(u=>u.OrderId == OrderId).ToListAsync();
+        return orderItems;
+    }
+
 }

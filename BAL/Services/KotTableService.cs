@@ -35,17 +35,17 @@ public class KotTableService : IKotTableService
             Tables = tables.Select(t => new OrderAppTable
             {
                 TableId = t.Tableid,
+                CustomerId = t.CustomerId == null ? 0 : (int)t.CustomerId, 
+                OrderId = t.OrderTables.FirstOrDefault()?.OrderId ?? 0,
                 Name = t.TableName,
                 Capacity = t.Capacity, 
                 Status = t.Status,
-                AssignTime = t.CreatedDate ?? DateTime.Now,
+                AssignTime = t.ModifiedDate ?? DateTime.Now,
             }).ToList()
         };
 
         Table.Add(kotTableViewModel);
     }
-
-
         return Table;
     }
 
@@ -128,13 +128,12 @@ public class KotTableService : IKotTableService
 
         return customer;
     }
-      public async Task<bool> AssignTable(waitingtokenviewmodel model)
+      public async Task<(int,int)> AssignTable(waitingtokenviewmodel model)
       {
         try
         {   
             var customer = await _kotTableRepository.GetCustomerDetails(model.Id);
             var tables = await _kotTableRepository.GetTablesByIdAsync(model.tableId);
-
  
           if (customer == null)
           {
@@ -156,19 +155,58 @@ public class KotTableService : IKotTableService
                 tables.CustomerId = newcustomer.Customerid;
                 tables.Status = "Assigned";
                 tables.Isavailable = false;
+                tables.ModifiedDate = DateTime.Now;
 
-                  await _kotTableRepository.UpdateTables(tables);
+                await _kotTableRepository.UpdateTables(tables);
 
-               return true;
+                Order order = new()
+            {
+                CustomerId =(int) newcustomer.Customerid,
+                CreatedDate = DateTime.Now,
+                Orderdate = DateTime.Now,
+                Status = 1
+            };
+ 
+            order = await _kotTableRepository.GenerateOrder(order);
+
+            OrderTable orderTable = new(){
+                OrderId = order.Orderid,
+                TableId = tables.Tableid,
+                CustomerId = newcustomer.Customerid 
+            };
+
+            await _kotTableRepository.AddOrderTable(orderTable);
+
+                return (order.Orderid, newcustomer.Customerid);
+ 
             }
             else{
                 tables.CustomerId = existingcustomer.Customerid;
                 tables.Status = "Assigned";
                 tables.Isavailable = false;
+                tables.ModifiedDate = DateTime.Now;
 
-                  await _kotTableRepository.UpdateTables(tables);
+                await _kotTableRepository.UpdateTables(tables);
 
-               return true;
+                   Order order = new()
+            {
+                CustomerId =(int) existingcustomer.Customerid,
+                CreatedDate = DateTime.Now,
+                Orderdate = DateTime.Now,
+                Status = 1
+            };
+ 
+                order = await _kotTableRepository.GenerateOrder(order);
+
+                 OrderTable orderTable = new(){
+                OrderId = order.Orderid,
+                TableId = tables.Tableid,
+                CustomerId = existingcustomer.Customerid
+            };
+
+            await _kotTableRepository.AddOrderTable(orderTable);
+
+                return (order.Orderid, existingcustomer.Customerid);
             }
               
           }
@@ -185,8 +223,27 @@ public class KotTableService : IKotTableService
             await _kotTableRepository.UpdateTables(tables);
             await _kotTableRepository.UpdateCustomer(customer);
 
-                   return true;
-            }
+              Order order = new()
+            {
+                CustomerId =(int) model.customerId,
+                CreatedDate = DateTime.Now,
+                Orderdate = DateTime.Now,
+                Status = 1
+            };
+ 
+                order = await _kotTableRepository.GenerateOrder(order);
+
+                  OrderTable orderTable = new(){
+                OrderId = order.Orderid,
+                TableId = tables.Tableid,
+                CustomerId =model.customerId
+            };
+
+            await _kotTableRepository.AddOrderTable(orderTable);
+
+
+            return (order.Orderid, model.customerId);
+        }
 
             
   
@@ -194,7 +251,7 @@ public class KotTableService : IKotTableService
         catch (Exception e)
         {
             Console.WriteLine(e);
-            return false;
+            return (0,0);
         }
          
       }

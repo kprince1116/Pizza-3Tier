@@ -11,6 +11,12 @@ public partial class OrderTable
 
     public int? TableId { get; set; }
 
+    public int? CustomerId { get; set; }
+
+    public bool? IsDeleted { get; set; }
+
+    public virtual Customer? Customer { get; set; }
+
     public virtual Order? Order { get; set; }
 
     public virtual Table? Table { get; set; }

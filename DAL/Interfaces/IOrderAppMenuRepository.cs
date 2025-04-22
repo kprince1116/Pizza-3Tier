@@ -16,4 +16,8 @@ public interface IOrderAppMenuRepository
     Task UpdateItem(MenuItem item);
 
     Task<MenuItem> GetItemForModalById(int ItemId);
+
+    Task<Order> GetTableData( int OrderId);
+
+    Task<List<OrderItem>> GetOrderItems(int OrderId);
 }

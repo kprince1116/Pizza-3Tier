@@ -21,7 +21,10 @@ public class KotTableRepository : IKotTableRepository
 
     public async Task<List<Table>> GetTablesBySectionIdAsync(int sectionId)
     {
-        return await _db.Tables .Where(t => t.Sectionid == sectionId && t.Isdeleted == false).OrderBy(u=>u.Tableid).ToListAsync();
+        return await _db.Tables .Where(t => t.Sectionid == sectionId && t.Isdeleted == false)
+                                        .Include(u=>u.Customer).ThenInclude(u=>u.OrderTables)
+                                        .Include(u=>u.OrderTables.Where(u=>u.IsDeleted == false))
+                                        .OrderBy(u=>u.Tableid).ToListAsync();
     }
 
     public async Task<List<Models.Section>> GetSectionList()
@@ -129,7 +132,6 @@ public class KotTableRepository : IKotTableRepository
         }
        
     }
-
     public async Task AddCustomer(Customer newcustomer)
     {
         try
@@ -164,5 +166,12 @@ public class KotTableRepository : IKotTableRepository
             await _db.SaveChangesAsync();
             return obj;
         }
+
+    public async Task<OrderTable> AddOrderTable(OrderTable orderTable)
+    {
+        await _db.OrderTables.AddAsync(orderTable);
+        await _db.SaveChangesAsync();
+        return orderTable;
+    }
    
 }

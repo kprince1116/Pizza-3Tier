@@ -21,6 +21,7 @@ public interface IKotTableRepository
 
     Task UpdateTables(Table tables);
 
+
     Task AddCustomer(Customer newcustomer);
 
     Task UpdateCustomer( WaitingToken model);
@@ -30,4 +31,6 @@ public interface IKotTableRepository
     Task<Customer> GetCustomerFromCustomerTable(int id);
 
     Task<Order> GenerateOrder(Order obj);
+
+    Task<OrderTable> AddOrderTable(OrderTable orderTable);
 }

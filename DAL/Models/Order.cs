@@ -37,6 +37,8 @@ public partial class Order
 
     public string? OrdereType { get; set; }
 
+    public int? NoOfPerson { get; set; }
+
     public virtual User? CreatedByNavigation { get; set; }
 
     public virtual Customer? Customer { get; set; }
