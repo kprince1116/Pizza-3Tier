@@ -164,7 +164,8 @@ public class KotTableService : IKotTableService
                 CustomerId =(int) newcustomer.Customerid,
                 CreatedDate = DateTime.Now,
                 Orderdate = DateTime.Now,
-                Status = 1
+                Status = 1,
+                NoOfPerson = model.NoOfPerson
             };
  
             order = await _kotTableRepository.GenerateOrder(order);
@@ -193,7 +194,8 @@ public class KotTableService : IKotTableService
                 CustomerId =(int) existingcustomer.Customerid,
                 CreatedDate = DateTime.Now,
                 Orderdate = DateTime.Now,
-                Status = 1
+                Status = 1,
+                NoOfPerson = model.NoOfPerson
             };
  
                 order = await _kotTableRepository.GenerateOrder(order);
@@ -201,7 +203,7 @@ public class KotTableService : IKotTableService
                  OrderTable orderTable = new(){
                 OrderId = order.Orderid,
                 TableId = tables.Tableid,
-                CustomerId = existingcustomer.Customerid
+                CustomerId = existingcustomer.Customerid,
             };
 
             await _kotTableRepository.AddOrderTable(orderTable);

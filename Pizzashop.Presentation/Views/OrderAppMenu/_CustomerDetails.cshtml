@@ -1,0 +1,50 @@
+@model Pizzashop.DAL.ViewModels.CustomerDetailsForOrderViewModel
+
+<div>
+<div class="modal-header">
+        <h1 class="modal-title fs-5" id="customerModalLabel">CustomerDetails</h1>
+        <button type="button" class="btn-close add-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+<div class="modal-body">
+        <form id="SaveCustomerDetails" enctype="multipart/form-data" class="d-flex flex-column gap-3">
+          <input type="hidden" asp-for="@Model.CustomerId" />
+          <input type="hidden" asp-for="@Model.OrderId" />
+          <!-- Name -->
+          <div class="form-floating">
+            <input type="text" class="form-control" id="customerName" placeholder="Name" asp-for = "@Model.CustomerName" >
+            <label for="customerName">Name</label>
+            <span class="text-danger" asp-validation-for="@Model.CustomerName" ></span>
+          </div>
+          
+          <!-- Mobile -->
+          <div class="row" >
+          <div class="form-floating col-6">
+            <input type="text" class="form-control" id="customerName" placeholder="Name" asp-for = "@Model.CustomerPhone">
+            <label for="customerName" class="ps-3">Mobile Number*</label>
+            <span class="text-danger" asp-validation-for="@Model.CustomerPhone" ></span>
+          </div>
+          
+          <!-- Number of Persons -->
+          <div class="form-floating col-6">
+             <input type="Number" class="form-control" id="customerName" placeholder="Name" asp-for = "@Model.NoOfPersons" >
+            <label for="customerName" class="ps-3">No Of Person(s)*</label>
+            <span class="text-danger" asp-validation-for="@Model.NoOfPersons" ></span>
+          </div>
+          </div>
+          
+          <!-- Email -->
+          <div class="form-floating">
+            <input type="email" class="form-control" id="customerEmail" placeholder="name@example.com" asp-for = "@Model.CustomerEmail" disabled>
+            <label for="customerEmail">Email</label>
+            <span class="text-danger" asp-validation-for="@Model.CustomerEmail"></span>
+          </div>
+          
+          <!-- Buttons -->
+          <div class="d-flex justify-content-end gap-2 mt-3">
+            <button type="submit" class="btn custom-btn-bg text-white" style="background-color: #0066bb;">Save</button>
+            <button type="button" class="btn custom-blue-border" style="border-color: #0066bb; border-width: 2px; color: #0066bb;" data-bs-dismiss="modal">Cancel</button>
+          </div>
+
+        </form>
+</div>
+</div>

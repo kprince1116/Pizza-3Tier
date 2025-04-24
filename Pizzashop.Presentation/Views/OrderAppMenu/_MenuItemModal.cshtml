@@ -25,7 +25,10 @@
                         {
                             <div class="item-modifeir-card position-relative d-flex flex-column justify-content-start mb-3 me-1 shadow bg-white rounded modifier_card"
                                  data-modifiergroupid="@modifiergroup.ModifierGroupId"
-                                 data-modifierid = "@modifier.ModifierId" >
+                                 data-modifierid = "@modifier.ModifierId"
+                                 data-modifiername = "@modifier.ModifierName"
+                                 data-modifierprice = "@modifier.Price"
+                                 data-modifierquantity = "@modifier." >
                                 <div class="ms-2">
                                     @modifier.ModifierName
                                 </div>
@@ -39,7 +42,7 @@
                 }
             </div>
             <div class="modal-footer">
-                <button type="submit" id="ItemModifierGroupModalModalSubmit" class="btn btn-primary modal_submit_btn">Add</button>
+                <button type="submit" id="ItemModifierGroupModalModalSubmit" data-itemname = "@Model.ItemName" data-itemid="@Model.ItemId" class="btn btn-primary modal_submit_btn">Add</button>
                 <button type="button" class="btn btn-outline-primary modal_close_btn" data-bs-dismiss="modal">Close</button>
             </div>
         </div>

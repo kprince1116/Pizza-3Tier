@@ -11,4 +11,8 @@ public interface IOrderAppMenu
     public Task<bool> UpdateFavourite(int ItemId);
     public Task<MenuItemModalviewmoel> GetModalData(int ItemId);
     public Task<OrderAppMenuviewmodel> GetOrderData(int OrderId);
+    public Task<CustomerDetailsForOrderViewModel> GetCustomerDetails(int OrderId);
+    public Task<bool> SaveCustomerDetails(CustomerDetailsForOrderViewModel model);
+    public Task<OrderWiseCommentViewModel> GetOrderComments(int OrderId);
+    public Task<bool> PostComment(OrderWiseCommentViewModel model);
 }

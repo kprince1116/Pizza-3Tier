@@ -14,10 +14,10 @@
                 </div>
             </div>
             <div class="col-9">
-                <div class="card-content item-modifeir-class" data-itemid="@item.ItemId" 
-                data-itemname="@item.ItemName" data-itemprice="@item.price" > 
+                <div class="card-content item-modifeir-class" data-itemid="@item.ItemId" data-globaid = "@item."
+                data-itemname="@item.ItemName" data-itemprice="@item.price" data-modfierTotalAmount = "@item.TotalModifierAmount" > 
                     <h5 class="card-title text-start">@item.ItemName</h5>
-                    <p class="card-text text-start">₹@item.price</p>
+                    <p class="card-text text-start " id="item-price-@item.ItemId">₹@item.price</p>
                 </div>
 
                 <!-- Item Type Badge -->
@@ -51,3 +51,4 @@ else
       <p class="text-muted">No items found.</p>
 }
 
+    

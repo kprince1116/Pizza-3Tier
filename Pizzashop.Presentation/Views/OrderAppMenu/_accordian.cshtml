@@ -1,43 +1,52 @@
-<div class="item-row w-100 py-1 px-2 d-flex align-items-center justify-content-between border" id="item-row-1">
+
+@model Pizzashop.DAL.ViewModels.OrderAppMenuviewmodel
+
+   
+                 @foreach(var item in Model.orderitems)
+                {
+                <div class="item-row w-100 py-1 px-2 d-flex align-items-center justify-content-between border" id="accord-@item.OrderItemId">
                     <div class="accordion mt-2 mb-2" id="item-accordian-1">
-                <div class="d-flex align-items-center gap-2 drop-class" data-bs-toggle="collapse" data-bs-target="#order-item-1" aria-expanded="false" aria-controls="order-item-1">
+                <div class="d-flex align-items-center gap-2 drop-class" data-bs-toggle="collapse" data-bs-target="#order-item-@item.ItemId" aria-expanded="false" aria-controls="order-item-@item.ItemId">
                 <img src="~/images/dropdownimg.webp" alt="" height="23" class="icon-rotate opacity-50">
-                <span class="item-name-for-order">Pizza</span>
+                <span class="item-name-for-order">@item.ItemName</span>
                 </div>
-                <div id="order-item-1" class="p-0 ms-0 collapse" aria-labelledby="headingPizza" data-bs-parent="#item-accordian-1">
-                <ul class="ps-4 mb-0 mt-1 modifier-list-for-order" style="min-width: 90px;" id="modifier-list-for-order-1">
+                <div id="order-item-@item.ItemId" class="p-0 ms-0 collapse" aria-labelledby="headingPizza" data-bs-parent="#item-accordian-1">
+                     @foreach (var modifier in item.modifiers)
+                    {
+                <ul class="ps-4 mb-0 mt-1 modifier-list-for-order" style="min-width: 90px;" id="modifier-list-for-order-1">      
                     <li>
                         <div class="d-flex justify-content-between gap-2">
-                            <span>Onion</span>
-                            <span>₹20</span>
+                            <span>@modifier.ModifierName</span>
+                            <span>₹@modifier.price</span>
                         </div>
                     </li>
-                    <li>
-                        <div class="d-flex justify-content-between gap-2">
-                            <span>Capcicum</span>
-                            <span>₹80</span>
-                        </div>
-                    </li>
+                   
                 </ul>
+                 }
                 </div>
             </div>
             <div class="item-end-part-for-order">
             <!-- Quantity Box -->
                         <div class="d-flex align-items-center justify-content-between px-2 py-0 gap-1 quantity-box">
-                        <i class="bi bi-dash"></i>
-                        <span class="quantity-box-display">
-                        1
+                        <i class="bi bi-dash" onclick="MinusQuantity(@item.OrderItemId)" id="minus-quantity-@item.ItemId" ></i>
+                        <span class="quantity-box-display" id="item-quantity-@item.OrderItemId" data-itemid="@item.ItemId" 
+                         data-itemname="@item.ItemName" data-itemprice="@item.price">
+                        @item.Quantity
                         </span>
-                        <i class="bi bi-plus"></i>
+                        <i class="bi bi-plus" onclick="PlusQuantity(@item.OrderItemId)" id="minus-quantity-@item.ItemId"></i>
                         </div>
                         <!-- Price Details -->
                         <div class="d-flex flex-column align-items-start gap-1 item-sums">
-                        <div class="item-amount">₹800.00</div>
-                        <div class="modifier-amount">₹80.99</div>
+                        <div class="item-amount" id="item-amount-@item.OrderItemId">₹@item.TotalAmount</div>
+                        <div class="modifier-amount">₹@item.TotalModifierAmount</div>
                         </div>
+                         
                         <!-- Delete Icon -->
-                        <div class="d-flex justify-content-center align-items-center">
+                        <div class="d-flex justify-content-center align-items-center delete-item" data-global-id="@item.OrderItemId" >
                         <i class="bi bi-trash fs-5"></i>
                         </div>
                 </div>
                 </div>
+                }
+
+                

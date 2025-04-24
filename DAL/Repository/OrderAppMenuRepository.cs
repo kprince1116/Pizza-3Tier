@@ -1,6 +1,7 @@
 using DAL.Interfaces;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
+using Pizzashop.DAL.ViewModels;
 
 namespace DAL.Repository;
 
@@ -92,4 +93,46 @@ public class OrderAppMenuRepository : IOrderAppMenuRepository
         return orderItems;
     }
 
+    public async Task<Order> GetCustomerDetails(int OrderId)
+    {
+        var customerDetails = await _db.Orders.Include(u=>u.Customer)
+                                              .FirstOrDefaultAsync(u=>u.Orderid == OrderId);
+        return customerDetails;
+    }
+
+    public async Task<Customer> GetCustomerById(int CustomerId)
+    {
+        var customer = await _db.Customers.FirstOrDefaultAsync(u=>u.Customerid == CustomerId);
+        return customer;
+    }
+
+    public async Task<Order> GetOrderDetails(int OrderId)
+    {
+        var order = await _db.Orders.FirstOrDefaultAsync(u=>u.Orderid == OrderId);
+        return order;
+    }
+    public async Task UpdateCustomer(Customer customer)
+    {
+        _db.Customers.Update(customer);
+        await _db.SaveChangesAsync();
+    }
+    public async Task UpdateOrder(Order order)
+    {
+         _db.Orders.Update(order);
+        await _db.SaveChangesAsync();
+    }
+
+    public async Task<Order> GetOrderComments(int OrderId)
+    {
+        var order = await _db.Orders.FirstOrDefaultAsync(u=>u.Orderid == OrderId);
+        return order;
+    }
+
+    public async Task<List<Taxesandfess>> GetTaxList()
+    {
+        var taxes = await _db.Taxesandfesses.Where(u=>u.Isactive == true && u.Isdeleted == false).OrderBy(u=>u.Taxname).ToListAsync();
+        return taxes;
+    }
+
+   
 }
