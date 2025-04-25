@@ -80,7 +80,8 @@ public class OrderAppMenuRepository : IOrderAppMenuRepository
     {
         var table = await _db.Orders.Include(u=>u.OrderTables)
                                     .ThenInclude(u=>u.Table).
-                                    ThenInclude(u=>u.Section).Where(u=>u.Orderid == OrderId).FirstOrDefaultAsync();
+                                    ThenInclude(u=>u.Section)
+                                    .Include(u=>u.StatusNavigation).Where(u=>u.Orderid == OrderId).FirstOrDefaultAsync();
                                    
         return table;
     }
@@ -131,6 +132,12 @@ public class OrderAppMenuRepository : IOrderAppMenuRepository
     public async Task<List<Taxesandfess>> GetTaxList()
     {
         var taxes = await _db.Taxesandfesses.Where(u=>u.Isactive == true && u.Isdeleted == false).OrderBy(u=>u.Taxname).ToListAsync();
+        return taxes;
+    }
+
+    public async Task<List<OrderTax>> GetTaxLists(int OrderId)
+    {
+        var taxes = await _db.OrderTaxes.Include(u=>u.Tax).Where(u=>u.OrderId==OrderId).ToListAsync();
         return taxes;
     }
 

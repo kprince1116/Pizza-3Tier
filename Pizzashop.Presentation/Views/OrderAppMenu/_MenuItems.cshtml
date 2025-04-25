@@ -1,6 +1,6 @@
 @model Pizzashop.DAL.ViewModels.OrderAppMenuviewmodel
 
- @if (Model.items.Any())
+@if (Model.items.Any())
 {
 @foreach (var item in Model.items)
 {
@@ -15,7 +15,7 @@
             </div>
             <div class="col-9">
                 <div class="card-content item-modifeir-class" data-itemid="@item.ItemId" data-globaid = "@item."
-                data-itemname="@item.ItemName" data-itemprice="@item.price" data-modfierTotalAmount = "@item.TotalModifierAmount" > 
+                data-itemname="@item.ItemName" data-itemprice="@item.price" data-modfierTotalAmount="@item.TotalModifierAmount" data-itemtax = "@item.ItemTax"> 
                     <h5 class="card-title text-start">@item.ItemName</h5>
                     <p class="card-text text-start " id="item-price-@item.ItemId">₹@item.price</p>
                 </div>

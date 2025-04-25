@@ -6,6 +6,7 @@ public class OrderAppMenuviewmodel
 {
     public int CustomerId { get; set; }
     public int OrderId { get; set; }
+    public string OrderStatus {get; set;}
     public List<MenuCategoryviewmodel> categories { get; set; } = new List<MenuCategoryviewmodel>();
     public List<Itemsviewmodel> items {get; set;} = new List<Itemsviewmodel>();
     public List<tableviewmodel> tables = new List<tableviewmodel>();
@@ -27,6 +28,7 @@ public class Itemsviewmodel
      public string ItemType {get; set;}
      public int ItemQuantity {get; set;}
      public decimal price {get; set;}
+     public decimal ItemTax {get; set;}
      public decimal TotalModifierAmount {get; set;}
      public bool isFavourite {get; set;}
 }
@@ -49,6 +51,7 @@ public class OrderItemviewmodel
     public decimal price { get; set; }
     public int Quantity { get; set; } 
     public decimal TotalAmount { get; set; }
+    public decimal ItemTax {get; set;}
     public decimal TotalModifierAmount {get; set;}
     public List<ModiferListModel> modifiers { get; set; } = new List<ModiferListModel>();
 }

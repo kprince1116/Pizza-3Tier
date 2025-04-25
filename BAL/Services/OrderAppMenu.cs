@@ -1,5 +1,6 @@
 using BAL.Models.Interfaces;
 using DAL.Interfaces;
+using DAL.Models;
 using DAL.ViewModels;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Pizzashop.DAL.ViewModels;
@@ -42,7 +43,8 @@ public class OrderAppMenu : IOrderAppMenu
                     ItemId = i.Itemid,
                     ItemName = i.Itemname,
                     ItemType = i.Itemtype,
-                    price = (int)i.Rate,
+                    ItemTax =  i.TaxPercentage ?? 0 , 
+                    price = (decimal) i.Rate,
                     isFavourite = (bool)i.IsFavourite
                 }).ToList()
             };
@@ -67,7 +69,8 @@ public class OrderAppMenu : IOrderAppMenu
                 ItemId = i.Itemid,
                 ItemName = i.Itemname,
                 ItemType = i.Itemtype,
-                price = (int)i.Rate,
+                ItemTax =  i.TaxPercentage ?? 0 ,
+                price = (decimal)i.Rate,
                 isFavourite = (bool)i.IsFavourite
             }).ToList()
         };
@@ -110,6 +113,7 @@ public class OrderAppMenu : IOrderAppMenu
         {
             ItemId = item.Itemid,
             ItemName = item.Itemname,
+            ItemTax = item.TaxPercentage ?? 0,
             ModifierGroupList = item.Itemmodifiergroups.Select(u => new MenuModifierGroupViewModel
             {
                 ModifierGroupId = (int)u.Modifiergroupid,
@@ -135,9 +139,12 @@ public class OrderAppMenu : IOrderAppMenu
 
         var taxList = await _orderAppMenuRepository.GetTaxList();
 
+        var taxListfrommapping = await _orderAppMenuRepository.GetTaxLists(OrderId);
+
         var viewmodel = new OrderAppMenuviewmodel
         {
             OrderId = (int)tableData.Orderid,
+            OrderStatus = tableData.StatusNavigation.Status,
             tables = tableData.OrderTables.Select(t => new tableviewmodel
             {
                 sectionId = (int)t.Table.Section.Sectionid,
@@ -152,6 +159,7 @@ public class OrderAppMenu : IOrderAppMenu
                 ItemName = i.Item.Itemname,
                 OrderItemId = i.Id,
                 Readyitem =(int) i.ReadyItem,
+                ItemTax =  i.Item.TaxPercentage ?? 0 ,
                 price = (decimal)i.Item.Rate,
                 Quantity = (int)i.Quantity,
                 TotalAmount = (decimal)(i.Item.Rate * i.Quantity),
@@ -164,16 +172,27 @@ public class OrderAppMenu : IOrderAppMenu
                     TotalAmount = (decimal)(m.Modifier.Rate * m.Quantity)
                 }).ToList()
 
-            }).ToList() ,
+            }).ToList()        
+        };
 
-           orderTax = taxList.Select(i => new MenuTaxviewmodel{
+        if(viewmodel.OrderStatus == "In Progress")
+        {
+             viewmodel.orderTax = taxListfrommapping.Select(i => new MenuTaxviewmodel{
+             TaxId = (int) i.TaxId ,
+             TaxName = i.Tax.Taxname ,
+             TaxRate = (Decimal)i.TaxFlat ,
+            TaxType =(bool) i.Tax.TaxType
+           }).ToList();
+        }
+        else{
+             viewmodel.orderTax = taxList.Select(i => new MenuTaxviewmodel{
              TaxId = (int) i.Taxid ,
              TaxName = i.Taxname ,
              TaxRate = (Decimal)i.Taxvalue ,
             TaxType =(bool) i.TaxType
-           }).ToList()
+           }).ToList();
+        }
 
-        };
         return viewmodel;
     }
 

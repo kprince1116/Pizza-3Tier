@@ -36,4 +36,6 @@ public interface IOrderAppMenuRepository
 
     Task<List<Taxesandfess>> GetTaxList();
 
+    Task<List<OrderTax>> GetTaxLists(int OrderId);
+
 }

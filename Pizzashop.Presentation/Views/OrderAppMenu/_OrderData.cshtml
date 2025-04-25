@@ -62,16 +62,16 @@
     <div id="item-rows-container" class="d-flex flex-column gap-2 mt-4 nothing-added">
         <div class="d-flex justify-content-between">
             <div class="d-flex justify-content-start ps-2">
-                <span style="opacity: 0.8;"> Item </span>
+                <span style="opacity: 0.8;">Item</span>
             </div>
-            <div class="d-flex quantity-price">
+            <div class="d-flex quantity-price" >
                 <span style="opacity: 0.8;">Quantity</span>
                 <span style="opacity: 0.8;">Amount</span>
             </div>
 
         </div>
-        <div class="d-flex flex-column gap-2 mb-2">
-            <div id="itemdata">
+        <div class="d-flex flex-column gap-2 mb-2" style="max-height: 320px !important; overflow-y: scroll; " >
+            <div id="itemdata" class="mt-2" >
                 @foreach (var item in Model.orderitems)
                 {
                     <div class="item-row w-100 py-1 px-2 d-flex align-items-center justify-content-between border mb-2"
@@ -128,7 +128,10 @@
                                         modifiertotalamount += @modifier.TotalAmount;
                                     }
                                 </div>
+                                @if(modifiertotalamount != 0)
+                                {
                                 <div class="modifier-amount">₹@modifiertotalamount</div>
+                                }
                             </div>
 
                             <!-- Delete Icon -->
@@ -147,26 +150,21 @@
 
     <div class="d-flex justify-content-between p-2 mt-2">
         <span class="fw-bold" style="opacity: 0.8;">SubTotal</span>
-        <span class="fw-bold" style="opacity: 0.8;" id="subtotalcontainer">₹2330.10</span>
+        <span class="fw-bold" style="opacity: 0.8;" id="subtotalcontainer">₹00.00</span>
     </div>
     @foreach (var tax in Model.orderTax)
     {
         <div class="d-flex justify-content-between px-2">
-            <span style="opacity: 0.8;">@tax.TaxName</span>
-            <span id="tax-amount-@tax.TaxId">₹@tax.TaxRate</span>
+           <div class="fs-6">@tax.TaxName
+                                (@(tax.TaxType == false ? "₹" : "")@tax.TaxRate@(tax.TaxType == true ? "%" : ""))</div>
+                        <div class="fs-6">
+                            <span id="tax-amount-@tax.TaxId">₹00.00</span>
+            </div>
         </div>
     }
-    @* <div class="d-flex justify-content-between px-2 ">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <span style="opacity: 0.8;">SGST</span>
-            </label>
-        </div>
-        <span>₹23.10</span>
-    </div> *@
     <div class="d-flex justify-content-between p-2 mt-2">
         <span class="fw-bold" style="opacity: 0.8;">Total</span>
-        <span class="fw-bold" style="opacity: 0.8;" id="totalamountcontainer">₹2330.10</span>
+        <span class="fw-bold" style="opacity: 0.8;" id="totalamountcontainer">₹00.00</span>
     </div>
 
     <div class="d-flex justify-content-between p-2">

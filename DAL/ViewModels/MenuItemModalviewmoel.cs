@@ -4,6 +4,7 @@ public class MenuItemModalviewmoel
 {
     public int ItemId { get; set; }
     public string ItemName { get; set; } 
+    public decimal ItemTax {get; set;}
     public List<MenuModifierGroupViewModel> ModifierGroupList { get; set; } = new List<MenuModifierGroupViewModel>();
 }
 

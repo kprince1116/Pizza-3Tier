@@ -291,6 +291,7 @@
                     selected_items.push({
                         itemId: itemlist[i].itemId,
                         itemName: itemlist[i].itemName,
+                        itemTax : itemlist[i].itemTax,
                         orderItemId: itemlist[i].orderItemId,
                         globalId: itemlist[i].orderItemId,
                         price: itemlist[i].price,
@@ -310,17 +311,18 @@
                             taxType : taxlist[i].taxType,
                             taxRate : taxlist[i].taxRate
                         });
-                    }
-                    getSubTotal();
-            }
-            
-        })
+                    }   
+            }  
+            getSubTotal();
+        });
+       
 
         $(document).off("click", ".item-modifeir-class").on("click", ".item-modifeir-class", function () {
             var itemid = $(this).data("itemid");
             var itemname = $(this).data("itemname");
             var itemprice = $(this).data("itemprice");
             let totalmodifierprice = $(this).data("modfierTotalAmount");
+            var itemTax = $(this).data("itemtax");
             var clickedElement = $(this);
 
             $.ajax({
@@ -348,12 +350,14 @@
 
                         console.log("min_max_modifiergroup:", min_max_modifiergroup);
                     } else {
-                        let exist_item = selected_items.find(item => item.itemid === itemid)
+                        let exist_item = selected_items.find(item => item.itemId === itemid)
+                        console.log("existing item:",exist_item);
 
                         if (!exist_item) {
                             selected_items.push({
                                 itemId: itemid,
                                 itemName: itemname,
+                                itemTax : itemTax,
                                 orderItemId: 0,
                                 globalId: globalid + 1,
                                 price: itemprice,
@@ -361,36 +365,26 @@
                                 modifiers: []
                             });
                             globalid += 1;
-                             getSubTotal();
+                            getSubTotal();
                         }
-
                         else {
                             exist_item.quantity = exist_item.quantity + 1;
-                            $(`#item-quantity-${itemid}`).text(exist_item.itemQuantity);
-                            $(`#item-amount-${itemid}`).text(exist_item.price * exist_item.quantity);
-                             getSubTotal();
+                            $(`#item-quantity-${exist_item.globalId}`).text(exist_item.quantity);
+                            $(`#item-amount-${exist_item.globalId}`).text(exist_item.price * exist_item.quantity);
+                            getSubTotal();
+                            return;
                         }
 
 
                         let itemaccordian =
                             `
-                                  <div class="item-row w-100 py-1 px-2 d-flex align-items-center justify-content-between border mt-2" id="accord-${globalid}">
+                                  <div class="item-row w-100 py-1 px-2 d-flex align-items-center justify-content-between border mt-2 mb-2" id="accord-${globalid}">
                             <div class="accordion mt-2 mb-2" id="item-accordian-1">
                         <div class="d-flex align-items-center gap-2 drop-class" data-bs-toggle="collapse" data-bs-target="#order-item-${globalid}" aria-expanded="false" aria-controls="order-item-${globalid}">
                         <img src="~/images/dropdownimg.webp" alt="" height="23" class="icon-rotate opacity-50">
                         <span class="item-name-for-order">${itemname}</span>
                         </div>
                         <div id="order-item-${globalid}" class="p-0 ms-0 collapse" aria-labelledby="headingPizza" data-bs-parent="#item-accordian-1">
-
-                        <ul class="ps-4 mb-0 mt-1 modifier-list-for-order" style="min-width: 90px;" id="modifier-list-for-order-1">      
-                            <li>
-                                <div class="d-flex justify-content-between gap-2">
-                                    <span>Onion</span>
-                                    <span>₹20</span>
-                                </div>
-                            </li>
-
-                        </ul>
 
                         </div>
                     </div>
@@ -407,8 +401,6 @@
                                 <!-- Price Details -->
                                 <div class="d-flex flex-column align-items-start gap-1 item-sums">
                                 <div class="d-flex align-items-center">₹<div class="item-amount" id="item-amount-${globalid}">${itemprice}</div></div>
-
-                                <div class="modifier-amount">₹80.99</div>
                                 </div>
                                 <!-- Delete Icon -->
                                 <div class="d-flex justify-content-center align-items-center delete-item" data-global-id="${globalid}">
@@ -569,6 +561,7 @@
                     data: { OrderId: orderId },
                     success: function (data) {
                         $("#OrderMenuData").html(data);
+                        getSubTotal();
                     },
                     error: function (xhr, status, error) {
                         console.error("Error fetching order data:", error);
@@ -658,7 +651,6 @@
         });
         $(document).off("click", ".ordercomment").on("click", ".ordercomment", function () {
             var orderId = $(this).data("orderid");
-            console.log("Order ID:", orderId);
 
             $.ajax({
                 url: "/OrderAppMenu/GetOrderComments",
@@ -727,8 +719,8 @@
                 selectedModifiersItems.push({
                     ModifierId: $(this).data("modifierid"),
                     ModifierName: $(this).data("modifiername"),
-                    price: price,
-                    Quantity: 1
+                    modifierPrice: price,
+                    modifierQuantity: 1
                 });
 
                 if (!isNaN(price)) {
@@ -736,13 +728,14 @@
                 }
             });
 
-            console.log("TotalModifierAmount", TotalModifierPrice);
-
-
             var ItemId = $(this).data("itemid");
             var itemname = $(this).data("itemname");
+            var itemTax = $(this).data("itemtax");
             var itemprice = $(`#item-price-${ItemId}`).text();
-            var price = parseInt(itemprice.replace('₹', '').trim());
+            var price = parseFloat(itemprice.replace('₹', '').trim());
+            var formattedPrice = price.toFixed(2); 
+            console.log(formattedPrice);
+            console.log("pricemodif:",price);
 
             var itemQuantity = 1;
 
@@ -751,6 +744,7 @@
             selected_items.push({
                 itemId: ItemId,
                 itemName: itemname,
+                itemTax : itemTax,
                 orderItemId: 0,
                 globalId: globalid + 1,
                 price: price,
@@ -758,6 +752,7 @@
                 modifiers: selectedModifiersItems,
             });
             globalid += 1;
+           
 
             let dataToSend = {
                 ItemId: ItemId,
@@ -773,7 +768,7 @@
             let saveorderitem = [];
             saveorderitem.push(dataToSend);
 
-
+            getSubTotal();
             let OrderItem = JSON.stringify(saveorderitem);
 
             $.ajax({
@@ -798,36 +793,42 @@
         {
             let subtotal = 0;
             let total;
-
-            selected_items.forEach(item=>{
-                let itemtotal = parseFloat(item.price || 0); 
-                itemtotal = itemtotal * item.quantity; 
-                item.modifiers.forEach(modifier => {
-                    itemtotal += parseFloat(modifier.modifierPrice || 0);
+            if(selected_items.length != 0){
+                selected_items.forEach(item=>{
+                    let itemtotal = parseFloat(item.price || 0); 
+                    itemtotal = itemtotal * item.quantity; 
+                    item.modifiers.forEach(modifier => {
+                        itemtotal += parseFloat(modifier.modifierPrice || 0);
+                    });
+                    subtotal += itemtotal;
                 });
-                console.log("itemtotal:",itemtotal);
-                subtotal += itemtotal;
-            });
-            console.log(subtotal);
-            $("#subtotalcontainer").html(subtotal);
-            total = subtotal;
+                $("#subtotalcontainer").html(subtotal);
+                total = subtotal;
 
-            tax_data.forEach(tax => {
-                let taxprice = 0;
+                tax_data.forEach(tax => {
+                    let taxprice = 0;
 
-                if(tax_data.taxType == "percentage")
-                {
-                    taxprice = subtotal * parseFloat(tax.taxRate)/100
-                }
-                else{
-                    taxprice = parseFloat(tax.taxRate);
-                }
-                total +=taxprice;
-                console.log(total);
-                $(`#tax-amount-${tax_data.taxId}`).text(taxprice);
-            })
-            console.log($("#totalamountcontainer"));   
-            $("#totalamountcontainer").text(total);
+                    if(tax_data.taxType == "percentage")
+                    {
+                        taxprice = subtotal * parseFloat(tax.taxRate)/100;
+                    }
+                    else{
+                        taxprice = parseFloat(tax.taxRate);
+                    }
+                    total +=taxprice;
+                    console.log("taxprice:",taxprice);
+                    $(`#tax-amount-${tax.taxId}`).text(taxprice.toFixed(2));
+                })
+                console.log("tax:",$("#totalamountcontainer"));
+                $("#totalamountcontainer").text(total.toFixed(2));
+            }
+            else{
+                $("#subtotalcontainer").text("00.00");
+                  tax_data.forEach(tax=>{
+                     $(`#tax-amount-${tax.taxId}`).text("00.00");
+                  });
+                 $("#totalamountcontainer").text("00.00");
+            }
         }
     </script>
 

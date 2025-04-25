@@ -267,7 +267,6 @@ function backslide() {
             data: { id: orderid, status: status },
             dataType: "html",
             success: function (data) {
-                console.log("Response:",data);
                 $('#changeQuanityModalContainer').html(data);
                 $('#changeQuantityModal').modal('show');
             },
@@ -277,7 +276,9 @@ function backslide() {
         });
     });
 
-</script>     
+</script> 
+
+
 
 }
 
