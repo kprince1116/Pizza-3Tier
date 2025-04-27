@@ -12,6 +12,7 @@ public interface IUserTableRepository
 
     public Task<bool> AddSection(Tablesviewmodel model);
 
+    public Task<bool> GetSectionName(string SectionName);
     public Task<Section> GetSectionByIdForEdit(int Sectionid);
 
     Task UpdateSectionForEditAsync(Section existingSection);

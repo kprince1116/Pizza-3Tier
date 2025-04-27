@@ -98,12 +98,13 @@ public class WaitingListController : Controller
     public async Task<IActionResult> AssignTable(waitingtokenviewmodel model)
     {
         var result = await _waitingService.AssignTable(model);
-        if(result){
-         return Json(new { success = true });
-        }
-        else{
-            return Json(new { success = false });
-        }
+
+        var orderId = result;
+
+        var redirectUrl =  "/OrderAppMenu/OrderMenu?orderId=" + orderId ;
+        
+        return Json(new { success = true , url = redirectUrl });
+        
     }
 
 }

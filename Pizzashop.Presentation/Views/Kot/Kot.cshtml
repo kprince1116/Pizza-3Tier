@@ -48,16 +48,16 @@
         <a  id="readyBtn"  class="inprogress-ready-btn tab-btn-content" style="text-decoration: none;">
             Ready
         </a>
-         <button class="btn light-btn next-back-btn" onclick="backslide()" >
+         <button class="btn light-btn next-back-btn leftKOTBtn" onclick="backslide()" >
             <
         </button>
-        <button class="btn light-btn next-back-btn" onclick="nextslide()" >
+        <button class="btn light-btn next-back-btn rightKOTBtn " onclick="nextslide()" >
             >
         </button>
             </div>   
             </div>
 
-            <div class="KOT-Card-List-Container">
+            <div class="KOT-Card-List-Container KOT-Item-container">
     <div class="card-wrapper d-flex gap-2 " id="cardWrapper">
       
     </div>
@@ -129,7 +129,7 @@ const cardsToShow = 1;
 const cardWidth = 220; 
 
 
-function nextslide() {
+@* function nextslide() {
     const cardWrapper = document.getElementById('cardWrapper');
     const totalCards = cardWrapper.children.length;
     const maxSlide = totalCards - cardsToShow;
@@ -149,7 +149,19 @@ function backslide() {
         const offset = -currentSlide * cardWidth;
         cardWrapper.style.transform = `translateX(${offset}px)`;
     }
-}
+} *@
+
+$(document).off("click", ".rightKOTBtn").on("click", ".rightKOTBtn", function () {
+        $(".KOT-Item-container").animate({
+            scrollLeft: $(".KOT-Item-container").scrollLeft() + 500
+        }, 500);
+    });
+
+    $(document).off("click", ".leftKOTBtn").on("click", ".leftKOTBtn", function () {
+        $(".KOT-Item-container").animate({
+            scrollLeft: $(".KOT-Item-container").scrollLeft() - 500
+        }, 500);
+    });
 
 </script>     
 

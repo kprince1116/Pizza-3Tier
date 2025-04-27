@@ -48,7 +48,8 @@ public class TableController : Controller
         }
         else
         {
-            return Content("error");
+            TempData["AddSectionError"] = "A section with the same name already exists.";
+            return RedirectToAction("Table", "Table"); 
         }
        
     }
@@ -65,7 +66,8 @@ public class TableController : Controller
         }
         else
         {
-            return Content("error");
+            TempData["EditSectionError"] = "A section with the same name already exists.";
+            return RedirectToAction("Table", "Table");       
         }
         
     }

@@ -97,9 +97,10 @@ public class ProfileController : Controller
 
             if (result == null)
             {
+                TempData["ChangePasswordError"] = "Password does not changed";
                 return View();
             }
-
+            TempData["ChangePasswordSuccess"] = "Password Changed Succesfully";
             return RedirectToAction("UserList", "User");
         }
         catch (Exception ex)

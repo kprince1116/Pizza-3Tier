@@ -16,9 +16,7 @@ public class UserController : Controller
 {
     private readonly IConfiguration _configuration;
     private readonly IUserList _userList;
-
     private readonly IUserRepository _userRepository;
-
     private readonly IUserDetails _userDetails;
 
     public UserController(IConfiguration configuration, IUserList userList , IUserRepository userRepository , IUserDetails userDetails)
@@ -62,28 +60,25 @@ public class UserController : Controller
     public async Task<IActionResult> AddUser(AddUserviewmodel user)
     {
 
-        if (ModelState.IsValid)
-        {
-
-            if (await _userList.EmailExists(user.Email))
-            {
-                ModelState.AddModelError("Email", "This email is already registered.");
-            }
-
-            if (await _userList.PhoneNumberExists(user.Phonenumber))
-            {
-                ModelState.AddModelError("Phonenumber", "This phone number is already registered.");
-            }
-        }
-
         string token = Request.Cookies["jwtToken"];
 
-        await _userList.AddUserAsync(user);
-
-        TempData["AddUserSuccess"] = true;
-
+        var users = await _userList.AddUserAsync(user);
+         if(users == AddUserResult.Success)
+         {TempData["AddUserSuccess"] = true;
         return RedirectToAction("UserList", "User");
-
+         }
+         else if (users == AddUserResult.EmailExists)
+         {
+        TempData["AddUserError"] = "A user with the same email already exists.";
+        return RedirectToAction("UserList", "User");
+         } 
+        else if (users == AddUserResult.PhoneExists)
+         {
+        TempData["AddUserError"] = "A user with the same Phone number already exists.";
+        return RedirectToAction("UserList", "User");
+         } 
+          TempData["AddUserError"] = "Unknown error.";
+         return RedirectToAction("UserList", "User");
     }
 
      [_AuthPermissionAttribute("Users", ActionPermissions.CanAddEdit)]

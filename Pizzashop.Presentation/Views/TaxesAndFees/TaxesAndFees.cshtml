@@ -58,7 +58,7 @@
 
 @*Add Tax*@
 
-<div class="modal fade" id="addTax" data-bs-backdrop="static" data-bs-keyboard="false">
+<div class="modal fade" data-bs-backdrop="static" id="addTax" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content" id="addTaxModal">
             <div class="modal-header border-0">
@@ -118,7 +118,7 @@
 
 @*Edit Tax*@
 
-<div class="modal fade" id="editTax" data-bs-backdrop="static" data-bs-keyboard="false">
+<div class="modal fade" data-bs-backdrop="static" id="editTax" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content" id="editTaxModal">
             
@@ -127,7 +127,7 @@
 </div>
 
 @*Delete Tax *@
-<div class="modal fade" id="deleteTaxModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" data-bs-backdrop="static" id="deleteTaxModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -291,6 +291,18 @@
                     showToastrNotification('success', 'Tax Edit successfully!');
                 </text>
             }
+             @if (TempData["AddTaxError"] != null)
+             {
+              <text>
+                showToastrNotification('error', '@TempData["AddTaxError"]');
+                </text>
+              }
+              @if (TempData["EditTaxError"] != null)
+             {
+              <text>
+                showToastrNotification('error', '@TempData["AddTaxError"]');
+                </text>
+              }
         });
 
 </script>

@@ -149,6 +149,14 @@ public class UserMenuRepository : IUserMenuRepository
 
     public async Task<bool> AddCategory(menuviewmodel model)
     {
+
+        var exists = await _db.MenuCategories.AnyAsync(u=>u.Name.ToLower()==model.AddCategory.CategoryName.ToLower());
+
+        if(exists)
+        {
+            return false;
+        }
+
         var category = new MenuCategory
         {
             Name = model.AddCategory.CategoryName,
@@ -169,6 +177,16 @@ public class UserMenuRepository : IUserMenuRepository
     {
         _db.MenuCategories.Update(existingCategory);
         await _db.SaveChangesAsync();
+    }
+
+    public async Task<bool> GetCategoryName(string CategoryName)
+    {
+        var exists = await _db.MenuCategories.AnyAsync(u=>u.Name == CategoryName);
+        if(exists)
+        {
+            return false;
+        }
+        return true;
     }
 
     public Task<MenuCategory> GetCategoryId(int id)
@@ -421,7 +439,12 @@ public class UserMenuRepository : IUserMenuRepository
     //Add Modifier
     public async Task<bool> AddModifier(menuviewmodel model)
     {
+        var exists = await _db.ModifierGroups.AnyAsync(u=>u.Name == model.AddModifierGroup.Name);
 
+        if(exists)
+        {
+            return false;
+        }
 
 
         ModifierGroup exisingModifiergroup = await _db.ModifierGroups.Where(u => u.Name == model.AddModifierGroup.Name && (!u.IsDeleted.HasValue || !u.IsDeleted.Value) && u.ModifierGroupId != model.AddModifierGroup.ModifierId).FirstOrDefaultAsync();
@@ -476,6 +499,13 @@ public class UserMenuRepository : IUserMenuRepository
     //edit Modifier
     public async Task<bool> UpdateModifierAsync(menuviewmodel model)
     {
+        var exists = await _db.ModifierGroups.AnyAsync(u=>u.Name == model.AddModifierGroup.Name);
+
+        if(exists)
+        {
+            return false;
+        }
+
          ModifierGroup exisingModifiergroup = await _db.ModifierGroups.Where(u => u.Name == model.AddModifierGroup.Name && (!u.IsDeleted.HasValue || !u.IsDeleted.Value) && u.ModifierGroupId != model.AddModifierGroup.ModifierId).FirstOrDefaultAsync();
 
         if (exisingModifiergroup != null && exisingModifiergroup.IsDeleted == false)

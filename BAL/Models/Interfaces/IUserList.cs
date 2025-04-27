@@ -10,9 +10,7 @@ public interface IUserList
 {
     public Task<List<UserListviewmodel>> GetUserList(int pageNumber, int pageSize, string searchTerm, string sortDirection, string sortBy);
     public Task<int> GetUsercount(string searchTerm);
-
-    public Task AddUserAsync(AddUserviewmodel user);
-
+    public Task<AddUserResult> AddUserAsync(AddUserviewmodel user);
     public Task<bool> EmailExists(string Email);
 
     public Task<bool> PhoneNumberExists(string Phonenumber);
@@ -30,8 +28,4 @@ public interface IUserList
     public Task EditUserAsync(EditUserviewmodel user);
 
     public Task<bool> GetById(int UserId);
-
-  
-
-
 }

@@ -1,33 +1,33 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Project\\Pizza-3Tier\\BAL\\BAL.csproj": {}
+    "/Users/princekhunt/Desktop/pizza-shops/BAL/BAL.csproj": {}
   },
   "projects": {
-    "D:\\Project\\Pizza-3Tier\\BAL\\BAL.csproj": {
+    "/Users/princekhunt/Desktop/pizza-shops/BAL/BAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\Pizza-3Tier\\BAL\\BAL.csproj",
+        "projectUniqueName": "/Users/princekhunt/Desktop/pizza-shops/BAL/BAL.csproj",
         "projectName": "BAL",
-        "projectPath": "D:\\Project\\Pizza-3Tier\\BAL\\BAL.csproj",
-        "packagesPath": "C:\\Users\\pca187\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\Pizza-3Tier\\BAL\\obj\\",
+        "projectPath": "/Users/princekhunt/Desktop/pizza-shops/BAL/BAL.csproj",
+        "packagesPath": "/Users/princekhunt/.nuget/packages/",
+        "outputPath": "/Users/princekhunt/Desktop/pizza-shops/BAL/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\pca187\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/princekhunt/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net8.0"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\Project\\Pizza-3Tier\\DAL\\DAL.csproj": {
-                "projectPath": "D:\\Project\\Pizza-3Tier\\DAL\\DAL.csproj"
+              "/Users/princekhunt/Desktop/pizza-shops/DAL/DAL.csproj": {
+                "projectPath": "/Users/princekhunt/Desktop/pizza-shops/DAL/DAL.csproj"
               }
             }
           }
@@ -36,11 +36,16 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
             "BCrypt.Net": {
               "target": "Package",
@@ -83,31 +88,31 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.410\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.407/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Project\\Pizza-3Tier\\DAL\\DAL.csproj": {
+    "/Users/princekhunt/Desktop/pizza-shops/DAL/DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\Pizza-3Tier\\DAL\\DAL.csproj",
+        "projectUniqueName": "/Users/princekhunt/Desktop/pizza-shops/DAL/DAL.csproj",
         "projectName": "DAL",
-        "projectPath": "D:\\Project\\Pizza-3Tier\\DAL\\DAL.csproj",
-        "packagesPath": "C:\\Users\\pca187\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\Pizza-3Tier\\DAL\\obj\\",
+        "projectPath": "/Users/princekhunt/Desktop/pizza-shops/DAL/DAL.csproj",
+        "packagesPath": "/Users/princekhunt/.nuget/packages/",
+        "outputPath": "/Users/princekhunt/Desktop/pizza-shops/DAL/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\pca187\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/princekhunt/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net8.0"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {}
           }
         },
@@ -115,11 +120,16 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
             "Microsoft.AspNetCore.Hosting": {
               "target": "Package",
@@ -164,7 +174,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.410\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.407/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -33,15 +33,15 @@
                     </div>
                 </div>
                 
-                <div class="d-flex flex-column Card-Content">
+                <div class="d-flex flex-column Card-Content" style="height:5px !important; overflow-y:scroll;" >
 
                     @for(int i = 0; i < card.Items.Count; i++)
                     {
-                        <div class="d-flex flex-column">
+                        <div class="d-flex flex-column"  >
                             <div class="d-flex justify-content-between">
                                 <div>@card.Items[i].ItemName</div>
                                 <div>
-                                        @if (card.OrderStatus == "In Progress")
+                              @if (card.OrderStatus == "In Progress")
                                 {
                                 @card.Items[i].PendigQuantity
                                }
@@ -50,7 +50,7 @@
                                 @card.Items[i].ReadyQuantity
                                 }
                                 </div>
-                            </div>
+                        </div>
                            
                             <ul>
                                 @foreach(var modifier in card.Items[i].Modifiers)
@@ -67,7 +67,7 @@
      
                 <div class="Card-Footer flex-wrap">
                     <span class="special-color fw-bold">Order Instruction :
-                        <span style="color: black; opacity: 0.8; " > @card.OrderInstruction </span> </span>
+                        <span style="color: black; opacity: 0.8;"> @card.OrderInstruction </span> </span>
                 </div>
             </div>
             }

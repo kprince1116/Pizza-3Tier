@@ -37,8 +37,7 @@ public class OrderController : Controller
         var taxlist = await _orderservice.GetOrderDetails(pageNo, pageSize, searchKey, sortby, sortdirection, statusFilter, timeFilter, fromDate, toDate);
         return PartialView("_orderPartial",taxlist);
     }
-
-
+    
      public async Task<IActionResult> OrderDetails(int orderId)
      {
         var orderlist = await _orderservice.GetDetails(orderId);

@@ -38,11 +38,12 @@ public class TaxesAndFeesController : Controller
          if (isAdded)
         {
             TempData["AddTaxSuccess"] = true;
-             return  RedirectToAction("TaxesAndFees", "TaxesAndFees");
+            return  RedirectToAction("TaxesAndFees", "TaxesAndFees");
         }
         else
         {
-            return Content("error");
+            TempData["AddTaxError"] = "A Tax with the same name already exists.";
+            return RedirectToAction("TaxesAndFees", "TaxesAndFees"); 
         }
        
     }
@@ -79,11 +80,12 @@ public class TaxesAndFeesController : Controller
           if (isEdit)
         {
             TempData["EditTaxSuccess"] = true;
-             return  RedirectToAction("TaxesAndFees", "TaxesAndFees");
+            return  RedirectToAction("TaxesAndFees", "TaxesAndFees");
         }
         else
-        {
-            return Content("error");
+        { 
+            TempData["EditTaxError"] = "A Tax with the same name already exists.";
+            return RedirectToAction("TaxesAndFees", "TaxesAndFees"); 
         }
     }
 

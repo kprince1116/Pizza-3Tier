@@ -2,6 +2,7 @@
 using DAL.Interfaces;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using Pizzashop.DAL.ViewModels;
 
 namespace DAL.Repository;
@@ -15,11 +16,15 @@ public class KotRepository : IKotRepository
         _db = db;
     }
 
-     
 
     public async Task<List<MenuCategory>> GetCategories()
     {
-        var categories = await _db.MenuCategories.Where(u => u.IsDeleted == false).OrderBy(u => u.Categoryid).ToListAsync();
+        var categories = await _db.OrderItems.Where(u=>u.Order.Isdelete == false)
+                                 .Include(u=>u.Item).ThenInclude(u=>u.Category)
+                                 .Select(u=>u.Item.Category)
+                                 .Where(u=>u != null)
+                                 .Distinct()
+                                 .ToListAsync();
         return categories;
     }
     public async Task<Kotviewmodel> GetKotDataAsync(string status,int categoryId)

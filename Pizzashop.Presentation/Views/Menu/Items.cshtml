@@ -80,12 +80,13 @@
                   <div class="sidebar-elements">
                     @foreach (var category in Model.Categories)
                     {
-                      <div class="aaa">
-                        <div class="d-flex justify-content-between align-items-center sidebar-category">
-                          <a style="color: black;" class="d-flex gap-2 pt-2 pb-2 ps-3 nav-link active align-items-center categorygroupbtn"
+                      var isActive = category.CategoryName == "Sandwich" ? "active-category" : "";
+                      <div class="aaa" >
+                        <div class="d-flex justify-content-between align-items-center sidebar-category @isActive category-btn">
+                          <a style="color: black;" class="d-flex gap-2 pt-2 pb-2 ps-3 nav-link active align-items-center  categorygroupbtn"
                             id="category-idforclick" data-category-id="@category.CategoryId">
                             <img style="height: 15px;" src="~/images/icons/grid.png">
-                            <div onclick="fetchItems(@category.CategoryId)">@category.CategoryName</div>
+                            <div class="category-name" onclick="fetchItems(@category.CategoryId)">@category.CategoryName</div>
                           </a>
                            @if(canAddMenu || canDeleteMenu)
                            {
@@ -169,6 +170,23 @@
 
 @section scripts
 {
+<script>
+    $(document).ready(function () {
+  $('.category-name').on('click', function () {
+    $('.category-btn').removeClass('active-category'); 
+    $(this).closest('.category-btn').addClass('active-category'); 
+  });
+});
+</script>
+
+<script>
+    $(document).ready(function () {
+  $('.modifier-group-name').on('click', function () {
+    $('.modifier-group-btn').removeClass('active-modifier'); 
+    $(this).closest('.modifier-group-btn').addClass('active-modifier'); 
+  });
+});
+</script>
   <!-- modifier group -->
 
 <script>
@@ -967,7 +985,7 @@ function saveExistingModifiers() {
 }
 
 <!-- edit category -->
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" data-bs-backdrop="static" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <form method="post" asp-controller="Menu" asp-action="EditCategory" class="modal-content" id="addItemForm" >
       <div class="modal-header">
@@ -1014,7 +1032,7 @@ function saveExistingModifiers() {
 </script>
 
 <!--delete category -->
-<div class="modal fade" id="deleteModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" data-bs-backdrop="static" id="deleteModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -1036,7 +1054,7 @@ function saveExistingModifiers() {
 </div>
 
 <!--Add Category -->
-<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" data-bs-backdrop="static" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <form method="post" asp-controller="Menu" asp-action="AddCategory" class="modal-content">
       <div class="modal-header">
@@ -1066,7 +1084,7 @@ function saveExistingModifiers() {
 </div>
 
 <!--Delte Category -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" data-bs-backdrop="static" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -1087,7 +1105,7 @@ function saveExistingModifiers() {
 
 <!--Add Item -->
 
-<div class="modal fade" id="AddItem" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" data-bs-backdrop="static" id="AddItem" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <form method="post" enctype="multipart/form-data" asp-controller="Menu" asp-action="Items" class="modal-content" id="addItemForm">
       <input type="hidden" id="selectedModifierList" name="modifierItemList">
@@ -1304,7 +1322,7 @@ function saveExistingModifiers() {
 
 <!-- delete item modal  !-->
 
-<div class="modal fade" id="deleteItemModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" data-bs-backdrop="static" id="deleteItemModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -1327,7 +1345,7 @@ function saveExistingModifiers() {
 
 <!-- Mass Item delete !-->
 
-<div class="modal fade" id="deleteItemModalForMass" tabindex="-1" aria-labelledby="exampleModalLabel"
+<div class="modal fade" data-bs-backdrop="static" id="deleteItemModalForMass" tabindex="-1" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -1352,7 +1370,7 @@ function saveExistingModifiers() {
 
 <!-- Add Modifier Group Modal -->
 
-<div class="modal fade" id="modifierModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" data-bs-backdrop="static" id="modifierModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <form method="post" action="AddModifier" id="submitModifierGroupForm" class="modal-content ">
       <input type="hidden" id="existingItemList" name="modifierList">
@@ -1390,7 +1408,7 @@ function saveExistingModifiers() {
 </div>
 
 <!-- Edit Modifier Group Modal -->
-<div class="modal fade" id="editModifier" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" data-bs-backdrop="static" id="editModifier" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <form method="post" asp-controller="Menu" id="submitModifierGroupFormForEdit" asp-action="EditModifier"
       class="modal-content">
@@ -1448,7 +1466,7 @@ function saveExistingModifiers() {
 </div>
 
 <!-- Add Existing  Modifier Group Modal -->
-<div class="modal fade" tabindex="-1" id="existingModifierModal" aria-labelleby="modal-title">
+<div class="modal fade" data-bs-backdrop="static" tabindex="-1" id="existingModifierModal" aria-labelleby="modal-title">
   <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
       <div class="modal-header">
@@ -1481,7 +1499,7 @@ function saveExistingModifiers() {
 
 <!-- Delete Modifier Group Modal -->
 
-<div class="modal fade" id="deleteModalformodifier" tabindex="-1" aria-labelledby="exampleModalLabel"
+<div class="modal fade" data-bs-backdrop="static" id="deleteModalformodifier" tabindex="-1" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -1505,7 +1523,7 @@ function saveExistingModifiers() {
 
 <!-- Delete Modifier Item Modal -->
 
-<div class="modal fade" id="deleteModifierModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" data-bs-backdrop="static" id="deleteModifierModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -1529,7 +1547,7 @@ function saveExistingModifiers() {
 
 <!-- Add Modifier Item Modal -->
 
-<div class="modal fade" id="addmodifieritemmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" data-bs-backdrop="static" id="addmodifieritemmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <form method="post" asp-controller="Menu" asp-action="AddModifierItem" class="modal-content">
       <div class="modal-header">
@@ -1618,7 +1636,7 @@ function saveExistingModifiers() {
 
 <!-- Edit Modifier Item Modal -->
 
-<div class="modal fade" id="Editmodifieritemmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" data-bs-backdrop="static" id="Editmodifieritemmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content" id="edit-modal-size">
 
@@ -1706,6 +1724,18 @@ function saveExistingModifiers() {
                 <text>
                     showToastrNotification('success', 'Modifier Delete successfully!');
                 </text>
+            }
+             @if (TempData["AddCategoryError"] != null)
+           {
+           <text>
+               showToastrNotification('error', '@TempData["AddCategoryError"]');
+           </text>
+            }
+            @if (TempData["AddModifierError"] != null)
+           {
+           <text>
+               showToastrNotification('error', '@TempData["AddModifierError"]');
+           </text>
             }
         });
 </Script>

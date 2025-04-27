@@ -22,12 +22,7 @@ public class TaxesAndFessService : ITaxesAndFessService
 
      public async Task<bool> AddTax(Taxviewmodel model)
      {
-        if(model == null)
-        {
-            return false;
-        }
-         await _TaxesAndFessRepository.AddTax(model);
-        return true;
+        return await _TaxesAndFessRepository.AddTax(model);
      }
 
     public async Task<bool> DeleteTax(int id)
@@ -52,6 +47,9 @@ public class TaxesAndFessService : ITaxesAndFessService
 
     public async Task<bool> EditTax(EditTaxviewmodel model)
     {
+
+    
+
         var existingTax = await _TaxesAndFessRepository.GetTaxById(model.TaxId);
     
         if(existingTax == null)

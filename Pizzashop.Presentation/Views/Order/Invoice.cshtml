@@ -98,7 +98,8 @@
                             }
                         </td>
                         <td>
-                            ₹ @item.Price.ToString()
+                              ₹ @(item.Price*item.Quantity) 
+
                             @if (item.OrderItemModifiers.Any())
                             {
                                 <ul class="list-unstyled mt-1">
@@ -110,7 +111,7 @@
                                 </ul>
                             }
                             @{
-                                decimal itemTotal =(decimal) item.Price;
+                                decimal itemTotal =(decimal) (item.Price * item.Quantity);
                                 decimal modifierTotal =(decimal) item.OrderItemModifiers.Sum(m => m.Quantity * m.Price);
                                 decimal totalForRow = itemTotal + modifierTotal;
                                 subtotal += totalForRow;
@@ -126,18 +127,18 @@
         <div class="summary">
             <p><strong>Sub Total:</strong> ₹ @subtotal.ToString("F2")</p>
             @if (Model.OrderTaxes.Any())
-            {
-                foreach (var tax in Model.OrderTaxes)
-                {
-                    <tr>
-                     <strong class="fw-bold" > @tax.Tax?.Taxname : </strong>
-                    <td> @((tax.Tax?.TaxType ?? false ? (subtotal * tax.Tax?.Taxvalue ?? 0)/100 : tax.Tax?.Taxvalue ?? 0)) </td>
-                    @{
-                        TotalAmount += (tax.Tax?.TaxType ?? false ? (subtotal * tax.Tax?.Taxvalue ?? 0)/100 : tax.Tax?.Taxvalue ?? 0);
-                    }
-                    </tr>
-                }
-            }
+                        {
+                            foreach (var tax in Model.OrderTaxes)
+                            {    
+                                <p>
+                                <strong class="fw-bold" > @tax.Tax?.Taxname : </strong>
+                                 @((tax.Tax?.TaxType ?? false ? (subtotal * tax.Tax?.Taxvalue ?? 0)/100 : tax.Tax?.Taxvalue ?? 0)) 
+                                     @{
+                                     TotalAmount += (tax.Tax?.TaxType ?? false ? (subtotal * tax.Tax?.Taxvalue ?? 0)/100 : tax.Tax?.Taxvalue ?? 0);
+                                     }
+                                </p>
+                            }
+                        }
             <hr style="color: #1f73ae;">
             <p class="text-nowrap" style="color: #1f73ae;"><strong>Total Amount Due:</strong><span class="text-nowrap"> ₹ @(subtotal + TotalAmount)</span></p>
             <hr style="color: #1f73ae;">

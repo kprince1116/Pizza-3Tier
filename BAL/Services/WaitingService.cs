@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using BAL.Models.Interfaces;
 using DAL.Interfaces;
 using DAL.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Pizzashop.DAL.ViewModels;
 
 
@@ -12,9 +13,12 @@ public class WaitingService : IWaitingService
 {
     private readonly IWaitingRepository _waitingRepository;
 
-    public WaitingService(IWaitingRepository waitingRepository)
+    private readonly IKotTableRepository _kotTableRepository;
+
+    public WaitingService(IWaitingRepository waitingRepository , IKotTableRepository kotTableRepository)
     {
         _waitingRepository = waitingRepository;
+        _kotTableRepository = kotTableRepository;
     }
 
  
@@ -171,26 +175,46 @@ public class WaitingService : IWaitingService
         return table;
     }
 
-    public async Task<bool> AssignTable(waitingtokenviewmodel model)
+    public async Task<int> AssignTable(waitingtokenviewmodel model)
     {
         var customer = await _waitingRepository.GetCustomerById(model.Id);
         var tables = await _waitingRepository.GetTableBySectionId(model.tableId);
        
        if(customer == null)
        {
-        return false;
+        return 0;
        }
 
        tables.CustomerId = model.customerId;
        tables.Status = "Assigned";
-        tables.Isavailable = false;
+       tables.Isavailable = false;
        customer.IsAssigned = true;
        customer.AssignedTime = DateTime.Now;
 
        await _waitingRepository.UpdateTable(tables);
        await _waitingRepository.UpdateCustomer(customer);
 
-        return true;
+        Order order = new()
+            {
+                CustomerId =(int) model.customerId,
+                CreatedDate = DateTime.Now,
+                Orderdate = DateTime.Now,
+                Status = 1,
+                NoOfPerson = model.NoOfPerson
+            };
+ 
+            order = await _kotTableRepository.GenerateOrder(order);
+
+            OrderTable orderTable = new(){
+                OrderId = order.Orderid,
+                TableId = tables.Tableid,
+                CustomerId = model.customerId 
+            };
+
+            await _kotTableRepository.AddOrderTable(orderTable);
+
+
+        return order.Orderid;
     }
     
 }

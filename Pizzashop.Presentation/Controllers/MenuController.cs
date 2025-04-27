@@ -64,7 +64,8 @@ public class MenuController : Controller
         }
         else
         {
-            return Content("error");
+            TempData["AddCategoryError"] = "A category with the same name already exists.";
+            return RedirectToAction("Items", "Menu"); 
         }
     }
 
@@ -80,7 +81,8 @@ public class MenuController : Controller
         }
         else
         {
-            return Content("error");
+            TempData["AddCategoryError"] = "A category with the same name already exists.";
+            return RedirectToAction("Items", "Menu"); 
         }
     }
 
@@ -250,19 +252,12 @@ public class MenuController : Controller
             TempData["AddModifierSuccess"] = true;
             return RedirectToAction("Items", "Menu");
         }
+        else{
+            TempData["AddModifierError"] = "A Modifier Group with the same name already exists.";
+            return RedirectToAction("Items", "Menu");
+        }
         
-        string result = "";
-        bool isCreated = true;
-
-        if (result.Equals("true"))
-        {
-            return Json(new { success = true , message = result});
-        }
-        else
-        {
-            return Json(new { success = false, errorMessage = result});
-        }
-
+        
     }
   
     // Edit Modifier
@@ -290,7 +285,8 @@ public class MenuController : Controller
             return RedirectToAction("Items", "Menu");
         }
         else{
-            return Content("error");
+             TempData["AddModifierError"] = "A Modifier Group with the same name already exists.";
+            return RedirectToAction("Items", "Menu");
         }
     }
 

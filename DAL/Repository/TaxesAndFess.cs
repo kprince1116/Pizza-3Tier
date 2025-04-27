@@ -1,3 +1,4 @@
+using System.Security;
 using DAL.Interfaces;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
@@ -30,15 +31,6 @@ public class TaxesAndFess : ITaxesAndFessRepository
             }
         ).OrderBy(u=>u.TaxId);
 
-        //  if (!string.IsNullOrEmpty(search))
-        // {
-        //     var lowerSearchQuery = search.ToLower();
-        //     taxes = taxes.Where(o => o.TaxName.ToLower().Contains(lowerSearchQuery) ||
-        //                            o.TaxType.ToString().ToLower().Contains(lowerSearchQuery) ||
-        //                            o.TaxValue.ToLower().Contains(lowerSearchQuery));
-        // }
-
-
          var totalRecords = taxes.Count();
 
          var totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
@@ -57,8 +49,15 @@ public class TaxesAndFess : ITaxesAndFessRepository
 
     }
 
-    public async Task AddTax (Taxviewmodel model)
+    public async Task<bool> AddTax (Taxviewmodel model)
     {
+        var exists = await _db.Taxesandfesses.AnyAsync(u=>u.Taxname.ToLower()==model.AddTax.TaxName.ToLower());
+
+        if(exists)
+        {
+            return false;
+        }
+
         var tax = new Taxesandfess
         {
             Taxname =  model.AddTax.TaxName ,
@@ -69,6 +68,8 @@ public class TaxesAndFess : ITaxesAndFessRepository
         };
         _db.Taxesandfesses.Update(tax);
         _db.SaveChangesAsync();
+
+        return true;
 
     }
 
@@ -83,6 +84,15 @@ public class TaxesAndFess : ITaxesAndFessRepository
         await _db.SaveChangesAsync();
     }
 
+    public async Task<bool> GetTaxName(string TaxName)
+    {
+        var exists = await _db.Taxesandfesses.AnyAsync(u=>u.Taxname == TaxName);
+        if(exists)
+        {
+            return false;
+        }
+        return true;
+    }
     public async Task<EditTaxviewmodel> GetEditTax(int id)
     {
         return await _db.Taxesandfesses.Where(u=>u.Taxid == id).Select(

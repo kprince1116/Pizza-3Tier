@@ -25,6 +25,13 @@ public class UserTableRepository : IUserTableRepository
 
     public async Task<bool> AddSection(Tablesviewmodel model)
     {
+        bool exists = await _db.Sections.AnyAsync(u=>u.SectionName.ToLower()==model.section.SectionName.ToLower());
+        
+        if(exists)
+        {
+            return false;
+        }
+
         var section = new Section
         {
             SectionName = model.section.SectionName,
@@ -35,6 +42,16 @@ public class UserTableRepository : IUserTableRepository
         return success;
     }
 
+    public async Task<bool> GetSectionName(string SectionName)
+    {
+        var exists = await _db.Sections.AnyAsync(u=>u.SectionName.ToLower() == SectionName.ToLower());
+
+        if(exists)
+        {
+            return false;
+        }
+        return true;
+    }
     public Task<Section> GetSectionByIdForEdit(int Sectionid)
     {
         return _db.Sections.FirstOrDefaultAsync(u=>u.Sectionid == Sectionid);

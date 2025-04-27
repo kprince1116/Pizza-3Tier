@@ -28,7 +28,7 @@
             <div id="categorydetails"></div>
         </div>
 
-        <div class="@(Model.CustomerId !=0 || Model.OrderId !=0 ? "col-5" : "col-10")  p-3">
+        <div class="@(Model.CustomerId !=0 || Model.OrderId !=0 ? "col-3" : "col-10")  p-3">
             <div class="main-content d-flex justify-content-between mt-3">
                 <!-- Search Bar -->
                 <div class="d-flex justify-content-end position-relative align-items-center ps-2">
@@ -284,8 +284,8 @@
                         modifiersList.push({
                             modifierId: itemlist[i].modifiers[j].modifierId,
                             modifierName: itemlist[i].modifiers[j].modifierName,
-                            modifierPrice: itemlist[i].modifiers[j].price,
-                            modifierQuantity: itemlist[i].modifiers[j].quantity,
+                            price: itemlist[i].modifiers[j].price,
+                            quantity: itemlist[i].modifiers[j].quantity,
                         });
                     }
                     selected_items.push({
@@ -370,7 +370,7 @@
                         else {
                             exist_item.quantity = exist_item.quantity + 1;
                             $(`#item-quantity-${exist_item.globalId}`).text(exist_item.quantity);
-                            $(`#item-amount-${exist_item.globalId}`).text(exist_item.price * exist_item.quantity);
+                            $(`#item-amount-${exist_item.globalId}`).text((exist_item.price * exist_item.quantity).toFixed(2));
                             getSubTotal();
                             return;
                         }
@@ -447,8 +447,8 @@
                 }
             }
             exist_item.quantity = ItemQuantity;
-            $(`#item-amount-${uniqueid}`).text(ItemQuantity * itemprice);
-            $(`#item-modifier-amount-${uniqueid}`).text(ItemQuantity * modifiertotalprice)
+            $(`#item-amount-${uniqueid}`).text((ItemQuantity * itemprice).toFixed(2));
+            $(`#item-modifier-amount-${uniqueid}`).text((ItemQuantity * modifiertotalprice).toFixed(2));
             quantityElement.text(ItemQuantity);
 
              getSubTotal();
@@ -470,8 +470,8 @@
             let Itemid = $(Quantity).data("itemid");
             console.log(ItemQuantity);
             console.log(exist_item.price);
-            $(`#item-amount-${uniqueid}`).text(ItemQuantity * exist_item.price);
-            $(`#item-modifier-amount-${uniqueid}`).text(ItemQuantity * exist_item.modifiertotalprice);
+            $(`#item-amount-${uniqueid}`).text((ItemQuantity * exist_item.price).toFixed(2));
+            $(`#item-modifier-amount-${uniqueid}`).text((ItemQuantity * exist_item.modifiertotalprice).toFixed(2));
             Quantity.text(ItemQuantity);
              getSubTotal();
         }
@@ -719,8 +719,8 @@
                 selectedModifiersItems.push({
                     ModifierId: $(this).data("modifierid"),
                     ModifierName: $(this).data("modifiername"),
-                    modifierPrice: price,
-                    modifierQuantity: 1
+                    price: price,
+                    quantity: 1
                 });
 
                 if (!isNaN(price)) {
@@ -798,28 +798,27 @@
                     let itemtotal = parseFloat(item.price || 0); 
                     itemtotal = itemtotal * item.quantity; 
                     item.modifiers.forEach(modifier => {
-                        itemtotal += parseFloat(modifier.modifierPrice || 0);
+                        itemtotal += parseFloat(modifier.price || 0);
                     });
                     subtotal += itemtotal;
                 });
-                $("#subtotalcontainer").html(subtotal);
+                $("#subtotalcontainer").html(subtotal.toFixed(2));
                 total = subtotal;
 
                 tax_data.forEach(tax => {
                     let taxprice = 0;
-
-                    if(tax_data.taxType == "percentage")
+                    console.log("texttype:",tax.taxType);
+                    if(tax.taxType == true)
                     {
                         taxprice = subtotal * parseFloat(tax.taxRate)/100;
+                        console.log(taxprice);
                     }
                     else{
                         taxprice = parseFloat(tax.taxRate);
                     }
                     total +=taxprice;
-                    console.log("taxprice:",taxprice);
                     $(`#tax-amount-${tax.taxId}`).text(taxprice.toFixed(2));
                 })
-                console.log("tax:",$("#totalamountcontainer"));
                 $("#totalamountcontainer").text(total.toFixed(2));
             }
             else{

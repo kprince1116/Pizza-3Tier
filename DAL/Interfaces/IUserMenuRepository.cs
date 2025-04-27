@@ -30,6 +30,8 @@ public interface IUserMenuRepository
     public Task<MenuCategory> GetUserByIdForDelete(int id);
 
     Task DeleteCategoryAsync(MenuCategory existingCategory);
+    
+    Task<bool> GetCategoryName(string CategoryName);
 
     public Task<MenuCategory> GetCategoryId(int id);
 

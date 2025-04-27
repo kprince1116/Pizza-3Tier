@@ -73,7 +73,7 @@ public partial class PizzaShopContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql("Host=localhost;Database=pizza-shop;Username=postgres;         password=Tatva@123");
+        => optionsBuilder.UseNpgsql("Host=localhost;Database=pizza-shop;Username=postgres;Password=Tatva@123");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -184,6 +184,8 @@ public partial class PizzaShopContext : DbContext
             entity.HasKey(e => e.Categoryid).HasName("menu_category_pkey");
 
             entity.ToTable("menu_category");
+
+            entity.HasIndex(e => e.Name, "menu_category_name_key").IsUnique();
 
             entity.Property(e => e.Categoryid).HasColumnName("categoryid");
             entity.Property(e => e.CreatedBy).HasColumnName("created_by");
@@ -309,6 +311,8 @@ public partial class PizzaShopContext : DbContext
             entity.HasKey(e => e.ModifierGroupId).HasName("modifier_group_pkey");
 
             entity.ToTable("modifier_group");
+
+            entity.HasIndex(e => e.Name, "modifier_group_name_key").IsUnique();
 
             entity.Property(e => e.ModifierGroupId).HasColumnName("modifier_group_id");
             entity.Property(e => e.CreatedBy).HasColumnName("created_by");
@@ -614,6 +618,8 @@ public partial class PizzaShopContext : DbContext
 
             entity.ToTable("section");
 
+            entity.HasIndex(e => e.SectionName, "section_section_name_key").IsUnique();
+
             entity.Property(e => e.Sectionid).HasColumnName("sectionid");
             entity.Property(e => e.CreatedBy).HasColumnName("created_by");
             entity.Property(e => e.CreatedDate)
@@ -710,6 +716,8 @@ public partial class PizzaShopContext : DbContext
             entity.HasKey(e => e.Taxid).HasName("taxesandfess_pkey");
 
             entity.ToTable("taxesandfess");
+
+            entity.HasIndex(e => e.Taxname, "taxesandfess_taxname_key").IsUnique();
 
             entity.Property(e => e.Taxid).HasColumnName("taxid");
             entity.Property(e => e.CreatedBy).HasColumnName("created_by");

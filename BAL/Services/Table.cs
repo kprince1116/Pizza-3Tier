@@ -1,5 +1,6 @@
 using BAL.Models.Interfaces;
 using DAL.Interfaces;
+using DAL.Models;
 using DAL.ViewModels;
 using Pizzashop.DAL.ViewModels;
 
@@ -9,6 +10,7 @@ public class Table : ITable
 {
 
     private readonly IUserTableRepository _userTableRepository;
+
 
     public Table(IUserTableRepository userTableRepository)
     {
@@ -33,11 +35,17 @@ public class Table : ITable
     public async Task<bool> AddSection(Tablesviewmodel model)
     {
         return await _userTableRepository.AddSection(model);
-   
     }
 
     public async Task<bool> EditSection(Tablesviewmodel model)
     {
+        var existsectionname = await _userTableRepository.GetSectionName(model.section.SectionName);
+
+        if(existsectionname == false)
+        {
+            return false;
+        }
+
         var section = await _userTableRepository.GetSectionByIdForEdit(model.section.Sectionid);
 
         if(section == null)

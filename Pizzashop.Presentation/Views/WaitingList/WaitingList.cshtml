@@ -55,7 +55,7 @@
 </div>
 
 @*Edit Waiting Token*@
-<div class="modal fade" id="EditWaiting" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" data-bs-backdrop="static" id="EditWaiting" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div id="EditWaitingToken">
 
@@ -65,7 +65,7 @@
 
 @*Delete Waiting Token*@
 
-<div class="modal fade" id="deleteToken" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" data-bs-backdrop="static" id="deleteToken" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -88,7 +88,7 @@
 
 @*Assign waiting Token*@
 
-<div class="modal fade" id="AssignTable" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" data-bs-backdrop="static" id="AssignTable" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div id="AssignSection">
 
@@ -321,7 +321,7 @@
                     if (assignModal) {
                     assignModal.hide();
                     }
-                    location.reload();
+                    window.location.href = response.url;
                 } else {
                      toastr.ward("TSomething Get Wrong");
                 }

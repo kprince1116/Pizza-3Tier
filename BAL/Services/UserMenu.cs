@@ -114,6 +114,13 @@ public class UserMenu : IUserMenu
 
     public async Task<bool> UpdateCategory(menuviewmodel model)
     {
+        var categoryname = await _userMenuRepository.GetCategoryName(model.AddCategory.CategoryName);
+
+        if(categoryname == false)
+        {
+            return false;
+        }
+
         var category = await _userMenuRepository.GetCategoryId(model.AddCategory.CategoryId);
 
         if(category == null)
@@ -170,8 +177,6 @@ public class UserMenu : IUserMenu
         {
             await _userMenuRepository.DeleteItems(itemList);
         }
-
-        
     
     //Modifiers
 
@@ -198,7 +203,6 @@ public class UserMenu : IUserMenu
      public async Task<bool> UpdateModifier(menuviewmodel model)
      {
         return await _userMenuRepository.UpdateModifierAsync( model);
-    
      }
 
      //Delete Modifier Group

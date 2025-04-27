@@ -133,26 +133,27 @@
                     </div>
                     <div class="col-lg-4 pb-3">
                         <div class="form-floating">
-                            <select asp-for="StateId" class="form-select" id="stateSelect"
-                                aria-label="Floating label select example" disabled>
+                            <select  class="form-select" id="stateSelect"
+                                aria-label="Floating label select example" disabled >
                                 @foreach(var state in Model.statelist)
                                 {
                                     <option value="@state.Stateid">@state.Statename</option>
                                 }
-            
                             </select>
+                            <input type="hidden" asp-for="StateId">
                             <label for="stateSelect">State</label>
                         </div>
                     </div>
                     <div class="col-lg-4 pb-3">
                         <div class="form-floating">
-                            <select asp-for="CityId" class="form-select" id="citySelect"
+                            <select class="form-select" id="citySelect"
                                 aria-label="Floating label select example" disabled>
                                 @foreach(var city in Model.citylist)
                                 {
                                     <option value="@city.Cityid">@city.Cityname</option>
                                 }
                             </select>
+                            <input type="hidden" asp-for="CityId">
                             <label for="citySelect">City</label>
                         </div>
                     </div>

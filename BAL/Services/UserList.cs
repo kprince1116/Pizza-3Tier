@@ -2,7 +2,7 @@ using BAL.Interfaces;
 using DAL.Interfaces;
 using DAL.Models;
 using Microsoft.AspNetCore.Hosting;
-
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 // using Pizzashop.DAL.Models;
 using Pizzashop.DAL.ViewModels;
@@ -15,13 +15,16 @@ public class UserList : IUserList
     private readonly IUserRepository _userRepository;
     private readonly IConfiguration _configuration;
     private readonly IEmailService _emailService;
+    private readonly PizzaShopContext _db;
 
 
-    public UserList(IUserRepository userRepository, IConfiguration configuration, IEmailService emailService)
+
+    public UserList(IUserRepository userRepository, IConfiguration configuration, IEmailService emailService ,PizzaShopContext db )
     {
         _userRepository = userRepository;
         _configuration = configuration;
         _emailService = emailService;
+        _db = db;
     }
 
     public async Task<List<UserListviewmodel>> GetUserList(int pageNumber, int pageSize, string searchTerm, string sortDirection, string sortBy)
@@ -44,10 +47,20 @@ public class UserList : IUserList
         return await _userRepository.PhoneNumberExists(Phonenumber);
      }
 
-    public async Task AddUserAsync(AddUserviewmodel user)
+    public async Task<AddUserResult> AddUserAsync(AddUserviewmodel user)
     {
 
-    
+        var emailexist = await _db.Users.AnyAsync(u=>u.Email.ToLower()==user.Email);
+            if(emailexist)
+            {
+                return AddUserResult.EmailExists;
+            }
+            var phoneexist = await _db.Users.AnyAsync(u=>u.Phonenumber.ToLower()==user.Phonenumber);
+            if(phoneexist)
+            {
+                return AddUserResult.PhoneExists;
+            }
+
         string body = $@"
                        <html>
                        <body>
@@ -72,6 +85,8 @@ public class UserList : IUserList
         await _userRepository.AddUserAsync(user);
 
         await _emailService.SendEmailAsync(user.Email, "Welcome to PizzaShop", body);
+
+        return AddUserResult.Success;
 
     }
 

@@ -46,7 +46,10 @@
                 <div class="sidebar-elements">
                   @foreach (var sections in Model.Sections)
                   {
-                    <div class="sidebar-table">
+                    
+                    var isActive = sections.SectionName == "Ground Floor" ? "active-section" : "";
+
+                    <div class="sidebar-table @isActive">
                       <div class="d-flex justify-content-between align-items-center ">
                         
                         <div data-section-id="@sections.Sectionid"
@@ -116,7 +119,7 @@
 
 
 @*Add section*@
-<div class="modal fade" id="addsection" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" data-bs-backdrop="static" id="addsection" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <form method="post" asp-controller="Table" asp-action="AddSection" class="modal-content">
       <div class="modal-header">
@@ -146,7 +149,7 @@
 </div>
 
 @*Delete section*@
-<div class="modal fade" id="deletesectionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" data-bs-backdrop="static" id="deletesectionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -169,7 +172,7 @@
 
 @*edit section*@
 
-<div class="modal fade" id="editsection" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" data-bs-backdrop="static" id="editsection" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <form method="post" asp-controller="Table" asp-action="EditSection" class="modal-content">
       <div class="modal-header">
@@ -202,7 +205,7 @@
 
 @*add table*@
 
-<div class="modal fade" id="AddTable" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" data-bs-backdrop="static" id="AddTable" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <form method="post" asp-controller="Table" asp-action="AddTable" class="modal-content">
       <div class="modal-header">
@@ -266,7 +269,7 @@
 
 @*Edit table*@
 
-<div class="modal fade" id="EditTable" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" data-bs-backdrop="static" id="EditTable" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
      <div class="modal-content" id="edittabledata">
     </div>
@@ -276,7 +279,7 @@
 
 @*delete table*@
 
-<div class="modal fade" id="deletemodalfortable" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" data-bs-backdrop="static" id="deletemodalfortable" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -360,6 +363,14 @@
         }
       });
     }
+   $(document).ready(function () {
+  $('.section-name').on('click', function () {
+    $('.sidebar-table').removeClass('active-section'); 
+    $(this).closest('.sidebar-table').addClass('active-section'); 
+  });
+});
+
+
 
   @* load edit table*@
   $(document).ready(function () {
@@ -474,8 +485,28 @@
                     showToastrNotification('success', 'Table Delete successfully!');
                 </text>
             }
+            @if (TempData["AddSectionError"] != null)
+           {
+           <text>
+               showToastrNotification('error', '@TempData["AddCategoryError"]');
+           </text>
+            }
+             @if (TempData["EditSectionError"] != null)
+           {
+           <text>
+               showToastrNotification('error', '@TempData["AddCategoryError"]');
+           </text>
+            }
+
         });
 
      
   </script>
 }
+
+<style>
+.active-section {
+   background-color: #e1e0e0;
+    color: black;
+}
+</style>

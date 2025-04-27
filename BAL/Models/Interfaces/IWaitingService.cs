@@ -20,5 +20,5 @@ public interface IWaitingService
 
     Task<waitingviemodel> GetTableDetails();
 
-    public Task<bool> AssignTable(waitingtokenviewmodel model);
+    public Task<int> AssignTable(waitingtokenviewmodel model);
 }

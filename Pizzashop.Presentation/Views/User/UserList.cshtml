@@ -263,6 +263,18 @@
                     showToastrNotification('success', 'User Deleted successfully!');
                 </text>
             }
+            @if (TempData["AddUserError"] != null)
+           {
+           <text>
+               showToastrNotification('error', '@TempData["AddUserError"]');
+           </text>
+            }
+             @if (TempData["ChangePasswordSuccess"] != null)
+           {
+           <text>
+               showToastrNotification('success', '@TempData["ChangePasswordSuccess"]');
+           </text>
+            }
         });
     </script>
 }

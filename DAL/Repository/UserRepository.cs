@@ -161,6 +161,7 @@ namespace Pizzashop.Data.Repositories
         }
         public async Task<bool> AddUserAsync(AddUserviewmodel user)
         {
+            
 
             var newuser = new User
             {
