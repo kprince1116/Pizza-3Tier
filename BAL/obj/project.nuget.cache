@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "MyGWt0EwauQ=",
+  "dgSpecHash": "I4Q8fQouIEA=",
   "success": true,
   "projectFilePath": "/Users/princekhunt/Desktop/pizza-shops/BAL/BAL.csproj",
   "expectedPackageFiles": [
@@ -147,7 +147,7 @@
     "/Users/princekhunt/.nuget/packages/system.diagnostics.tracing/4.3.0/system.diagnostics.tracing.4.3.0.nupkg.sha512",
     "/Users/princekhunt/.nuget/packages/system.drawing.common/5.0.0/system.drawing.common.5.0.0.nupkg.sha512",
     "/Users/princekhunt/.nuget/packages/system.dynamic.runtime/4.3.0/system.dynamic.runtime.4.3.0.nupkg.sha512",
-    "/Users/princekhunt/.nuget/packages/system.formats.asn1/5.0.0/system.formats.asn1.5.0.0.nupkg.sha512",
+    "/Users/princekhunt/.nuget/packages/system.formats.asn1/8.0.1/system.formats.asn1.8.0.1.nupkg.sha512",
     "/Users/princekhunt/.nuget/packages/system.globalization/4.3.0/system.globalization.4.3.0.nupkg.sha512",
     "/Users/princekhunt/.nuget/packages/system.globalization.calendars/4.3.0/system.globalization.calendars.4.3.0.nupkg.sha512",
     "/Users/princekhunt/.nuget/packages/system.globalization.extensions/4.3.0/system.globalization.extensions.4.3.0.nupkg.sha512",
@@ -219,17 +219,19 @@
     "/Users/princekhunt/.nuget/packages/system.xml.xdocument/4.3.0/system.xml.xdocument.4.3.0.nupkg.sha512",
     "/Users/princekhunt/.nuget/packages/system.xml.xmldocument/4.3.0/system.xml.xmldocument.4.3.0.nupkg.sha512",
     "/Users/princekhunt/.nuget/packages/system.xml.xpath/4.3.0/system.xml.xpath.4.3.0.nupkg.sha512",
-    "/Users/princekhunt/.nuget/packages/system.xml.xpath.xdocument/4.3.0/system.xml.xpath.xdocument.4.3.0.nupkg.sha512"
+    "/Users/princekhunt/.nuget/packages/system.xml.xpath.xdocument/4.3.0/system.xml.xpath.xdocument.4.3.0.nupkg.sha512",
+    "/Users/princekhunt/.nuget/packages/microsoft.netcore.app.ref/7.0.20/microsoft.netcore.app.ref.7.0.20.nupkg.sha512",
+    "/Users/princekhunt/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.20/microsoft.aspnetcore.app.ref.7.0.20.nupkg.sha512"
   ],
   "logs": [
     {
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'BCrypt.Net 0.1.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
+      "message": "Package 'BCrypt.Net 0.1.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
       "libraryId": "BCrypt.Net",
       "targetGraphs": [
-        "net8.0"
+        "net7.0"
       ]
     }
   ]

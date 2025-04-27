@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "0El9yEMLPt0=",
+  "dgSpecHash": "cv5HJahCNMM=",
   "success": true,
   "projectFilePath": "/Users/princekhunt/Desktop/pizza-shops/Pizzashop.Presentation/Pizzashop.Presentation.csproj",
   "expectedPackageFiles": [
@@ -141,7 +141,7 @@
     "/Users/princekhunt/.nuget/packages/system.buffers/4.6.0/system.buffers.4.6.0.nupkg.sha512",
     "/Users/princekhunt/.nuget/packages/system.collections/4.3.0/system.collections.4.3.0.nupkg.sha512",
     "/Users/princekhunt/.nuget/packages/system.collections.concurrent/4.3.0/system.collections.concurrent.4.3.0.nupkg.sha512",
-    "/Users/princekhunt/.nuget/packages/system.collections.immutable/1.3.1/system.collections.immutable.1.3.1.nupkg.sha512",
+    "/Users/princekhunt/.nuget/packages/system.collections.immutable/8.0.0/system.collections.immutable.8.0.0.nupkg.sha512",
     "/Users/princekhunt/.nuget/packages/system.collections.nongeneric/4.3.0/system.collections.nongeneric.4.3.0.nupkg.sha512",
     "/Users/princekhunt/.nuget/packages/system.componentmodel.annotations/5.0.0/system.componentmodel.annotations.5.0.0.nupkg.sha512",
     "/Users/princekhunt/.nuget/packages/system.configuration.configurationmanager/5.0.0/system.configuration.configurationmanager.5.0.0.nupkg.sha512",
@@ -155,7 +155,7 @@
     "/Users/princekhunt/.nuget/packages/system.diagnostics.tracing/4.3.0/system.diagnostics.tracing.4.3.0.nupkg.sha512",
     "/Users/princekhunt/.nuget/packages/system.drawing.common/8.0.14/system.drawing.common.8.0.14.nupkg.sha512",
     "/Users/princekhunt/.nuget/packages/system.dynamic.runtime/4.3.0/system.dynamic.runtime.4.3.0.nupkg.sha512",
-    "/Users/princekhunt/.nuget/packages/system.formats.asn1/5.0.0/system.formats.asn1.5.0.0.nupkg.sha512",
+    "/Users/princekhunt/.nuget/packages/system.formats.asn1/8.0.1/system.formats.asn1.8.0.1.nupkg.sha512",
     "/Users/princekhunt/.nuget/packages/system.globalization/4.3.0/system.globalization.4.3.0.nupkg.sha512",
     "/Users/princekhunt/.nuget/packages/system.globalization.calendars/4.3.0/system.globalization.calendars.4.3.0.nupkg.sha512",
     "/Users/princekhunt/.nuget/packages/system.globalization.extensions/4.3.0/system.globalization.extensions.4.3.0.nupkg.sha512",
@@ -210,7 +210,7 @@
     "/Users/princekhunt/.nuget/packages/system.text.encoding.codepages/8.0.0/system.text.encoding.codepages.8.0.0.nupkg.sha512",
     "/Users/princekhunt/.nuget/packages/system.text.encoding.extensions/4.3.0/system.text.encoding.extensions.4.3.0.nupkg.sha512",
     "/Users/princekhunt/.nuget/packages/system.text.encodings.web/8.0.0/system.text.encodings.web.8.0.0.nupkg.sha512",
-    "/Users/princekhunt/.nuget/packages/system.text.json/4.7.2/system.text.json.4.7.2.nupkg.sha512",
+    "/Users/princekhunt/.nuget/packages/system.text.json/8.0.5/system.text.json.8.0.5.nupkg.sha512",
     "/Users/princekhunt/.nuget/packages/system.text.regularexpressions/4.3.1/system.text.regularexpressions.4.3.1.nupkg.sha512",
     "/Users/princekhunt/.nuget/packages/system.threading/4.3.0/system.threading.4.3.0.nupkg.sha512",
     "/Users/princekhunt/.nuget/packages/system.threading.tasks/4.3.0/system.threading.tasks.4.3.0.nupkg.sha512",
@@ -225,7 +225,10 @@
     "/Users/princekhunt/.nuget/packages/system.xml.xdocument/4.3.0/system.xml.xdocument.4.3.0.nupkg.sha512",
     "/Users/princekhunt/.nuget/packages/system.xml.xmldocument/4.3.0/system.xml.xmldocument.4.3.0.nupkg.sha512",
     "/Users/princekhunt/.nuget/packages/system.xml.xpath/4.3.0/system.xml.xpath.4.3.0.nupkg.sha512",
-    "/Users/princekhunt/.nuget/packages/system.xml.xpath.xdocument/4.3.0/system.xml.xpath.xdocument.4.3.0.nupkg.sha512"
+    "/Users/princekhunt/.nuget/packages/system.xml.xpath.xdocument/4.3.0/system.xml.xpath.xdocument.4.3.0.nupkg.sha512",
+    "/Users/princekhunt/.nuget/packages/microsoft.netcore.app.ref/7.0.20/microsoft.netcore.app.ref.7.0.20.nupkg.sha512",
+    "/Users/princekhunt/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.20/microsoft.aspnetcore.app.ref.7.0.20.nupkg.sha512",
+    "/Users/princekhunt/.nuget/packages/microsoft.netcore.app.host.osx-arm64/7.0.20/microsoft.netcore.app.host.osx-arm64.7.0.20.nupkg.sha512"
   ],
   "logs": [
     {
@@ -235,17 +238,17 @@
       "message": "Package 'System.IdentityModel.Tokens.Jwt' 7.0.1 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-59j7-ghrg-fj52",
       "libraryId": "System.IdentityModel.Tokens.Jwt",
       "targetGraphs": [
-        "net8.0"
+        "net7.0"
       ]
     },
     {
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'BCrypt.Net 0.1.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
+      "message": "Package 'BCrypt.Net 0.1.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
       "libraryId": "BCrypt.Net",
       "targetGraphs": [
-        "net8.0"
+        "net7.0"
       ]
     }
   ]
