@@ -38,4 +38,34 @@ public interface IOrderAppMenuRepository
 
     Task<List<OrderTax>> GetTaxLists(int OrderId);
 
+    Task<Table> GetTable(int TableId);
+
+    Task<Paymentmode> GetPaymentDetails(int PaymentId);
+
+    Task updateOrderTable(OrderTable table);
+
+    Task updateTable(Table tables);
+
+    Task<OrderItem> GetorderItemForDelete(int deleteId);
+    Task<OrderItem> GetOrderItem(int OrderItemId);
+
+    Task UpdateOrderItem(OrderItem orderItem);
+
+    Task<OrderItem> AddOrderItem(OrderItem orderItem);
+
+    Task<OrderItemModifier> AddOrderItemModifier(OrderItemModifier orderItemModifier);
+
+    Task AddTax( OrderTax orderTax);
+
+    Task<Paymentmode> GetPayment(int PaymentModeId);
+
+    Task UpdateOrderPayment(Paymentmode orderPayemnt);
+
+    Task<Paymentmode> AddPayment(Paymentmode payment);
+
+    Task<Table> ChangeTableData(int CustomerId);
+
+    Task SaveTableData(Table table);
+
+
 }

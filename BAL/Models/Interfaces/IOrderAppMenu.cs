@@ -15,4 +15,6 @@ public interface IOrderAppMenu
     public Task<bool> SaveCustomerDetails(CustomerDetailsForOrderViewModel model);
     public Task<OrderWiseCommentViewModel> GetOrderComments(int OrderId);
     public Task<bool> PostComment(OrderWiseCommentViewModel model);
+    public Task<bool> SaveOrder(int OrderId,string OrderStatus, List<OrderItemviewmodel> save_items, List<int> delete_items, List<MenuTaxviewmodel>save_tax,string payment_type);
+    public Task<bool> CompleteOrder(int orderId);
 }

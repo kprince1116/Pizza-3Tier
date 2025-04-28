@@ -107,7 +107,7 @@
                                     id="minus-quantity-@item.ItemId"></i>
                                 <span class="quantity-box-display" id="item-quantity-@item.OrderItemId"
                                     data-itemid="@item.ItemId" data-itemname="@item.ItemName" data-itemprice="@item.price"
-                                    data-ready-item="@item.Readyitem">
+                                    data-ready-item="@item.Readyitem" data-modifiertotalprice="@item.TotalModifierAmount" >
                                     @item.Quantity
                                 </span>
                                 <i class="bi bi-plus" onclick="PlusQuantity(@item.OrderItemId)"
@@ -124,13 +124,13 @@
                                     }
                                     @foreach (var modifier in item.modifiers)
                                     {
-                                        @modifier.TotalAmount
-                                        modifiertotalamount += @modifier.TotalAmount;
+                                        @item.TotalModifierAmount
+                                        modifiertotalamount +=  @item.TotalModifierAmount;
                                     }
                                 </div>
                                 @if(modifiertotalamount != 0)
                                 {
-                                <div class="modifier-amount">₹@modifiertotalamount</div>
+                                <div id="item-modifier-amount-@item.OrderItemId" class="modifier-amount">₹ @item.TotalModifierAmount</div>
                                 }
                             </div>
 
@@ -167,30 +167,33 @@
         <span class="fw-bold" style="opacity: 0.8;" id="totalamountcontainer">₹00.00</span>
     </div>
 
-    <div class="d-flex justify-content-between p-2">
+    <div class="d-flex justify-content-between p-2" >
         <span>Payment Mehod</span>
-        <div class="d-flex gap-2">
             <span class="form-check">
-                <input class="form-check-input radio-btn" type="radio" name="exampleRadios" id="exampleRadios1">
+        <div class="d-flex gap-2" >
+                <input class="form-check-input radio-btn paymenttype" type="radio" name="exampleRadios" id="exampleRadios1" value="Cash"
+                 asp-for="@Model.PaymentStatus" >
                 Cash
             </span>
             <span class="form-check">
-                <input class="form-check-input radio-btn" type="radio" name="exampleRadios" id="exampleRadios1">
+                <input class="form-check-input radio-btn paymenttype" type="radio" name="exampleRadios" id="exampleRadios2" value="Card"  
+                asp-for="@Model.PaymentStatus">
                 Card
             </span>
             <span class="form-check">
-                <input class="form-check-input radio-btn" type="radio" name="exampleRadios" id="exampleRadios1">
+                <input class="form-check-input radio-btn paymenttype" type="radio" name="exampleRadios" id="exampleRadios3" value="Upi"
+                  asp-for="@Model.PaymentStatus">
                 UPI
             </span>
 
-        </div>
+    </div>
     </div>
     <div class="d-flex justify-content-end gap-3 mt-3">
-        <button class="btn btn-primary px-5 w-25" type="button"
-            style="background-color: rgb(0, 102, 187); color: white;">Save</button>
+        <button class="btn btn-primary px-5 w-25" id="OrderSaveButton" type="button"
+            style="background-color: rgb(0, 102, 187); color: white;" data-orderid="@Model.OrderId" data-customerid="@Model.CustomerId" data-orderstatus="@Model.OrderStatus" disabled>Save</button>
         <button class="btn btn-primary px-5 w-25" type="button"
             style="background-color: white; color: rgb(0, 102, 187);  border-color: rgb(0, 102, 187) !important;"
-            disabled>Complete</button>
+            id="OrderCompleted"  data-orderid="@Model.OrderId">Complete</button>
         <button class="btn btn-primary px-5 w-20" type="button"
             style="background-color: white; color: rgb(0, 102, 187);  border-color: rgb(0, 102, 187) !important;"
             disabled>Generate Invoice</button>

@@ -170,7 +170,7 @@
                                         }
                                         @{
                                             decimal itemTotal =(decimal) (item.Price * item.Quantity) ;
-                                            decimal modifierTotal =(decimal) item.OrderItemModifiers.Sum(m => m.Quantity * m.Price);
+                                            decimal modifierTotal =(decimal) item.OrderItemModifiers.Sum(m => item.Quantity * m.Price);
                                             decimal totalForRow = itemTotal + modifierTotal;
                                             subtotal += totalForRow;
                                         }

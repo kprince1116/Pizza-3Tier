@@ -73,7 +73,7 @@ public partial class PizzaShopContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql("Host=localhost;Database=pizza-shop;Username=postgres;Password=Tatva@123");
+        => optionsBuilder.UseNpgsql("Host=localhost;Database=pizza-shop;Username=postgres;     password=Tatva@123");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -113,6 +113,8 @@ public partial class PizzaShopContext : DbContext
             entity.ToTable("customers");
 
             entity.HasIndex(e => e.Customeremail, "customers_customeremail_key").IsUnique();
+
+            entity.HasIndex(e => e.Customeremail, "customers_customeremail_key1").IsUnique();
 
             entity.Property(e => e.Customerid).HasColumnName("customerid");
             entity.Property(e => e.CreatedBy).HasColumnName("created_by");
@@ -435,8 +437,12 @@ public partial class PizzaShopContext : DbContext
             entity.ToTable("order_item");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.IsDeleted)
+                .HasDefaultValueSql("false")
+                .HasColumnName("is_deleted");
             entity.Property(e => e.ItemId).HasColumnName("item_id");
             entity.Property(e => e.OrderId).HasColumnName("order_id");
+            entity.Property(e => e.OrderItemInstruction).HasColumnType("character varying");
             entity.Property(e => e.Price)
                 .HasPrecision(18, 2)
                 .HasColumnName("price");
@@ -518,6 +524,9 @@ public partial class PizzaShopContext : DbContext
             entity.Property(e => e.TaxPercentage)
                 .HasPrecision(18, 2)
                 .HasColumnName("tax_percentage");
+            entity.Property(e => e.TaxType)
+                .HasDefaultValueSql("false")
+                .HasColumnName("tax_type");
 
             entity.HasOne(d => d.Order).WithMany(p => p.OrderTaxes)
                 .HasForeignKey(d => d.OrderId)
@@ -548,12 +557,19 @@ public partial class PizzaShopContext : DbContext
 
             entity.ToTable("paymentmode");
 
-            entity.HasIndex(e => e.Status, "paymentmode_status_key").IsUnique();
-
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Status)
+            entity.Property(e => e.PaidOn)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("paid_on");
+            entity.Property(e => e.PaymentStatus)
                 .HasMaxLength(50)
+                .HasColumnName("payment_status");
+            entity.Property(e => e.Status)
+                .HasMaxLength(150)
                 .HasColumnName("status");
+            entity.Property(e => e.Totalamount)
+                .HasPrecision(18, 2)
+                .HasColumnName("totalamount");
         });
 
         modelBuilder.Entity<Permission>(entity =>

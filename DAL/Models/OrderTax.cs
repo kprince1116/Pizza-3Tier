@@ -15,6 +15,8 @@ public partial class OrderTax
 
     public decimal? TaxFlat { get; set; }
 
+    public bool? TaxType { get; set; }
+
     public virtual Order? Order { get; set; }
 
     public virtual Taxesandfess? Tax { get; set; }

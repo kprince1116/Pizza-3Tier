@@ -19,6 +19,12 @@ public partial class OrderItem
 
     public int? ReadyItem { get; set; }
 
+    public decimal? ItemTaxPercenetage { get; set; }
+
+    public string? OrderItemInstruction { get; set; }
+
+    public bool? IsDeleted { get; set; }
+
     public virtual MenuItem? Item { get; set; }
 
     public virtual Order? Order { get; set; }

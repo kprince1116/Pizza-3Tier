@@ -28,7 +28,7 @@
             <div id="categorydetails"></div>
         </div>
 
-        <div class="@(Model.CustomerId !=0 || Model.OrderId !=0 ? "col-3" : "col-10")  p-3">
+        <div class="@(Model.CustomerId !=0 || Model.OrderId !=0 ? "col-5" : "col-10")  p-3">
             <div class="main-content d-flex justify-content-between mt-3">
                 <!-- Search Bar -->
                 <div class="d-flex justify-content-end position-relative align-items-center ps-2">
@@ -46,7 +46,7 @@
                     </div>
                     <div class="d-flex gap-2 align-items-center">
                         <span style="color: var(--table-nonvegetarian)"><i class="bi bi-circle-fill"></i></span>
-                        <span >Non-Vegetarian</span>
+                        <span>Non-Vegetarian</span>
                     </div>
                     <div class="d-flex gap-2 align-items-center">
                         <span style="color: var(--table-vegan)"><i class="bi bi-circle-fill"></i></span>
@@ -291,7 +291,7 @@
                     selected_items.push({
                         itemId: itemlist[i].itemId,
                         itemName: itemlist[i].itemName,
-                        itemTax : itemlist[i].itemTax,
+                        itemTax: itemlist[i].itemTax,
                         orderItemId: itemlist[i].orderItemId,
                         globalId: itemlist[i].orderItemId,
                         price: itemlist[i].price,
@@ -299,23 +299,22 @@
                         modifiers: modifiersList,
                     });
                     globalid = globalid < itemlist[i].orderItemId ? itemlist[i].orderItemId : globali
-                
-                }
-                    var taxlist = @Html.Raw(Json.Serialize(Model.orderTax));
 
-                    for(let i=0; i<taxlist.length;i++)
-                    {
-                        tax_data.push({
-                            taxId : taxlist[i].taxId,
-                            taxName : taxlist[i].taxName,
-                            taxType : taxlist[i].taxType,
-                            taxRate : taxlist[i].taxRate
-                        });
-                    }   
-            }  
+                }
+                var taxlist = @Html.Raw(Json.Serialize(Model.orderTax));
+
+                for (let i = 0; i < taxlist.length; i++) {
+                    tax_data.push({
+                        taxId: taxlist[i].taxId,
+                        taxName: taxlist[i].taxName,
+                        taxType: taxlist[i].taxType,
+                        taxRate: taxlist[i].taxRate
+                    });
+                }
+            }
             getSubTotal();
         });
-       
+
 
         $(document).off("click", ".item-modifeir-class").on("click", ".item-modifeir-class", function () {
             var itemid = $(this).data("itemid");
@@ -351,13 +350,13 @@
                         console.log("min_max_modifiergroup:", min_max_modifiergroup);
                     } else {
                         let exist_item = selected_items.find(item => item.itemId === itemid)
-                        console.log("existing item:",exist_item);
+                        console.log("existing item:", exist_item);
 
                         if (!exist_item) {
                             selected_items.push({
                                 itemId: itemid,
                                 itemName: itemname,
-                                itemTax : itemTax,
+                                itemTax: itemTax,
                                 orderItemId: 0,
                                 globalId: globalid + 1,
                                 price: itemprice,
@@ -378,37 +377,37 @@
 
                         let itemaccordian =
                             `
-                                  <div class="item-row w-100 py-1 px-2 d-flex align-items-center justify-content-between border mt-2 mb-2" id="accord-${globalid}">
-                            <div class="accordion mt-2 mb-2" id="item-accordian-1">
-                        <div class="d-flex align-items-center gap-2 drop-class" data-bs-toggle="collapse" data-bs-target="#order-item-${globalid}" aria-expanded="false" aria-controls="order-item-${globalid}">
-                        <img src="~/images/dropdownimg.webp" alt="" height="23" class="icon-rotate opacity-50">
-                        <span class="item-name-for-order">${itemname}</span>
-                        </div>
-                        <div id="order-item-${globalid}" class="p-0 ms-0 collapse" aria-labelledby="headingPizza" data-bs-parent="#item-accordian-1">
+                                      <div class="item-row w-100 py-1 px-2 d-flex align-items-center justify-content-between border mt-2 mb-2" id="accord-${globalid}">
+                                <div class="accordion mt-2 mb-2" id="item-accordian-1">
+                            <div class="d-flex align-items-center gap-2 drop-class" data-bs-toggle="collapse" data-bs-target="#order-item-${globalid}" aria-expanded="false" aria-controls="order-item-${globalid}">
+                            <img src="~/images/dropdownimg.webp" alt="" height="23" class="icon-rotate opacity-50">
+                            <span class="item-name-for-order">${itemname}</span>
+                            </div>
+                            <div id="order-item-${globalid}" class="p-0 ms-0 collapse" aria-labelledby="headingPizza" data-bs-parent="#item-accordian-1">
 
+                            </div>
                         </div>
-                    </div>
-                    <div class="item-end-part-for-order">
-                    <!-- Quantity Box -->
-                                <div class="d-flex align-items-center justify-content-between px-2 py-0 gap-1 quantity-box">
-                                <i class="bi bi-dash" onclick="MinusQuantity(${globalid})" id="minus-quantity-${globalid}" ></i>
-                                <span class="quantity-box-display" id="item-quantity-${globalid}" data-itemid=${globalid}
-                             data-itemname=${itemname} data-itemprice=${itemprice} data-modifiertotalprice = ${totalmodifierprice}>
-                                1
-                                </span>
-                                <i class="bi bi-plus" onclick="PlusQuantity(${globalid})" id="minus-quantity-${globalid}"></i>
-                                </div>
-                                <!-- Price Details -->
-                                <div class="d-flex flex-column align-items-start gap-1 item-sums">
-                                <div class="d-flex align-items-center">₹<div class="item-amount" id="item-amount-${globalid}">${itemprice}</div></div>
-                                </div>
-                                <!-- Delete Icon -->
-                                <div class="d-flex justify-content-center align-items-center delete-item" data-global-id="${globalid}">
-                                <i class="bi bi-trash fs-5"></i>
-                                </div>
-                        </div>
-                        </div>
-                                `;
+                        <div class="item-end-part-for-order">
+                        <!-- Quantity Box -->
+                                    <div class="d-flex align-items-center justify-content-between px-2 py-0 gap-1 quantity-box">
+                                    <i class="bi bi-dash" onclick="MinusQuantity(${globalid})" id="minus-quantity-${globalid}" ></i>
+                                    <span class="quantity-box-display" id="item-quantity-${globalid}" data-itemid=${globalid}
+                                 data-itemname=${itemname} data-itemprice=${itemprice} data-modifiertotalprice = ${totalmodifierprice}>
+                                    1
+                                    </span>
+                                    <i class="bi bi-plus" onclick="PlusQuantity(${globalid})" id="minus-quantity-${globalid}"></i>
+                                    </div>
+                                    <!-- Price Details -->
+                                    <div class="d-flex flex-column align-items-start gap-1 item-sums">
+                                    <div class="d-flex align-items-center">₹<div class="item-amount" id="item-amount-${globalid}">${itemprice}</div></div>
+                                    </div>
+                                    <!-- Delete Icon -->
+                                    <div class="d-flex justify-content-center align-items-center delete-item" data-global-id="${globalid}">
+                                    <i class="bi bi-trash fs-5"></i>
+                                    </div>
+                            </div>
+                            </div>
+                                    `;
 
                         $("#itemdata").append(itemaccordian);
 
@@ -418,6 +417,30 @@
                     console.error("Error fetching item modifier group:", error);
                 }
             });
+        });
+    </script>
+
+    <script>
+        let initial_selected_items = [];
+        $(document).ready(function () {
+            initial_selected_items = JSON.parse(JSON.stringify(selected_items));
+        });
+        function updatesavebutton() {
+            if (JSON.stringify(initial_selected_items) !== JSON.stringify(selected_items)) {
+                $("#OrderSaveButton").prop('disabled', false);
+            } else {
+                $("#OrderSaveButton").prop('disabled', true);
+            }
+        }
+        $(document).on("click", ".paymenttype", function () {
+            debugger
+            
+            if($(this).val() == @Html.Raw(Json.Serialize(Model.PaymentStatus))){
+                $("#OrderSaveButton").prop('disabled', true);
+            }
+            else{
+                $("#OrderSaveButton").prop('disabled', false);
+            }
         });
     </script>
 
@@ -436,6 +459,7 @@
             let exist_item = selected_items.find(item => item.globalId === uniqueid);
             console.log("exist", exist_item);
             let modifiertotalprice = $(quantityElement).data("modifiertotalprice");
+            console.log("modifiertotalprice", modifiertotalprice);
             ItemQuantity = ItemQuantity - 1;
             console.log(ItemQuantity);
 
@@ -448,10 +472,19 @@
             }
             exist_item.quantity = ItemQuantity;
             $(`#item-amount-${uniqueid}`).text((ItemQuantity * itemprice).toFixed(2));
+
+            modifiertotalprice = 0;
+            if (exist_item.modifiers && Array.isArray(exist_item.modifiers)) {
+                exist_item.modifiers.forEach(mod => {
+                    modifiertotalprice += parseFloat(mod.price || 0);
+                });
+            }
+
+            console.log("prices:", ItemQuantity * modifiertotalprice);
             $(`#item-modifier-amount-${uniqueid}`).text((ItemQuantity * modifiertotalprice).toFixed(2));
             quantityElement.text(ItemQuantity);
 
-             getSubTotal();
+            getSubTotal();
         }
 
 
@@ -465,15 +498,23 @@
             let exist_item = selected_items.find(item => item.globalId === uniqueid);
             console.log("exist_item:", exist_item);
 
-            let modifiertotalprice = $(Quantity).data("modifiertotalprice");
+            let modifiertotalprice = $(Quantity).data("modifiertotalprice")
             exist_item.quantity = ItemQuantity;
             let Itemid = $(Quantity).data("itemid");
-            console.log(ItemQuantity);
-            console.log(exist_item.price);
+
             $(`#item-amount-${uniqueid}`).text((ItemQuantity * exist_item.price).toFixed(2));
-            $(`#item-modifier-amount-${uniqueid}`).text((ItemQuantity * exist_item.modifiertotalprice).toFixed(2));
+
+            modifiertotalprice = 0;
+            if (exist_item.modifiers && Array.isArray(exist_item.modifiers)) {
+                exist_item.modifiers.forEach(mod => {
+                    modifiertotalprice += parseFloat(mod.price || 0);
+                });
+            }
+
+            console.log("prices:", ItemQuantity * modifiertotalprice);
+            $(`#item-modifier-amount-${uniqueid}`).text((ItemQuantity * modifiertotalprice).toFixed(2));
             Quantity.text(ItemQuantity);
-             getSubTotal();
+            getSubTotal();
         }
 
         $(document).off("click", ".delete-item").on("click", ".delete-item", function () {
@@ -491,17 +532,17 @@
                     toastr.error(`Cannot delete the item beacuse ${readyquantity} items are ready`);
                     return;
                 }
-                OrderItemId = exist_item.OrderItemId;
+                OrderItemId = exist_item.orderItemId;
                 selected_items = selected_items.filter(item => item.globalId != uniqueid);
                 deletedOrderItemIds.push(OrderItemId);
                 $(`#accord-${uniqueid}`).remove();
-
+                getSubTotal();
                 return;
             }
 
             selected_items = selected_items.filter(item => item.globalId != uniqueid);
             $(`#accord-${uniqueid}`).remove();
-             getSubTotal();
+            getSubTotal();
 
         });
 
@@ -733,9 +774,9 @@
             var itemTax = $(this).data("itemtax");
             var itemprice = $(`#item-price-${ItemId}`).text();
             var price = parseFloat(itemprice.replace('₹', '').trim());
-            var formattedPrice = price.toFixed(2); 
+            var formattedPrice = price.toFixed(2);
             console.log(formattedPrice);
-            console.log("pricemodif:",price);
+            console.log("pricemodif:", price);
 
             var itemQuantity = 1;
 
@@ -744,7 +785,7 @@
             selected_items.push({
                 itemId: ItemId,
                 itemName: itemname,
-                itemTax : itemTax,
+                itemTax: itemTax,
                 orderItemId: 0,
                 globalId: globalid + 1,
                 price: price,
@@ -752,7 +793,7 @@
                 modifiers: selectedModifiersItems,
             });
             globalid += 1;
-           
+
 
             let dataToSend = {
                 ItemId: ItemId,
@@ -763,7 +804,7 @@
                 Quantity: itemQuantity,
                 TotalAmount: totalamount,
                 modifiers: selectedModifiersItems,
-                TotalModifierAmount : TotalModifierPrice
+                TotalModifierAmount: TotalModifierPrice
             };
             let saveorderitem = [];
             saveorderitem.push(dataToSend);
@@ -789,47 +830,117 @@
 
     @*Get SubTotal*@
     <script>
-        function getSubTotal()
-        {
+        function getSubTotal() {
+            let taxperitem = 0;
             let subtotal = 0;
             let total;
-            if(selected_items.length != 0){
-                selected_items.forEach(item=>{
-                    let itemtotal = parseFloat(item.price || 0); 
-                    itemtotal = itemtotal * item.quantity; 
+
+            updatesavebutton();
+
+            if (selected_items.length != 0) {
+                selected_items.forEach(item => {
+                    let itemtotal = parseFloat(item.price || 0);
+                    itemtotal = itemtotal * item.quantity;
                     item.modifiers.forEach(modifier => {
-                        itemtotal += parseFloat(modifier.price || 0);
+                        itemtotal += parseFloat(modifier.price * item.quantity || 0);
                     });
+                    let totalitemamount = parseFloat(item.price || 0) * item.quantity;
+                    console.log("itemtotals:",totalitemamount);
+                    taxperitem += (totalitemamount*parseFloat(item.itemTax || 0))/100;
                     subtotal += itemtotal;
                 });
                 $("#subtotalcontainer").html(subtotal.toFixed(2));
-                total = subtotal;
+                total = subtotal + taxperitem ;
 
                 tax_data.forEach(tax => {
                     let taxprice = 0;
-                    console.log("texttype:",tax.taxType);
-                    if(tax.taxType == true)
-                    {
-                        taxprice = subtotal * parseFloat(tax.taxRate)/100;
+                    console.log("texttype:", tax.taxType);
+                    if (tax.taxType == true) {
+                        taxprice = subtotal * parseFloat(tax.taxRate) / 100;
                         console.log(taxprice);
                     }
-                    else{
+                    else {
                         taxprice = parseFloat(tax.taxRate);
                     }
-                    total +=taxprice;
+                    total += taxprice;
                     $(`#tax-amount-${tax.taxId}`).text(taxprice.toFixed(2));
                 })
                 $("#totalamountcontainer").text(total.toFixed(2));
             }
-            else{
+            else {
                 $("#subtotalcontainer").text("00.00");
-                  tax_data.forEach(tax=>{
-                     $(`#tax-amount-${tax.taxId}`).text("00.00");
-                  });
-                 $("#totalamountcontainer").text("00.00");
+                tax_data.forEach(tax => {
+                    $(`#tax-amount-${tax.taxId}`).text("00.00");
+                });
+                $("#totalamountcontainer").text("00.00");
             }
         }
     </script>
+
+    @*Save Order*@
+
+    <script>
+        $(document).off("click", "#OrderSaveButton").on("click", "#OrderSaveButton", function () {
+            var orderid = $(this).data("orderid");
+            console.log("orderid", orderid);
+            var orderstatus = $(this).data("orderstatus");
+            console.log("orderstatus", orderstatus);
+            var customerid = $(this).data("customerid");
+            console.log("customerid", customerid);
+            var payemntmode = $(".paymenttype:checked").val();
+            console.log("paymentmode:", payemntmode);
+
+            var formdata = new FormData();
+
+            formdata.append("order_id", JSON.stringify(orderid));
+            formdata.append("order_status", JSON.stringify(orderstatus));
+            formdata.append("selected_items", JSON.stringify(selected_items));
+            formdata.append("delete_item", JSON.stringify(deletedOrderItemIds));
+            formdata.append("tax_data", JSON.stringify(tax_data));
+            formdata.append("payment_type", JSON.stringify(payemntmode));
+
+            console.log("formdata", formdata);
+
+            $.ajax({
+                type: "Post",
+                url: "/OrderAppMenu/SaveOrder",
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    toastr.success("Order Placed Succesfully");
+                },
+                error: function (data) {
+                    toastr.error("An Error Occured!");
+                }
+            });
+
+        });
+    </script>
+
+    @*Complete Order*@
+
+    <script>
+        $(document).off("click",".OrderCompleted").on("click",".OrderCompleted",function(){
+
+            var orderid = $(this).data("orderid");
+            console.log("orderid", orderid);
+
+            $.ajax({
+                type: "Post",
+                url: "/OrderAppMenu/CompleteOrder",
+                data: {orderId:orderid},
+                success : function(data){
+                    toastr.success("Order Completed Succesfully");
+                },
+                error:function(data){
+                    toastr.success("An Error Occured!");
+                }
+            })
+
+
+        })
+    </script>    
 
 }
 

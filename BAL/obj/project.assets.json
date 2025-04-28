@@ -10911,19 +10911,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/princekhunt/.nuget/packages/": {}
+    "C:\\Users\\pca187\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/princekhunt/Desktop/pizza-shops/BAL/BAL.csproj",
+      "projectUniqueName": "D:\\Project\\Pizza-3Tier\\BAL\\BAL.csproj",
       "projectName": "BAL",
-      "projectPath": "/Users/princekhunt/Desktop/pizza-shops/BAL/BAL.csproj",
-      "packagesPath": "/Users/princekhunt/.nuget/packages/",
-      "outputPath": "/Users/princekhunt/Desktop/pizza-shops/BAL/obj/",
+      "projectPath": "D:\\Project\\Pizza-3Tier\\BAL\\BAL.csproj",
+      "packagesPath": "C:\\Users\\pca187\\.nuget\\packages\\",
+      "outputPath": "D:\\Project\\Pizza-3Tier\\BAL\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/princekhunt/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\pca187\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -10935,8 +10935,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "/Users/princekhunt/Desktop/pizza-shops/DAL/DAL.csproj": {
-              "projectPath": "/Users/princekhunt/Desktop/pizza-shops/DAL/DAL.csproj"
+            "D:\\Project\\Pizza-3Tier\\DAL\\DAL.csproj": {
+              "projectPath": "D:\\Project\\Pizza-3Tier\\DAL\\DAL.csproj"
             }
           }
         }
@@ -10945,11 +10945,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -10992,22 +10987,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[7.0.20, 7.0.20]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[7.0.20, 7.0.20]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.407/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.410\\RuntimeIdentifierGraph.json"
       }
     }
   },

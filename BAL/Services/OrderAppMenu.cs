@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using BAL.Models.Interfaces;
 using DAL.Interfaces;
 using DAL.Models;
@@ -145,6 +146,8 @@ public class OrderAppMenu : IOrderAppMenu
         {
             OrderId = (int)tableData.Orderid,
             OrderStatus = tableData.StatusNavigation.Status,
+            PaymentStatus = tableData.PaymentModeNavigation?.Status ,
+            CustomerId = (int)tableData.CustomerId,
             tables = tableData.OrderTables.Select(t => new tableviewmodel
             {
                 sectionId = (int)t.Table.Section.Sectionid,
@@ -169,9 +172,11 @@ public class OrderAppMenu : IOrderAppMenu
                     ModifierName = m.Modifier.Modifiername,
                     price = (decimal)m.Modifier.Rate,
                     Quantity = (int)m.Quantity,
-                    TotalAmount = (decimal)(m.Modifier.Rate * m.Quantity)
-                }).ToList()
-
+                    TotalAmount = (decimal)(m.Modifier.Rate * m.Quantity),
+                    
+                }).ToList(),
+                TotalModifierAmount = (decimal) i.OrderItemModifiers.Sum(oi=>oi.Modifier.Rate * i.Quantity)
+              
             }).ToList()        
         };
 
@@ -279,6 +284,163 @@ public class OrderAppMenu : IOrderAppMenu
             Console.WriteLine(e);
             return false;
         }
+
+    }
+
+    public async Task<bool> SaveOrder(int OrderId,string OrderStatus, List<OrderItemviewmodel> save_items, List<int> delete_items, List<MenuTaxviewmodel>save_tax,string payment_type)
+    {   
+
+        var order = await _orderAppMenuRepository.GetOrderDetails(OrderId);
+
+        for(int i=0; i<delete_items.Count;i++)
+        {
+            var orderItem = await _orderAppMenuRepository.GetorderItemForDelete(delete_items[i]);
+            if(orderItem!=null)
+            {
+                orderItem.IsDeleted = true;
+                await _orderAppMenuRepository.UpdateOrderItem(orderItem);
+            }
+        }
+
+        decimal total = 0;
+        decimal subtotal = 0;
+        decimal exclusivetax = 0;
+        
+        for(int i=0;i<save_items.Count;i++)
+        {
+            decimal modifier_sum = 0 ;
+
+            if(save_items[i].OrderItemId !=0)
+            {
+                var orderItem = await _orderAppMenuRepository.GetOrderItem(save_items[i].OrderItemId);
+                
+                if(orderItem.Quantity != save_items[i].Quantity)
+                {
+                    orderItem.Quantity = save_items[i].Quantity;
+                    orderItem.Status = "In Progress";
+                    await _orderAppMenuRepository.UpdateOrderItem(orderItem);
+                }
+                if(orderItem.OrderItemModifiers.Count != 0){
+                    modifier_sum +=(decimal) orderItem.OrderItemModifiers.Sum(u=>u.Price);
+                }
+            }
+            else{
+                OrderItem orderItem = new(){
+                    OrderId = OrderId,
+                    ItemId = save_items[i].ItemId,
+                    Quantity = save_items[i].Quantity,
+                    Price = save_items[i].price,
+                    ItemTaxPercenetage = save_items[i].ItemTax,
+                    Status = "In Progress",
+                    ReadyItem = 0,
+                    IsDeleted = false
+                };
+                orderItem = await _orderAppMenuRepository.AddOrderItem(orderItem);
+
+                for(int j=0;j<save_items[i].modifiers.Count;j++)
+                {
+                    OrderItemModifier orderItemModifier = new(){
+                        OrderItemId = orderItem.Id,
+                        ModifierId = save_items[i].modifiers[j].ModifierId,
+                        Quantity = save_items[i].Quantity,
+                        Price = save_items[i].modifiers[j].price
+                    };
+                    await _orderAppMenuRepository.AddOrderItemModifier(orderItemModifier);
+                    modifier_sum += (decimal) save_items[i].modifiers[j].price;
+                }
+            }
+            decimal item_sum = save_items[i].price * save_items[i].Quantity ;
+            subtotal += item_sum + (modifier_sum*save_items[i].Quantity);
+            exclusivetax += item_sum * save_items[i].ItemTax/100;
+        }
+
+        decimal TotalTax = 0;
+        for(int i=0 ; i<save_tax.Count ; i++)
+        {
+            if(order.StatusNavigation.Status == "Pending")
+            {
+                OrderTax orderTax = new(){
+                    OrderId = OrderId,
+                    TaxId = save_tax[i].TaxId,
+                    TaxFlat = save_tax[i].TaxRate,
+                    TaxType = save_tax[i].TaxType
+                };
+                await _orderAppMenuRepository.AddTax(orderTax);
+            }
+            if(save_tax[i].TaxType == true){
+                TotalTax += subtotal * save_tax[i].TaxRate/100;
+            }
+            else{
+                 TotalTax += save_tax[i].TaxRate;
+            }
+        }
+        total = subtotal + TotalTax + exclusivetax; 
+
+        if(order.PaymentMode != null)
+        {
+            Paymentmode orderPayemnt = await _orderAppMenuRepository.GetPayment((int)order.PaymentMode);
+            orderPayemnt.Totalamount = total;
+            orderPayemnt.Status = payment_type;
+            orderPayemnt.Totalamount = total;
+            await _orderAppMenuRepository.UpdateOrderPayment(orderPayemnt);
+        }
+        else{
+            Paymentmode orderPayment = new(){
+                Totalamount = total,
+                Status = payment_type,
+            };
+            orderPayment = await _orderAppMenuRepository.AddPayment(orderPayment);
+            order.PaymentMode = orderPayment.Id;
+        }
+        await _orderAppMenuRepository.UpdateOrder(order);
+
+        if(order.StatusNavigation.Status == "Pending")
+        {
+            var table = await _orderAppMenuRepository.ChangeTableData((int)order.CustomerId);
+            if(table != null)
+            {
+                table.Status = "Running";
+                table.ModifiedDate = DateTime.Now;
+                await _orderAppMenuRepository.SaveTableData(table);
+            }
+            order.Status = 4;
+            order.TotalAmount = total;
+            order.StatusNavigation.Status = "In Progress";
+            await _orderAppMenuRepository.UpdateOrder(order);
+        }
+
+        return true;
+    }
+
+    public async Task<bool> CompleteOrder(int orderId)
+    {
+        var order = await _orderAppMenuRepository.GetOrderDetails(orderId);
+
+        foreach(var table in order.OrderTables){
+            table.IsDeleted = true;
+            await _orderAppMenuRepository.updateOrderTable(table);
+
+            var tables = await _orderAppMenuRepository.GetTable((int)table.TableId);
+            tables.Isavailable = true;
+            tables.Status = "Available";
+            tables.ModifiedDate = DateTime.Now;
+            tables.CustomerId = null;
+            await _orderAppMenuRepository.updateTable(tables);
+        }
+
+        var orderPayment = await _orderAppMenuRepository.GetPaymentDetails((int)order.PaymentMode);
+
+        orderPayment.PaidOn = DateTime.Now;
+        orderPayment.PaymentStatus = "paid";
+
+        await _orderAppMenuRepository.UpdateOrderPayment(orderPayment);
+
+        order.Status = 2;
+        order.ModifiedDate = DateTime.Now;
+        order.Isdelete = true;
+
+
+        return true;
 
     }
 

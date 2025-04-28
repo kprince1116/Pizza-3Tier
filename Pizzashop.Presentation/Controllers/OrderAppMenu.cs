@@ -2,6 +2,7 @@ using System.Text.Json;
 using BAL.Models.Interfaces;
 using iText.Commons.Utils;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Pizzashop.DAL.ViewModels;
 
 namespace Pizzashop.Presentation.Controllers;
@@ -22,7 +23,7 @@ public class OrderAppMenu : Controller
         {
             OrderAppMenuviewmodel model = new OrderAppMenuviewmodel{
             CustomerId = customerId,
-            OrderId = orderId   
+            OrderId = orderId,
         };
         return View(model);
         }
@@ -33,7 +34,8 @@ public class OrderAppMenu : Controller
             CustomerId = customerId,
             OrderId = orderId,
             orderitems = orderdata.orderitems,
-            orderTax = orderdata.orderTax
+            orderTax = orderdata.orderTax,
+            PaymentStatus = orderdata.PaymentStatus
         };
         return View(model);
         }
@@ -129,7 +131,7 @@ public class OrderAppMenu : Controller
         {
             try
             {
-                 model.orderitems = JsonSerializer.Deserialize<List<OrderItemviewmodel>>(OrderItem);
+                 model.orderitems = JsonConvert.DeserializeObject<List<OrderItemviewmodel>>(OrderItem);
             }
             catch (Exception e)
             {
@@ -138,6 +140,29 @@ public class OrderAppMenu : Controller
            
         }
         return PartialView("_accordian", model);
+    }
+
+    [HttpPost]
+
+    public async Task<IActionResult> SaveOrder(string order_id,string order_status,string selected_items,string delete_item,string tax_data,string payment_type)
+    {
+        int OrderId = JsonConvert.DeserializeObject<int>(order_id);
+        string OrderStatus = JsonConvert.DeserializeObject<string>(order_status);
+        List<OrderItemviewmodel> save_items = JsonConvert.DeserializeObject<List<OrderItemviewmodel>>(selected_items);
+        List<int> delete_items = JsonConvert.DeserializeObject<List<int>>(delete_item);
+        List<MenuTaxviewmodel> save_tax = JsonConvert.DeserializeObject<List<MenuTaxviewmodel>>(tax_data);
+        string paymenType = JsonConvert.DeserializeObject<string>(payment_type);
+
+        var saveorder = await _orderAppMenu.SaveOrder(OrderId,OrderStatus,save_items,delete_items,save_tax,paymenType);
+        return Json(new { success = true });
+    }
+
+    [HttpPost]
+
+    public async Task<IActionResult> CompleteOrder(int orderId)
+    {
+        var result = _orderAppMenu.CompleteOrder(orderId);
+        return Json(new { success = true });
     }
 
 }

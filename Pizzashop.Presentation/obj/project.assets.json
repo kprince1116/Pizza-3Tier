@@ -11269,19 +11269,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/princekhunt/.nuget/packages/": {}
+    "C:\\Users\\pca187\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/princekhunt/Desktop/pizza-shops/Pizzashop.Presentation/Pizzashop.Presentation.csproj",
+      "projectUniqueName": "D:\\Project\\Pizza-3Tier\\Pizzashop.Presentation\\Pizzashop.Presentation.csproj",
       "projectName": "Pizzashop.Presentation",
-      "projectPath": "/Users/princekhunt/Desktop/pizza-shops/Pizzashop.Presentation/Pizzashop.Presentation.csproj",
-      "packagesPath": "/Users/princekhunt/.nuget/packages/",
-      "outputPath": "/Users/princekhunt/Desktop/pizza-shops/Pizzashop.Presentation/obj/",
+      "projectPath": "D:\\Project\\Pizza-3Tier\\Pizzashop.Presentation\\Pizzashop.Presentation.csproj",
+      "packagesPath": "C:\\Users\\pca187\\.nuget\\packages\\",
+      "outputPath": "D:\\Project\\Pizza-3Tier\\Pizzashop.Presentation\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/princekhunt/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\pca187\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -11293,11 +11293,11 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "/Users/princekhunt/Desktop/pizza-shops/BAL/BAL.csproj": {
-              "projectPath": "/Users/princekhunt/Desktop/pizza-shops/BAL/BAL.csproj"
+            "D:\\Project\\Pizza-3Tier\\BAL\\BAL.csproj": {
+              "projectPath": "D:\\Project\\Pizza-3Tier\\BAL\\BAL.csproj"
             },
-            "/Users/princekhunt/Desktop/pizza-shops/DAL/DAL.csproj": {
-              "projectPath": "/Users/princekhunt/Desktop/pizza-shops/DAL/DAL.csproj"
+            "D:\\Project\\Pizza-3Tier\\DAL\\DAL.csproj": {
+              "projectPath": "D:\\Project\\Pizza-3Tier\\DAL\\DAL.csproj"
             }
           }
         }
@@ -11306,11 +11306,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -11361,20 +11356,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[7.0.20, 7.0.20]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Host.osx-arm64",
-            "version": "[7.0.20, 7.0.20]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[7.0.20, 7.0.20]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -11383,21 +11364,11 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.407/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.410\\RuntimeIdentifierGraph.json"
       }
     }
   },
   "logs": [
-    {
-      "code": "NU1902",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'System.IdentityModel.Tokens.Jwt' 7.0.1 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-59j7-ghrg-fj52",
-      "libraryId": "System.IdentityModel.Tokens.Jwt",
-      "targetGraphs": [
-        "net7.0"
-      ]
-    },
     {
       "code": "NU1701",
       "level": "Warning",

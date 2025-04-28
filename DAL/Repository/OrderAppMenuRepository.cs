@@ -81,7 +81,7 @@ public class OrderAppMenuRepository : IOrderAppMenuRepository
         var table = await _db.Orders.Include(u=>u.OrderTables)
                                     .ThenInclude(u=>u.Table).
                                     ThenInclude(u=>u.Section)
-                                    .Include(u=>u.StatusNavigation).Where(u=>u.Orderid == OrderId).FirstOrDefaultAsync();
+                                    .Include(u=>u.StatusNavigation).Include(u=>u.PaymentModeNavigation).Where(u=>u.Orderid == OrderId).FirstOrDefaultAsync();
                                    
         return table;
     }
@@ -90,7 +90,7 @@ public class OrderAppMenuRepository : IOrderAppMenuRepository
     {
         var orderItems = await _db.OrderItems.Include(u=>u.Item)
                                             .Include(u=>u.OrderItemModifiers).ThenInclude(u=>u.Modifier)
-                                             .Where(u=>u.OrderId == OrderId).ToListAsync();
+                                             .Where(u=>u.OrderId == OrderId).Where(u=>u.IsDeleted == false).ToListAsync();
         return orderItems;
     }
 
@@ -109,7 +109,7 @@ public class OrderAppMenuRepository : IOrderAppMenuRepository
 
     public async Task<Order> GetOrderDetails(int OrderId)
     {
-        var order = await _db.Orders.FirstOrDefaultAsync(u=>u.Orderid == OrderId);
+        var order = await _db.Orders.Include(u=>u.StatusNavigation).Include(u=>u.PaymentModeNavigation).FirstOrDefaultAsync(u=>u.Orderid == OrderId);
         return order;
     }
     public async Task UpdateCustomer(Customer customer)
@@ -141,5 +141,111 @@ public class OrderAppMenuRepository : IOrderAppMenuRepository
         return taxes;
     }
 
+    public async Task<Table> GetTable(int TableId)
+    {
+       return await _db.Tables.FirstOrDefaultAsync(u=>u.Tableid == TableId);
+    }
+
+    public async Task<OrderItem> GetorderItemForDelete(int deleteId)
+    {
+        return await _db.OrderItems.FirstOrDefaultAsync(u=>u.Id == deleteId);
+    }
+
+    public async Task<OrderItem> GetOrderItem(int OrderItemId)
+    {
+        return await _db.OrderItems.Include(u=>u.OrderItemModifiers).FirstOrDefaultAsync(u=>u.Id == OrderItemId);
+    }
+
+    public async Task UpdateOrderItem(OrderItem orderItem)
+    {
+        _db.OrderItems.Update(orderItem);
+        await _db.SaveChangesAsync();
+    }
+    
+    public async Task<OrderItem> AddOrderItem(OrderItem orderItem)
+    {
+        try
+        {
+         _db.OrderItems.Update(orderItem);
+        await _db.SaveChangesAsync();
+        return orderItem;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+       
+    }
+
+    public async Task<OrderItemModifier> AddOrderItemModifier(OrderItemModifier orderItemModifier)
+    {
+        try
+        {
+            _db.OrderItemModifiers.Update(orderItemModifier);
+        await _db.SaveChangesAsync();
+        return orderItemModifier;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return null;
+        }
+        
+    }
+
+    public async Task AddTax( OrderTax orderTax)
+    {
+        _db.OrderTaxes.Update(orderTax);
+        await _db.SaveChangesAsync();
+    }
+
+    public async Task<Paymentmode> GetPayment(int PaymentModeId)
+    {
+        return await _db.Paymentmodes.FirstOrDefaultAsync(u => u.Id == PaymentModeId);
+    }
+
+    public async Task UpdateOrderPayment(Paymentmode orderPayemnt)
+    {
+        _db.Update(orderPayemnt);
+        await _db.SaveChangesAsync();
+    }
+
+    public async Task<Paymentmode> AddPayment(Paymentmode payment)
+    {
+        _db.Paymentmodes.Update(payment);
+        await _db.SaveChangesAsync();
+        return payment;
+    }
+
+    public async Task<Table> ChangeTableData(int CustomerId)
+    {
+        return await _db.Tables.FirstOrDefaultAsync(u=>u.CustomerId == CustomerId);
+    }
+
+    public async Task SaveTableData(Table table)
+    {
+        _db.Tables.Update(table);
+        await _db.SaveChangesAsync();
+    }
+
+    public async Task updateOrderTable(OrderTable table)
+    {
+        _db.OrderTables.Update(table);
+        await _db.SaveChangesAsync();
+    }
+
+    public async Task updateTable(Table tables)
+    {
+         _db.Tables.Update(tables);
+        await _db.SaveChangesAsync();
+    }
+
+    public async Task<Paymentmode> GetPaymentDetails(int PaymentId)
+    {
+        return await _db.Paymentmodes.FirstOrDefaultAsync(u=>u.Id == PaymentId);
+    }
+
+   
    
 }
