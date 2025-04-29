@@ -56,7 +56,7 @@
             </div>
 
             <!-- Scrollable Item Section -->
-            <div class="mt-3 pb-5" id="ItemsContainer" style=" height:900px; overflow-y:auto; ">
+            <div class="mt-3 pb-5" id="ItemsContainer" style=" height:800px !important; overflow-y:auto !important;">
                 <!-- Your items here -->
             </div>
         </div>
@@ -78,8 +78,9 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 @*Customer Details*@
 
@@ -113,6 +114,7 @@
     </div>
 </div>
 
+@*Order Wise Comment*@
 <div class="modal fade" data-bs-backdrop="static" id="OrderInstruction" tabindex="-1"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -124,10 +126,172 @@
     </div>
 </div>
 
+@*Item Wise Comment*@
+
+<div class="modal fade" data-bs-backdrop="static" id="ItemInstruction" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+             <div id="ItemCommentData">
+
+            </div>
+           
+        </div>
+    </div>
+</div>
+ 
+
+@*Order Complete Modal*@
+
+<div class="modal fade" data-bs-backdrop="static" id="completeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Complete Confirmation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex justify-content-center align-items-center flex-column">
+        <img class="" src="~/images/icons/exclamation-triangle.svg" alt="">
+        <h1 class="fs-5">Are You Sure you want to Complete Order</h1>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button id="OrderCompleted" data-orderid="@Model.OrderId" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Yes</button>
+        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+@*Order Cancel Modal*@
+
+<div class="modal fade" data-bs-backdrop="static" id="cancelModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Cancel Confirmation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex justify-content-center align-items-center flex-column">
+        <img class="" src="~/images/icons/exclamation-triangle.svg" alt="">
+        <h1 class="fs-5">Are You Sure you want to Cancel Order</h1>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button id="OrderCancelled" data-orderid="@Model.OrderId" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Yes</button>
+        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*Rating Modal*@
+<div class="modal fade" data-bs-backdrop="static" id="OrderRattingModal" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Customer Review</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="AddCustomerRatting" asp-controller="OrderAppMenu" method="post">
+                <div class="modal-body">
+                    <input type="hidden" value="@Model.OrderId" asp-for="@Model.OrderId">
+                    <input type="hidden" value="0" id="food-count" asp-for="@Model.FoodRating">
+                    <input type="hidden" value="0" id="service-count" asp-for="@Model.ServiceRating">
+                    <input type="hidden" value="0" id="ambiance-count" asp-for="@Model.AmbienceRating">
+                    <div class="ratting_section mb-3">
+                        <div class="d-flex flex-row justify-content-between align-items-center mb-1">
+                            <div>Food</div>
+                            <div>
+                                <i class=" bi bi-star food text-warning me-1"></i>
+                                <i class=" bi bi-star food text-warning me-1"></i>
+                                <i class=" bi bi-star food text-warning me-1"></i>
+                                <i class=" bi bi-star food text-warning me-1"></i>
+                                <i class=" bi bi-star food text-warning me-1"></i>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between align-items-center mb-1">
+                            <div>Service</div>
+                            <div>
+                                <i class=" bi bi-star service text-warning me-1"></i>
+                                <i class=" bi bi-star service text-warning me-1"></i>
+                                <i class=" bi bi-star service text-warning me-1"></i>
+                                <i class=" bi bi-star service text-warning me-1"></i>
+                                <i class=" bi bi-star service text-warning me-1"></i>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between align-items-center mb-1">
+                            <div>Ambiance</div>
+                            <div>
+                                <i class="bi bi-star ambiance text-warning me-1"></i>
+                                <i class="bi bi-star ambiance text-warning me-1"></i>
+                                <i class="bi bi-star ambiance text-warning me-1"></i>
+                                <i class="bi bi-star ambiance text-warning me-1"></i>
+                                <i class="bi bi-star ambiance text-warning me-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Comment" id="floatingTextarea2"
+                            style="height: 100px" asp-for="@Model.comments"></textarea>
+                        <label for="floatingTextarea2">Comment</label>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex flex-row align-items-center justify-content-end">
+                    <div class="d-flex justify-content-center align-items-center w-100">
+                        <button type="submit" id="OrderRattingModalSubmit" class="btn btn-primary modal_submit_btn me-2"
+                            data-orderid="@Model.OrderId">
+                            Save
+                        </button>
+                        <button type="button" class="btn btn-outline-primary modal_close_btn" data-bs-dismiss="modal">
+                            Canle
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 
 @section Scripts
 {
+    <script>
+        $(document).on("click",".food",function(){
+            console.log("hii");
+            let index = $(this).index() + 1;
+            $("#food-count").val(index);
+            $(".food").each(function(i){
+                if(i<index){
+                    $(this).removeClass("bi-star").addClass("bi-star-fill");
+                }else{
+                      $(this).removeClass("bi-star-fill").addClass("bi-star");
+                }
+            })
+        });
+        $(document).on("click",".service",function(){
+            let index = $(this).index() + 1;
+            $("#service-count").val(index);
+            $(".service").each(function(i){
+                if(i<index){
+                    $(this).removeClass("bi-star").addClass("bi-star-fill");
+                }else{
+                      $(this).removeClass("bi-star-fill").addClass("bi-star");
+                }
+            })
+        });
+        $(document).on("click",".ambiance",function(){
+            let index = $(this).index() + 1;
+            $("#ambiance-count").val(index);
+            $(".ambiance").each(function(i){
+                if(i<index){
+                    $(this).removeClass("bi-star").addClass("bi-star-fill");
+                }else{
+                      $(this).removeClass("bi-star-fill").addClass("bi-star");
+                }
+            })
+        });
+    </script>
+
     <script>
 
         $(document).ready(function () {
@@ -850,6 +1014,7 @@
                     subtotal += itemtotal;
                 });
                 $("#subtotalcontainer").html(subtotal.toFixed(2));
+                $("#ExclusiveTaxcontainer").html(taxperitem.toFixed(2));
                 total = subtotal + taxperitem ;
 
                 tax_data.forEach(tax => {
@@ -921,28 +1086,207 @@
     @*Complete Order*@
 
     <script>
-        $(document).off("click",".OrderCompleted").on("click",".OrderCompleted",function(){
+        $(document).off("click","#OrderCompleted").on("click","#OrderCompleted",function(){
 
             var orderid = $(this).data("orderid");
             console.log("orderid", orderid);
 
             $.ajax({
-                type: "Post",
-                url: "/OrderAppMenu/CompleteOrder",
+                type:"Get",
+                url:"/OrderAppMenu/CheckReadyQuantity",
                 data: {orderId:orderid},
-                success : function(data){
-                    toastr.success("Order Completed Succesfully");
+                success:function(data){
+                    if(data.success == false){
+                        toastr.error("Items Not Ready");
+                         $("#completeModal").hide();
+                    }
+                    else{
+                         $.ajax({
+                          type: "Post",
+                          url: "/OrderAppMenu/CompleteOrder",
+                          data: {orderId:orderid},
+                          success : function(data){
+                            if(data.success == true){
+                                 var modal = new bootstrap.Modal(document.getElementById('OrderRattingModal'));
+                                 modal.show();
+                                $("#completeModal").hide();
+                            }           
+                          },
+                          error:function(data){
+                              toastr.error("An Error Occured!");
+                          }
+                       });
+                    }
                 },
-                error:function(data){
-                    toastr.success("An Error Occured!");
+                 error: function () {
+                    toastr.error("An Error Occurred while checking ready quantity!"); 
                 }
-            })
-
+            });
 
         })
     </script>    
 
+    <script>
+        $(document).off("click","#OrderCancelled").on("click","#OrderCancelled",function(){
+
+            var orderid = $(this).data("orderid");
+            console.log("orderid", orderid);
+
+            $.ajax({
+                type:"Get",
+                url:"/OrderAppMenu/CheckReadyQuantityForCancel",
+                data: {orderId:orderid},
+                success:function(data){
+                    if(data.success == false){
+                        toastr.error("Items Already Ready");
+                         $("#cancelModal").hide();
+                    }
+                    else{
+                         $.ajax({
+                          type: "Post",
+                          url: "/OrderAppMenu/CancelOrder",
+                          data: {orderId:orderid},
+                          success : function(data){
+                            if(data.success == true){
+                                toastr.success("Order Cancelled Succesfully!");
+                                $("#cancelModal").hide();
+                                window.location.href = "/OrderAppMenu/OrderMenu";
+                            }           
+                          },
+                          error:function(data){
+                              toastr.error("An Error Occured!");
+                          }
+                       });
+                    }
+                },
+                 error: function () {
+                    toastr.error("An Error Occurred while checking ready quantity!"); 
+                }
+            });
+
+        })
+    </script>    
+
+    @*Item Wise Comment*@
+
+    <script>
+         $(document).off("click", ".itemmodalclose").on("click", ".itemmodalclose", function () {
+            var modal = new bootstrap.Modal(document.getElementById('ItemInstruction'));
+            modal.hide();
+        });
+
+        $(document).off("click",".item-wise-comment").on("click",".item-wise-comment",function(){
+            $("#ItemInstruction").modal("show");
+
+            var orderid = $(this).data("orderid");
+            console.log("orderid", orderid);
+
+             $.ajax({
+                url: "/OrderAppMenu/GetItemComments",
+                type: "GET",
+                data: { OrderId: orderid },
+                success: function (data) {
+                    $("#ItemCommentData").html(data);
+                    var modal = new bootstrap.Modal(document.getElementById('ItemInstruction'));
+                    modal.show();
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching order comment:", error);
+                }
+            });
+        });
+
+            $(document).off("submit", "#itemcommentmodal").on("submit", "#itemcommentmodal", function (e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: "/OrderAppMenu/PostItemComment",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    toastr.success("Comment Added successfully!");
+                    $("#ItemInstruction").modal("hide");
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error:", error);
+                }
+            });
+
+        });
+    </script>
+
+    @*Generate Invoice*@
+
+      <script>
+
+    $(document).on('click','.GenerateInvoice',function(){
+      var orderid = $(this).data("orderid");
+      console.log("orderid:",orderid);
+
+    $.ajax({
+          url: '@Url.Action("Invoice", "Order")',
+          type:"GET",
+          data:{orderId:orderid},
+          success:function(response){
+             var tempDiv = $("<div>").css({
+                            "position": "absolute",
+                            "left": "-9999px",
+                            "top": "-9999px", 
+                            "width": "1000px", 
+                            "height": "auto", 
+                            "background": "white",
+                            "z-index": "-1" 
+              }).html(response).appendTo("body");
+
+                setTimeout(function () {
+                            html2canvas(tempDiv[0], { scale: 2, useCORS: true }).then(function (canvas) {
+                                var imgData = canvas.toDataURL("image/png");
+                                var { jsPDF } = window.jspdf;
+                                var pdf = new jsPDF("p", "mm", "a4");
+                                var imgWidth = 210;
+                                var imgHeight = (canvas.height * imgWidth) / canvas.width;
+                                pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+                                pdf.save("invoice_" + orderid + ".pdf");
+                                tempDiv.remove(); 
+                            }).catch(function (error) {
+                                console.error("Error rendering canvas:", error);
+                                toastr.error("Error generating PDF. Please try again.");
+                                tempDiv.remove();
+                            });
+                        }, 10); 
+          },
+          error:function(xhr,status,error){
+            console.log("error",error);
+            }
+    });
+});
+
+</script>
+
 }
+
+<script>
+     $(document).ready(function () {
+       
+            @if (TempData["SuccessCustomerRating"] != null)
+           {
+           <text>
+               showToastrNotification('success', '@TempData["SuccessCustomerRating"]');
+           </text>
+            }
+             @if (TempData["FailedCustomerRating"] != null)
+           {
+           <text>
+               showToastrNotification('error', '@TempData["FailedCustomerRating"]');
+           </text>
+            }
+
+        });
+</script>    
+
 
 <style>
     .qrcode-body img {
@@ -951,3 +1295,4 @@
         margin-left: 150px;
     }
 </style>
+

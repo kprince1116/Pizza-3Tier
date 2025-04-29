@@ -33,6 +33,7 @@ public interface IOrderAppMenuRepository
     Task UpdateOrder(Order order);
 
     Task<Order> GetOrderComments(int OrderId);
+    Task<OrderItem> GetItemComments(int OrderId);
 
     Task<List<Taxesandfess>> GetTaxList();
 
@@ -66,6 +67,13 @@ public interface IOrderAppMenuRepository
     Task<Table> ChangeTableData(int CustomerId);
 
     Task SaveTableData(Table table);
+
+    Task<bool> CheckReadyQuantity(int orderId);
+    Task<bool> CheckReadyQuantityForCancel(int orderId);
+
+    Task<Order> GetOrderDetailsForRating(int OrderId);
+
+    Task<Rating> AddCustomerRatting(Rating rating);
 
 
 }

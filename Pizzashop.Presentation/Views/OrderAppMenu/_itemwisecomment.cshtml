@@ -1,0 +1,24 @@
+@model Pizzashop.DAL.ViewModels.Itemwisecommentviewmodel
+
+<form action="post" id="itemcommentmodal" >
+    <input type="hidden" asp-for="@Model.OrderItemId">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Special Instructions</h5>
+        <button type="button" class="btn-close itemmodalclose" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <input type="hidden" id="OrderItemIdOrderInstruction">
+        <div class="form-floating">
+            <textarea class="form-control" placeholder="Instructions" id="InstructionsOrderInstruction"
+                asp-for="@Model.Comment"> </textarea>
+            <label for="floatingTextarea">Instructions</label>
+        </div>
+    </div>
+    <div class="modal-footer d-flex flex-row align-items-center justify-content-end">
+        <button type="submit" id="OrderInstructionModalSubmit" class="btn btn-primary modal_submit_btn">Save</button>
+        <button type="button" class="btn btn-outline-primary itemmodalclose" data-bs-dismiss="modal">
+            Cancel
+        </button>
+    </div>
+</form>

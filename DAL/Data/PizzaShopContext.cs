@@ -49,6 +49,8 @@ public partial class PizzaShopContext : DbContext
 
     public virtual DbSet<Permission> Permissions { get; set; }
 
+    public virtual DbSet<Rating> Ratings { get; set; }
+
     public virtual DbSet<Rolesandpermission> Rolesandpermissions { get; set; }
 
     public virtual DbSet<Section> Sections { get; set; }
@@ -425,6 +427,10 @@ public partial class PizzaShopContext : DbContext
                 .HasForeignKey(d => d.PaymentMode)
                 .HasConstraintName("orders_payment_mode_fkey");
 
+            entity.HasOne(d => d.RatingNavigation).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.Rating)
+                .HasConstraintName("orders_rating_fkey");
+
             entity.HasOne(d => d.StatusNavigation).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.Status)
                 .HasConstraintName("orders_status_fkey");
@@ -593,6 +599,24 @@ public partial class PizzaShopContext : DbContext
             entity.Property(e => e.PermissionName)
                 .HasMaxLength(150)
                 .HasColumnName("permission_name");
+        });
+
+        modelBuilder.Entity<Rating>(entity =>
+        {
+            entity.HasKey(e => e.Ratingid).HasName("rating_pkey");
+
+            entity.ToTable("rating");
+
+            entity.Property(e => e.Ratingid).HasColumnName("ratingid");
+            entity.Property(e => e.Ambiencerating).HasColumnName("ambiencerating");
+            entity.Property(e => e.Avgrating)
+                .HasComputedColumnSql("(((foodrating + ambiencerating) + servicerating) / 3)", true)
+                .HasColumnName("avgrating");
+            entity.Property(e => e.Comments)
+                .HasMaxLength(250)
+                .HasColumnName("comments");
+            entity.Property(e => e.Foodrating).HasColumnName("foodrating");
+            entity.Property(e => e.Servicerating).HasColumnName("servicerating");
         });
 
         modelBuilder.Entity<Rolesandpermission>(entity =>

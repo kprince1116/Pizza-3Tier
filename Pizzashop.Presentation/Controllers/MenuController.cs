@@ -126,6 +126,10 @@ public class MenuController : Controller
     {
         return PartialView("_modifierItemPartialView", await _userMenu.GetModifierItemById(modifierId));
     }
+    // public async Task<IActionResult> GetModifierItemByIdForEdit(int modifierId)
+    // {
+    //     return PartialView("_modifierItemPartialView", await _userMenu.GetModifierItemById(modifierId));
+    // }
 
     [_AuthPermissionAttribute("Menu", ActionPermissions.CanAddEdit)]
     [HttpPost]

@@ -2,8 +2,8 @@
 @using Microsoft.AspNetCore.Mvc
 @{
     decimal TotalAmount = 0;
+    decimal ExclusiveTax = 0;
 }
-
 
 <div class="container mt-0 ps-5 pe-5  d-flex justify-content-center">
     <div class="w-100" style="max-width: 1200px;">
@@ -187,6 +187,11 @@
                 </div>
                 <div class="text-end d-flex flex-column align-items-end me-3">
                         <p class="text-nowrap" ><strong>Subtotal:</strong> ₹ @subtotal.ToString("F2")</p>
+                        @foreach(var itemtax in Model.OrderItems)
+                        {
+                         ExclusiveTax += (decimal) (itemtax.Price * itemtax.Quantity * itemtax.ItemTaxPercenetage) / 100;
+                        }
+                        <p class="text-nowrap" ><strong>ExclusiveTax:</strong> ₹ @ExclusiveTax</p>
                         @if (Model.OrderTaxes.Any())
                         {
                             foreach (var tax in Model.OrderTaxes)
@@ -200,7 +205,7 @@
                                 </p>
                             }
                         }
-                        <p class="d-flex justify-content-end" ><strong>Total:</strong> ₹ @(subtotal + TotalAmount)  </p>
+                        <p class="d-flex justify-content-end" ><strong>Total:</strong> ₹ @(subtotal + TotalAmount + ExclusiveTax)  </p>
                     </div>
             </div>
         </div>

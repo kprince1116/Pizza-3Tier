@@ -138,7 +138,7 @@
                 <!-- Modifier Groups -->
             <div class="col-lg-4 d-lg-block pt-3" style="background-color: #FDF5E6;" >
               <!-- Modifiers Group List -->
-              <select class="form-select " id="selectModifiers">
+              <select class="form-select " id="selectModifiersForEdit">
                 <option value="-2">Select Modifiers Groups(s) </option>
                   @foreach (var modifierGroup in Model.ModifierGroupList)
                         {
@@ -156,7 +156,7 @@
                     </div>
                     <!-- Min Max Select  -->
                     <div class="d-flex justify-content-between">
-                            <select class="MinAllowed" data-mgitemid="@modifier.ModifierGroupId"
+                            <select class="MinAllowed" data-mgitemid="@modifier.ModifierGroupId" data-total="@modifier.ModifierItemList.Count"
                                 style="width: 50%; border-radius: 20px; height: 40px; margin-right: 15px; padding-left: 10px;">
                                 
                                 <option selected value="@modifier.MinAllowed">@modifier.MinAllowed</option>
@@ -166,7 +166,7 @@
 
                                 }
                             </select>
-                            <select class="MaxAllowed" data-mgitemid="@modifier.ModifierGroupId"  style="width: 50%; border-radius: 20px; padding-left: 10px;">
+                            <select class="MaxAllowed" data-mgitemid="@modifier.ModifierGroupId" data-total="@modifier.ModifierItemList.Count"  style="width: 50%; border-radius: 20px; padding-left: 10px;">
                                 <option selected value="@modifier.MaxAllowed">@modifier.MaxAllowed</option>
                                 @for (int i = 1; i <= modifier.ModifierItemList.Count; i++)
                                 {

@@ -211,7 +211,13 @@ public class WaitingService : IWaitingService
                 CustomerId = model.customerId 
             };
 
-            await _kotTableRepository.AddOrderTable(orderTable);
+        await _kotTableRepository.AddOrderTable(orderTable);
+
+        customer.AssignedTime = DateTime.Now;
+        customer.ModifiedDate = DateTime.Now;
+        customer.IsAssigned = true;
+
+        await _waitingRepository.Update(customer);
 
 
         return order.Orderid;

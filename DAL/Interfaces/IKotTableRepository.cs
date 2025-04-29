@@ -19,6 +19,8 @@ public interface IKotTableRepository
 
     Task<Customer> GetCustomerDetailsByEmail(string email);
 
+    Task<WaitingToken> GetCustomerDetailsForAssign(int customerId);
+
     Task UpdateTables(Table tables);
 
 

@@ -37,6 +37,7 @@ public class KotTableService : IKotTableService
                 TableId = t.Tableid,
                 CustomerId = t.CustomerId == null ? 0 : (int)t.CustomerId, 
                 OrderId = t.OrderTables.FirstOrDefault()?.OrderId ?? 0,
+                Amount = t.OrderTables.FirstOrDefault()?.Order.TotalAmount ?? 0.00m,
                 Name = t.TableName,
                 Capacity = t.Capacity, 
                 Status = t.Status,
@@ -133,7 +134,7 @@ public class KotTableService : IKotTableService
 {
     try
     {
-        var customer = await _kotTableRepository.GetCustomerDetails(model.customerId);
+        var customer = await _kotTableRepository.GetCustomerDetailsForAssign(model.customerId);
         int customerId;
 
         if (customer == null)
@@ -167,7 +168,6 @@ public class KotTableService : IKotTableService
             customerId = model.customerId;
         }
 
-        // Create a single order for all tables
         Order order = new()
         {
             CustomerId = customerId,

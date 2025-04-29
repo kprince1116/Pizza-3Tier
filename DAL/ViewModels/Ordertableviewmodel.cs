@@ -20,7 +20,7 @@ public class Ordertableviewmodel
 
     public string Payment {get; set;}
 
-    public short? Rating { get; set; }
+    public int? Rating { get; set; }
 
     public decimal? TotalAmount { get; set; }
    

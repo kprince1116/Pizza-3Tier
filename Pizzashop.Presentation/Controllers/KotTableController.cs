@@ -20,30 +20,32 @@ public class KotTableController : Controller
 
     public async Task<IActionResult> KotTable()
     {
-       var sections = await _kotTableService.GetSections();
-       return View(sections);
+        var sections = await _kotTableService.GetSections();
+        return View(sections);
     }
 
     public async Task<IActionResult> openWaitingTokenModal()
     {
         waitingtokenviewmodel obj = new waitingtokenviewmodel();
         var sections = await _kotTableService.GetSectionList();
-        obj.sections =sections;
-        return PartialView("_AddWaitingToken",obj);
+        obj.sections = sections;
+        return PartialView("_AddWaitingToken", obj);
     }
 
     [HttpPost]
     public async Task<IActionResult> AddWaitingToken(waitingtokenviewmodel model)
     {
         var result = await _kotTableService.AddWaitingToken(model);
-        if(result){
-         return Json(new { success = true });
+        if (result)
+        {
+            return Json(new { success = true });
         }
-        else{
+        else
+        {
             return Json(new { success = false });
         }
     }
-    
+
     public async Task<IActionResult> GetWaitingList(int id)
     {
         var waitingList = await _kotTableService.GetWaitingList(id);
@@ -55,34 +57,42 @@ public class KotTableController : Controller
         var customerDetails = await _kotTableService.GetCustomerDetails(id);
         return PartialView("_CustomerDetails", customerDetails);
     }
-    public async Task<IActionResult> GetCustomerDetailByEmail(int sectionid , string Email)
+    public async Task<IActionResult> GetCustomerDetailByEmail(int sectionid, string Email)
     {
-        var customerDetails = await _kotTableService.GetCustomerDetailsByEmail(sectionid,Email);
+        var customerDetails = await _kotTableService.GetCustomerDetailsByEmail(sectionid, Email);
         return PartialView("_CustomerDetails", customerDetails);
     }
-  
+
     [HttpPost]
 
-        public async Task<IActionResult> AssignTable(waitingtokenviewmodel model, string SelectedTables)
-{
-    try
+    public async Task<IActionResult> AssignTable(waitingtokenviewmodel model, string SelectedTables , string MaxCapacity)
     {
-        var tableIds = JsonSerializer.Deserialize<List<int>>(SelectedTables);
+        try
+        {
+            var maxcapacity = JsonSerializer.Deserialize<int>(MaxCapacity);
 
-        var result = await _kotTableService.AssignTable(model,tableIds);
-        var customerId = result.Item1;
-        var orderId = result.Item2;
-       
-        var redirectUrl =  "/OrderAppMenu/OrderMenu?customerId=" + customerId + "&orderId=" + orderId;
-        return Json(new { success = true , url = redirectUrl });
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine(ex.Message);
-         return Json(new { success = false });
-    }
-}
+            if(maxcapacity>=model.NoOfPerson)
+            {
+            var tableIds = JsonSerializer.Deserialize<List<int>>(SelectedTables);
+            var result = await _kotTableService.AssignTable(model, tableIds);
+            var customerId = result.Item2;
+            var orderId = result.Item1;
+            var redirectUrl = "/OrderAppMenu/OrderMenu?customerId=" + customerId + "&orderId=" + orderId;
+            return Json(new { success = true, url = redirectUrl });
+            }
+            else
+            {
+                 return Json(new { success = false });
+            }
 
-    
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return Json(new { success = false });
+        }
+    }
+
+
 }
 

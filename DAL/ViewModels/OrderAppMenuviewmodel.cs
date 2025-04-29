@@ -8,6 +8,10 @@ public class OrderAppMenuviewmodel
     public int OrderId { get; set; }
     public string OrderStatus {get; set;}
     public string PaymentStatus {get; set;}
+    public int FoodRating {get; set;}
+    public int ServiceRating {get; set;}
+    public int AmbienceRating {get; set;}
+    public string comments {get; set;}
     public List<MenuCategoryviewmodel> categories { get; set; } = new List<MenuCategoryviewmodel>();
     public List<Itemsviewmodel> items {get; set;} = new List<Itemsviewmodel>();
     public List<tableviewmodel> tables = new List<tableviewmodel>();

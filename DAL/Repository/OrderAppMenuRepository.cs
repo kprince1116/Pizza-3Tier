@@ -81,6 +81,7 @@ public class OrderAppMenuRepository : IOrderAppMenuRepository
         var table = await _db.Orders.Include(u=>u.OrderTables)
                                     .ThenInclude(u=>u.Table).
                                     ThenInclude(u=>u.Section)
+                                    .Include(u=>u.OrderItems)
                                     .Include(u=>u.StatusNavigation).Include(u=>u.PaymentModeNavigation).Where(u=>u.Orderid == OrderId).FirstOrDefaultAsync();
                                    
         return table;
@@ -109,7 +110,7 @@ public class OrderAppMenuRepository : IOrderAppMenuRepository
 
     public async Task<Order> GetOrderDetails(int OrderId)
     {
-        var order = await _db.Orders.Include(u=>u.StatusNavigation).Include(u=>u.PaymentModeNavigation).FirstOrDefaultAsync(u=>u.Orderid == OrderId);
+        var order = await _db.Orders.Include(u=>u.OrderTables).Include(u=>u.StatusNavigation).Include(u=>u.PaymentModeNavigation).FirstOrDefaultAsync(u=>u.Orderid == OrderId);
         return order;
     }
     public async Task UpdateCustomer(Customer customer)
@@ -126,6 +127,11 @@ public class OrderAppMenuRepository : IOrderAppMenuRepository
     public async Task<Order> GetOrderComments(int OrderId)
     {
         var order = await _db.Orders.FirstOrDefaultAsync(u=>u.Orderid == OrderId);
+        return order;
+    }
+    public async Task<OrderItem> GetItemComments(int OrderId)
+    {
+        var order = await _db.OrderItems.FirstOrDefaultAsync(u=>u.Id == OrderId);
         return order;
     }
 
@@ -207,8 +213,16 @@ public class OrderAppMenuRepository : IOrderAppMenuRepository
 
     public async Task UpdateOrderPayment(Paymentmode orderPayemnt)
     {
-        _db.Update(orderPayemnt);
-        await _db.SaveChangesAsync();
+        try
+        {
+            _db.Paymentmodes.Update(orderPayemnt);
+            await _db.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+        
     }
 
     public async Task<Paymentmode> AddPayment(Paymentmode payment)
@@ -246,6 +260,54 @@ public class OrderAppMenuRepository : IOrderAppMenuRepository
         return await _db.Paymentmodes.FirstOrDefaultAsync(u=>u.Id == PaymentId);
     }
 
+    public async Task<bool> CheckReadyQuantity(int orderId)
+    {
+        var order = await _db.Orders.Include(u=>u.OrderItems).FirstOrDefaultAsync(U=>U.Orderid == orderId && U.Isdelete == false);
+
+        if(order == null)
+        {
+            return false;
+        }
+
+        if(order.OrderItems.All(u=>u.ReadyItem == u.Quantity))
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
+    public async Task<bool> CheckReadyQuantityForCancel(int orderId)
+    {
+        var order = await _db.Orders.Include(u=>u.OrderItems).FirstOrDefaultAsync(U=>U.Orderid == orderId && U.Isdelete == false);
+
+        if(order == null)
+        {
+            return false;
+        }
+
+        if(order.OrderItems.All(u=>u.ReadyItem ==0 ))
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
+
+    public async Task<Order> GetOrderDetailsForRating(int OrderId)
+    {
+        return await _db.Orders.Include(u=>u.RatingNavigation).FirstOrDefaultAsync(u=>u.Orderid == OrderId);
+    }
+
+    public async Task<Rating> AddCustomerRatting(Rating rating)
+    {
+        _db.Ratings.Add(rating);
+        await _db.SaveChangesAsync();
+        return rating;
+    }
    
    
 }

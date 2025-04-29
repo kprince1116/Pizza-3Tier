@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
-<div class="p-5" >
+<div class="p-5">
     <div class="d-flex justify-content-between ">
         <div class="d-flex justify-content-between">
             <h2 class="custom-blue fw-bold" style="color: #0066bb;">Table View</h2>
@@ -42,7 +42,7 @@
         {
             <div class="accordion mb-2" id="accordionPanelsStayOpenExample">
                 <div class="accordion-item">
-                    <div class="accordion-header" data-section-id = "@i.SectionId" >
+                    <div class="accordion-header" data-section-id="@i.SectionId">
                         <div class="d-flex justify-content-between">
                             <button class="accordion-button d-flex justify-content-between" type="button"
                                 data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne-@i.SectionId"
@@ -50,34 +50,34 @@
                                 <div class="d-flex align-items-center gap-4">
                                     <h4 class="custom-blue text-nowrap mt-1">@i.SectionName</h4>
                                 </div>
-                          </button>
-                                <div class="d-flex justify-content-start justify-content-md-end align-items-center gap-3">
-                                    <div class="d-flex gap-2 align-items-center"> 
-                                       <span style="color: var(--table-available)" ><i class="bi bi-circle-fill"></i></span>
-                                        <span style="color: var(--table-available)">
-                                            @i.AvailableCount</span>
-                                    </div>
-                                    <div class="d-flex gap-2 align-items-center">
-                                         <span style="color: var(--table-assigned)" ><i class="bi bi-circle-fill"></i></span>
-                                        <span style="color: var(--table-assigned)">
-                                            @i.AssignedCount
-                                        </span>
-                                    </div>
-                                    <div class="d-flex gap-2 align-items-center">
-                                       <span style="color: var(--table-running)" > <i class="bi bi-circle-fill"></i></span>
-                                        <span style="color: var(--table-running)">
-                                            @i.RunningCount</span>
-                                    </div>
-                                                                   
-
-                                        <div class="custom-blue-border custom-blue p-2 d-flex align-items-center rounded text-nowrap"
-                                            type="button" onclick="openWaitingTokenModal(this)" data-sectionid="@i.SectionId"   >
-                                            <span class="py-2 px-3" 
-                                                style="color: #0066bb; border-radius: 5px; border: 2px solid #0066bb !important; border-width: 2px;">+
-                                                Waiting Token</span>
-                                        </div>
+                            </button>
+                            <div class="d-flex justify-content-start justify-content-md-end align-items-center gap-3">
+                                <div class="d-flex gap-2 align-items-center">
+                                    <span style="color: var(--table-available)"><i class="bi bi-circle-fill"></i></span>
+                                    <span style="color: var(--table-available)">
+                                        @i.AvailableCount</span>
                                 </div>
-                                   
+                                <div class="d-flex gap-2 align-items-center">
+                                    <span style="color: var(--table-assigned)"><i class="bi bi-circle-fill"></i></span>
+                                    <span style="color: var(--table-assigned)">
+                                        @i.AssignedCount
+                                    </span>
+                                </div>
+                                <div class="d-flex gap-2 align-items-center">
+                                    <span style="color: var(--table-running)"> <i class="bi bi-circle-fill"></i></span>
+                                    <span style="color: var(--table-running)">
+                                        @i.RunningCount</span>
+                                </div>
+
+
+                                <div class="custom-blue-border custom-blue p-2 d-flex align-items-center rounded text-nowrap"
+                                    type="button" onclick="openWaitingTokenModal(this)" data-sectionid="@i.SectionId">
+                                    <span class="py-2 px-3"
+                                        style="color: #0066bb; border-radius: 5px; border: 2px solid #0066bb !important; border-width: 2px;">+
+                                        Waiting Token</span>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <div id="panelsStayOpen-collapseOne-@i.SectionId" class="accordion-collapse collapse"
@@ -86,14 +86,15 @@
                             <div class="accordion-body d-flex flex-wrap gap-3 justify-content-start align-items-center">
                                 @foreach (var j in i.Tables)
                                 {
-                                    <div class="card p-3 d-flex flex-column gap-2 selectTable table-card" 
-                                    data-status = "@j.Status" data-table-id="@j.TableId" data-customerid = @j.CustomerId data-orderid = "@j.OrderId"
+                                    <div class="card p-3 d-flex flex-column gap-2 selectTable table-card"
+                                        data-status="@j.Status" data-capacity="@j.Capacity" data-table-id="@j.TableId"
+                                        data-customerid=@j.CustomerId data-orderid="@j.OrderId"
                                         style="width: 270px;
                                 @(j.Status == "Available" ? "background-color:var(--table-available-bg)" : j.Status == "Assigned" ? "background-color: var(--table-assigned-bg)" : j.Status == "Running" ? "background-color: var(--table-running-bg)" : "") ">
                                         <div class="d-flex justify-content-between">
                                             <h4 class="fw-bolder">@j.Name</h4>
                                             @j.Status
-                                            <span>200</span>
+                                            <span>@j.Amount</span>
                                         </div>
                                         <div class="d-flex justify-content-between">
                                             <div class="d-flex flex-column ">
@@ -114,8 +115,10 @@
                                 }
                             </div>
                             <div class="d-flex justify-content-end p-2">
-                                <button type="button" class="btn custom-btn-bg text-white assign-button" data-sectionid ="@i.SectionId" style="background-color: #0066bb;" data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                                <button type="button" class="btn custom-btn-bg text-white assign-button"
+                                    data-sectionid="@i.SectionId" style="background-color: #0066bb;"
+                                    data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+                                    aria-controls="offcanvasRight">
                                     Assign
                                 </button>
                             </div>
@@ -136,36 +139,38 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 
 <!-- jQuery Unobtrusive Validation -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
 
 
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title custom-blue" id="offcanvasRightLabel">Waiting List</h5>
-       
+
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-     
+
     <div class="offcanvas-body">
         <div id="waitinglist">
-            
+
         </div>
         <h5 class="custom-blue">Customer Detail</h5>
         <div id="CustomerDetails">
-     
+
         </div>
     </div>
 </div>
 
 @*Add Waiting Token Modal*@
-<div class="modal fade" data-bs-backdrop="static" id="waitingtokenmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
+<div class="modal fade" data-bs-backdrop="static" id="waitingtokenmodal" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+        </div>
 
     </div>
-    
-  </div>
 </div>
 
 <script>
@@ -193,129 +198,129 @@
 </script>
 
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('.btn[data-bs-target="#offcanvasRight"]').prop('disabled', true);
 
         $(document).on('click', '.selectTable', function () {
-        var tableStatus = $(this).data('status');
-        var tableId = $(this).data('table-id');
+            var tableStatus = $(this).data('status');
+            var tableId = $(this).data('table-id');
 
 
-    if (tableStatus !== "Available") {
-        return;
-    }
+            if (tableStatus !== "Available") {
+                return;
+            }
 
-    const isSelected = $(this).hasClass('selected');
-    
-    if (isSelected) {
-        $(this).removeClass('selected');
-        $(this).css({
-            'background-color': 'var(--table-available-bg)',
-            'border-color': ''
+            const isSelected = $(this).hasClass('selected');
+
+            if (isSelected) {
+                $(this).removeClass('selected');
+                $(this).css({
+                    'background-color': 'var(--table-available-bg)',
+                    'border-color': ''
+                });
+            } else {
+                $(this).addClass('selected');
+                $(this).css({
+                    'background-color': 'white',
+                    'border-color': 'lightgreen'
+                });
+            }
+
+            const parentSection = $(this).closest('.accordion-item');
+            const anySelected = parentSection.find('.selectTable.selected').length > 0;
+
+            parentSection.find('.btn[data-bs-target="#offcanvasRight"]').prop('disabled', !anySelected);
         });
-    } else {
-        $(this).addClass('selected');
-        $(this).css({
-            'background-color': 'white',
-            'border-color': 'lightgreen'
-        });
-    }
-
-    const parentSection = $(this).closest('.accordion-item'); 
-    const anySelected = parentSection.find('.selectTable.selected').length > 0; 
-
-    parentSection.find('.btn[data-bs-target="#offcanvasRight"]').prop('disabled', !anySelected);
-});
     });
 
-</script> 
+</script>
 
 @*Open waiting modal and fetch section list*@
 <script>
-    function openWaitingTokenModal(button){
-    const sectionId = button.getAttribute('data-sectionid');
-    @* const modal = new bootstrap.Modal(document.getElementById('waitingtokenmodal')); *@  
+    function openWaitingTokenModal(button) {
+        const sectionId = button.getAttribute('data-sectionid');
+    @* const modal = new bootstrap.Modal(document.getElementById('waitingtokenmodal')); *@
 
     @* modal.show(); *@
-        $.ajax({
-            type: "GET",
-            url: '@Url.Action("openWaitingTokenModal", "KotTable")',
-            success : function(data){
-                $('#waitingtokenmodal .modal-content').html(data);
-                $("#sectionwaitingtoken").val(sectionId);
-                $('#waitingtokenmodal').modal('show');
-            }
-        })
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("openWaitingTokenModal", "KotTable")',
+                success: function (data) {
+                    $('#waitingtokenmodal .modal-content').html(data);
+                    $("#sectionwaitingtoken").val(sectionId);
+                    $('#waitingtokenmodal').modal('show');
+                }
+            })
     }
 </script>
 
 @*Add Waiting Token*@
 <script>
-   $(document).ready(function () {
-    $(document).on('submit','#addWaitingTokenForm', function (e) {
-        e.preventDefault(); 
+    $(document).ready(function () {
+        $(document).on('submit', '#addWaitingTokenForm', function (e) {
+            e.preventDefault();
 
-        var formData = new FormData(this); 
+            var formData = new FormData(this);
 
-        $.ajax({
-            url: '@Url.Action("AddWaitingToken", "KotTable")',
-            type: 'POST',
-            processData: false, 
-            contentType: false,
-            data: formData,
-            success: function (response) {
-                if (response.success) {
-                    toastr.success("Waiting Token Added Succesfully");
-                    $('#waitingtokenmodal').modal('hide');
-                } else {
-                    alert('Error: ' + response.message);
+            $.ajax({
+                url: '@Url.Action("AddWaitingToken", "KotTable")',
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success("Waiting Token Added Succesfully");
+                        $('#waitingtokenmodal').modal('hide');
+                    } else {
+                        alert('Error: ' + response.message);
+                    }
+                },
+                error: function () {
+                    alert('An error occurred while adding the waiting token.');
                 }
-            },
-            error: function () {
-                alert('An error occurred while adding the waiting token.');
-            }
+            });
         });
     });
-});
-</script> 
+</script>
 
 @*Open Off canvas and get waiting list*@
 <script>
-        var sectionId;
-        $(document).off("click",".assign-button").on("click" , ".assign-button" , function(e){
-            e.preventDefault();      
+    var sectionId;
+    $(document).off("click", ".assign-button").on("click", ".assign-button", function (e) {
+        e.preventDefault();
 
-            var sectionid = $(this).data("sectionid");
-            sectionId = sectionid;
+        var sectionid = $(this).data("sectionid");
+        sectionId = sectionid;
 
-            $.ajax({
+        $.ajax({
             type: "GET",
             url: "/KotTable/GetWaitingList",
             data: { id: sectionid },
-            success: function(data){
-            $('#waitinglist').html(data);
-            $.ajax({
-            type: "GET",
-            url: "/KotTable/GetCustomerDetail",
-            data: { id: 0 },
-            success: function(data){
-                $('#CustomerDetails').html(data);
-                $("#sectionwaitingtoken").val(sectionId);
+            success: function (data) {
+                $('#waitinglist').html(data);
+                $.ajax({
+                    type: "GET",
+                    url: "/KotTable/GetCustomerDetail",
+                    data: { id: 0 },
+                    success: function (data) {
+                        $('#CustomerDetails').html(data);
+                        $("#sectionwaitingtoken").val(sectionId);
+                    }
+                });
             }
         });
-            }
-        });
-        });  
+    });
 
-        $(document).off("change","#CustomerEmail").on("change","#CustomerEmail",function(){
+    $(document).off("change", "#CustomerEmail").on("change", "#CustomerEmail", function () {
         var selectedEmail = $(this).val().trim();
         console.log("Selected email:", selectedEmail);
 
         $.ajax({
             type: "GET",
             url: "/KotTable/GetCustomerDetailByEmail",
-            data: { sectionid:sectionId , Email: selectedEmail },
-            success: function(data){
+            data: { sectionid: sectionId, Email: selectedEmail },
+            success: function (data) {
                 $('#CustomerDetails').html(data);
             }
         });
@@ -325,7 +330,7 @@
 
 @*Append Customer Data From Waiting List*@
 <script>
-    $(document).off("change",".radio-btn").on("change",".radio-btn",function(){
+    $(document).off("change", ".radio-btn").on("change", ".radio-btn", function () {
         var selectedId = $(this).data("id");
         console.log("Selected ID:", selectedId);
 
@@ -333,7 +338,7 @@
             type: "GET",
             url: "/KotTable/GetCustomerDetail",
             data: { id: selectedId },
-            success: function(data){
+            success: function (data) {
                 $('#CustomerDetails').html(data);
             }
         });
@@ -341,7 +346,7 @@
 </script>
 
 <script>
-    
+
 </script>
 
 <script>
@@ -353,37 +358,46 @@
 
 <script>
     $(document).ready(function () {
-        $(document).on('submit','#TableAssignForm', function (e) {
-        e.preventDefault();
-       $("#TableAssignForm").removeAttr("novalidate");
+        $(document).on('submit', '#TableAssignForm', function (e) {
+            e.preventDefault();
+            $("#TableAssignForm").removeAttr("novalidate");
             $.validator.unobtrusive.parse($("#TableAssignForm"));
             if (!$("#TableAssignForm").valid()) {
                 console.log();
                 return;
             }
             var selectedTables = [];
-          
-           $(".selected").each(function () { 
-            var TableId = $(this).data("table-id");
-            selectedTables.push(TableId);     
-        });
+            let maxcapacity = 0;
+
+            $(".selected").each(function () {
+                var capacity = $(this).data("capacity");
+                console.log("capacity",capacity);
+                maxcapacity+=capacity;
+            });
+            console.log("maxcapacity",maxcapacity);
+
+            $(".selected").each(function () {
+                var TableId = $(this).data("table-id");
+                selectedTables.push(TableId);
+            });
 
             console.log("Selected Tables:", selectedTables);
 
             var formData = new FormData(this);
 
             formData.append("SelectedTables", JSON.stringify(selectedTables));
+            formData.append("MaxCapacity", JSON.stringify(maxcapacity));
 
-            console.log("Form Data:",formData);
-           
+            console.log("Form Data:", formData);
+
             $.ajax({
                 type: 'POST',
                 url: "/KotTable/AssignTable",
                 data: formData,
-                processData: false, 
-                contentType: false, 
+                processData: false,
+                contentType: false,
                 success: function (response) {
-                    if (response.success) {
+                    if (response.success == true) {
                         toastr.success("Table Assigned Successfully");
                         var offcanvas = bootstrap.Offcanvas.getInstance(document.getElementById('offcanvasRight'));
                         if (offcanvas) {
@@ -391,7 +405,11 @@
                         }
                         window.location.href = response.url;
                     } else {
-                        toastr.error("Table is not asigned");
+                        toastr.error("Table Capacity is less Then the totalpersons");
+                         var offcanvas = bootstrap.Offcanvas.getInstance(document.getElementById('offcanvasRight'));
+                        if (offcanvas) {
+                            offcanvas.hide();
+                        }
                     }
                 },
                 error: function () {
@@ -402,16 +420,15 @@
     });
 </script>
 
- <script>
-    $(document).off("click",".table-card").on("click",".table-card",function(){
+<script>
+    $(document).off("click", ".table-card").on("click", ".table-card", function () {
         var customerId = $(this).data("customerid");
         var orderId = $(this).data("orderid");
         var tableStatus = $(this).data("status");
         if (tableStatus == "Available") {
             return;
         }
-         window.location.href = "/OrderAppMenu/OrderMenu?customerId=" + customerId + "&orderId=" + orderId;
-         return;
+        window.location.href = "/OrderAppMenu/OrderMenu?customerId=" + customerId + "&orderId=" + orderId;
+        return;
     });
-</script> 
-
+</script>

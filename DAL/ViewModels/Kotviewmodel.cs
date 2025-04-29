@@ -1,4 +1,5 @@
 using DAL.Models;
+using Microsoft.Identity.Client;
 
 namespace Pizzashop.DAL.ViewModels;
 
@@ -23,10 +24,10 @@ public class Kotviewmodel
     {
         public string ItemName { get; set; }
         public int Quantity { get; set; }
-
         public int PendigQuantity { get; set; }
-
         public int ReadyQuantity { get; set; }
+
+        public string ItemInstrucion {get; set;}
          public int CategoryId { get; set; } 
         public List<ModifierViewModel> Modifiers { get; set; } = new List<ModifierViewModel>();
     }

@@ -146,7 +146,7 @@ public class OrderAppMenu : IOrderAppMenu
         {
             OrderId = (int)tableData.Orderid,
             OrderStatus = tableData.StatusNavigation.Status,
-            PaymentStatus = tableData.PaymentModeNavigation?.Status ,
+            PaymentStatus = tableData.PaymentModeNavigation?.Status,
             CustomerId = (int)tableData.CustomerId,
             tables = tableData.OrderTables.Select(t => new tableviewmodel
             {
@@ -262,6 +262,18 @@ public class OrderAppMenu : IOrderAppMenu
 
         return viewmodel;
     }
+    public async Task<Itemwisecommentviewmodel> GetItemComments(int OrderId)
+    {
+        var order = await _orderAppMenuRepository.GetItemComments(OrderId);
+
+        var viewmodel = new Itemwisecommentviewmodel
+        {
+            OrderItemId = (int)order.Id,
+            Comment = order.OrderItemInstruction
+        };
+
+        return viewmodel;
+    }
 
     public async Task<bool> PostComment(OrderWiseCommentViewModel model)
     {
@@ -276,6 +288,30 @@ public class OrderAppMenu : IOrderAppMenu
             order.Instruction = model.Comment;
 
             await _orderAppMenuRepository.UpdateOrder(order);
+
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return false;
+        }
+
+    }
+    
+    public async Task<bool> PostItemComment(Itemwisecommentviewmodel model)
+    {
+        try
+        {
+            var order = await _orderAppMenuRepository.GetItemComments(model.OrderItemId);
+
+            if (order == null)
+            {
+                return false;
+            }
+            order.OrderItemInstruction = model.Comment;
+
+            await _orderAppMenuRepository.UpdateOrderItem(order);
 
             return true;
         }
@@ -404,17 +440,39 @@ public class OrderAppMenu : IOrderAppMenu
                 await _orderAppMenuRepository.SaveTableData(table);
             }
             order.Status = 4;
+            order.ModifiedDate = DateTime.Now;
             order.TotalAmount = total;
-            order.StatusNavigation.Status = "In Progress";
             await _orderAppMenuRepository.UpdateOrder(order);
         }
+         else
+         {
+         order.TotalAmount = total;
+         order.ModifiedDate = DateTime.Now;
+         await _orderAppMenuRepository.UpdateOrder(order);
+         }
 
         return true;
+    }
+
+    public async Task<bool> CheckReadyQuantity(int orderId)
+    {
+        var check = await _orderAppMenuRepository.CheckReadyQuantity(orderId);
+        return check;
+    }
+    public async Task<bool> CheckReadyQuantityForCancel(int orderId)
+    {
+        var check = await _orderAppMenuRepository.CheckReadyQuantityForCancel(orderId);
+        return check;
     }
 
     public async Task<bool> CompleteOrder(int orderId)
     {
         var order = await _orderAppMenuRepository.GetOrderDetails(orderId);
+
+        if(order == null)
+        {
+            return false;
+        }
 
         foreach(var table in order.OrderTables){
             table.IsDeleted = true;
@@ -437,8 +495,81 @@ public class OrderAppMenu : IOrderAppMenu
 
         order.Status = 2;
         order.ModifiedDate = DateTime.Now;
-        order.Isdelete = true;
 
+        await _orderAppMenuRepository.UpdateOrder(order);
+
+        return true;
+
+    }
+    public async Task<bool> CancelOrder(int orderId)
+    {
+        var order = await _orderAppMenuRepository.GetOrderDetails(orderId);
+
+        if(order == null)
+        {
+            return false;
+        }
+
+        foreach(var table in order.OrderTables){
+            table.IsDeleted = true;
+            await _orderAppMenuRepository.updateOrderTable(table);
+
+            var tables = await _orderAppMenuRepository.GetTable((int)table.TableId);
+            tables.Isavailable = true;
+            tables.Status = "Available";
+            tables.ModifiedDate = DateTime.Now;
+            tables.CustomerId = null;
+            await _orderAppMenuRepository.updateTable(tables);
+        }
+
+        var orderPayment = await _orderAppMenuRepository.GetPaymentDetails((int)order.PaymentMode);
+
+        orderPayment.PaidOn = DateTime.Now;
+        orderPayment.PaymentStatus = "canceled";
+
+        await _orderAppMenuRepository.UpdateOrderPayment(orderPayment);
+
+        order.Status = 3;
+        order.ModifiedDate = DateTime.Now;
+
+        await _orderAppMenuRepository.UpdateOrder(order);
+
+        return true;
+
+    }
+
+    public async Task<bool> AddCustomerRatting(OrderAppMenuviewmodel model)
+    {
+        
+        var order = await _orderAppMenuRepository.GetOrderDetailsForRating(model.OrderId);
+
+        if(order == null){
+            return false;
+        }
+        
+        try
+        {
+            Rating rating1 = new(){
+                Ambiencerating = model.AmbienceRating,
+                Foodrating = model.FoodRating,
+                Servicerating = model.ServiceRating,
+                Comments = model.comments
+            };
+
+        var rating = await _orderAppMenuRepository.AddCustomerRatting(rating1);
+
+        order.Rating = rating.Ratingid;
+
+        await _orderAppMenuRepository.UpdateOrder(order);
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return false;
+        }
+     
+      
 
         return true;
 

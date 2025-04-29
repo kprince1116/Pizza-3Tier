@@ -19,7 +19,7 @@ public partial class Order
 
     public string? Instruction { get; set; }
 
-    public short? Rating { get; set; }
+    public int? Rating { get; set; }
 
     public decimal? TotalAmount { get; set; }
 
@@ -52,6 +52,8 @@ public partial class Order
     public virtual ICollection<OrderTax> OrderTaxes { get; set; } = new List<OrderTax>();
 
     public virtual Paymentmode? PaymentModeNavigation { get; set; }
+
+    public virtual Rating? RatingNavigation { get; set; }
 
     public virtual Orderstatus? StatusNavigation { get; set; }
 }

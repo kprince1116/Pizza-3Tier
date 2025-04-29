@@ -17,7 +17,7 @@ public class OrderAppTable{
     public int CustomerId { get; set; }
     public int OrderId { get; set; }
     public string Name { get; set; } = null!;
-    public decimal Amount {get;set;} = 0;
+    public decimal Amount {get;set;} 
     public int Capacity { get; set; }
     public string Status { get; set; } 
     public DateTime? AssignTime { get; set; }

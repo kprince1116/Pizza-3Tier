@@ -4,6 +4,7 @@
     ViewData["Title"] = $"Invoice - #{Model.Orderid}";
     Layout = null;
     decimal TotalAmount =0 ;
+    decimal ExclusiveTax = 0;
 }
 
 <!DOCTYPE html>
@@ -126,7 +127,12 @@
         <!-- Summary -->
         <div class="summary">
             <p><strong>Sub Total:</strong> ₹ @subtotal.ToString("F2")</p>
-            @if (Model.OrderTaxes.Any())
+                @foreach(var itemtax in Model.OrderItems)
+                        {
+                         ExclusiveTax += (decimal) (itemtax.Price * itemtax.Quantity * itemtax.ItemTaxPercenetage) / 100;
+                        }
+                    <p class="text-nowrap" ><strong>ExclusiveTax:</strong> ₹ @ExclusiveTax </p>
+             @if (Model.OrderTaxes.Any())
                         {
                             foreach (var tax in Model.OrderTaxes)
                             {    
@@ -140,7 +146,7 @@
                             }
                         }
             <hr style="color: #1f73ae;">
-            <p class="text-nowrap" style="color: #1f73ae;"><strong>Total Amount Due:</strong><span class="text-nowrap"> ₹ @(subtotal + TotalAmount)</span></p>
+            <p class="text-nowrap" style="color: #1f73ae;"><strong>Total Amount Due:</strong><span class="text-nowrap"> ₹ @(subtotal + TotalAmount +ExclusiveTax)</span></p>
             <hr style="color: #1f73ae;">
         </div>
 

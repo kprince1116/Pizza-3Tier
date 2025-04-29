@@ -608,9 +608,9 @@ function saveExistingModifiers() {
         success: function (data) {
           console.log("data", data);
           $("#mgItemList").append(data);
-          bindMinMaxEvents();
+          @* bindMinMaxEvents();
           $(".MinAllowed").trigger("change");
-          $(".MaxAllowed").trigger("change");
+          $(".MaxAllowed").trigger("change"); *@
         },
         error: function () {
           console.log("Error Appending Data");
@@ -618,7 +618,7 @@ function saveExistingModifiers() {
       });
     }
 
- function bindMinMaxEvents() {
+ @* function bindMinMaxEvents() {
  $(".MinAllowed").off("change").on("change", function () {
   let minVal = parseInt($(this).val());
   let id = $(this).data("mgitemid");
@@ -637,9 +637,9 @@ function saveExistingModifiers() {
   if (currentMaxVal < minVal) {
     $maxSelect.val(minVal);
   }
-});
+}); *@
 
-
+@* 
   $(".MaxAllowed").off("change").on("change", function () {
     let maxVal = parseInt($(this).val());
     let id = $(this).data("mgitemid");
@@ -658,7 +658,48 @@ function saveExistingModifiers() {
       $minSelect.val(maxVal);
     }
   });
-}
+} *@
+
+
+        $(document).on("change", ".MinAllowed", function () {
+            let id = $(this).data("mgitemid");
+            let minValue = parseInt($(this).val());
+            let maxDropdown = $(this).closest(".selectedModifierGroup").find(".MaxAllowed");
+            let maxvalue = $(".MaxAllowed[data-mgitemid='" + id + "']").val();
+            let itemCount = parseInt($(this).data("total"));
+ 
+            maxDropdown.empty();
+            for (let i = minValue; i <= itemCount; i++) {
+                if (i == maxvalue) {
+                    maxDropdown.append(`<option selected value="${i}">${i}</option>`);
+                }
+                else {
+                    maxDropdown.append(`<option value="${i}">${i}</option>`);
+                }
+            }
+        });
+ 
+        $(document).on("change", ".MaxAllowed", function () {
+            let id = $(this).data("mgitemid");
+            let maxValue = parseInt($(this).val());
+            console.log("maxvalue",maxValue);
+            console.log($(".MinAllowed[data-mgitemid='" + id + "']"));
+            let value = $(".MinAllowed[data-mgitemid='" + id + "']").val();
+            console.log("value",value);
+            let minDropdown = $(this).closest(".selectedModifierGroup").find(".MinAllowed");
+ 
+            minDropdown.empty();
+            for (let i = 0; i <= maxValue; i++) {
+                if (i == value) {
+                    minDropdown.append(`<option selected value="${i}">${i}</option>`);
+                }
+                else {
+                    minDropdown.append(`<option value="${i}">${i}</option>`);
+                }
+            }
+        });
+       
+
 
 
     $(document).on("change", "#selectModifiers", function () {
@@ -697,9 +738,9 @@ function saveExistingModifiers() {
         data: { modifierId: modifierGroupId },
         success: function (data) {
           $("#mgItemLists").append(data);
-             bindMinMaxEvents();
-            $(".MinAllowed").trigger("change");
-            $(".MaxAllowed").trigger("change");
+             @* bindMinMaxEvents(); *@
+            @* $(".MinAllowed").trigger("change");
+            $(".MaxAllowed").trigger("change"); *@
          },
         error: function () {
           console.log("Error Appending Data");
@@ -707,17 +748,16 @@ function saveExistingModifiers() {
       });
     }
 
-    $(document).on("change", "#selectModifiers", function () {
+    $(document).on("change", "#selectModifiersForEdit", function () {
       var modifierGroupId = Number($(this).val());
 
-      // Check using includes() since it's an array of numbers now
       if (!selectedModifiersForEdit.includes(modifierGroupId)) {
         selectedModifiersForEdit.push(modifierGroupId);
         getModifierItemForEditAjax(modifierGroupId);
       }
       console.log(selectedModifiersForEdit);
 
-      $("#selectModifiers").val("-2");
+      $("#selectModifiersForEdit").val("-2");
     });
 
     // Remove Modifier Group

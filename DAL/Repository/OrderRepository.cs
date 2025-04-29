@@ -19,7 +19,7 @@ public class OrderRepository : IOrderRepository
 
     public async Task<Orderviewmodel> GetOrderDetails(int pageNo, int pageSize,string searchKey,string sortBy , string sortDirection ,string statusFilter , string timeFilter , string fromDate = "" , string toDate="" )
     {
-        var orders =  _db.Orders.Where(u=>u.Isdelete == false).Include(u=>u.Customer).Include(u=>u.PaymentModeNavigation).Include(u=>u.StatusNavigation).Select
+        var orders =  _db.Orders.Where(u=>u.Isdelete == false).Include(u=>u.Customer).Include(u=>u.RatingNavigation).Include(u=>u.PaymentModeNavigation).Include(u=>u.StatusNavigation).Select
         (
             u => new Ordertableviewmodel
             {
@@ -29,7 +29,7 @@ public class OrderRepository : IOrderRepository
                 CustomerName = u.Customer.Customername,
                 Status = u.StatusNavigation.Status,
                 Payment = u.PaymentModeNavigation.Status,
-                Rating = u.Rating,
+                Rating = u.RatingNavigation.Avgrating,
                 TotalAmount = u.TotalAmount,
             }
         );

@@ -1,23 +1,23 @@
  @model Pizzashop.DAL.ViewModels.OrderWiseCommentViewModel
  
-            <form method="post" id="OrderCommentModal">
+      <form method="post" id="OrderCommentModal">
                 <input type="hidden" asp-for="@Model.OrderId" >
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Menu</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Order Wise Comment</h5>
                 <button type="button" class="btn-close ordermodalclose" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" rows="3" style="height: 100px" asp-for="@Model.Comment" ></textarea>
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" rows="3" style="height: 100px" asp-for="@Model.Comment"></textarea>
                         <label for="floatingTextarea2">Comments</label>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit"  class="btn btn-primary modal_submit_btn">Save</button>
+                <button type="submit" class="btn btn-primary modal_submit_btn">Save</button>
                 <button type="button" class="btn btn-outline-primary ordermodalclose" data-bs-dismiss="modal">
                     Cancel
                 </button>
             </div>
-           </form> 
+         </form> 

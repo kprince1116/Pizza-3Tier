@@ -112,10 +112,27 @@ public class OrderAppMenu : Controller
         var orderComments = await _orderAppMenu.GetOrderComments(OrderId);
         return PartialView("_orderwisecomment", orderComments);
     }
+    public async Task<IActionResult> GetItemComments(int OrderId)
+    {
+        var itemComments = await _orderAppMenu.GetItemComments(OrderId);
+        return PartialView("_itemwisecomment", itemComments);
+    }
 
+    [HttpPost]
     public async Task<IActionResult> PostComment(OrderWiseCommentViewModel model)
     {
         var comment = await _orderAppMenu.PostComment(model);
+        if(comment == null)
+        {
+            return Json(new { success = false });
+        }
+        return Json(new { success = true });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> PostItemComment(Itemwisecommentviewmodel model)
+    {
+        var comment = await _orderAppMenu.PostItemComment(model);
         if(comment == null)
         {
             return Json(new { success = false });
@@ -157,12 +174,69 @@ public class OrderAppMenu : Controller
         return Json(new { success = true });
     }
 
-    [HttpPost]
+    public async Task<IActionResult> CheckReadyQuantity(int orderId)
+    {
+        var check = await _orderAppMenu.CheckReadyQuantity(orderId);
 
+        if(check){
+            return Json(new{success = true});
+        }
+        else{
+            return Json (new{success = false});
+        }
+    }
+    public async Task<IActionResult> CheckReadyQuantityForCancel(int orderId)
+    {
+        var check = await _orderAppMenu.CheckReadyQuantityForCancel(orderId);
+
+        if(check){
+            return Json(new{success = true});
+        }
+        else{
+            return Json (new{success = false});
+        }
+    }
+
+    [HttpPost]
     public async Task<IActionResult> CompleteOrder(int orderId)
     {
-        var result = _orderAppMenu.CompleteOrder(orderId);
-        return Json(new { success = true });
+        var result = await _orderAppMenu.CompleteOrder(orderId);
+        
+        if(result)
+        {
+           return Json(new { success = true });
+        }
+        else{
+            return Json(new { success = false });
+        }
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CancelOrder(int orderId)
+    {
+        var result = await _orderAppMenu.CancelOrder(orderId);
+        
+        if(result)
+        {
+           return Json(new { success = true });
+        }
+        else{
+            return Json(new { success = false });
+        }
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddCustomerRatting(OrderAppMenuviewmodel model)
+    {
+        var result = await _orderAppMenu.AddCustomerRatting(model);
+        if(result){
+            TempData["SuccessCustomerRating"] = "Customer Rating Successfully added";
+             return RedirectToAction("OrderMenu","OrderAppMenu");
+        }
+        else{
+            TempData["FailedCustomerRating"] = "customer rating not added";
+            return RedirectToAction("OrderMenu","OrderAppMenu");
+        }
     }
 
 }

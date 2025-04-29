@@ -35,6 +35,7 @@ public class KotRepository : IKotRepository
         var orders = await _db.Orders.Include(u => u.OrderTables).ThenInclude(u => u.Table).ThenInclude(u => u.Section)
                                     .Include(u => u.OrderItems).ThenInclude(u => u.Item)
                                     .Include(u => u.OrderItems).ThenInclude(u => u.OrderItemModifiers).ThenInclude(u => u.Modifier)
+                                    .Where(u=>u.StatusNavigation.Status == "In Progress" ||u.StatusNavigation.Status == "Pending")
                                     .Select(o => new Kotviewmodel.OrderDetailsViewModel
                                     {
                                         orderId = o.Orderid,
@@ -52,6 +53,7 @@ public class KotRepository : IKotRepository
                                             Quantity = (int)i.Quantity,
                                             PendigQuantity = (int)i.Quantity - (int)i.ReadyItem,
                                             ReadyQuantity = (int)i.ReadyItem,
+                                            ItemInstrucion = i.OrderItemInstruction,
                                             CategoryId = (int)i.Item.Categoryid,
                                             Modifiers = i.OrderItemModifiers.Select(m => new Kotviewmodel.ModifierViewModel
                                             {

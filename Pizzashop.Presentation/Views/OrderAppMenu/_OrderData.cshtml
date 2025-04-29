@@ -5,7 +5,6 @@
 
 }
 
-
 @model Pizzashop.DAL.ViewModels.OrderAppMenuviewmodel
 
 <div class="col-4 mt-4 order-app-module">
@@ -70,18 +69,20 @@
             </div>
 
         </div>
-        <div class="d-flex flex-column gap-2 mb-2" style="max-height: 320px !important; overflow-y: scroll; " >
+        <div class="d-flex flex-column gap-2 mb-2" style="max-height: 320px !important; overflow-y: auto; " >
             <div id="itemdata" class="mt-2" >
                 @foreach (var item in Model.orderitems)
                 {
                     <div class="item-row w-100 py-1 px-2 d-flex align-items-center justify-content-between border mb-2"
                         id="accord-@item.OrderItemId">
                         <div class="accordion mt-2 mb-2" id="item-accordian-1">
+                            <div class="d-flex justify-content-center align-items-center    ">
                             <div class="d-flex align-items-center gap-2 drop-class" data-bs-toggle="collapse"
                                 data-bs-target="#order-item-@item.ItemId" aria-expanded="false"
                                 aria-controls="order-item-@item.ItemId">
                                 <img src="~/images/dropdownimg.webp" alt="" height="23" class="icon-rotate opacity-50">
-                                <span class="item-name-for-order">@item.ItemName</span>
+                            </div>
+                                <span class="item-name-for-order item-wise-comment" data-orderid="@item.OrderItemId" >@item.ItemName</span>
                             </div>
                             <div id="order-item-@item.ItemId" class="p-0 ms-0 collapse" aria-labelledby="headingPizza"
                                 data-bs-parent="#item-accordian-1">
@@ -152,6 +153,10 @@
         <span class="fw-bold" style="opacity: 0.8;">SubTotal</span>
         <span class="fw-bold" style="opacity: 0.8;" id="subtotalcontainer">₹00.00</span>
     </div>
+    <div class="d-flex justify-content-between p-2 mt-2">
+        <span class="fw-bold" style="opacity: 0.8;">Exclusive Tax</span>
+        <span class="fw-bold" style="opacity: 0.8;" id="ExclusiveTaxcontainer">₹00.00</span>
+    </div>
     @foreach (var tax in Model.orderTax)
     {
         <div class="d-flex justify-content-between px-2">
@@ -191,16 +196,18 @@
     <div class="d-flex justify-content-end gap-3 mt-3">
         <button class="btn btn-primary px-5 w-25" id="OrderSaveButton" type="button"
             style="background-color: rgb(0, 102, 187); color: white;" data-orderid="@Model.OrderId" data-customerid="@Model.CustomerId" data-orderstatus="@Model.OrderStatus" disabled>Save</button>
-        <button class="btn btn-primary px-5 w-25" type="button"
-            style="background-color: white; color: rgb(0, 102, 187);  border-color: rgb(0, 102, 187) !important;"
-            id="OrderCompleted"  data-orderid="@Model.OrderId">Complete</button>
-        <button class="btn btn-primary px-5 w-20" type="button"
-            style="background-color: white; color: rgb(0, 102, 187);  border-color: rgb(0, 102, 187) !important;"
-            disabled>Generate Invoice</button>
+        <button type="button" class="btn btn-outline-primary px-5 w-25 ordercompltebtn" type="button"
+             data-bs-toggle="modal" data-bs-target="#completeModal">Complete</button>
+        <button type="button" class="btn btn-outline-primary px-5 w-20 GenerateInvoice" data-orderid="@Model.OrderId" type="button"
+            >Generate Invoice</button>
     </div>
     <div class="d-flex justify-content-end gap-3 mt-3">
-        <button class="btn btn-primary px-5 w-25" type="button"
-            style="background-color: white; color: rgb(0, 102, 187);  border-color: rgb(0, 102, 187) !important;">Cancel</button>
+        <button type="button" class="btn btn-outline-primary px-5 w-25 cancelbtn" type="button"
+           data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button>
 
     </div>
 </div>
+
+<style>
+    
+</style>    

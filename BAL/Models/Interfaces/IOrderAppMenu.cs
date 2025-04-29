@@ -14,7 +14,13 @@ public interface IOrderAppMenu
     public Task<CustomerDetailsForOrderViewModel> GetCustomerDetails(int OrderId);
     public Task<bool> SaveCustomerDetails(CustomerDetailsForOrderViewModel model);
     public Task<OrderWiseCommentViewModel> GetOrderComments(int OrderId);
+    public Task<Itemwisecommentviewmodel> GetItemComments(int OrderId);
     public Task<bool> PostComment(OrderWiseCommentViewModel model);
+    public Task<bool> PostItemComment(Itemwisecommentviewmodel model);
     public Task<bool> SaveOrder(int OrderId,string OrderStatus, List<OrderItemviewmodel> save_items, List<int> delete_items, List<MenuTaxviewmodel>save_tax,string payment_type);
+    public Task<bool> CheckReadyQuantity(int orderId);
+    public Task<bool> CheckReadyQuantityForCancel(int orderId);
     public Task<bool> CompleteOrder(int orderId);
+    public Task<bool> CancelOrder(int orderId);
+    public Task<bool> AddCustomerRatting(OrderAppMenuviewmodel model);
 }
