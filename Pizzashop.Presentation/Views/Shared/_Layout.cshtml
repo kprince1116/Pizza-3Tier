@@ -44,7 +44,7 @@
         </div>
         <div class="gap-5 mt-3" style="margin-top: 30px !important;">
           <div class="aa">
-            <a href="" class="sidebar-tile">
+            <a asp-controller="Home" asp-action="Index" class="sidebar-tile @(ViewContext.RouteData.Values["controller"].ToString() == "Home" && ViewContext.RouteData.Values["action"].ToString() == "Index" ? "active" : "")">
               <img style="height: 25px;" src="~/images/dashboard-default.svg">
               <div>Dashboard</div>
             </a>

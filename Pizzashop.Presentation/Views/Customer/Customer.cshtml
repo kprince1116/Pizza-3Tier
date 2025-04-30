@@ -76,17 +76,17 @@
       <div class="modal-body">
         <div class="row">
           <div class="col form-floating mb-3">
-            <input type="date" class="form-control">
+            <input type="date" id="startDate" class="form-control">
             <label for="startDate" class="form-label ms-2">Start Date</label>
           </div>
           <div class="col form-floating mb-2">
-            <input type="date" class="form-control" >
+            <input type="date" id="endDate" class="form-control" >
             <label for="endDate" class="form-label ms-2">End Date</label>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Apply</button>
+        <button type="button" id="applyDateRange" class="btn btn-primary">Apply</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
@@ -109,9 +109,12 @@
       document.getElementById("dateRangeModal")
     );
     Modal.hide();
+    changePageForCustomer(1);
+     $("#startDate").val('');
+     $("#endDate").val('');
   });
 
-  $(document).on("click", "#timeFilter", function () {
+  $(document).on("change", "#timeFilter", function () {
     changePageForCustomer(1);
   });
 

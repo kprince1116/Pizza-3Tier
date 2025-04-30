@@ -44,6 +44,8 @@ builder.Services.AddScoped<IWaitingRepository,WaitingRepository>();
 builder.Services.AddScoped<IWaitingService,WaitingService >();
 builder.Services.AddScoped<IOrderAppMenu,OrderAppMenu>();
 builder.Services.AddScoped<IOrderAppMenuRepository,OrderAppMenuRepository >();
+builder.Services.AddScoped<IDashboard,Dashboard>();
+builder.Services.AddScoped<IDashboardRepository,DashboardRepository >();
 builder.Services.AddScoped<Permissions>();
 builder.Services.AddHttpContextAccessor();
 

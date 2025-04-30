@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\ProfileImages\\dominos_background.jpg"
     },
     {
+      "Id": "D:\\Project\\Pizza-3Tier\\Pizzashop.Presentation\\wwwroot\\css\\Home.css",
+      "PackagePath": "staticwebassets\\css\\Home.css"
+    },
+    {
       "Id": "D:\\Project\\Pizza-3Tier\\Pizzashop.Presentation\\wwwroot\\css\\Kot.css",
       "PackagePath": "staticwebassets\\css\\Kot.css"
     },

@@ -25,6 +25,10 @@ public partial class OrderItem
 
     public bool? IsDeleted { get; set; }
 
+    public DateTime? CreatedDate { get; set; }
+
+    public DateTime? ModifiedDate { get; set; }
+
     public virtual MenuItem? Item { get; set; }
 
     public virtual Order? Order { get; set; }

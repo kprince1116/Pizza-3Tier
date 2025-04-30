@@ -1,36 +1,203 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Dashboard";
 }
+<link rel="stylesheet" href="~/css/Home.css" asp-append-version="true" />
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="d-flex justify-content-between">
+    <h3 class="custom-blue fw-bold m-3">Dashboard</h3>
+
+    <select class="form-select all-time me-2" aria-label="Time filter" style="width: 270px; height: 58px;"
+        id="timeFilter">
+        <option selected value="">ALL TIME</option>
+        <option value="today">Today</option>
+        <option value="Last_7_days">Last 7 Days</option>
+        <option value="Last_30_days">Last 30 Days</option>
+        <option value="this_month">Current Month</option>
+        <option value="custom">Custom Date</option>
+    </select>
 </div>
 
- <script src="~/lib/jquery/dist/jquery.min.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<div class="container-fluid mt-3">
+    <div id="DashboardData">
+
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="dateRangeModal" tabindex="-1" aria-labelledby="dateRangeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="dateRangeModalLabel">Select Date Range</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col form-floating mb-3">
+                        <input type="date" id="startDate" class="form-control">
+                        <label for="startDate" class="form-label ms-2">Start Date</label>
+                    </div>
+                    <div class="col form-floating mb-2">
+                        <input type="date" id="endDate" class="form-control">
+                        <label for="endDate" class="form-label ms-2">End Date</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="applyDateRange" class="btn btn-primary">Apply</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+    document.getElementById('timeFilter').addEventListener('change', function () {
+        if (this.value === 'custom') {
+            var myModal = new bootstrap.Modal(document.getElementById('dateRangeModal'));
+            myModal.show();
+        }
+    });
+
+    $(document).on("click", "#applyDateRange", function () {
+        var Modal = bootstrap.Modal.getInstance(
+            document.getElementById("dateRangeModal")
+        );
+        Modal.hide();
+        GetDashBoardData();
+        $("#startDate").val('');
+         $("#endDate").val();
+    });
+
+    $(document).on("change", "#timeFilter", function () {
+        GetDashBoardData();
+    });
+
+    $(document).ready(function () {
+        GetDashBoardData();
+    })
+
+    function GetDashBoardData() {
+        let time = $("#timeFilter").val();
+        console.log("time", time);
+        let startdate = $("#startDate").val();
+        console.log("startdate", startdate);
+        let enddate = $("#endDate").val();
+        console.log("enddate", enddate);
+
+        $.ajax({
+            url: "/Home/DashboardData",
+            data: { time: time, fromdate: startdate, todate: enddate },
+            @* type: "GET", *@
+            success: function (data) {
+                $("#DashboardData").html(data);
+            },
+            error: function () {
+                console.log("error occured");
+            }
+        });
+
+
+    }
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @section Scripts {
     <script>
         $(document).ready(function () {
-            @if (TempData["LoginSuccess"] != null && (bool)TempData["LoginSuccess"])
-            {
-                <text>
-                    showToastrNotification('success', 'User logged in successfully!');
-                </text>
-            }
-             @if (TempData["AddSectionSuccess"] != null && (bool)TempData["AddSectionSuccess"])
-            {
-                <text>
-                    showToastrNotification('success', 'Section Added successfully!');
-                </text>
-            }
-             @if (TempData["ProfileUpdateSuccess"] != null && (bool)TempData["ProfileUpdateSuccess"])
-            {
-                <text>
-                    showToastrNotification('success', 'Profile Updated successfully!');
-                </text>
-            }
-        });
+        @if (TempData["LoginSuccess"] != null && (bool)TempData["LoginSuccess"])
+        {
+            <text>
+                        showToastrNotification('success', 'User logged in successfully!');
+            </text>
+        }
+        @if (TempData["AddSectionSuccess"] != null && (bool)TempData["AddSectionSuccess"])
+        {
+            <text>
+                        showToastrNotification('success', 'Section Added successfully!');
+            </text>
+        }
+        @if (TempData["ProfileUpdateSuccess"] != null && (bool)TempData["ProfileUpdateSuccess"])
+        {
+            <text>
+                        showToastrNotification('success', 'Profile Updated successfully!');
+            </text>
+        }
+                        });
     </script>
 }

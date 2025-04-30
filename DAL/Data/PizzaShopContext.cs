@@ -443,10 +443,16 @@ public partial class PizzaShopContext : DbContext
             entity.ToTable("order_item");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.CreatedDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("created_date");
             entity.Property(e => e.IsDeleted)
                 .HasDefaultValueSql("false")
                 .HasColumnName("is_deleted");
             entity.Property(e => e.ItemId).HasColumnName("item_id");
+            entity.Property(e => e.ModifiedDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("modified_date");
             entity.Property(e => e.OrderId).HasColumnName("order_id");
             entity.Property(e => e.OrderItemInstruction).HasColumnType("character varying");
             entity.Property(e => e.Price)

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "8yvHutFGN5gKNdXauDUFaq+xHH+8dqpaVU0EUDc/dnA=",
+  "Hash": "rbFGmCAAtnhe2Adt96lNcqwBk1mxy3xyH2Oi8vDTo08=",
   "Source": "Pizzashop.Presentation",
   "BasePath": "_content/Pizzashop.Presentation",
   "Mode": "Default",
@@ -134,6 +134,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\dashboard.css"
+    },
+    {
+      "Identity": "D:\\Project\\Pizza-3Tier\\Pizzashop.Presentation\\wwwroot\\css\\Home.css",
+      "SourceId": "Pizzashop.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\Pizza-3Tier\\Pizzashop.Presentation\\wwwroot\\",
+      "BasePath": "_content/Pizzashop.Presentation",
+      "RelativePath": "css/Home.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\Home.css"
     },
     {
       "Identity": "D:\\Project\\Pizza-3Tier\\Pizzashop.Presentation\\wwwroot\\css\\Kot.css",
