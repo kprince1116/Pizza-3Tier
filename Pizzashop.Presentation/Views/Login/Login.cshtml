@@ -22,6 +22,7 @@
         </div>
         <form method="post" asp-controller="Login" asp-action="Login"
             class="content col-lg-6 d-flex align-items-center justify-content-center col-md-12 ps-xl-5 pt-xl-5 ms-xl-0 ms-lg-0 ms-md-4">
+            <input type="hidden" asp-for = "@Model.imgUrl" >
             <div class="bg-image d-block d-lg-none position-absolute w-100 h-100"
                 style="background-image: url('~/images/dominos_background.jpg'); background-size: cover; background-position: center; z-index: -1; opacity: 70%;">
             </div>

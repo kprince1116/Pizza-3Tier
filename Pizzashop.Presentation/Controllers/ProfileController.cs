@@ -23,7 +23,7 @@ public class ProfileController : Controller
     {
         var token = Request.Cookies["jwtToken"];
         string email = _tokenService.GetEmailFromToken(token);
-
+        var profiles =  _tokenService.GetImageUrlFromToken(token);
         var profile = await _userDetails.GetUserProfile(email);
         Console.WriteLine(profile);
         return View(profile);

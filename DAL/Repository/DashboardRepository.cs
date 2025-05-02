@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using DAL.Interfaces;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
@@ -76,7 +78,7 @@ public class DashboardRepository : IDashboardRepository
     {
         try
         {
-             var waiting = _db.WaitingTokens.Where(u=>u.IsAssigned == true &&  u.CreatedDate.HasValue && u.CreatedDate.Value >= startDate && u.CreatedDate.Value <= endDate );
+         var waiting = _db.WaitingTokens.Where(u=>u.IsAssigned == true &&  u.CreatedDate.HasValue && u.CreatedDate.Value >= startDate && u.CreatedDate.Value <= endDate );
 
          var waitinglist = await waiting.Select(u => (u.AssignedTime.Value - u.CreatedDate.Value).TotalMinutes).ToListAsync();
 
@@ -140,7 +142,7 @@ public class DashboardRepository : IDashboardRepository
     {
        var orderItem = _db.OrderItems.Include(u=>u.Item).Include(u=>u.Order).Where(u=> u.CreatedDate.HasValue && u.CreatedDate.Value >= startDate && u.CreatedDate.Value <= endDate);
         
-        var itemList = orderItem.GroupBy(u=>u.ItemId).Select
+       var itemList = orderItem.GroupBy(u=>u.ItemId).Select
        (u=>new ItemDashboardviewmodel{
             ItemId = (int) u.First().ItemId,
             ItemName = u.First().Item.Itemname,
@@ -165,28 +167,131 @@ public class DashboardRepository : IDashboardRepository
        return itemList;
     }
 
-      public async Task<List<Revenueviewmodel>> GetRevenueList(DateTime startDate, DateTime endDate)
+      public async Task<List<Revenueviewmodel>> GetRevenueList(DateTime startDate, DateTime endDate , string time )
       {
         var payments = _db.Paymentmodes.Where(u=> u.PaymentStatus == "paid" && u.PaidOn.HasValue && u.PaidOn.Value >= startDate && u.PaidOn.Value <= endDate).OrderBy(u=>u.PaidOn);
 
-        var revenuelist = payments.Select(u=>new Revenueviewmodel{
-            RevenueDate = (DateTime) u.PaidOn,
-            TotalRevenue = (decimal) u.Totalamount
+
+
+        var revenuelist = payments.GroupBy(u=>u.PaidOn.Value.Date).Select(u=>new Revenueviewmodel{
+            RevenueDate = (DateTime) u.First().PaidOn,
+            TotalRevenue = (decimal) u.Sum(u=>u.Totalamount)
         }).ToList();
 
-        return revenuelist;
+        // return revenuelist;
+
+        Dictionary<DateTime,decimal> revenueDist;
+        List<Revenueviewmodel> newRevenue = new();
+
+        switch(time)
+        {
+            case "today":
+                newRevenue  = Enumerable.Range(0,24)
+                .Select(hour => new Revenueviewmodel{
+                    RevenueDate = startDate.Date.AddHours(hour),
+                    TotalRevenue = revenuelist.Where(u=>u.RevenueDate.Hour == hour && u.RevenueDate.Date == startDate).Sum(u=>u.TotalRevenue)
+                }).ToList();
+                break;
+            case "Last_7_days":
+            case "Last_30_days":
+                revenueDist = revenuelist.GroupBy(u=>u.RevenueDate.Date).ToDictionary(u=>u.Key,u=>u.Sum(x=>x.TotalRevenue));
+                int totalDays = (endDate-startDate).Days;
+                newRevenue = Enumerable.Range(0,totalDays+1)
+                .Select(day => new Revenueviewmodel{
+                    RevenueDate = startDate.Date.AddDays(day),
+                    TotalRevenue = revenueDist.ContainsKey(startDate.Date.AddDays(day)) ? revenueDist[startDate.Date.AddDays(day)] : 0
+                }).ToList();
+                break;  
+            case "month":
+                revenueDist = revenuelist.GroupBy(u=> new {u.RevenueDate.Year,u.RevenueDate.Month}).ToDictionary(
+                    g=> new DateTime (g.Key.Year,g.Key.Month,1),
+                    g=>g.Sum(x=>x.TotalRevenue)
+                );
+                DateTime itr = new(startDate.Year,startDate.Month,1);
+                DateTime lastMonth = new(endDate.Year,endDate.Month,1);
+
+                while(itr<=lastMonth){
+                    newRevenue.Add(new Revenueviewmodel
+                    {
+                        RevenueDate = itr,
+                        TotalRevenue = revenueDist.ContainsKey(itr)?revenueDist[itr]:0
+                    });
+                    itr = itr.AddMonths(1);
+                }
+            break;
+            default:
+            startDate = revenuelist.Min(u=>u.RevenueDate);
+            endDate = revenuelist.Max(u=>u.RevenueDate);
+            totalDays = (endDate-startDate).Days;
+            bool isSameYear = startDate.Year == endDate.Year;
+            bool isSameMonth = startDate.Month == endDate.Month;
+
+            if(!isSameYear)
+            {
+                revenueDist = revenuelist.GroupBy(u=>u.RevenueDate.Year).ToDictionary(
+                    u => new DateTime(u.Key,1,1),
+                    u=>u.Sum(x=>x.TotalRevenue)
+                );
+                for(int year =startDate.Year ; year<=endDate.Year;year++)
+                {
+                    DateTime yearstart = new DateTime(year,1,1);
+                    newRevenue.Add(new Revenueviewmodel{
+                        RevenueDate = yearstart,
+                        TotalRevenue = revenueDist.ContainsKey(yearstart) ? revenueDist[yearstart] : 0
+                    });
+                }
+            }
+            else if(!isSameMonth)
+            {
+                 revenueDist = revenuelist.GroupBy(u=> new {u.RevenueDate.Year,u.RevenueDate.Month}).ToDictionary(
+                    g=> new DateTime (g.Key.Year,g.Key.Month,1),
+                    g=>g.Sum(x=>x.TotalRevenue)
+                );  
+                itr = new(startDate.Year,startDate.Month,1);
+                lastMonth = new(endDate.Year,endDate.Month,1);
+                while(itr<=lastMonth)
+                {
+                    newRevenue.Add(new Revenueviewmodel{
+                        RevenueDate = itr,
+                        TotalRevenue = revenueDist.ContainsKey(itr) ? revenueDist[itr] : 0
+                    });
+                    itr = itr.AddMonths(1);
+                }
+            }
+            else{
+                revenueDist = revenuelist
+                                .GroupBy(u=>u.RevenueDate.Date)
+                                .ToDictionary(u=>u.Key,u=>u.Sum(x=>x.TotalRevenue));
+                totalDays = (endDate-startDate).Days;
+                newRevenue = Enumerable.Range(0,totalDays+1).Select(i=>new Revenueviewmodel{
+                    RevenueDate = startDate.Date.AddDays(i),
+                    TotalRevenue = revenueDist.ContainsKey(startDate.Date.AddDays(i)) ? revenueDist[startDate.Date.AddDays(i)]:0
+                }).ToList();
+                
+            }
+
+            break;
+        }
+
+
+
+        return newRevenue.OrderBy(u=>u.RevenueDate).ToList();
+
       }
 
     public async Task<List<CustomerDashboardviewmodel>> GetCustomerList(DateTime startDate ,  DateTime endDate)
     {
-        var customers = _db.Customers.Where(u=> u.CreatedDate.HasValue && u.CreatedDate.Value >= startDate && u.CreatedDate.Value <= endDate).OrderBy(u=>u.CreatedDate);
-    
-        // var customerCount = await customers.CountAsync();
-    
-        var customerlist = customers.GroupBy(u=>u.CreatedDate).Select(u=>new CustomerDashboardviewmodel{
+        var customers = _db.Customers
+        .Where(u=> u.CreatedDate.HasValue && u.CreatedDate.Value >= startDate && u.CreatedDate.Value <= endDate)
+        .OrderBy(u=>u.CreatedDate);
+        
+        var customerlist = customers
+        .GroupBy(u=>u.CreatedDate.Value.Date)
+        .Select(u=>new CustomerDashboardviewmodel{
             CustomerDate = (DateTime) u.First().CreatedDate,
             TotalCustomer = u.Count()
-        }).ToList();
+        })
+        .ToList();
     
         return customerlist;
     }

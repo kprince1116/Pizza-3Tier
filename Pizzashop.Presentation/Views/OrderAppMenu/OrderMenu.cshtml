@@ -1222,11 +1222,15 @@
 
       <script>
 
-    $(document).on('click','.GenerateInvoice',function(){
+    $(document).off('click','.GenerateInvoice').on('click','.GenerateInvoice',function(){
       var orderid = $(this).data("orderid");
       console.log("orderid:",orderid);
+      Generateinvoice(orderid);
+    });
 
-    $.ajax({
+    function Generateinvoice(orderid)
+    {
+         $.ajax({
           url: '@Url.Action("Invoice", "Order")',
           type:"GET",
           data:{orderId:orderid},
@@ -1262,8 +1266,9 @@
             console.log("error",error);
             }
     });
-});
 
+    }
+    
 </script>
 
 }

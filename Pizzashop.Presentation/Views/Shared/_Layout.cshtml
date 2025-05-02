@@ -1,10 +1,13 @@
-﻿@using BAL.Models.Interfaces
+﻿@using BAL.Interfaces
+@using BAL.Models.Interfaces
 @using BAL.Services
 @using Microsoft.AspNetCore.Authorization
 @using Pizzashop.DAL.ViewModels
 @inject IAuthorizationService AuthorizationService
 @inject IPermissions PermissionService
 @inject IUserroleService UserRoleService
+@inject ITokenService TokenService
+@inject IHttpContextAccessor HttpContext
 
 @{
   var canViewUsers = await PermissionService.HasPermission("Users", ActionPermissions.CanView);
@@ -14,7 +17,12 @@
   var canViewTaxes = await PermissionService.HasPermission("TaxAndFee", ActionPermissions.CanView);
   var canViewCustomers = await PermissionService.HasPermission("Customer", ActionPermissions.CanView);
   var isacccountmanager = await UserRoleService.IsUserInRoleAsync("Account_Manager");
+  var token = HttpContext.HttpContext.Request.Cookies["jwtToken"];
+  var profile = TokenService.GetImageUrlFromToken(token);
+  Console.WriteLine("profile:::::::--------------",profile);
+  var hello = "hell";
 }
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +36,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
   <link rel="stylesheet" href="~/css/dashboard.css" asp-append-version="true" />
-  
+
   <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -44,7 +52,8 @@
         </div>
         <div class="gap-5 mt-3" style="margin-top: 30px !important;">
           <div class="aa">
-            <a asp-controller="Home" asp-action="Index" class="sidebar-tile @(ViewContext.RouteData.Values["controller"].ToString() == "Home" && ViewContext.RouteData.Values["action"].ToString() == "Index" ? "active" : "")">
+            <a asp-controller="Home" asp-action="Index"
+              class="sidebar-tile @(ViewContext.RouteData.Values["controller"].ToString() == "Home" && ViewContext.RouteData.Values["action"].ToString() == "Index" ? "active" : "")">
               <img style="height: 25px;" src="~/images/dashboard-default.svg">
               <div>Dashboard</div>
             </a>
@@ -278,10 +287,10 @@
 
           @if (isacccountmanager)
           {
-              <button onclick="fetchOrder()" class="btn d-flex justify-content-end"
-                style="border: none; background: transparent;" data-bs-toggle="dropdown" aria-expanded="false">
-                <img style="height:30px !important;" src="~/images/icons/phone.svg" alt="Phone Icon">
-              </button>
+            <button onclick="fetchOrder()" class="btn d-flex justify-content-end"
+              style="border: none; background: transparent;" data-bs-toggle="dropdown" aria-expanded="false">
+              <img style="height:30px !important;" src="~/images/icons/phone.svg" alt="Phone Icon">
+            </button>
           }
           <div class="container-fluid d-flex justify-content-end">
             <button class="btn" style="border: none; background: transparent;" data-bs-toggle="dropdown"
@@ -332,9 +341,8 @@
 
 <script>
 
-    function fetchOrder()
-    {
-      window.location.href = "/Kot/Kot";
-    }
-  
-  </script>
+  function fetchOrder() {
+    window.location.href = "/Kot/Kot";
+  }
+
+</script>

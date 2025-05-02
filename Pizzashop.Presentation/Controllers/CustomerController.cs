@@ -37,9 +37,18 @@ public class CustomerController : Controller
     [_AuthPermissionAttribute("Customer", ActionPermissions.CanView)]
     public async Task<IActionResult> GetCustomerHistory(int id)
     {
-        var customer = await _customerservice.GetCustomerHistory(id);
+        try
+        {
+              var customer = await _customerservice.GetCustomerHistory(id);
 
         return PartialView("_customerhistoryPartial",customer);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return null;
+        }
+      
     }
 
         public async Task<IActionResult> ExportCustomerToExcel(string searchKey, string timefilter ,  string fromdate , string todate)

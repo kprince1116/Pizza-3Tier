@@ -101,6 +101,7 @@
                 <h4>Revenue</h4>
             </div>
             <div class="chart">
+                <div id="revenuechart" ></div>
                 <canvas id="myChart"></canvas>
             </div>
         </div>
@@ -109,10 +110,12 @@
     <div class="col-6">
         <div class="bg-white shadow rounded p-2 h-100">
             <div class="d-flex justify-content-start">
+                 
                 <h4>Customer Growth</h4>
             </div>
             <div class="chart">
                 <canvas id="customerGrowthChart"></canvas>
+                 <div id="customerchart"></div>
             </div>
         </div>
 
@@ -230,44 +233,71 @@
 <script>
     $(document).ready(function () {
 
-      
+
     })
 </script>
 
 <script>
     $(document).ready(function () {
-      
+
     });
 </script>
 
 <script>
     $(document).ready(function () {
         getGraph();
-              getGraphForCustomer();
+        getGraphForCustomer();
     });
 
     function getGraph() {
         var OrderRevenue = @Html.Raw(Json.Serialize(Model.RevenueList));
 
-        let format = "dd-MM-yyyy";  
+        if (!OrderRevenue || OrderRevenue.length === 0) {
+        document.getElementById("revenuechart").innerHTML = "<p>No revenue data available to display.</p>";
+        return;
+    }
+
+        let format = "dd-MM-yyyy";
+
+        let filter = $("#timeFilter").val();
+        console.log("filter:",filter);
 
         let fromDate = new Date(OrderRevenue[0].revenueDate);
 
         let endDate = new Date(OrderRevenue[OrderRevenue.length - 1].revenueDate);
 
         const totalDays = Math.floor((endDate - fromDate) / (1000 * 60 * 60 * 24));
+        const totalMonths = (endDate.getFullYear() - fromDate.getFullYear())*12 + (endDate.getMonth() - fromDate.getMonth());
 
-        if (totalDays === 0) {
-            format = "HH:mm";
-        } else if (totalDays >= 365) {
-            format = "YYYY";
-        } else if (totalDays >= 30) {
-            format = "MM-yyyy";
+          switch(filter){
+            case "today":
+                format = "HH:mm";
+                break;
+            case "month":
+                format = "MMM-yyyy";
+                break;
+            case "30":
+                format = "dd-MM-yyyy";
+                break;
+            case "7":
+                format = "dd-MM-yyyy";
+                break;
+            default:
+                if(totalMonths > 12){
+                    format = "yyyy";
+                }
+                else if(totalDays > 30){
+                    format = "MMM-yyyy"
+                }
+                else{
+                    format = "dd-MM-yyyy";
+                }
+                break;
         }
 
         const labels = OrderRevenue.map(order => {
             const date = new Date(order.revenueDate);
-            return formatDate(date, format); 
+            return formatDate(date, format);
         });
 
         const revenue = OrderRevenue.map(order => order.totalRevenue);
@@ -295,14 +325,12 @@
                     x: {
                         title: {
                             display: true,
-                            text: "Day of Month"
                         }
                     },
                     y: {
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: "Revenue (₹)"
                         }
                     }
                 }
@@ -325,12 +353,17 @@
             }
         }
     }
-    
-     function getGraphForCustomer() {
+
+    function getGraphForCustomer() {
         var CustomerRevenue = @Html.Raw(Json.Serialize(Model.CustomerList));
         console.log("customerrevenue", CustomerRevenue);
 
-        let format = "dd-MM-yyyy";  
+         if (!CustomerRevenue || CustomerRevenue.length === 0) {
+        document.getElementById("customerchart").innerHTML = "<p>No Customer data available to display.</p>";
+        return;
+        }
+
+        let format = "dd-MM-yyyy";
 
         let fromDate = new Date(CustomerRevenue[0].customerDate);
         console.log("fromDate:", fromDate);
@@ -360,14 +393,14 @@
         console.log("customercount:", customercount);
 
 
-         var ctx1 = document.getElementById("customerGrowthChart").getContext("2d");
+        var ctx1 = document.getElementById("customerGrowthChart").getContext("2d");
 
         new Chart(ctx1, {
             type: "line",
             data: {
                 labels: labels1,
                 datasets: [{
-                    label: "Revenue",
+                    label: "Customer",
                     data: customercount,
                     backgroundColor: "rgba(75, 192, 192, 0.2)",
                     borderColor: "rgba(75, 192, 192, 1)",
@@ -382,15 +415,12 @@
                 scales: {
                     x: {
                         title: {
-                            display: true,
-                            text: "Day of Month"
-                        }
+                            display: true}
                     },
                     y: {
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: "Revenue (₹)"
                         }
                     }
                 }
@@ -412,13 +442,13 @@
                     return date.toLocaleDateString();
             }
         }
-        }
+    }
 </script>
 
 <script>
- $(document).ready(function () {
-  
+    $(document).ready(function () {
+
     });
 
-     
-</script>    
+
+</script>

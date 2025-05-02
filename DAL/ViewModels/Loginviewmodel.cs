@@ -14,5 +14,7 @@ public class Loginviewmodel
     public bool RememberMe {get ; set;} 
     public string Role { get; set; } = null!;
 
+    public string imgUrl = null;
+
 }
 }

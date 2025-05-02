@@ -18,7 +18,7 @@ public class CustomerRepository : ICustomerRepository
 
     public async Task<Customerviewmodel> GetCustomerDetails(int pageNo,int pageSize,string searchKey,string sortby , string sortdirection , string timefilter,string fromdate , string todate)
     {
-        var customers = _db.Customers.Where(u=>u.Isdelete == false).Select(
+        var customers = _db.Customers.Include(u=>u.Orders).Where(u=>u.Isdelete == false).Select(
             u=> new CustomerDetailsviewmodel
             {
                 Customerid = u.Customerid,

@@ -50,10 +50,10 @@ namespace BAL.Services
                 throw new Exception("User role not found.");
             }
 
-            return GenerateJwtToken(existingUser.Email, existingUser.UserroleNavigation.RoleName);
+            return GenerateJwtToken(existingUser.Email, existingUser.UserroleNavigation.RoleName,existingUser.ProfileImage);
         }
 
-        private string GenerateJwtToken(string email, string role)
+        private string GenerateJwtToken(string email, string role,string imageUrl)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -62,7 +62,8 @@ namespace BAL.Services
             {
                 new Claim(ClaimTypes.Email, email),
                 new Claim(ClaimTypes.Role, role),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim("imageUrl", imageUrl ?? "~/images/Default_pfp.svg.png")
             };
 
             var token = new JwtSecurityToken(
@@ -134,6 +135,13 @@ namespace BAL.Services
                 Secure = false,
                 SameSite = SameSiteMode.Strict
             });
+            // response.Cookies.Append("ImgUrl", imgUrl, new CookieOptions
+            // {
+            //     Expires = DateTime.UtcNow.AddDays(7),
+            //     HttpOnly = true,
+            //     Secure = false,
+            //     SameSite = SameSiteMode.Strict
+            // });
         }
 
     }

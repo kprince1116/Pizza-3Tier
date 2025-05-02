@@ -9,5 +9,5 @@ public interface ICustomerService
 
     public Task<List<CustomerDetailsviewmodel>> GetCustomer(string searchKey,string timefilter, string fromdate , string todate);
 
-    public Task<Customer> GetCustomerHistory(int id);
+    public Task<CustomerHistoryviewmodel> GetCustomerHistory(int id);
 }

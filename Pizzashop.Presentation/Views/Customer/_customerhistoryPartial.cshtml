@@ -1,9 +1,6 @@
-@model DAL.Models.Customer
+@model Pizzashop.DAL.ViewModels.CustomerHistoryviewmodel
 
-@{
-  decimal maxOrder = (decimal) Model.Orders.Max(o=>o.TotalAmount);
-  decimal avgBill = (decimal) Model.Orders.Average(o=>o.TotalAmount);
-}
+
 
 <div class="modal-header">
         <h5 class="modal-title" id="customerHistoryModalLabel">Customer History</h5>
@@ -12,14 +9,14 @@
       <div class="modal-body">
         <div class="row border ms-1 me-1 pt-2 bg-light">
           <div class="col-lg-6">
-            <p class="border p-2 bg-white" ><strong>Name:</strong> @Model.Customername </p>
+            <p class="border p-2 bg-white" ><strong>Name:</strong> @Model.CustomerName </p>
             <p class="border p-2 bg-white" ><strong>Mobile Number:</strong> @Model.Phonenumber </span></p>
-            <p class="border p-2 bg-white" ><strong>Max Order:</strong> @maxOrder</span></p>
+            <p class="border p-2 bg-white" ><strong>Max Order:</strong> @Model.maxOrder</span></p>
           </div>
           <div class="col-lg-6">
-            <p class="border p-2 bg-white" ><strong>Average Bill:</strong>@avgBill </span></p>
-            <p class="border p-2 bg-white" ><strong>Coming Since:</strong> @Model.CreatedDate </span></p>
-            <p class="border p-2 bg-white" ><strong>Visits:</strong>@Model.Orders.Count()</span></p>
+            <p class="border p-2 bg-white" ><strong>Average Bill:</strong>@Model.avgBill </span></p>
+            <p class="border p-2 bg-white" ><strong>Coming Since:</strong> @Model.comingsince </span></p>
+            <p class="border p-2 bg-white" ><strong>Visits:</strong>@Model.totalvisits</span></p>
           </div>
         </div>
       </div>
@@ -37,14 +34,14 @@
                          </tr>
                        </thead>
                        <tbody>
-                          @foreach(var order in Model.Orders)
+                          @foreach(var order in Model.OrderList)
                           {
                           <tr>
-                            <td class="text-nowrap" >@order.Orderdate?.ToString("dd-MM-yyyy")</td>
-                            <td>@order.OrdereType</td>
-                            <td>@order.PaymentModeNavigation.Status</td>
-                            <td>@order.OrderItems.Count()</td>
-                            <td>@order.TotalAmount</td>
+                            <td class="text-nowrap" >@order.OrderDate.ToString("dd-MM-yyyy")</td>
+                            <td>@order.OrderType</td>
+                            <td>@order.paymentmode</td>
+                            <td>@order.totalitems</td>
+                            <td>@order.totalamount</td>
                           </tr>
                           }
                        </tbody>

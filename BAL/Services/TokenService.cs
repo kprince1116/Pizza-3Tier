@@ -24,11 +24,11 @@ public class TokenService : ITokenService
         var handler = new JwtSecurityTokenHandler();
         var jsonToken = handler.ReadJwtToken(token);
 
-        if(jsonToken !=null)
+        if (jsonToken != null)
         {
-            var email = jsonToken.Claims.FirstOrDefault(c=> c.Type == ClaimTypes.Email).Value;
+            var email = jsonToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
 
-            if(email != null)
+            if (email != null)
             {
                 return email;
             }
@@ -37,18 +37,30 @@ public class TokenService : ITokenService
         return null;
     }
 
-    public async Task<int> GetIdFromToken(string token)
+    public  string GetImageUrlFromToken(string token)
     {
-        
         var handler = new JwtSecurityTokenHandler();
         var jsonToken = handler.ReadJwtToken(token);
 
-         if(jsonToken !=null)
+        var imageUrlClaim =  jsonToken.Claims.FirstOrDefault(c => c.Type == "imageUrl");
+
+        return imageUrlClaim.Value;
+           
+    }
+
+
+    public async Task<int> GetIdFromToken(string token)
+    {
+
+        var handler = new JwtSecurityTokenHandler();
+        var jsonToken = handler.ReadJwtToken(token);
+
+        if (jsonToken != null)
         {
-            var email = jsonToken.Claims.FirstOrDefault(c=> c.Type == ClaimTypes.Email).Value;
+            var email = jsonToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
 
             var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == email);
-            
+
             if (user != null)
             {
                 return user.UserId;

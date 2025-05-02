@@ -30,7 +30,6 @@ public class HomeController : Controller
         return PartialView("_dashboardData",data);
     }
         
-
     public IActionResult Privacy()
     {
         return View();

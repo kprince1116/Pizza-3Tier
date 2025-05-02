@@ -41,7 +41,7 @@ public class LoginController : Controller
             {
                 _authService.SetCookie(Response, user.Email);
             }
-
+            
             TempData["LoginSuccess"] = true;
             return RedirectToAction("Index", "Home");
         }
