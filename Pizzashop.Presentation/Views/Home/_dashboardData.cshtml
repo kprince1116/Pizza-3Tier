@@ -365,23 +365,41 @@
 
         let format = "dd-MM-yyyy";
 
-        let fromDate = new Date(CustomerRevenue[0].customerDate);
-        console.log("fromDate:", fromDate);
+        let filter = $("#timeFilter").val();
+        console.log("filter:",filter);
 
-        let endDate = new Date(CustomerRevenue[CustomerRevenue.length - 1].customerDate);
-        console.log("endDate:", endDate);
+        let fromDate = new Date(CustomerRevenue[0].revenueDate);
+
+        let endDate = new Date(CustomerRevenue[CustomerRevenue.length - 1].revenueDate);
 
         const totalDays = Math.floor((endDate - fromDate) / (1000 * 60 * 60 * 24));
-        console.log("totalDays:", totalDays);
+        const totalMonths = (endDate.getFullYear() - fromDate.getFullYear())*12 + (endDate.getMonth() - fromDate.getMonth());
 
-        if (totalDays === 0) {
-            format = "HH:mm";
-        } else if (totalDays >= 365) {
-            format = "YYYY";
-        } else if (totalDays >= 30) {
-            format = "MM-yyyy";
+          switch(filter){
+            case "today":
+                format = "HH:mm";
+                break;
+            case "month":
+                format = "MMM-yyyy";
+                break;
+            case "30":
+                format = "dd-MM-yyyy";
+                break;
+            case "7":
+                format = "dd-MM-yyyy";
+                break;
+            default:
+                if(totalMonths > 12){
+                    format = "yyyy";
+                }
+                else if(totalDays > 30){
+                    format = "MMM-yyyy"
+                }
+                else{
+                    format = "dd-MM-yyyy";
+                }
+                break;
         }
-
         const labels1 = CustomerRevenue.map(order => {
             const date = new Date(order.customerDate);
             return formatDates(date, format); 
