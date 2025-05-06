@@ -46,3 +46,124 @@ button.accept-policy[b-br4os412p8] {
   white-space: nowrap;
   line-height: 60px;
 }
+
+/* Offcanvas menu styling */
+#offcanvasMenu[b-br4os412p8] {
+  /* Ensures the offcanvas takes full height */
+  height: 100%;
+}
+
+.offcanvas-body[b-br4os412p8] {
+  /* Set background color */
+  background-color: #f4f4f9;
+  /* Soft rounded corners on top for the offcanvas body */
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.offcanvas-body .div[b-br4os412p8] {
+  /* Adding padding and box shadow to the menu */
+  padding: 20px;
+  box-shadow: 4px 0px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for the logo and title area */
+.offcanvas-header[b-br4os412p8] {
+  background-color: #57b9ff;
+  padding: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.offcanvas-header h6[b-br4os412p8] {
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+/* Logo section (center-align) */
+.offcanvas-header .d-flex[b-br4os412p8] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Styling for nav links inside the menu */
+.nav-link[b-br4os412p8] {
+  color: #333;
+  font-size: 16px;
+  padding: 10px 15px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 5px;
+}
+
+.nav-link:hover[b-br4os412p8] {
+  background-color: #57b9ff;
+  color: #fff;
+}
+
+.nav-link.active[b-br4os412p8] {
+  background-color: #57b9ff;
+  color: white;
+}
+
+.nav-link img[b-br4os412p8] {
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+}
+
+/* Spacing for the link items */
+.aa[b-br4os412p8] {
+  margin-bottom: 15px;
+}
+
+.d-flex[b-br4os412p8] {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+@media (max-width: 767px) {
+  .offcanvas-body .div[b-br4os412p8] {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .offcanvas-header .d-flex[b-br4os412p8] {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-link[b-br4os412p8] {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  .nav-link img[b-br4os412p8] {
+    width: 20px;
+    height: 20px;
+  }
+
+  .aa[b-br4os412p8] {
+    margin-bottom: 10px;
+  }
+}
+
+.div[b-br4os412p8] {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.offcanvas-body[b-br4os412p8] {
+  padding-bottom: 20px;
+}
+
+.btn-close[b-br4os412p8] {
+  color: #333;
+  background-color: transparent;
+  border: none;
+}

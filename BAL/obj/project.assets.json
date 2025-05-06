@@ -10916,11 +10916,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Project\\Pizza-3Tier\\BAL\\BAL.csproj",
+      "projectUniqueName": "d:\\Project\\Pizza-3Tier\\BAL\\BAL.csproj",
       "projectName": "BAL",
-      "projectPath": "D:\\Project\\Pizza-3Tier\\BAL\\BAL.csproj",
+      "projectPath": "d:\\Project\\Pizza-3Tier\\BAL\\BAL.csproj",
       "packagesPath": "C:\\Users\\pca187\\.nuget\\packages\\",
-      "outputPath": "D:\\Project\\Pizza-3Tier\\BAL\\obj\\",
+      "outputPath": "d:\\Project\\Pizza-3Tier\\BAL\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\pca187\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -10935,8 +10935,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "D:\\Project\\Pizza-3Tier\\DAL\\DAL.csproj": {
-              "projectPath": "D:\\Project\\Pizza-3Tier\\DAL\\DAL.csproj"
+            "d:\\Project\\Pizza-3Tier\\DAL\\DAL.csproj": {
+              "projectPath": "d:\\Project\\Pizza-3Tier\\DAL\\DAL.csproj"
             }
           }
         }

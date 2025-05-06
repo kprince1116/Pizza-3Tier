@@ -1,4 +1,5 @@
 using DAL.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Pizzashop.DAL.ViewModels;
 
@@ -9,9 +10,8 @@ public class ProfileViewmodel
     public string? Username { get; set; }
     public string? Email {get; set;} = null!;
     public string Phonenumber { get; set; } = null!;
-
     public string ProfileImage {get; set;}
-
+    public IFormFile image {get; set;}
     public string? CountryName { get; set; }
 
     public string? StateName { get; set; }

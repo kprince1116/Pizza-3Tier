@@ -75,16 +75,24 @@ public class UserMenuRepository : IUserMenuRepository
         };
     }
 
-    public async Task<ModifierGroupViewModel> GetModifierItemById(int modifierId)
+    public async Task<ModifierGroupViewModel> GetModifierItemById(int modifierGroupId,int itemId)
     {
-        ModifierGroupViewModel? modifiergroup = await _db.ModifierGroups.Where(m => m.ModifierGroupId == modifierId).
+
+        var existsmodifier =  _db.Itemmodifiergroups.FirstOrDefault(u=>u.Itemid == itemId && u.Modifiergroupid == modifierGroupId && u.IsDeleted==false);
+
+        if(existsmodifier != null )
+        {
+            return null;
+        }
+      
+        ModifierGroupViewModel? modifiergroup = await _db.ModifierGroups.Where(m => m.ModifierGroupId == modifierGroupId).
                                     Include(m => m.Modifiermappings).ThenInclude(m=>m.Modifier).
                                     Select(m => new ModifierGroupViewModel
                                     {
                                         ModifierId = m.ModifierGroupId,
                                         Name = m.Name,
                                         Description = m.Description,
-                                        ModifierItemList = m.Modifiermappings.Where(m=>m.ModifierGroupId == modifierId && m.IsDeleted == false ).Select(i => new ModifierItemViewModel
+                                        ModifierItemList = m.Modifiermappings.Where(m=>m.ModifierGroupId == modifierGroupId && m.IsDeleted == false ).Select(i => new ModifierItemViewModel
                                         {
                                             ModifierItemId = i.Modifier.Modifierid,
                                             Name = i.Modifier.Modifiername,
@@ -496,10 +504,10 @@ public class UserMenuRepository : IUserMenuRepository
         return await _db.ModifierGroups.FirstOrDefaultAsync(m => m.ModifierGroupId == id);
     }
 
-    //edit Modifier
+    //edit Modifierz
     public async Task<bool> UpdateModifierAsync(menuviewmodel model)
     {
-        var exists = await _db.ModifierGroups.AnyAsync(u=>u.Name == model.AddModifierGroup.Name);
+        var exists = await _db.ModifierGroups.AnyAsync(u=>u.Name == model.AddModifierGroup.Name && u.ModifierGroupId != model.AddModifierGroup.ModifierId );
 
         if(exists)
         {

@@ -122,9 +122,9 @@ public class MenuController : Controller
 
      // ---------------------------------------------------- Add Item Modifier Select Group -----------------------------
     [HttpGet]
-    public async Task<IActionResult> GetModifierItemById(int modifierId)
+    public async Task<IActionResult> GetModifierItemById(int modifierGroupId , int itemId)
     {
-        return PartialView("_modifierItemPartialView", await _userMenu.GetModifierItemById(modifierId));
+        return PartialView("_modifierItemPartialView", await _userMenu.GetModifierItemById(modifierGroupId,itemId));
     }
    
     [_AuthPermissionAttribute("Menu", ActionPermissions.CanAddEdit)]
@@ -303,7 +303,7 @@ public class MenuController : Controller
             return RedirectToAction("Items", "Menu");
         }
         else{
-            return Content("error");
+            return Content("errorsssss");
         }
     }
     #endregion
@@ -326,12 +326,11 @@ public class MenuController : Controller
         var isAdded = await _userMenu.AddModifierItem(model);
         if (isAdded)
         {
-            TempData["AddModifierItemSuccess"] = true;
-            return RedirectToAction("Items", "Menu");
+            return Json( new { success = true});
         }
         else
         {
-            return Content("error");
+             return Json( new { success = false});
         }
     }
 
@@ -348,15 +347,14 @@ public class MenuController : Controller
     [HttpPost]
     public async Task<IActionResult> EditModifierItems(AddModifierViewModel model)
     {
-        var modifiers = _userMenu.EditModifierItem(model);
-        if (modifiers !=null)
+        var modifiers = await _userMenu.EditModifierItem(model);
+         if (modifiers)
         {
-            TempData["EditModifierItemSuccess"] = true;
-            return RedirectToAction("ItemsByModifier", "Menu");
+            return Json( new { success = true});
         }
         else
         {
-            return Content("error");
+             return Json( new { success = false});
         }
                                     
     }
@@ -365,15 +363,14 @@ public class MenuController : Controller
     [HttpPost]
     public async Task<IActionResult> DeleteModifierItem(int id , int modifiergroupId)
     {
-        var existingmodifier =  _userMenu.GetModifierItemForDeleteById(id,modifiergroupId);
-         if (existingmodifier !=null)
+        var existingmodifier =  await _userMenu.GetModifierItemForDeleteById(id,modifiergroupId);
+         if (existingmodifier)
         {
-            TempData["DeleteModifierItemSuccess"] = true;
-            return RedirectToAction("Items","Menu");
+            return Json( new { success = true});
         }
         else
         {
-            return Content("error");
+             return Json( new { success = false});
         }
     }
 

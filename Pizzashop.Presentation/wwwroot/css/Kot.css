@@ -195,7 +195,7 @@
     }
 
     .next-back-btn {
-        width: 25px; 
+        /* width: 25px;  */
     }
 }
 
@@ -212,4 +212,116 @@
 .inprogress-ready-btn.active {
     background-color: #0066bb; 
     color: white;
+}
+
+/* Tablets: max-width 768px */
+@media (max-width: 768px) {
+    .kot-container {
+        padding: 15px !important;
+    }
+
+    .tab-btn {
+        font-size: 15px !important;
+        padding: 8px 6px !important;
+    }
+
+    .inprogress-ready-btn {
+        font-size: 12px;
+        padding: 4px 6px;
+    }
+
+    /* .next-back-btn {
+        width: 25px;
+        height: 25px;
+        font-size: 14px;
+    } */
+
+    .KOT-Card {
+        width: 90% !important;
+        min-width: 250px;
+        margin: 0 auto;
+        font-size: 14px;
+    }
+
+    .Card-Content {
+        font-size: 14px;
+    }
+
+    .KOT-Item-container {
+        padding-bottom: 10px;
+        gap: 14px;
+    }
+
+    .card-wrapper {
+        gap: 14px;
+    }
+}
+
+/* Mobile Phones: max-width 576px */
+@media (max-width: 576px) {
+    .tab-btn {
+        font-size: 14px !important;
+        padding: 6px 4px !important;
+    }
+
+    .inprogress-ready-btn {
+        font-size: 11px;
+        padding: 3px 5px;
+    }
+
+    /* .next-back-btn {
+        width: 22px;
+        height: 22px;
+        font-size: 12px;
+    } */
+
+    .KOT-Card {
+        width: 95% !important;
+        min-width: 220px;
+        font-size: 13px;
+    }
+
+    .Card-Content {
+        font-size: 13px;
+    }
+
+    .kot-container {
+        padding: 10px 8px !important;
+    }
+
+    .kot-nav {
+        gap: 6px;
+    }
+}
+
+/* Small Devices (360px and below) */
+@media (max-width: 400px) {
+    .tab-btn {
+        font-size: 13px !important;
+        padding: 5px 4px !important;
+    }
+
+    .inprogress-ready-btn {
+        font-size: 10px;
+        padding: 3px 4px;
+    }
+
+    .KOT-Card {
+        min-width: 200px;
+        font-size: 12px;
+    }
+
+    /* .next-back-btn {
+        width: 20px;
+        height: 20px;
+        font-size: 11px;
+    } */
+
+    .kot-container {
+        padding: 8px 5px !important;
+    }
+
+    .Card-Content {
+        font-size: 12px;
+    }
 }

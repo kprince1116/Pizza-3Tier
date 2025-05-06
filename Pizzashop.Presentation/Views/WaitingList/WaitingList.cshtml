@@ -9,8 +9,7 @@
 <div class="p-lg-5 p-xl-5 p-md-6 p-4" >
     <div class="d-flex justify-content-between" >
         <h2 class="custom-blue fw-bolder fw-bold" style="color:#0066a7">Waiting List</h2>
-        <div class="custom-blue-border mb-3 d-flex align-items-center rounded text-nowrap" type="button" id="waitingtoken"
-             data-bs-toggle="modal" data-bs-target="#AddWaiting">
+        <div class="custom-blue-border mb-3 d-flex align-items-center rounded text-nowrap addwaitingtoken " type="button" id="waitingtoken">
             <span class="py-2 px-3"
                 style="color: #0066bb; border-radius: 5px; border: 2px solid #0066bb !important; border-width: 2px;">+
                 Waiting Token</span>
@@ -110,6 +109,13 @@
         $('#waitingdeleteid').val(id);
     });
 </script>
+
+<script>
+    $(document).on("click",".addwaitingtoken",function(){
+        var modal = new bootstrap.Modal(document.getElementById("AddWaiting"));
+        modal.show();
+    });
+</script>    
 
 @*get section list for modal*@
 <script>

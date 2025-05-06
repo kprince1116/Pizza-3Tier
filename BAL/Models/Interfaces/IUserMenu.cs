@@ -21,8 +21,7 @@ public interface IUserMenu
     
     public Task<ModifierItemListViewModel> GetItemsByExistingModifier( int pageNo  , int pageSize, string search = "");
 
-
-    public Task<ModifierGroupViewModel> GetModifierItemById(int modifierId);
+    public Task<ModifierGroupViewModel> GetModifierItemById(int modifierGroupId,int itemId);
 
     // public Task<int> GetItemsCountByCategory(int categoryId);
 

@@ -15,8 +15,7 @@ public class RolesAndPermissions : Controller
        
         _userRolesAndPermissions = userRolesAndPermissions;
     }
-
-
+    
     public IActionResult Roles()
     {   
         var role = _userRolesAndPermissions.GetRoles();

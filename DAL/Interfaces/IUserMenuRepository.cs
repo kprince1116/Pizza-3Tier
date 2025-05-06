@@ -19,7 +19,7 @@ public interface IUserMenuRepository
 
     public Task<paginationviewmodel> GetItemsByCategory(int id,  int pageNo = 1 , int pageSize=3, string search = "");
 
-    public Task<ModifierGroupViewModel> GetModifierItemById(int modifierId);
+    public Task<ModifierGroupViewModel> GetModifierItemById(int modifierGroupId,int itemId);
 
     public Task<ModifierItemListViewModel> GetItemsByExistingModifier(int pageNo = 1 , int pageSize=3, string search = "");
 

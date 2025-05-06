@@ -130,6 +130,7 @@
   
   @media only screen and (width: 425px) {
     .search {
+      margin-left: 5px !important;
       /* height: 37px !important; */
     }
     .delete-icon{
@@ -141,7 +142,8 @@
   @media (width: 375px) {
     .search {
         /* height: 45px !important; */
-        width: 115px !important;
+        /* width: 115px !important; */
+        margin-left: 5px !important;
     }
 }
   

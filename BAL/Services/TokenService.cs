@@ -47,6 +47,16 @@ public class TokenService : ITokenService
         return imageUrlClaim.Value;
            
     }
+    public  string GetRoleFromToken(string token)
+    {
+        var handler = new JwtSecurityTokenHandler();
+        var jsonToken = handler.ReadJwtToken(token);
+
+        var Role =  jsonToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+
+        return Role;
+           
+    }
 
 
     public async Task<int> GetIdFromToken(string token)

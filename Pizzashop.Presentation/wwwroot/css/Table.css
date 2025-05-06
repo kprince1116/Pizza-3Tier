@@ -90,6 +90,7 @@
     .sidebar-elements{
       display: flex;
       flex-direction: row;
+      overflow-x: auto;
       text-wrap: nowrap;
       height: auto !important;
     }

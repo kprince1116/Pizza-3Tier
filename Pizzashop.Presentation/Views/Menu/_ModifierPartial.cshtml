@@ -55,11 +55,11 @@
           {
           <td>
           @if(canAddMenu) 
-          {<a data-bs-toggle="modal" id="modifierEdit" data-bs-toggle="modal" data-bs-target="#Editmodifieritemmodal" class="edit-item" data-editmodifierid="@item.ModifierItemId" ><img src="~/images/icons/pen.svg" a  lt=""></a>
+          {<a data-bs-toggle="modal" id="modifierEdit" class="edit-item edit-modifier-item" data-editmodifierid="@item.ModifierItemId" ><img src="~/images/icons/pen.svg" a  lt=""></a>
           }
           @if(canDeleteMenu)
           {
-            <img data-bs-toggle="modal" class="delete-modifier" data-bs-toggle="modal" data-bs-target="#deleteModifierModal" onclick="deleteModifier(this)" data-deletemodifierid ="@item.ModifierItemId" data-deletemodifiergroupid = "@item.ModifierGroupId" src="~/images/icons/trash (1).svg" alt="">
+            <img data-bs-toggle="modal" class=" delete-modifier-item" data-deletemodifierid ="@item.ModifierItemId" data-deletemodifiergroupid = "@item.ModifierGroupId" src="~/images/icons/trash (1).svg" alt="">
              }                                   
           </td>
           }
@@ -210,7 +210,7 @@
 
         $(".inner-check-deletes:checked").each(function () {
             let id = $(this).data("deid");
-            groupid = $(this).data("degroupid"); // This sets groupid, but may not work if no checkboxes are checked
+            groupid = $(this).data("degroupid"); 
             
             if (id === undefined) {
                 console.log("id is undefined");
@@ -223,6 +223,10 @@
 
     $(document).ready(function() {
         $('#delete-icon-massmodifierdelete').on('click', function() {   
+
+            var modal = new bootstrap.Modal(document.getElementById('deleteModifierModalForMass'));
+            modal.show();
+
             var listOfModifierId = getSelectedId();
             console.log("list-id:", listOfModifierId);
             $('#ModifierListForDelete').html(listOfModifierId.join(',')); 
@@ -254,8 +258,7 @@
                 contentType: false,
                 success: function(data) {
                    toastr.success("Modifiers Deleted Successfully");
-                    location.reload();
-                    console.log("Response:", data);
+                   $("#modifiers-tab").click();
                 },
                 error: function(xhr, status, error) {
                     console.error("Error deleting items:", xhr.responseText);
@@ -268,7 +271,7 @@
 </script>
 
 
-<div class="modal fade" id="deleteModifierModalForMass" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" data-bs-backdrop="static" id="deleteModifierModalForMass" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">

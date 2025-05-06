@@ -61,9 +61,9 @@ public class UserMenu : IUserMenu
         return items;
      }
 
-      public  Task<ModifierGroupViewModel> GetModifierItemById(int modifierId)
+      public  Task<ModifierGroupViewModel> GetModifierItemById(int modifierGroupId,int itemId)
       {
-        return  _userMenuRepository.GetModifierItemById(modifierId);
+        return  _userMenuRepository.GetModifierItemById(modifierGroupId,itemId);
       }
 
      public Task<ModifierItemListViewModel> GetItemsByExistingModifier( int pageNo  , int pageSize, string search = "")

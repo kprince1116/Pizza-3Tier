@@ -38,14 +38,13 @@ public class UserDetails : IUserDetails
             return null;
         }
 
-       
-
        var viewModel = new ProfileViewmodel
         {
             Firstname = existingUser.Firstname,
             Lastname = existingUser.Lastname,
             Email = existingUser.Email,
             Phonenumber = existingUser.Phonenumber,
+            ProfileImage = existingUser.ProfileImage,
             Country = existingUser.Country,
             State = existingUser.State,
             City = existingUser.City,
@@ -84,6 +83,27 @@ public class UserDetails : IUserDetails
         existingUser.Zipcode = model.Zipcode;
         // existingUser.Userrole = model.userrole;
         existingUser.Email = model.Email;
+        existingUser.ProfileImage = model.ProfileImage;
+
+          if (model.image != null)
+        {
+            string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+            if (!Directory.Exists(uploadsFolder))
+            {
+                Directory.CreateDirectory(uploadsFolder);
+            }
+
+            string filename = $"{Guid.NewGuid()}_{model.image .FileName}";
+            string filepath = Path.Combine(uploadsFolder, filename);
+
+            using (FileStream fileStream = new FileStream(filepath, FileMode.Create))
+            {
+                await model.image .CopyToAsync(fileStream);
+            }
+
+            existingUser.ProfileImage = $"/uploads/{filename}"; 
+            
+        }
 
         await _userRepository.updateUser(existingUser);
 
