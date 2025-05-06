@@ -10916,11 +10916,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\Project\\Pizza-3Tier\\BAL\\BAL.csproj",
+      "projectUniqueName": "D:\\Project\\Pizza-3Tier\\BAL\\BAL.csproj",
       "projectName": "BAL",
-      "projectPath": "d:\\Project\\Pizza-3Tier\\BAL\\BAL.csproj",
+      "projectPath": "D:\\Project\\Pizza-3Tier\\BAL\\BAL.csproj",
       "packagesPath": "C:\\Users\\pca187\\.nuget\\packages\\",
-      "outputPath": "d:\\Project\\Pizza-3Tier\\BAL\\obj\\",
+      "outputPath": "D:\\Project\\Pizza-3Tier\\BAL\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\pca187\\AppData\\Roaming\\NuGet\\NuGet.Config"
