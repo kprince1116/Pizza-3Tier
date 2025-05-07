@@ -23,7 +23,7 @@
                     <img  src="~/images/profile_div_bg.jpg" alt="bg-image" style="max-width: 100%; max-height: 10dvh;">
                 </div>
                 <div class="row px-3">
-                    <div class="UserDetails d-flex align-items-center justify-content-between">
+                    <div class="UserDetails d-flex align-items-center justify-content-between  flex-md-row flex-column">
                         <div class="imagesec d-flex align-items-center flex-md-row flex-column">
                             <img src="@(!string.IsNullOrEmpty(Model.ProfileImage) ? Model.ProfileImage : "/ProfileImages/dominos_background.jpg")" alt="" style="max-height: 100px; aspect-ratio: 1/1; margin-top: -30px; border-radius: 50%;">                   
                             <div class=" ms-2">
@@ -31,7 +31,7 @@
                                 <h4>@Model.userrole</h4>
                             </div>
                         </div>
-                        <div >
+                        <div>
                             <p>@Model.Email</p> 
                         </div>
                     </div>
@@ -122,7 +122,7 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-end gap-2 pe-3 pt-2 pb-3">
-                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button class="btn btn-primary" type="submit" style=" background-color : rgb(0, 102, 187);">Submit</button>
                         <button class="btn btn-outline-primary" type="button" onclick="window.history.back();">Cancel</button>
                     </div>
                 </form>

@@ -2,6 +2,7 @@ using BAL.Attributes;
 using BAL.Models.Interfaces;
 using BAL.Services;
 using DAL.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pizzashop.DAL.ViewModels;
 
@@ -18,6 +19,7 @@ public class TableController : Controller
         _table = table;
     }
 
+    [Authorize(Roles = "Account_Manager,Admin")]
     [_AuthPermissionAttribute("TableAndSection", ActionPermissions.CanView)]
     public async Task<IActionResult> Table(int id, int pageNo = 1 , int pageSize=3 , string searchKey = "" )
     {

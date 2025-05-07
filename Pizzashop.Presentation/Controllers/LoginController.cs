@@ -1,3 +1,4 @@
+using BAL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Pizzashop.BAL.Interfaces;
 using Pizzashop.DAL.ViewModels;
@@ -9,10 +10,13 @@ public class LoginController : Controller
     private readonly IConfiguration _configuration;
     private readonly IAuthService _authService;
 
-    public LoginController(IConfiguration configuration, IAuthService authService)
+    private readonly ITokenService _tokenService;
+
+    public LoginController(IConfiguration configuration, IAuthService authService , ITokenService tokenService)
     {
         _configuration = configuration;
         _authService = authService;
+        _tokenService = tokenService;
     }
 
     public IActionResult Login()
@@ -35,15 +39,26 @@ public class LoginController : Controller
             var result = await _authService.AuthenticateUserAsync(user);
 
 
-            _authService.SetJwtToken(Response, result);
+             _authService.SetJwtToken(Response, result);
+            
+             var userrole = _tokenService.GetRoleFromToken(result);
 
             if (user.RememberMe)
             {
                 _authService.SetCookie(Response, user.Email);
             }
-            
+
+               if (userrole == "Chef")
+              {
+                 TempData["LoginSuccess"] = true;
+                 return RedirectToAction("Kot", "Kot");
+               }
+               else
+               {
             TempData["LoginSuccess"] = true;
             return RedirectToAction("Index", "Home");
+               }
+            
         }
         catch (Exception ex)
         {

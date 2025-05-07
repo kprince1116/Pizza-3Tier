@@ -1,6 +1,7 @@
 using System.Drawing;
 using BAL.Attributes;
 using BAL.Models.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
@@ -20,7 +21,8 @@ public class CustomerController : Controller
         _customerservice = customerservice;
     }
 
-     [_AuthPermissionAttribute("Customer", ActionPermissions.CanView)]
+    [Authorize(Roles = "Account_Manager,Admin")]
+    [_AuthPermissionAttribute("Customer", ActionPermissions.CanView)]
     public IActionResult Customer()
     {
         return View();

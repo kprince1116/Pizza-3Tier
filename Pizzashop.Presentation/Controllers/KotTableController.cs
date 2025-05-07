@@ -5,6 +5,7 @@ namespace Pizzashop.Presentation.Controllers;
 
 using System.Collections.Generic;
 using System.Text.Json;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pizzashop.DAL.ViewModels;
 
@@ -18,6 +19,7 @@ public class KotTableController : Controller
         _kotTableService = kotTableService;
     }
 
+    [Authorize(Roles = "Account_Manager,Admin")]
     public async Task<IActionResult> KotTable()
     {
         var sections = await _kotTableService.GetSections();

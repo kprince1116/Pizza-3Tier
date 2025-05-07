@@ -44,6 +44,7 @@ public class OrderAppMenu : IOrderAppMenu
                     ItemId = i.Itemid,
                     ItemName = i.Itemname,
                     ItemType = i.Itemtype,
+                    Image = i.Image,
                     ItemTax =  i.TaxPercentage ?? 0 , 
                     price = (decimal) i.Rate,
                     isFavourite = (bool)i.IsFavourite

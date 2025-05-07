@@ -123,7 +123,7 @@
 .KOT-Card
 {
     width: 342px !important;
-    height: 330px;
+    max-height: 330px;
     border-radius: 5px;
     border: 1px dashed #c5c5c5;
     flex: 0 0 auto;

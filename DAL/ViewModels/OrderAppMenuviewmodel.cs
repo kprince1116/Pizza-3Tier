@@ -31,6 +31,7 @@ public class Itemsviewmodel
      public int ItemId {get; set;}
      public string ItemName {get; set;}
      public string ItemType {get; set;}
+     public string Image {get; set;}
      public int ItemQuantity {get; set;}
      public decimal price {get; set;}
      public decimal ItemTax {get; set;}

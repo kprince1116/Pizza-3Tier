@@ -1,5 +1,6 @@
 using BAL.Models.Interfaces;
 using iText.Commons.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pizzashop.DAL.ViewModels;
 
@@ -17,6 +18,7 @@ public class WaitingListController : Controller
         _waitingService = waitingService;
     }
 
+    [Authorize(Roles = "Account_Manager,Admin")]
     public async Task<IActionResult> WaitingList()
     {
         var section = await _waitingService.GetSections();

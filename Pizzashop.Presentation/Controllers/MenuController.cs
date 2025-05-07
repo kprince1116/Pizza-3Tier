@@ -4,6 +4,7 @@ using BAL.Interfaces;
 using DAL.Interfaces;
 using DAL.Models;
 using DAL.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Pizzashop.DAL.ViewModels;
@@ -19,7 +20,7 @@ public class MenuController : Controller
     {
         _userMenu = userMenu;
     }
-
+    [Authorize(Roles = "Account_Manager,Admin")]
     [_AuthPermissionAttribute("Menu", ActionPermissions.CanView)]
     [HttpGet]
     [Route("Menu/Items")]

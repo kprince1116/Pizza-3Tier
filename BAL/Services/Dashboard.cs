@@ -63,7 +63,7 @@ public class Dashboard : IDashboard
         obj.topSellingItems = await _dashboardRepository.GetTopSellingItems(startDate,endDate);
         obj.leastSellingItems = await _dashboardRepository.GetLeastSellingItems(startDate,endDate);
         obj.RevenueList = await _dashboardRepository.GetRevenueList(startDate,endDate, time );
-        obj.CustomerList = await _dashboardRepository.GetCustomerList(startDate,endDate);
+        obj.CustomerList = await _dashboardRepository.GetCustomerList(startDate,endDate,time);
 
         return obj;
     }

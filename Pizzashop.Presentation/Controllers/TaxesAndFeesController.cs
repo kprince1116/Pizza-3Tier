@@ -1,5 +1,6 @@
 using BAL.Attributes;
 using BAL.Models.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pizzashop.DAL.ViewModels;
 
@@ -16,6 +17,7 @@ public class TaxesAndFeesController : Controller
         _taxesAndFeesService = taxesAndFeesService ;
     }
 
+    [Authorize(Roles = "Account_Manager,Admin")]
     [_AuthPermissionAttribute("TaxAndFee", ActionPermissions.CanView)]
     public IActionResult TaxesAndFees()
     {

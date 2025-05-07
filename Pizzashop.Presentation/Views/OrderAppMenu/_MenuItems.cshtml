@@ -9,7 +9,13 @@
             <div class="col-3">
                 <div class="card-icon d-flex justify-content-center align-items-center">
                     <span>
+                        @if(item.Image !=null)
+                        {
+                             <img src="@item.Image" style="height: 40px; width: 40px ; border-radius: 50%;" />
+                        }
+                        else{
                         <img src="~/images/dining-menu.png" style="height: 40px; width: 40px" />
+                        }
                     </span>
                 </div>
             </div>

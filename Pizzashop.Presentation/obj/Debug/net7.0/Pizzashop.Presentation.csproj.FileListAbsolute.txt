@@ -703,6 +703,7 @@ d:\Project\Pizza-3Tier\Pizzashop.Presentation\bin\Debug\net7.0\System.Text.Encod
 d:\Project\Pizza-3Tier\Pizzashop.Presentation\bin\Debug\net7.0\System.Text.Json.dll
 d:\Project\Pizza-3Tier\Pizzashop.Presentation\bin\Debug\net7.0\BAL.dll
 d:\Project\Pizza-3Tier\Pizzashop.Presentation\bin\Debug\net7.0\DAL.dll
+d:\Project\Pizza-3Tier\Pizzashop.Presentation\bin\Debug\net7.0\System.Reflection.Metadata.dll
 d:\Project\Pizza-3Tier\Pizzashop.Presentation\bin\Debug\net7.0\appsettings.Development.json
 d:\Project\Pizza-3Tier\Pizzashop.Presentation\bin\Debug\net7.0\appsettings.json
 d:\Project\Pizza-3Tier\Pizzashop.Presentation\bin\Debug\net7.0\Pizzashop.Presentation.staticwebassets.runtime.json
@@ -759,7 +760,6 @@ d:\Project\Pizza-3Tier\Pizzashop.Presentation\bin\Debug\net7.0\System.Configurat
 d:\Project\Pizza-3Tier\Pizzashop.Presentation\bin\Debug\net7.0\System.Drawing.Common.dll
 d:\Project\Pizza-3Tier\Pizzashop.Presentation\bin\Debug\net7.0\System.Formats.Asn1.dll
 d:\Project\Pizza-3Tier\Pizzashop.Presentation\bin\Debug\net7.0\System.Memory.Data.dll
-d:\Project\Pizza-3Tier\Pizzashop.Presentation\bin\Debug\net7.0\System.Reflection.Metadata.dll
 d:\Project\Pizza-3Tier\Pizzashop.Presentation\bin\Debug\net7.0\System.Runtime.Caching.dll
 d:\Project\Pizza-3Tier\Pizzashop.Presentation\bin\Debug\net7.0\System.Security.Cryptography.Pkcs.dll
 d:\Project\Pizza-3Tier\Pizzashop.Presentation\bin\Debug\net7.0\System.Security.Cryptography.ProtectedData.dll

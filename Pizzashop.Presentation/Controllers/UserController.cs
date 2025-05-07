@@ -2,6 +2,8 @@ using BAL.Attributes;
 using BAL.Interfaces;
 using DAL.Interfaces;
 using DAL.Models;
+using Microsoft.AspNetCore.Authorization;
+
 
 // using DAL.Models;
 
@@ -27,6 +29,7 @@ public class UserController : Controller
         _userDetails = userDetails;
     }
 
+    [Authorize(Roles = "Account_Manager,Admin")]
     [_AuthPermissionAttribute("Users", ActionPermissions.CanView)]
     public async Task<IActionResult> UserList(int pageNumber = 1, int pageSize = 3, string searchTerm = "", string sortDirection = "asc", string sortBy = "name") 
     {

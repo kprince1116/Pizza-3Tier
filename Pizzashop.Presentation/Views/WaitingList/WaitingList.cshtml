@@ -6,100 +6,123 @@
 
 @model Pizzashop.DAL.ViewModels.waitingviemodel
 
-<div class="p-lg-5 p-xl-5 p-md-6 p-4" >
-    <div class="d-flex justify-content-between" >
-        <h2 class="custom-blue fw-bolder fw-bold" style="color:#0066a7">Waiting List</h2>
-        <div class="custom-blue-border mb-3 d-flex align-items-center rounded text-nowrap addwaitingtoken " type="button" id="waitingtoken">
+<div class="p-lg-5 p-xl-5 p-md-6 p-4">
+    <div class="d-flex justify-content-between">
+        <h2 class="custom-blue fw-bold" style="color:#0066a7">Waiting List</h2>
+        <div class="custom-blue-border mb-3 d-flex align-items-center rounded text-nowrap addwaitingtoken"
+             role="button" id="waitingtoken">
             <span class="py-2 px-3"
-                style="color: #0066bb; border-radius: 5px; border: 2px solid #0066bb !important; border-width: 2px;">+
+                  style="color: #0066bb; border-radius: 5px; border: 2px solid #0066bb;">+
                 Waiting Token</span>
         </div>
     </div>
-    <div class="switching-tabs-section d-flex justify-content-start bg-white px-3 nav shadow overflow-auto flex-nowrap"
-        role="tablist">
 
-        <div class=" d-flex justify-content-center align-items-center gap-2 active-tab tab-btn p-3" id="all-content" data-bs-toggle="tab"
-            data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false" data-tab-id=0 >
-            <div class="fw-bolder active">All</div>
-            <div style="font-size: 12px; width: 20px; height: 20px; background-color: gray; border-radius: 50%;" class="text-white m-0 p-0 d-flex align-items-center justify-content-center">@Model.TotalWaiting</div>
-         
+    <div class="switching-tabs-section d-flex justify-content-start bg-white px-3 nav shadow overflow-auto flex-nowrap"
+         role="tablist">
+
+        <div class="d-flex justify-content-center align-items-center gap-2 active-tab tab-btn p-3"
+             id="all-content"
+             data-bs-toggle="tab"
+             data-bs-target="#nav-profile"
+             type="button"
+             role="tab"
+             aria-controls="nav-profile"
+             aria-selected="true"
+             data-tab-id="0">
+            <div class="fw-bold active">All</div>
+            <div class="text-white d-flex align-items-center justify-content-center"
+                 style="font-size: 12px; width: 20px; height: 20px; background-color: gray; border-radius: 50%;">
+                @Model.TotalWaiting
+            </div>
         </div>
+
         @foreach (var c in Model.sections)
         {
-            <div class="section-tab d-flex justify-content-center align-items-center gap-2 p-3 text-nowrap tab-btn" id='nav-tab-@c.Sectionid'
-                data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-@c.Sectionid" data-section-id=@c.Sectionid >
-                <div class="fw-bolder" section-id="@c.Sectionid">@c.SectionName</div>
-                <div style="font-size: 12px; width: 20px; height: 20px; background-color: gray; border-radius: 50%;" class="text-white m-0 p-0 d-flex align-items-center justify-content-center">@c.WaitingTokens.Count</div>
+            <div class="section-tab d-flex justify-content-center align-items-center gap-2 p-3 text-nowrap tab-btn"
+                 id="nav-tab-@c.Sectionid"
+                 data-bs-toggle="tab"
+                 data-bs-target="#nav-home"
+                 type="button"
+                 role="tab"
+                 aria-controls="nav-@c.Sectionid"
+                 data-section-id="@c.Sectionid">
+                <div class="fw-bold">@c.SectionName</div>
+                <div class="text-white d-flex align-items-center justify-content-center"
+                     style="font-size: 12px; width: 20px; height: 20px; background-color: gray; border-radius: 50%;">
+                    @c.WaitingTokens.Count
+                </div>
             </div>
         }
-
     </div>
 
     <div class="order_list_container shadow mt-3 bg-white">
         <div class="carousel-container">
             <div id="waitlist">
+                @* Waiting items will be injected here dynamically *@
             </div>
         </div>
     </div>
 </div>
 
-@*Add Waiting Token*@
-
+@* Add Waiting Token Modal *@
 <div class="modal fade" id="AddWaiting" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-   <div class="modal-content" id="customer-details" >
-
-   </div>
-  </div>
-</div>
-
-@*Edit Waiting Token*@
-<div class="modal fade" data-bs-backdrop="static" id="EditWaiting" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div id="EditWaitingToken">
-
-   </div>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" id="customer-details">
+            @* Content dynamically injected *@
+        </div>
     </div>
 </div>
 
-@*Delete Waiting Token*@
-
-<div class="modal fade" data-bs-backdrop="static" id="deleteToken" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Confirmation</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body d-flex justify-content-center align-items-center flex-column">
-        <img class="mb-3" src="~/images/icons/exclamation-triangle.svg" alt="Warning Icon">
-        <h1 class="fs-5 text-center">Are you sure you want to delete this waiting token?</h1>
-      </div>
-      <form method="post" asp-controller="WaitingList" asp-action="DeleteToken"
-            class="modal-footer d-flex justify-content-center">
-        <input type="hidden" id="waitingdeleteid" name="Id">
-        <button type="submit" class="btn btn-primary">Yes</button>
-        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
-      </form>
+@* Edit Waiting Token Modal *@
+<div class="modal fade" data-bs-backdrop="static" id="EditWaiting" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div id="EditWaitingToken">
+            @* Content dynamically injected *@
+        </div>
     </div>
-  </div>
 </div>
 
-@*Assign waiting Token*@
-
-<div class="modal fade" data-bs-backdrop="static" id="AssignTable" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div id="AssignSection">
-
+@* Delete Waiting Token Modal *@
+<div class="modal fade" data-bs-backdrop="static" id="deleteToken" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Delete Confirmation</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex justify-content-center align-items-center flex-column">
+                <img class="mb-3" src="~/images/icons/exclamation-triangle.svg" alt="Warning Icon">
+                <h1 class="fs-5 text-center">Are you sure you want to delete this waiting token?</h1>
+            </div>
+            <form method="post" asp-controller="WaitingList" asp-action="DeleteToken"
+                  class="modal-footer d-flex justify-content-center">
+                <input type="hidden" id="waitingdeleteid" name="Id" />
+                <button type="submit" class="btn btn-primary">Yes</button>
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+            </form>
+        </div>
     </div>
-  </div>
 </div>
+
+@* Assign Waiting Token Modal *@
+<div class="modal fade" data-bs-backdrop="static" id="AssignTable" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div id="AssignSection">
+            @* Content dynamically injected *@
+        </div>
+    </div>
+</div>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
- <script src="~/lib/jquery/dist/jquery.min.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 
 <script>
@@ -111,21 +134,21 @@
 </script>
 
 <script>
-    $(document).on("click",".addwaitingtoken",function(){
+    $(document).on("click", ".addwaitingtoken", function () {
         var modal = new bootstrap.Modal(document.getElementById("AddWaiting"));
         modal.show();
     });
-</script>    
+</script>
 
 @*get section list for modal*@
 <script>
-    $(document).on("click","#waitingtoken",function(){
-         $.ajax({
+    $(document).on("click", "#waitingtoken", function () {
+        $.ajax({
             type: "GET",
             url: '@Url.Action("openWaitingTokenModal", "WaitingList")',
-            success : function(data){   
+            success: function (data) {
                 $('#AddWaiting .modal-content').html(data);
-                $('#AddWaiting').modal('show');  
+                $('#AddWaiting').modal('show');
             }
         });
     });
@@ -133,14 +156,14 @@
 </script>
 
 <script>
-    $(document).on("click",".edit-token",function(){
+    $(document).on("click", ".edit-token", function () {
         var id = $(this).data("waiting-id");
         console.log("Waiting Token ID:", id);
-         $.ajax({
+        $.ajax({
             type: "GET",
-            data :{id:id},
+            data: { id: id },
             url: '@Url.Action("EditToken", "WaitingList")',
-            success : function(data){
+            success: function (data) {
                 $('#EditWaitingToken').html(data);
                 var modal = new bootstrap.Modal(document.getElementById('EditWaiting'));
                 modal.show();
@@ -153,7 +176,7 @@
 <script>
     $(document).on("click", "#all-content", function () {
         getwaitlist();
-         $(".tab-btn").removeClass("active-tab");
+        $(".tab-btn").removeClass("active-tab");
 
         $(this).addClass("active-tab");
     });
@@ -162,25 +185,25 @@
 
 @*get waiting list*@
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         getwaitlist();
-        
+
     });
-        function getwaitlist(){
-         $.ajax({
+    function getwaitlist() {
+        $.ajax({
             url: "/WaitingList/GetWaitingList",
             type: 'GET',
-            data:{sectionId:0},
+            data: { sectionId: 0 },
             success: function (response) {
                 $('#waitlist').html(response);
             },
             error: function (err) {
                 alert('An error occurred while loading the waiting list.');
-               
+
             }
         });
-        }
-       
+    }
+
 </script>
 
 <script>
@@ -195,8 +218,8 @@
                 document.querySelectorAll(".tab-btn").forEach(tab => {
                     tab.classList.remove("active-tab");
                 });
-                $(this).addClass("active-tab"); 
-            }.bind(this),  
+                $(this).addClass("active-tab");
+            }.bind(this),
             error: function (err) {
                 alert('An error occurred while loading the waiting list.');
             }
@@ -205,24 +228,24 @@
 </script>
 
 <script>
-    $(document).on('submit','#addWaitingTokenForm', function (e) {
-        e.preventDefault(); 
+    $(document).on('submit', '#addWaitingTokenForm', function (e) {
+        e.preventDefault();
 
         $("#addWaitingTokenForm").removeAttr("novalidate");
-            $.validator.unobtrusive.parse($("#addWaitingTokenForm"));
-            if (!$("#addWaitingTokenForm").valid()) {
-                console.log();
-                return;
-            }
+        $.validator.unobtrusive.parse($("#addWaitingTokenForm"));
+        if (!$("#addWaitingTokenForm").valid()) {
+            console.log();
+            return;
+        }
 
-        var formData = new FormData(this); 
+        var formData = new FormData(this);
 
         console.log("Form data:", formData);
 
         $.ajax({
-            url: '@Url.Action("AddWaitingToken", "WaitingList")', 
+            url: '@Url.Action("AddWaitingToken", "WaitingList")',
             type: 'POST',
-            processData: false, 
+            processData: false,
             contentType: false,
             data: formData,
             success: function (response) {
@@ -230,10 +253,11 @@
                     const modalElement = document.getElementById('AddWaiting');
                     const assignModal = bootstrap.Modal.getInstance(modalElement);
                     if (assignModal) {
-                    assignModal.hide();
+                        assignModal.hide();
                     }
+                    $('.modal-backdrop').remove();
                     location.reload();
-                     toastr.success("Waiting Token Added Succesfully");
+                    toastr.success("Waiting Token Added Succesfully");
                 } else {
                     alert('Error: ' + response.message);
                 }
@@ -243,16 +267,16 @@
             }
         });
     });
-
-    $(document).on('click','.add-close',function(){
+    
+     $(document).on('click', '.add-close', function () {
         const modalElement = document.getElementById('AddWaiting');
         const assignModal = bootstrap.Modal.getInstance(modalElement);
         if (assignModal) {
-        assignModal.hide();
+            assignModal.hide();
         }
-    })
-
-</script> 
+        $('.modal-backdrop').remove();
+    }) 
+</script>
 
 <script>
     function DateTimerKOT() {
@@ -281,40 +305,40 @@
 @*Assign Table*@
 
 <script>
-  function openAssignTableModal(button) {
-    console.log("Button clicked:");
-    const sectionId = button.getAttribute('data-sectionid');
-    const customerId = button.getAttribute('data-customerid');
-    const waitingId = button.getAttribute('data-waitingid');
-    console.log("Section ID:", sectionId);
-    console.log("Customer ID:", customerId);
-    console.log("Waiting ID:", waitingId);
+    function openAssignTableModal(button) {
+        console.log("Button clicked:");
+        const sectionId = button.getAttribute('data-sectionid');
+        const customerId = button.getAttribute('data-customerid');
+        const waitingId = button.getAttribute('data-waitingid');
+        console.log("Section ID:", sectionId);
+        console.log("Customer ID:", customerId);
+        console.log("Waiting ID:", waitingId);
 
-    $.ajax({
-      type: "GET",
-      url: "/WaitingList/GetTableDeatails",
-      success: function (data) {
-         $('#AssignSection').html(data);
-         $("#sectionselect").val(sectionId);
-         $("#customerselect").val(customerId);
-         $("#waitingselect").val(waitingId);
-         $(`.${sectionId}`).removeClass("d-none");
-         const assignModal = new bootstrap.Modal(document.getElementById('AssignTable'));
-         assignModal.show();
-      },
-      error: function (err) {
-        alert('An error occurred while loading the section list.');
-      }
-    });
-  }
+        $.ajax({
+            type: "GET",
+            url: "/WaitingList/GetTableDeatails",
+            success: function (data) {
+                $('#AssignSection').html(data);
+                $("#sectionselect").val(sectionId);
+                $("#customerselect").val(customerId);
+                $("#waitingselect").val(waitingId);
+                $(`.${sectionId}`).removeClass("d-none");
+                const assignModal = new bootstrap.Modal(document.getElementById('AssignTable'));
+                assignModal.show();
+            },
+            error: function (err) {
+                alert('An error occurred while loading the section list.');
+            }
+        });
+    }
 
-    $(document).on("submit","#PostTable",function(){
+    $(document).on("submit", "#PostTable", function () {
         event.preventDefault();
         var formData = new FormData(this);
         console.log("Form data:", formData);
 
         $.ajax({
-            url:  "/WaitingList/AssignTable",
+            url: "/WaitingList/AssignTable",
             type: 'POST',
             processData: false,
             contentType: false,
@@ -325,11 +349,11 @@
                     const modalElement = document.getElementById('AssignTable');
                     const assignModal = bootstrap.Modal.getInstance(modalElement);
                     if (assignModal) {
-                    assignModal.hide();
+                        assignModal.hide();
                     }
                     window.location.href = response.url;
                 } else {
-                     toastr.ward("TSomething Get Wrong");
+                    toastr.ward("TSomething Get Wrong");
                 }
             },
             error: function () {
@@ -342,47 +366,42 @@
 
 @*Fetch Already Exists Customer Details*@
 <script>
-     $(document).off("change","#CustomerEmail").on("change","#CustomerEmail",function(){
+    $(document).off("change", "#CustomerEmail").on("change", "#CustomerEmail", function () {
         var selectedEmail = $(this).val().trim();
         console.log("Selected email:", selectedEmail);
 
         $.ajax({
             type: "GET",
             url: "/WaitingList/GetCustomerDetailByEmail",
-            data: { sectionid:0 , Email: selectedEmail },
-            success: function(data){
-                 $('#customer-details').html(data);
+            data: { sectionid: 0, Email: selectedEmail },
+            success: function (data) {
+                $('#customer-details').html(data);
             }
         });
     });
 
-     $(document).ready(function () {
-       
-             @if (TempData["EditSuccess"] != null && (bool)TempData["EditSuccess"])
-            {
-                <text>
+    $(document).ready(function () {
+
+    @if (TempData["EditSuccess"] != null && (bool)TempData["EditSuccess"])
+    {
+        <text>
                     showToastrNotification('success', 'Waiting Token Edit successfully!');
-                </text>
-            }
-             @if (TempData["DeleteSuccess"] != null && (bool)TempData["DeleteSuccess"])
-            {
-                <text>
+        </text>
+    }
+    @if (TempData["DeleteSuccess"] != null && (bool)TempData["DeleteSuccess"])
+    {
+        <text>
                     showToastrNotification('success', 'Waiting Token Delete successfully!');
-                </text>
-            }
-            
+        </text>
+    }
+
         });
- </script>   
+</script>
 
 
 <style>
-    .active-tab{
-        color: #0066bb  !important;
-        border-bottom:3px solid #0066a7 !important;
+    .active-tab {
+        color: #0066bb !important;
+        border-bottom: 3px solid #0066a7 !important;
     }
-}
-
 </style>
-
-
- 

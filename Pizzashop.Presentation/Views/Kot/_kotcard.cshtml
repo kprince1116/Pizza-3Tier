@@ -1,17 +1,17 @@
 @model Pizzashop.DAL.ViewModels.Kotviewmodel
 
-   @foreach(var card in Model.OrderDetails) 
+@if (Model.OrderDetails.Any())
+{
+    foreach (var card in Model.OrderDetails)
     {
-          @if(card.Items.Count > 0)
-            
-            @* /*---------------------------------- Kot Cards --------------------------*/ *@
-          {
+        if (card.Items.Count > 0)
+        {
+            @* ---------------------------------- Kot Cards -------------------------- *@
             <div class="d-flex flex-column KOT-Card mb-4 card-details" id="order-card" data-status="@card.OrderStatus" data-orderid="@card.orderId">
-         
                 <div class="d-flex flex-column Card-Header justify-content-between">
                     <div class="d-flex justify-content-between">
                         <span class="special-color fw-bold">
-                        #@card.OrderNo
+                            #@card.OrderNo
                         </span>
                         <span class="text-secondary d-flex align-items-center order-time">
                             <i class="bi bi-stopwatch me-1"></i>
@@ -19,61 +19,62 @@
                                 <span class="kotDatecountertext"></span>
                             </span>
                         </span>
-
                     </div>
                     <div class="d-flex justify-content-start align-items-center fw-bold">
-                        <span class="">
-                            @card.SectionName
-                        </span>
+                        <span>@card.SectionName</span>
                         <i class="bi bi-dot"></i>
-                       @foreach(var table in card.TableNo)
-                       {
-                        <span>@table.TableName</span>
-                       }
+                        @foreach (var table in card.TableNo)
+                        {
+                            <span>@table.TableName</span>
+                        }
                     </div>
                 </div>
-                
-                <div class="d-flex flex-column Card-Content">
 
-                    @for(int i = 0; i < card.Items.Count; i++)
+                <div class="d-flex flex-column Card-Content">
+                    @for (int i = 0; i < card.Items.Count; i++)
                     {
                         <div class="d-flex flex-column">
                             <div class="d-flex justify-content-between">
                                 <div>@card.Items[i].ItemName</div>
                                 <div>
-                              @if (card.OrderStatus == "In Progress")
-                                {
-                                @card.Items[i].PendigQuantity
-                               }
-                                @if (card.OrderStatus == "Ready")
-                                {
-                                @card.Items[i].ReadyQuantity
-                                }
+                                    @if (card.OrderStatus == "In Progress")
+                                    {
+                                        @card.Items[i].PendigQuantity
+                                    }
+                                    else if (card.OrderStatus == "Ready")
+                                    {
+                                        @card.Items[i].ReadyQuantity
+                                    }
+                                </div>
                             </div>
-                            
-                        </div>
-                       
-                           
+
                             <ul>
-                                @foreach(var modifier in card.Items[i].Modifiers)
+                                @foreach (var modifier in card.Items[i].Modifiers)
                                 {
                                     <li>@modifier.ModifierName</li>
                                 }
                             </ul>
-                           <div class="mb-2">
-                                    <span class="special-color fw-bold">Item Instruction :
-                        <span style="color: black; opacity: 0.8;"> @card.Items[i].ItemInstrucion</span> </span>
-                </div>
+
+                            <div class="mb-2">
+                                <span class="special-color fw-bold">Item Instruction:
+                                    <span style="color: black; opacity: 0.8;">@card.Items[i].ItemInstrucion</span>
+                                </span>
+                            </div>
                         </div>
                     }
                 </div>
 
-
-     
                 <div class="Card-Footer flex-wrap">
-                    <span class="special-color fw-bold">Order Instruction :
-                        <span style="color: black; opacity: 0.8;"> @card.OrderInstruction </span> </span>
+                    <span class="special-color fw-bold">Order Instruction:
+                        <span style="color: black; opacity: 0.8;">@card.OrderInstruction</span>
+                    </span>
                 </div>
             </div>
-            }
-    }    
+        }
+      
+    }
+}
+else
+{
+    <span>No orders available.</span>
+}

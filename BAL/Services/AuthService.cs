@@ -135,13 +135,7 @@ namespace BAL.Services
                 Secure = false,
                 SameSite = SameSiteMode.Strict
             });
-            // response.Cookies.Append("ImgUrl", imgUrl, new CookieOptions
-            // {
-            //     Expires = DateTime.UtcNow.AddDays(7),
-            //     HttpOnly = true,
-            //     Secure = false,
-            //     SameSite = SameSiteMode.Strict
-            // });
+          
         }
 
     }

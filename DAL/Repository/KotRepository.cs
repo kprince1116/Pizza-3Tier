@@ -19,7 +19,7 @@ public class KotRepository : IKotRepository
 
     public async Task<List<MenuCategory>> GetCategories()
     {
-        var categories = await _db.OrderItems.Where(u=>u.Order.Isdelete == false)
+        var categories = await _db.OrderItems.Where(u=>u.Order.Isdelete == false && u.IsDeleted == false)
                                  .Include(u=>u.Item).ThenInclude(u=>u.Category)
                                  .Select(u=>u.Item.Category)
                                  .Where(u=>u != null)

@@ -14,5 +14,5 @@ public interface IDashboardRepository
     public Task<List<ItemDashboardviewmodel>> GetTopSellingItems(DateTime startDate ,  DateTime endDate);
     public Task<List<ItemDashboardviewmodel>> GetLeastSellingItems(DateTime startDate ,  DateTime endDate);
     public Task<List<Revenueviewmodel>> GetRevenueList(DateTime startDate ,  DateTime endDate , string time );
-    public Task<List<CustomerDashboardviewmodel>> GetCustomerList(DateTime startDate ,  DateTime endDate);
+    public Task<List<CustomerDashboardviewmodel>> GetCustomerList(DateTime startDate ,  DateTime endDate , string time );
 }

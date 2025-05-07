@@ -1,6 +1,7 @@
 using System.Text.Json;
 using BAL.Models.Interfaces;
 using iText.Commons.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Pizzashop.DAL.ViewModels;
@@ -16,6 +17,8 @@ public class OrderAppMenu : Controller
     {
          _orderAppMenu = orderAppMenu;
     }
+
+     [Authorize(Roles = "Account_Manager,Admin")]
 
     public async Task<IActionResult> OrderMenu(int customerId , int orderId)
     {

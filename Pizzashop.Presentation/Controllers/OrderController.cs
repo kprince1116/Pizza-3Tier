@@ -1,6 +1,7 @@
 using System.Drawing;
 using BAL.Attributes;
 using BAL.Models.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
@@ -22,7 +23,7 @@ public class OrderController : Controller
         _orderservice = orderservice;
     }
 
-
+    [Authorize(Roles = "Account_Manager,Admin")]
     [_AuthPermissionAttribute("Order", ActionPermissions.CanView)]
     public IActionResult Order()
     {

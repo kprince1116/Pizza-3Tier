@@ -7,7 +7,7 @@
 
 @model Pizzashop.DAL.ViewModels.OrderAppMenuviewmodel
 
-<div class="col-4 mt-4 order-app-module">
+<div class="mt-4 order-app-module">
     <div class="d-flex justify-content-between align-items-center">
         <div class="d-flex align-items-center gap-2">
             <img src="~/images/icons/dining-set-svgrepo-com.svg" alt="" class="dining-table-img">
@@ -47,7 +47,7 @@
             </div>
         </div>
         <div class="d-flex gap-2">
-            <div class="threeicon align-content-center" id="qrcode">
+            <div class="threeicon align-content-center" data-orderid="@Model.OrderId" data-customerid="@Model.CustomerId" id="qrcode">
                 <i class="bi bi-qr-code-scan icontext m-0 p-0"></i>
             </div>
             <div class="threeicon align-content-center CustomerIcon" data-orderid="@Model.OrderId">
