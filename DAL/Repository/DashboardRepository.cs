@@ -39,7 +39,6 @@ public class DashboardRepository : IDashboardRepository
         {
             var totalsales = _db.Paymentmodes.Where(p => p.PaymentStatus == "paid" && p.PaidOn.HasValue && p.PaidOn.Value >= startDate && p.PaidOn.Value <= endDate);
 
-
             decimal totalamount = 0;
 
             totalamount = (decimal)await totalsales.SumAsync(u => u.Totalamount);
@@ -175,13 +174,22 @@ public class DashboardRepository : IDashboardRepository
         {
             var payments = _db.Paymentmodes.Where(u => u.PaymentStatus == "paid" && u.PaidOn.HasValue && u.PaidOn.Value >= startDate && u.PaidOn.Value <= endDate).OrderBy(u => u.PaidOn);
 
-            var revenuelist = payments.GroupBy(u => u.PaidOn.Value.Date).Select(u => new Revenueviewmodel
+            var revenuelist = new List<Revenueviewmodel>();
+            if(startDate.Date == endDate.Date)
+            {
+             revenuelist = payments.GroupBy(u => u.PaidOn.Value.Date.Hour).Select(u => new Revenueviewmodel
             {
                 RevenueDate = (DateTime)u.First().PaidOn,
                 TotalRevenue = (decimal)u.Sum(u => u.Totalamount)
             }).ToList();
-
-            // return revenuelist;
+            }
+            else{
+             revenuelist = payments.GroupBy(u => u.PaidOn.Value.Date).Select(u => new Revenueviewmodel
+            {
+                RevenueDate = (DateTime)u.First().PaidOn,
+                TotalRevenue = (decimal)u.Sum(u => u.Totalamount)
+            }).ToList();
+            }
 
             Dictionary<DateTime, decimal> revenueDist;
             List<Revenueviewmodel> newRevenue = new();
@@ -208,12 +216,12 @@ public class DashboardRepository : IDashboardRepository
                     }).ToList();
                     break;
                 case "this_month":
-                    revenueDist = revenuelist.GroupBy(u => new { u.RevenueDate.Year, u.RevenueDate.Month }).ToDictionary(
-                        g => new DateTime(g.Key.Year, g.Key.Month, 1),
+                    revenueDist = revenuelist.GroupBy(u => new { u.RevenueDate.Year, u.RevenueDate.Month , u.RevenueDate.Day }).ToDictionary(
+                        g => new DateTime(g.Key.Year, g.Key.Month, g.Key.Day),
                         g => g.Sum(x => x.TotalRevenue)
                     );
                     DateTime itr = new(startDate.Year, startDate.Month, 1);
-                    DateTime lastMonth = new(endDate.Year, endDate.Month, 1);
+                    DateTime lastMonth = new(endDate.Year, endDate.Month, endDate.Day);
 
                     while (itr <= lastMonth)
                     {
@@ -222,7 +230,7 @@ public class DashboardRepository : IDashboardRepository
                             RevenueDate = itr,
                             TotalRevenue = revenueDist.ContainsKey(itr) ? revenueDist[itr] : 0
                         });
-                        itr = itr.AddMonths(1);
+                        itr = itr.AddDays(1);
                     }
                     break;
                 default:
@@ -301,7 +309,21 @@ public class DashboardRepository : IDashboardRepository
         .Where(u => u.CreatedDate.HasValue && u.CreatedDate.Value >= startDate && u.CreatedDate.Value <= endDate)
         .OrderBy(u => u.CreatedDate);
 
-            var customerlist = customers
+        var customerlist = new List<CustomerDashboardviewmodel>();
+
+        if(startDate.Date == endDate.Date)
+        {
+             customerlist = customers
+            .GroupBy(u => u.CreatedDate.Value.Date.Hour)
+            .Select(u => new CustomerDashboardviewmodel
+            {
+                CustomerDate = (DateTime)u.First().CreatedDate,
+                TotalCustomer = u.Count()
+            })
+            .ToList();
+        }
+        else{
+             customerlist = customers
             .GroupBy(u => u.CreatedDate.Value.Date)
             .Select(u => new CustomerDashboardviewmodel
             {
@@ -310,6 +332,9 @@ public class DashboardRepository : IDashboardRepository
             })
             .ToList();
 
+        }
+
+            
             Dictionary<DateTime, decimal> customerCount;
             List<CustomerDashboardviewmodel> newCustomer = new();
 
@@ -336,12 +361,12 @@ public class DashboardRepository : IDashboardRepository
                     }).ToList();
                     break;
                 case "this_month":
-                    customerCount = customerlist.GroupBy(u => new { u.CustomerDate.Year, u.CustomerDate.Month }).ToDictionary(
-                        g => new DateTime(g.Key.Year, g.Key.Month, 1),
+                    customerCount = customerlist.GroupBy(u => new { u.CustomerDate.Year, u.CustomerDate.Month , u.CustomerDate.Day}).ToDictionary(
+                        g => new DateTime(g.Key.Year, g.Key.Month, g.Key.Day),
                         g => g.Sum(x => x.TotalCustomer)
                     );
                     DateTime itr = new(startDate.Year, startDate.Month, 1);
-                    DateTime lastmonth = new(endDate.Year, endDate.Month, 1);
+                    DateTime lastmonth = new(endDate.Year, endDate.Month, endDate.Day);
 
                     while (itr <= lastmonth)
                     {
@@ -351,7 +376,7 @@ public class DashboardRepository : IDashboardRepository
                             TotalCustomer = customerCount.ContainsKey(itr) ? customerCount[itr] : 0
 
                         });
-                        itr = itr.AddMonths(1);
+                        itr = itr.AddDays(1);
                     }
                     break;
                 default:

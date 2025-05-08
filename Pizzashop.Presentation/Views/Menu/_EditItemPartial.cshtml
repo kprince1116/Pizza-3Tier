@@ -159,18 +159,36 @@
                             <select class="MinAllowed" data-mgitemid="@modifier.ModifierGroupId" data-total="@modifier.ModifierItemList.Count"
                                 style="width: 50%; border-radius: 20px; height: 40px; margin-right: 15px; padding-left: 10px;">
                                 
-                                <option selected value="@modifier.MinAllowed">@modifier.MinAllowed</option>
-                                @for (int i = 1; i <= modifier.ModifierItemList.Count; i++)
+                                @* <option selected value="@modifier.MinAllowed">@modifier.MinAllowed</option> *@
+                                @for (int i = 0; i <= modifier.MaxAllowed; i++)
                                 {
-                                    <option value="@i">@i</option>
+                                    if (i == modifier.MinAllowed)
+                                    {
+                                        <option selected value="@i">@i</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+ 
+                                    @* <option value="@i">@i</option> *@
 
                                 }
                             </select>
                             <select class="MaxAllowed" data-mgitemid="@modifier.ModifierGroupId" data-total="@modifier.ModifierItemList.Count"  style="width: 50%; border-radius: 20px; padding-left: 10px;">
-                                <option selected value="@modifier.MaxAllowed">@modifier.MaxAllowed</option>
-                                @for (int i = 1; i <= modifier.ModifierItemList.Count; i++)
+                                @* <option selected value="@modifier.MaxAllowed">@modifier.MaxAllowed</option> *@
+                                @for (int i =(int) modifier.MinAllowed; i <= modifier.ModifierItemList.Count; i++)
                                 {
-                                    <option value="@i">@i</option>
+                                    if (i == modifier.MaxAllowed)
+                                    {
+                                        <option selected value="@i">@i</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+ 
+                                    @* <option value="@i">@i</option> *@
 
                                 }
                             </select>
@@ -201,7 +219,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" id="submitEditItemBtn" class="btn btn-primary">Save</button>
+        <button type="submit" data-categoryid = "@Model.Categoryid" id="submitEditItemBtn" class="btn btn-primary">Save</button>
         <button type="button" class="btn btn-secondary">Cancel</button>
     </div>
 </form>
@@ -223,7 +241,6 @@
          function SubmitAddItemForEdit() {
          console.log($(".selectedModifierGroup"));
          $(".selectedModifierGroup").each(function () {
-        debugger;
         var id = $(this).data("mgitemid");
         console.log($('.MinAllowed[data-mgitemid="' + id + '"]').val())
         selectedModifiersItemForEdit.push({
@@ -233,6 +250,5 @@
         })
       })
       $("#selectedModifierListForEdit").val(JSON.stringify(selectedModifiersItemForEdit));
-      Console.log("selectedModifiersItemForEdit",  $("#selectedModifierListForEdit").val);
     }
     </script>   

@@ -127,10 +127,10 @@
         <!-- Summary -->
         <div class="summary">
             <p><strong>Sub Total:</strong> ₹ @subtotal.ToString("F2")</p>
-                @foreach(var itemtax in Model.OrderItems)
-                        {
-                         ExclusiveTax += (decimal) (itemtax.Price * itemtax.Quantity * itemtax.ItemTaxPercenetage) / 100;
-                        }
+               @foreach(var itemtax in Model.OrderItems)
+                {
+                      ExclusiveTax += Math.Round((decimal)(itemtax.Price * itemtax.Quantity * itemtax.ItemTaxPercenetage) / 100, 2);
+                }
                     <p class="text-nowrap" ><strong>ExclusiveTax:</strong> ₹ @ExclusiveTax </p>
              @if (Model.OrderTaxes.Any())
                         {
@@ -140,13 +140,13 @@
                                 <strong class="fw-bold" > @tax.Tax?.Taxname : </strong>
                                  @((tax.Tax?.TaxType ?? false ? (subtotal * tax.Tax?.Taxvalue ?? 0)/100 : tax.Tax?.Taxvalue ?? 0)) 
                                      @{
-                                     TotalAmount += (tax.Tax?.TaxType ?? false ? (subtotal * tax.Tax?.Taxvalue ?? 0)/100 : tax.Tax?.Taxvalue ?? 0);
+                                     TotalAmount += Math.Round (tax.Tax?.TaxType ?? false ? (subtotal * tax.Tax?.Taxvalue ?? 0)/100 : tax.Tax?.Taxvalue ?? 0,2);
                                      }
                                 </p>
                             }
                         }
             <hr style="color: #1f73ae;">
-            <p class="text-nowrap" style="color: #1f73ae;"><strong>Total Amount Due:</strong><span class="text-nowrap"> ₹ @(subtotal + TotalAmount +ExclusiveTax)</span></p>
+            <p class="text-nowrap" style="color: #1f73ae;"><strong>Total Amount Due:</strong><span class="text-nowrap"> ₹ @((subtotal + TotalAmount + ExclusiveTax).ToString("F2"))</span></p>
             <hr style="color: #1f73ae;">
         </div>
 

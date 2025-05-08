@@ -31,7 +31,7 @@ public class UserController : Controller
 
     [Authorize(Roles = "Account_Manager,Admin")]
     [_AuthPermissionAttribute("Users", ActionPermissions.CanView)]
-    public async Task<IActionResult> UserList(int pageNumber = 1, int pageSize = 3, string searchTerm = "", string sortDirection = "asc", string sortBy = "name") 
+    public async Task<IActionResult> UserList(int pageNumber = 1, int pageSize = 7, string searchTerm = "", string sortDirection = "asc", string sortBy = "name") 
     {
 
         var userList = await _userList.GetUserList(pageNumber, pageSize, searchTerm, sortDirection, sortBy);

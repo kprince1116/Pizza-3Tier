@@ -73,7 +73,7 @@
                       <div class="fs-3">Category</div>
                       @if (canAddMenu)
                       {
-                        <img data-bs-toggle="modal" data-bs-target="#exampleModal1" class="pe-2" style="height: 25px;"
+                        <img id="AddCategory"  class="pe-2" style="height: 25px;"
                           src="~/images/icons/plus-square.svg" alt="">
                       }
                     </div>
@@ -175,6 +175,14 @@
 
 @section scripts
 {
+  <script>
+    $(document).on("click","#AddCategory",function(){
+      $("#addcategorydata")[0].reset();
+       var modal = new bootstrap.Modal(document.getElementById('exampleModal1'));
+      modal.show()
+    })
+   </script> 
+
   <script>
     $(document).ready(function () {
       $('.category-name').on('click', function () {
@@ -410,6 +418,8 @@
   </script>
   <script>
     $(document).on("click", "#AddModifierGroup", function () {
+      @* $('.existingModifierLists').empty(); *@
+      $("#submitModifierGroupForm")[0].reset();
       var modal = new bootstrap.Modal(document.getElementById('modifierModal'));
       modal.show();
     });
@@ -556,7 +566,15 @@
           modal.hide()
           $('#modifierModal').empty();
           $("#modifiers-tab").click();
+          $('.modal-backdrop').remove();
+          $('#modifierModal').remove();
+          if(response.success == true)
+          {
           toastr.success("Modifier Group Added successfully");
+          }
+          else{
+            toastr.error("Modifier Group does not Added successfully");
+          }
         },
         error: function () {
           console.log("Error saving item.");
@@ -583,8 +601,16 @@
         contentType: false,
         success: function (response) {
           $('#editModifier').modal('hide');
-          $("#modifiers-tab").click();
+          
+          if(response.success == true)
+          {
           toastr.success("Modifier Group Edited successfully");
+          }
+          else{
+            toastr.error("Modifier Group does not Edited successfully");
+          }
+          @* $("#modifiers-tab").click(); *@
+          location.reload();
         },
         error: function () {
           console.log("Error saving item.");
@@ -791,33 +817,44 @@
   @*Edit Menu-Item Post *@
   <script>
     $(document).on("click", "#submitEditItemBtn", function (e) {
-      SubmitAddItemForEdit();
+  e.preventDefault();
 
-      var form = $("#editItemForm");
-      var formData = new FormData(form[0]);
+  SubmitAddItemForEdit(); 
 
-      console.log("form-data-FOR-EDIT:", formData);
+  var categoryId = $(this).data("categoryid");
+  console.log("categoryIDDDDDDD", categoryId);
 
-      $.ajax({
-        url: "/Menu/EditItems",
-        type: "POST",
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function (response) {
-          if (response.success) {
-            $("#editItemModal").modal('hide');
-            toastr.success("Item Edited Successfully");
-          } else {
-            $("#editItemModal").modal('show');
-            toastr.error("Failed to edit item.");
-          }
-        },
-        error: function () {
-          console.log("Error saving item.");
-        }
-      });
-    });
+  var form = $("#editItemForm");
+  var formData = new FormData(form[0]);
+
+
+  var modifierList = $("#modifierItemListForEdit").val();
+  formData.append("modifierItemListForEdit", modifierList);
+
+  $.ajax({
+    url: "/Menu/EditItems",
+    type: "POST",
+    data: formData,
+    contentType: false,          
+    processData: false,          
+    success: function (response) {
+      console.log("AJAX response:", response);
+      if (response.success === true) {
+        $("#editItemModal").modal('hide');
+        fetchItems(categoryId);
+        $('.modal-backdrop').remove();
+        toastr.success("Item Edited Successfully");
+      } else {
+        $("#editItemModal").modal('show');
+        toastr.error("Failed to edit item.");
+      }
+    },
+    error: function () {
+      console.log("Error saving item.");
+    }
+  });
+});
+
   </script>
 
   <script>
@@ -1049,7 +1086,6 @@
 <script>
   $(document).on("click", "#deletemodifiersubmit", function (e) {
     e.preventDefault();
-    debugger
 
     var Id = $("#ModifierId").val();
     console.log("id", Id);
@@ -1104,7 +1140,7 @@
 <div class="modal fade" data-bs-backdrop="static" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
-    <form method="post" asp-controller="Menu" asp-action="AddCategory" class="modal-content">
+    <form method="post" asp-controller="Menu" asp-action="AddCategory" id="addcategorydata" class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel1">Add Category</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -1575,7 +1611,6 @@
 <script>
   $(document).on('click', '.delete-modifier-item', function (e) {
     e.preventDefault();
-    debugger
 
     const modifierId = $(this).data('deletemodifierid');
     const modifierGroupId = $(this).data('deletemodifiergroupid');
@@ -1597,7 +1632,7 @@
 <script>
   $(document).on("submit", "#deletemodifieritem", function (e) {
     e.preventDefault();
-    debugger
+    
 
     var ModifierId = $("#ModifierItemId").val();
     console.log("Modifierid", ModifierId);
@@ -1792,11 +1827,14 @@
 </script>
 
 <script>
-  $(document).on("submit", "#submiteditmodifieritem", function (e) {
+  $(document).on("click", "#submiteditmodifieritem", function (e) {
     e.preventDefault(); 
 
-    var form = $("#submiteditmodifieritem")[0];
+    var ModifierGroupId = $(this).data("modifiergroupid");
+
+    var form = $(this).closest("form")[0]; 
     var formData = new FormData(form);
+
     
     $.ajax({
       url: "/Menu/EditModifierItems",
@@ -1814,7 +1852,7 @@
           }
 
           toastr.success("Modifier Edited successfully");
-          $("#modifiers-tab").click();
+         loadItemsByModifier(ModifierGroupId) 
         } else {
           toastr.error("Failed to add modifier. Please try again.");
         }

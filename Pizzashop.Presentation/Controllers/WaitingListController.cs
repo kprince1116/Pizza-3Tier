@@ -68,7 +68,7 @@ public class WaitingListController : Controller
         var result = await _waitingService.UpdateWaitingToken(model);
 
         if(result){
-            TempData["EditSuccess"] = true;
+            TempData["EditWaitingSuccess"] = true;
          return RedirectToAction("WaitingList", "WaitingList");
         }
         else{
@@ -81,7 +81,7 @@ public class WaitingListController : Controller
     {
         var result = await _waitingService.DeleteToken(Id);
          if(result){
-         TempData["DeleteSuccess"] = true;
+         TempData["DeleteWaitingSuccess"] = true;
          return RedirectToAction("WaitingList", "WaitingList");
         }
         else{

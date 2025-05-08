@@ -25,7 +25,7 @@ public class TaxesAndFeesController : Controller
     }
 
      [_AuthPermissionAttribute("TaxAndFee", ActionPermissions.CanView)]
-        public async Task<IActionResult> GetTaxList(int pageNo = 1, int pageSize = 3, string searchKey = "")
+        public async Task<IActionResult> GetTaxList(int pageNo = 1, int pageSize = 5, string searchKey = "")
     {
         var taxlist = await _taxesAndFeesService.GetTaxDeails( pageNo , pageSize ,  searchKey );
         return PartialView("_TaxPartial",taxlist);

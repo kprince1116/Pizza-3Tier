@@ -180,17 +180,13 @@ public class MenuController : Controller
             Console.WriteLine(e);
         }
         
-
         var item = await _userMenu.EditItem(model);
-        if (item)
-        {
-            TempData["EditItemSuccess"] = true;
-            return RedirectToAction("Items", "Menu");
+          if(item){
+            return Json(new{success = true});
         }
-        else
-        {
-            return Content("error");
-        }                                 
+        else{
+            return Json (new{success = false});
+        }                                
     }
 
     [_AuthPermissionAttribute("Menu", ActionPermissions.CanAddEdit)]
@@ -250,12 +246,10 @@ public class MenuController : Controller
         var isAdded = await _userMenu.AddModifier(model);
         if (isAdded)
         {
-            TempData["AddModifierSuccess"] = true;
-            return RedirectToAction("Items", "Menu");
+            return Json( new { success = true});
         }
         else{
-            TempData["AddModifierError"] = "A Modifier Group with the same name already exists.";
-            return RedirectToAction("Items", "Menu");
+            return Json( new { success = false});
         }
         
         
@@ -280,14 +274,12 @@ public class MenuController : Controller
         }
        
         var isEdit = await _userMenu.UpdateModifier(model);
-        if (isEdit)
+          if (isEdit)
         {
-            TempData["EditModifierSuccess"] = true;
-            return RedirectToAction("Items", "Menu");
+            return Json( new { success = true});
         }
         else{
-             TempData["AddModifierError"] = "A Modifier Group with the same name already exists.";
-            return RedirectToAction("Items", "Menu");
+            return Json( new { success = false});
         }
     }
 

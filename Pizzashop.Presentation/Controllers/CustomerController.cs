@@ -30,7 +30,7 @@ public class CustomerController : Controller
 
     
      [_AuthPermissionAttribute("Customer", ActionPermissions.CanView)]
-    public async Task<IActionResult> GetCustomerDetails(int pageNo = 1, int pageSize = 3, string searchKey = "" ,  string sortby = "" , string sortdirection ="" ,  string timefilter = "" , string fromdate="" , string todate="")
+    public async Task<IActionResult> GetCustomerDetails(int pageNo = 1, int pageSize = 15, string searchKey = "" ,  string sortby = "" , string sortdirection ="" ,  string timefilter = "" , string fromdate="" , string todate="")
     {
         var customer = await _customerservice.GetCustomerDetails(pageNo,pageSize,searchKey,sortby,sortdirection,timefilter,fromdate,todate);
          return PartialView("_customerPartial",customer);

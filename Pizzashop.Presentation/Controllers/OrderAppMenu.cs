@@ -44,7 +44,7 @@ public class OrderAppMenu : Controller
         }
         
     }
-
+    
     public async Task<IActionResult> GetCategories()
     {
         var categories = await _orderAppMenu.GetCategories();
@@ -181,12 +181,12 @@ public class OrderAppMenu : Controller
     {
         var check = await _orderAppMenu.CheckReadyQuantity(orderId);
 
-        if(check){
+       if(check){
             return Json(new{success = true});
         }
         else{
             return Json (new{success = false});
-        }
+        } 
     }
     public async Task<IActionResult> CheckReadyQuantityForCancel(int orderId)
     {

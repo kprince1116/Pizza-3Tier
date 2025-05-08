@@ -120,7 +120,7 @@
                             @foreach (var item in Model.OrderItems)
                             {
                                 <tr>
-                                    <td class="text-center">@srNo</td>
+                                    <td class="text-start">@srNo</td>
                                     <td style="text-wrap: nowrap;" >
                                         @item.Item?.Itemname
                                         @if (item.OrderItemModifiers.Any())
@@ -140,13 +140,14 @@
                                             <ul class="list-unstyled mt-1">
                                                 @foreach (var modifier in item.OrderItemModifiers)
                                                 {
-                                                    <li>@modifier.Quantity</li>
+                                                    <li >@modifier.Quantity</li>
                                                 }
                                             </ul>
                                         }
                                     </td>
                                     <td style="text-wrap: nowrap;" >
                                         ₹ @item.Price.ToString()
+                                            
                                         @if (item.OrderItemModifiers.Any())
                                         {
                                             <ul class="list-unstyled mt-1">
@@ -157,6 +158,10 @@
                                             </ul>
                                         }
                                     </td>
+                                      @foreach(var itemtax in Model.OrderItems)
+                                           {
+                                             decimal  ExclusiveTaxForItem = Math.Round((decimal)(itemtax.Price * itemtax.Quantity * itemtax.ItemTaxPercenetage) / 100, 2);
+                                        } 
                                     <td>
                                         ₹ @(item.Price*item.Quantity) 
                                         @if (item.OrderItemModifiers.Any())
@@ -189,7 +194,7 @@
                         <p class="text-nowrap" ><strong>Subtotal:</strong> ₹ @subtotal.ToString("F2")</p>
                         @foreach(var itemtax in Model.OrderItems)
                         {
-                         ExclusiveTax += (decimal) (itemtax.Price * itemtax.Quantity * itemtax.ItemTaxPercenetage) / 100;
+                         ExclusiveTax += Math.Round((decimal)(itemtax.Price * itemtax.Quantity * itemtax.ItemTaxPercenetage) / 100, 2);
                         }
                         <p class="text-nowrap" ><strong>ExclusiveTax:</strong> ₹ @ExclusiveTax</p>
                         @if (Model.OrderTaxes.Any())
@@ -200,12 +205,13 @@
                                 <strong class="fw-bold" > @tax.Tax?.Taxname : </strong>
                                  @((tax.Tax?.TaxType ?? false ? (subtotal * tax.Tax?.Taxvalue ?? 0)/100 : tax.Tax?.Taxvalue ?? 0)) 
                                      @{
-                                     TotalAmount += (tax.Tax?.TaxType ?? false ? (subtotal * tax.Tax?.Taxvalue ?? 0)/100 : tax.Tax?.Taxvalue ?? 0);
-                                     }
+                                         TotalAmount += Math.Round (tax.Tax?.TaxType ?? false ? (subtotal * tax.Tax?.Taxvalue ?? 0)/100 : tax.Tax?.Taxvalue ?? 0,2);                                     }
                                 </p>
                             }
                         }
-                        <p class="d-flex justify-content-end" ><strong>Total:</strong> ₹ @(subtotal + TotalAmount + ExclusiveTax)  </p>
+                        <p class="d-flex justify-content-end">
+                                 <strong>Total:</strong> ₹ @((subtotal + TotalAmount + ExclusiveTax).ToString("F2"))
+                        </p>
                     </div>
             </div>
         </div>

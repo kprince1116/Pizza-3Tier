@@ -110,7 +110,7 @@ public class OrderRepository : IOrderRepository
                      orders = (sortDirection == "asc") ? orders.OrderBy(U=>U.TotalAmount) : orders.OrderByDescending(u=>u.TotalAmount);
                      break;                           
             default:
-                     orders = orders.OrderBy(U=>U.Orderdate);
+                     orders = orders.OrderByDescending(U=>U.Orderid);
                      break;
         }
     

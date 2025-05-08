@@ -43,10 +43,10 @@
                     style="width: 66  px;">
                     @if(Model.PageSize!=null)
                     {
-                    <option value="3" selected="@(Model.PageSize==3 ? true : false)" >3</option>
-                    <option value="5" selected="@(Model.PageSize==5 ? true : false)" >5</option>
-                    <option value="10" selected="@(Model.PageSize==10 ? true : false)" >10</option>
+                    @* <option value="10" selected="@(Model.PageSize==10 ? true : false)" >10</option> *@
                     <option value="15" selected="@(Model.PageSize==15 ? true : false)" >15</option>
+                    <option value="20" selected="@(Model.PageSize==20 ? true : false)" >20</option>
+                    <option value="25" selected="@(Model.PageSize==25 ? true : false)" >25</option>
                     }
                   </select>
                 </div>

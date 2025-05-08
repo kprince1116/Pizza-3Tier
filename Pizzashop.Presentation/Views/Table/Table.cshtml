@@ -365,7 +365,6 @@
     });
 
     function fetchTables(sectionId) {
-      debugger;
       let pagesize = $('#selectpagesizeForTables').val();
       console.log("sectionid:", sectionId);
       $.ajax({
@@ -388,11 +387,19 @@
       });
     });
 
-
+    @* $(document).on("click", ".edittable", function () {
+    var modal = bootstrap.Modal.getInstance(document.getElementById('EditTable'));
+    if (modal) {
+    modal.hide();
+    } else {
+                    console.error("Modal instance not found.");
+    }
+    }); *@
 
     @* load edit table*@
       $(document).ready(function () {
         $(document).on("click", ".edittable", function () {
+
           loadTableModal($(this).data("edittableid"));
         });
       });
@@ -403,120 +410,101 @@
         data: { id: id },
         success: function (data) {
           $("#edittabledata").html(data);
-          $('#edittableModal').modal('show');
-        },
+    @* $('#edittableModal').modal('show'); *@
+          },
         error: function () {
           console.log("No Projects Found");
           $("#EditTable").html('No User Fetched');
         }
       })
     }
+    $(document).on('click', '#EditTableData', function (e) {
+      e.preventDefault();
 
+      var form = $(this).closest('form')[0];
+      var formData = new FormData(form);
 
-    @* function getTableIds()
-    {
-    let selectIds = [];
+      var sectionId = $(this).data("sectionid");
+      console.log("sectionId", sectionId);
 
-    $(".inner-check-table-delete:checked").each(function(){
-    let id = $(this).data("deletetableId");
-    console.log("id:",id);
-    if (id !== undefined) {
-    selectIds.push(id);
-    }
-    console.log(selectIds);
-    return selectIds;
+      $.ajax({
+        url: "/Table/EditTable",
+        type: 'POST',
+        processData: false,
+        contentType: false,
+        data: formData,
+        success: function (response) {
+          console.log("Response:", response);
+          if (response.success === true) {
+            toastr.success("Table edited successfully");
+            var modal = bootstrap.Modal.getInstance(document.getElementById('EditTable'));
+            if (modal) {
+              modal.hide();
+            }
+            fetchTables(sectionId);
+          } else {
+            toastr.error(response.message || "An error occurred while editing the table.");
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error("AJAX error:", xhr.responseText || error);
+          toastr.error("An unexpected error occurred: " + (xhr.responseText || error));
+        }
+      });
     });
-    } *@
 
-    @* $(document).on("click","#deleteMassTable",function(){
-    var listTable = getTableIds();
-    console.log("list:",listTable);
-    $('#tableListForDelete').html(listTable.join(','));
-    }); *@
-
-    @* $(document).ready(function() { *@
-    @* $(document).on("submit","#deleteForTableMass",function(){
-    event.preventDefault();
-
-    let tableLists = Array.from(getTableIds());
-    console.log(tableLists);
-
-    var formData = new FormData();
-        tableLists.forEach(function(id) {
-    formData.append('tableLists', id);
-    });
-
-          $.ajax({
-            url:'/Table/DeleteCombine',
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success : function(data){
-    location.reload();
-    console.log("Response:", data);
-    },
-            error: function(xhr, status, error) {
-                      console.error("Error deleting items:", xhr.responseText);
-                      alert("An error occurred while deleting the items.");
-    $('#deleteTableModalForMass').modal('hide');
-    }
-    });
-    }); *@
-    @* });  *@
-
-      $(document).ready(function () {
+    $(document).ready(function () {
 
     @if (TempData["AddSectionSuccess"] != null && (bool)TempData["AddSectionSuccess"])
     {
       <text>
-              showToastrNotification('success', 'Section Added successfully!');
+            showToastrNotification('success', 'Section Added successfully!');
       </text>
     }
     @if (TempData["EditSectionSuccess"] != null && (bool)TempData["EditSectionSuccess"])
     {
       <text>
-              showToastrNotification('success', 'Section Edit successfully!');
+            showToastrNotification('success', 'Section Edit successfully!');
       </text>
     }
     @if (TempData["DeleteSectionSuccess"] != null && (bool)TempData["DeleteSectionSuccess"])
     {
       <text>
-              showToastrNotification('success', 'Section Delete successfully!');
+            showToastrNotification('success', 'Section Delete successfully!');
       </text>
     }
     @if (TempData["AddTableSuccess"] != null && (bool)TempData["AddTableSuccess"])
     {
       <text>
-              showToastrNotification('success', 'Table Added successfully!');
+            showToastrNotification('success', 'Table Added successfully!');
       </text>
     }
     @if (TempData["EditTableSuccess"] != null && (bool)TempData["EditTableSuccess"])
     {
       <text>
-              showToastrNotification('success', 'Table Edit successfully!');
+            showToastrNotification('success', 'Table Edit successfully!');
       </text>
     }
     @if (TempData["DeleteTableSuccess"] != null && (bool)TempData["DeleteTableSuccess"])
     {
       <text>
-              showToastrNotification('success', 'Table Delete successfully!');
+            showToastrNotification('success', 'Table Delete successfully!');
       </text>
     }
     @if (TempData["AddSectionError"] != null)
     {
       <text>
-              showToastrNotification('error', '@TempData["AddCategoryError"]');
+            showToastrNotification('error', '@TempData["AddCategoryError"]');
       </text>
     }
     @if (TempData["EditSectionError"] != null)
     {
       <text>
-              showToastrNotification('error', '@TempData["AddCategoryError"]');
+            showToastrNotification('error', '@TempData["AddCategoryError"]');
       </text>
     }
 
-          });
+            });
 
 
   </script>

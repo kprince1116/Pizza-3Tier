@@ -13,7 +13,7 @@ public class TableController : Controller
     private readonly IConfiguration _configuration;
     private readonly ITable _table;
 
-    public TableController(IConfiguration configuration,  ITable table)
+    public TableController(IConfiguration configuration, ITable table)
     {
         _configuration = configuration;
         _table = table;
@@ -21,12 +21,12 @@ public class TableController : Controller
 
     [Authorize(Roles = "Account_Manager,Admin")]
     [_AuthPermissionAttribute("TableAndSection", ActionPermissions.CanView)]
-    public async Task<IActionResult> Table(int id, int pageNo = 1 , int pageSize=3 , string searchKey = "" )
+    public async Task<IActionResult> Table(int id, int pageNo = 1, int pageSize = 3, string searchKey = "")
     {
         var sections = _table.GetSections();
         int selectedSectionId = id != 0 ? id : sections.First().Sectionid;
 
-        var tables = await _table.GetTablesBySection(selectedSectionId , pageNo , pageSize , searchKey);
+        var tables = await _table.GetTablesBySection(selectedSectionId, pageNo, pageSize, searchKey);
 
         var viewModel = new Tablesviewmodel
         {
@@ -37,7 +37,7 @@ public class TableController : Controller
         return View(viewModel);
     }
 
-     [_AuthPermissionAttribute("TableAndSection", ActionPermissions.CanAddEdit)]
+    [_AuthPermissionAttribute("TableAndSection", ActionPermissions.CanAddEdit)]
     //CRUD SECTIONS
     [HttpPost]
     public async Task<IActionResult> AddSection(Tablesviewmodel model)
@@ -51,9 +51,9 @@ public class TableController : Controller
         else
         {
             TempData["AddSectionError"] = "A section with the same name already exists.";
-            return RedirectToAction("Table", "Table"); 
+            return RedirectToAction("Table", "Table");
         }
-       
+
     }
 
     [_AuthPermissionAttribute("TableAndSection", ActionPermissions.CanAddEdit)]
@@ -61,17 +61,17 @@ public class TableController : Controller
     public async Task<IActionResult> EditSection(Tablesviewmodel model)
     {
         var isEdit = await _table.EditSection(model);
-        if(isEdit)
+        if (isEdit)
         {
-        TempData["EditSectionSuccess"] = true;
-        return RedirectToAction("Table", "Table");
+            TempData["EditSectionSuccess"] = true;
+            return RedirectToAction("Table", "Table");
         }
         else
         {
             TempData["EditSectionError"] = "A section with the same name already exists.";
-            return RedirectToAction("Table", "Table");       
+            return RedirectToAction("Table", "Table");
         }
-        
+
     }
 
     [_AuthPermissionAttribute("TableAndSection", ActionPermissions.CanDelete)]
@@ -80,10 +80,10 @@ public class TableController : Controller
     public async Task<IActionResult> DeleteSection(int id)
     {
         var existingSection = await _table.GetSectionByIdForDelte(id);
-        if(existingSection)
+        if (existingSection)
         {
             TempData["DeleteSectionSuccess"] = true;
-            return  RedirectToAction("Table", "Table");
+            return RedirectToAction("Table", "Table");
         }
         else
         {
@@ -91,9 +91,9 @@ public class TableController : Controller
         }
     }
 
-    public async Task<IActionResult> TablesBySection(int id , int pageNo = 1 , int pageSize=3, string searchKey = "" )
+    public async Task<IActionResult> TablesBySection(int id, int pageNo = 1, int pageSize = 3, string searchKey = "")
     {
-        var tables = await _table.GetTablesBySection(id,pageNo,pageSize, searchKey);
+        var tables = await _table.GetTablesBySection(id, pageNo, pageSize, searchKey);
 
         return PartialView("_TablePartial", tables);
     }
@@ -102,7 +102,7 @@ public class TableController : Controller
     [HttpPost]
     public async Task<IActionResult> AddTable(Tablesviewmodel model)
     {
-        var isAdded =  await _table.AddTable(model);
+        var isAdded = await _table.AddTable(model);
         if (isAdded)
         {
             TempData["AddTableSuccess"] = true;
@@ -115,37 +115,38 @@ public class TableController : Controller
     }
 
 
-     public async Task<IActionResult> EditTable(int id)
+    public async Task<IActionResult> EditTable(int id)
     {
-        var item =await _table.GetEditTable(id);
+        var item = await _table.GetEditTable(id);
         item.Tableid = id;
 
-        return PartialView("_EditTablePartial",item);
-                                         
+        return PartialView("_EditTablePartial", item);
+
     }
 
     [_AuthPermissionAttribute("TableAndSection", ActionPermissions.CanAddEdit)]
     [HttpPost]
     public async Task<IActionResult> EditTable(EditTableviewmodel model)
     {
+       
         var isEdit = await _table.EditTable(model);
-         if (isEdit)
+        if (isEdit)
         {
-            TempData["EditTableSuccess"] = true;
-            return RedirectToAction("Table", "Table");
+            return Json(new { success = true });
         }
         else
         {
-            return Content("error");
+            return Json(new { success = false, message = "Table update failed." });
         }
     }
+
 
     [_AuthPermissionAttribute("TableAndSection", ActionPermissions.CanDelete)]
     [HttpPost]
     public async Task<IActionResult> DeleteTable(int id)
     {
         var isDelete = await _table.GetTableByIdForDelte(id);
-         if (isDelete)
+        if (isDelete)
         {
             TempData["DeleteTableSuccess"] = true;
             return RedirectToAction("Table", "Table");
@@ -156,12 +157,12 @@ public class TableController : Controller
         }
     }
 
-     [_AuthPermissionAttribute("TableAndSection", ActionPermissions.CanDelete)]
+    [_AuthPermissionAttribute("TableAndSection", ActionPermissions.CanDelete)]
     [HttpPost]
     public async Task<IActionResult> DeleteCombine(List<int> tableLists)
     {
         _table.DeleteTableAsync(tableLists);
-        return Json( new { success = true, message = "hi"});
+        return Json(new { success = true, message = "hi" });
     }
 
 }

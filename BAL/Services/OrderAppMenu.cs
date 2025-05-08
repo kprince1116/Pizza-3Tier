@@ -335,6 +335,7 @@ public class OrderAppMenu : IOrderAppMenu
             if(orderItem!=null)
             {
                 orderItem.IsDeleted = true;
+                orderItem.ModifiedDate = DateTime.Now;
                 await _orderAppMenuRepository.UpdateOrderItem(orderItem);
             }
         }
@@ -355,6 +356,7 @@ public class OrderAppMenu : IOrderAppMenu
                 {
                     orderItem.Quantity = save_items[i].Quantity;
                     orderItem.Status = "In Progress";
+                    orderItem.ModifiedDate = DateTime.Now;
                     await _orderAppMenuRepository.UpdateOrderItem(orderItem);
                 }
                 if(orderItem.OrderItemModifiers.Count != 0){
@@ -370,7 +372,8 @@ public class OrderAppMenu : IOrderAppMenu
                     ItemTaxPercenetage = save_items[i].ItemTax,
                     Status = "In Progress",
                     ReadyItem = 0,
-                    IsDeleted = false
+                    IsDeleted = false,
+                    CreatedDate = DateTime.Now
                 };
                 orderItem = await _orderAppMenuRepository.AddOrderItem(orderItem);
 

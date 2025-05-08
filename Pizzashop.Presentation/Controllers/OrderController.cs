@@ -33,7 +33,7 @@ public class OrderController : Controller
 
     [_AuthPermissionAttribute("Order", ActionPermissions.CanView)]
    
-       public async Task<IActionResult> GetOrderList(int pageNo = 1, int pageSize = 3, string searchKey = "" , string sortby = "" , string sortdirection = "" , string statusFilter="" , string timeFilter = "",string  fromDate = "" , string toDate="")
+       public async Task<IActionResult> GetOrderList(int pageNo = 1, int pageSize = 5, string searchKey = "" , string sortby = "" , string sortdirection = "" , string statusFilter="" , string timeFilter = "",string  fromDate = "" , string toDate="")
     {
         var taxlist = await _orderservice.GetOrderDetails(pageNo, pageSize, searchKey, sortby, sortdirection, statusFilter, timeFilter, fromDate, toDate);
         return PartialView("_orderPartial",taxlist);

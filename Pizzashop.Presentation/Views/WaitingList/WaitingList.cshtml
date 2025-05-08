@@ -268,7 +268,7 @@
         });
     });
     
-     $(document).on('click', '.add-close', function () {
+     $(document).on('click','.add-close', function () {
         const modalElement = document.getElementById('AddWaiting');
         const assignModal = bootstrap.Modal.getInstance(modalElement);
         if (assignModal) {
@@ -382,13 +382,13 @@
 
     $(document).ready(function () {
 
-    @if (TempData["EditSuccess"] != null && (bool)TempData["EditSuccess"])
+    @if (TempData["EditWaitingSuccess"] != null && (bool)TempData["EditWaitingSuccess"])
     {
         <text>
                     showToastrNotification('success', 'Waiting Token Edit successfully!');
         </text>
     }
-    @if (TempData["DeleteSuccess"] != null && (bool)TempData["DeleteSuccess"])
+    @if (TempData["DeleteWaitingSuccess"] != null && (bool)TempData["DeleteWaitingSuccess"])
     {
         <text>
                     showToastrNotification('success', 'Waiting Token Delete successfully!');

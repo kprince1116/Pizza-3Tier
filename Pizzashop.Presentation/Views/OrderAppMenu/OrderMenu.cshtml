@@ -10,10 +10,9 @@
 <input type="hidden" id="CustomerData" data-customerid="@Model.CustomerId">
 <input type="hidden" id="OrderData" data-orderid="@Model.OrderId">
 
-<body style="margin: 0; overflow: hidden;">
+<body style="margin: 0;">
     <div class="d-flex m-0 pe-3">
-
-        <div class="bg-white col-2 d-lg-block  d-none p-0"
+        <div class="bg-white col-2 d-lg-block d-none p-0"
             style="position: sticky; top: 0; height: 100vh; overflow-y: auto;">
             <div class="fw-bold ps-3 pb-3 pt-3 fs-5">Category</div>
             <div class="aa">
@@ -29,7 +28,7 @@
             <div class="categorydetails"></div>
         </div>
 
-        <div class="row d-flex">
+        <div class="row d-flex flex-column flex-lg-row">
         <div class="@(Model.CustomerId !=0 || Model.OrderId !=0 ? "col-lg-5" : "") p-3">
             <div class="main-content d-flex flex-column  flex-md-row align-items-center justify-content-between mt-3">
                 <div class="d-flex justify-content-center mb-3 align-items-center">

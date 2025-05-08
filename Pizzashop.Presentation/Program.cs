@@ -83,10 +83,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 }
                 return Task.CompletedTask;
             },
-            OnChallenge = context =>
+            OnAuthenticationFailed = context =>
+                {
+                    context.NoResult();
+                    context.Response.Cookies.Delete("jwtToken");
+                    context.Response.Redirect("/Login/Login");
+                    return Task.CompletedTask;
+                },
+ 
+                OnChallenge = context =>
                 {
                     var path = context.Request.Path.Value;
-                    if (path != "/Login/Login" && !context.Response.HasStarted)
+                    if(path != "/UserLogin/Login" && !context.Response.HasStarted)
                     {
                         context.Response.Cookies.Delete("jwtToken");
                         context.Response.Redirect("/Login/Login");

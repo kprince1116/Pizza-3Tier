@@ -224,7 +224,7 @@
     /*----------- Order App content ---------  */
 .order-app-module
 {
-    min-width: 800px;
+    /* min-width: 800px; */
     height: 85vh;
     background-color: white;
     border-radius: 10px;

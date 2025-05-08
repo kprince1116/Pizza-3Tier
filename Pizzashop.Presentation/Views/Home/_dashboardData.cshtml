@@ -237,11 +237,13 @@
 
     function getGraph() {
         var OrderRevenue = @Html.Raw(Json.Serialize(Model.RevenueList));
+        debugger
+        console.log("orders",OrderRevenue);
 
         if (!OrderRevenue || OrderRevenue.length === 0) {
-        document.getElementById("revenuechart").innerHTML = "<p>No revenue data available to display.</p>";
-        return;
-    }
+              document.getElementById("revenuechart").innerHTML = "<p>No revenue data available to display.</p>";
+              return;
+          }
 
         let format = "dd-MM-yyyy";
 
@@ -259,13 +261,13 @@
             case "today":
                 format = "HH:mm";
                 break;
-            case "month":
-                format = "MMM-yyyy";
-                break;
-            case "30":
+            case "this_month":
                 format = "dd-MM-yyyy";
                 break;
-            case "7":
+            case "Last_30_days":
+                format = "dd-MM-yyyy";
+                break;
+            case "Last_7_days":
                 format = "dd-MM-yyyy";
                 break;
             default:
@@ -369,13 +371,13 @@
             case "today":
                 format = "HH:mm";
                 break;
-            case "month":
-                format = "MMM-yyyy";
-                break;
-            case "30":
+            case "this_month":
                 format = "dd-MM-yyyy";
                 break;
-            case "7":
+            case "Last_30_days":
+                format = "dd-MM-yyyy";
+                break;
+            case "Last_7_days":
                 format = "dd-MM-yyyy";
                 break;
             default:
