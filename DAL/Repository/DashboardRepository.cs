@@ -177,7 +177,7 @@ public class DashboardRepository : IDashboardRepository
             var revenuelist = new List<Revenueviewmodel>();
             if(startDate.Date == endDate.Date)
             {
-             revenuelist = payments.GroupBy(u => u.PaidOn.Value.Date.Hour).Select(u => new Revenueviewmodel
+             revenuelist = payments.GroupBy(u => u.PaidOn.Value.Hour).Select(u => new Revenueviewmodel
             {
                 RevenueDate = (DateTime)u.First().PaidOn,
                 TotalRevenue = (decimal)u.Sum(u => u.Totalamount)
@@ -314,7 +314,7 @@ public class DashboardRepository : IDashboardRepository
         if(startDate.Date == endDate.Date)
         {
              customerlist = customers
-            .GroupBy(u => u.CreatedDate.Value.Date.Hour)
+            .GroupBy(u => u.CreatedDate.Value.Hour)
             .Select(u => new CustomerDashboardviewmodel
             {
                 CustomerDate = (DateTime)u.First().CreatedDate,

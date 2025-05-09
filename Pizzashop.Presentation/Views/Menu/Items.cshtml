@@ -84,12 +84,12 @@
                       var isActive = category.CategoryName == "Sandwich" ? "active-category" : "";
                       <div class="aaa">
                         <div
-                          class="d-flex justify-content-between align-items-center sidebar-category @isActive category-btn">
+                          class="d-flex justify-content-between align-items-center sidebar-category @isActive category-btn" onclick="fetchItems(@category.CategoryId)">
                           <a style="color: black;"
                             class="d-flex gap-2 pt-2 pb-2 ps-3 nav-link active align-items-center  categorygroupbtn"
                             id="category-idforclick" data-category-id="@category.CategoryId">
                             <img style="height: 15px;" src="~/images/icons/grid.png">
-                            <div class="category-name" onclick="fetchItems(@category.CategoryId)">@category.CategoryName
+                            <div class="category-name" >@category.CategoryName
                             </div>
                           </a>
                           @if (canAddMenu || canDeleteMenu)
@@ -185,7 +185,7 @@
 
   <script>
     $(document).ready(function () {
-      $('.category-name').on('click', function () {
+      $('.sidebar-category').on('click', function () {
         $('.category-btn').removeClass('active-category');
         $(this).closest('.category-btn').addClass('active-category');
       });
@@ -194,7 +194,7 @@
 
   <script>
     $(document).ready(function () {
-      $('.modifier-group-name').on('click', function () {
+      $('.modifierGroupBtn').on('click', function () {
         $('.modifier-group-btn').removeClass('active-modifier');
         $(this).closest('.modifier-group-btn').addClass('active-modifier');
       });
@@ -273,7 +273,6 @@
               let id = $(this).data("mgitemid");
               let name = $(this).data("mgitemname");
               selectedExistingModifiers.push({ ModifierItemId: Number(id), Name: name });
-
             });
             console.log("selectedExistingModifiers:", selectedExistingModifiers);
           },
@@ -1031,11 +1030,46 @@
   </script>
 }
 
+
+<script>
+  $(document).on("submit", "#EditCategoryForm", function (e) {
+    e.preventDefault();
+    var categoryId = $("#CategoryId").val();
+    var form = $("#EditCategoryForm")[0];
+    var formData = new FormData(form);
+
+    $.ajax({
+      url: "/Menu/EditCategory",
+      type: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function (response) {
+        if (response.success === true) {
+          var modalEl = document.getElementById('editModal');
+          var modal = bootstrap.Modal.getInstance(modalEl);
+          if (modal) {
+            modal.hide();
+          }
+          toastr.success("Category Edited successfully");
+          fetchItems(categoryId);
+          $('.modal-backdrop').remove();
+        } else {
+          toastr.error("A category with the same name already exists.");
+        }
+      },
+      error: function () {
+        toastr.error("An error occurred while adding the category.");
+      }
+    });
+  });
+</script>
+
 <!-- edit category -->
 <div class="modal fade" data-bs-backdrop="static" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
-    <form method="post" asp-controller="Menu" asp-action="EditCategory" class="modal-content" id="addItemForm">
+    <form method="post" id="EditCategoryForm" class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel1">Edit Category</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -1058,7 +1092,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit"  class="btn btn-primary">Save</button>
         <button type="button" class="btn btn-secondary" onclick="resetForm()">Cancel</button>
       </div>
     </form>
@@ -1136,11 +1170,48 @@
   </div>
 </div>
 
+<script>
+  $(document).on("submit", "#addcategorydata", function (e) {
+    e.preventDefault();
+
+    var form = $("#addcategorydata")[0];
+    var formData = new FormData(form);
+
+    $.ajax({
+      url: "/Menu/AddCategory",
+      type: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function (response) {
+        if (response.success === true) {
+          var modalEl = document.getElementById('exampleModal1');
+          var modal = bootstrap.Modal.getInstance(modalEl);
+          if (modal) {
+            modal.hide();
+          }
+
+          toastr.success("Category added successfully");
+          $("#addcategorydata")[0].reset();
+          location.reload(); 
+        } else {
+          toastr.error("A category with the same name already exists.");
+        }
+      },
+      error: function () {
+        console.error("Error adding category.");
+        toastr.error("An error occurred while adding the category.");
+      }
+    });
+  });
+</script>
+
+
 <!--Add Category -->
 <div class="modal fade" data-bs-backdrop="static" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
-    <form method="post" asp-controller="Menu" asp-action="AddCategory" id="addcategorydata" class="modal-content">
+    <form method="post"  id="addcategorydata" class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel1">Add Category</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

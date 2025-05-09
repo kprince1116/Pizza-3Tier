@@ -237,7 +237,7 @@
 
     function getGraph() {
         var OrderRevenue = @Html.Raw(Json.Serialize(Model.RevenueList));
-        debugger
+        
         console.log("orders",OrderRevenue);
 
         if (!OrderRevenue || OrderRevenue.length === 0) {

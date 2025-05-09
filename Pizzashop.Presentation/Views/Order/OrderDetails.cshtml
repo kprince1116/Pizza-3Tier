@@ -23,6 +23,7 @@
                             class="badge bg-success-subtle fs-6 text-success">@Model.StatusNavigation.Status</span></p>
                       <a class="btn w-auto  my-lg-0 px-4 d-flex align-items-center justify-content-center gap-2 text-white pdfinvoice"
                data-orderid="@Model.Orderid"
+    using System.Data.Common;
                 style="background-color:#0066a7">
                 <img src="~/images/icons/export-svgrepo-com (1).svg" width="25px">
                  Export
@@ -164,6 +165,14 @@
                                         } 
                                     <td>
                                         ₹ @(item.Price*item.Quantity) 
+                                        
+                                       @{
+                                          decimal itemBaseprice = (decimal)(item.Price ?? 0) * (item.Quantity ?? 0);
+                                          decimal itemExclusiveTax = Math.Round(itemBaseprice * (item.ItemTaxPercenetage ?? 0) / 100, 2);
+                                        }
+
+                                       <small class="text-muted">(Tax: ₹ @itemExclusiveTax.ToString("F2"))</small>
+
                                         @if (item.OrderItemModifiers.Any())
                                         {
                                             <ul class="list-unstyled mt-1">
@@ -179,6 +188,10 @@
                                             decimal totalForRow = itemTotal + modifierTotal;
                                             subtotal += totalForRow;
                                         }
+                                         @foreach(var itemtax in Model.OrderItems)
+                                               {
+                                                     decimal ExclusiveTaxes = Math.Round((decimal)(itemtax.Price * itemtax.Quantity * itemtax.ItemTaxPercenetage) / 100, 2);
+                                               }
                                     </td>
                                 </tr>
                                 srNo++;
@@ -203,7 +216,7 @@
                             {    
                                 <p>
                                 <strong class="fw-bold" > @tax.Tax?.Taxname : </strong>
-                                 @((tax.Tax?.TaxType ?? false ? (subtotal * tax.Tax?.Taxvalue ?? 0)/100 : tax.Tax?.Taxvalue ?? 0)) 
+                                 @( Math.Round((tax.Tax?.TaxType ?? false ? (subtotal * tax.Tax?.Taxvalue ?? 0)/100 : tax.Tax?.Taxvalue ?? 0),2))
                                      @{
                                          TotalAmount += Math.Round (tax.Tax?.TaxType ?? false ? (subtotal * tax.Tax?.Taxvalue ?? 0)/100 : tax.Tax?.Taxvalue ?? 0,2);                                     }
                                 </p>

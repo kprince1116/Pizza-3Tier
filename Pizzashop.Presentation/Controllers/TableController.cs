@@ -45,13 +45,11 @@ public class TableController : Controller
         var isAdded = await _table.AddSection(model);
         if (isAdded)
         {
-            TempData["AddSectionSuccess"] = true;
-            return RedirectToAction("Table", "Table");
+            return Json(new { success = true });
         }
         else
         {
-            TempData["AddSectionError"] = "A section with the same name already exists.";
-            return RedirectToAction("Table", "Table");
+            return Json(new { success = false });
         }
 
     }
@@ -63,13 +61,11 @@ public class TableController : Controller
         var isEdit = await _table.EditSection(model);
         if (isEdit)
         {
-            TempData["EditSectionSuccess"] = true;
-            return RedirectToAction("Table", "Table");
+            return Json(new { success = true });
         }
         else
         {
-            TempData["EditSectionError"] = "A section with the same name already exists.";
-            return RedirectToAction("Table", "Table");
+            return Json(new { success = false });
         }
 
     }
@@ -128,7 +124,7 @@ public class TableController : Controller
     [HttpPost]
     public async Task<IActionResult> EditTable(EditTableviewmodel model)
     {
-       
+
         var isEdit = await _table.EditTable(model);
         if (isEdit)
         {

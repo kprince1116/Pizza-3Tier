@@ -138,7 +138,7 @@
                             {    
                                 <p>
                                 <strong class="fw-bold" > @tax.Tax?.Taxname : </strong>
-                                 @((tax.Tax?.TaxType ?? false ? (subtotal * tax.Tax?.Taxvalue ?? 0)/100 : tax.Tax?.Taxvalue ?? 0)) 
+                                 @( Math.Round((tax.Tax?.TaxType ?? false ? (subtotal * tax.Tax?.Taxvalue ?? 0)/100 : tax.Tax?.Taxvalue ?? 0),2))
                                      @{
                                      TotalAmount += Math.Round (tax.Tax?.TaxType ?? false ? (subtotal * tax.Tax?.Taxvalue ?? 0)/100 : tax.Tax?.Taxvalue ?? 0,2);
                                      }

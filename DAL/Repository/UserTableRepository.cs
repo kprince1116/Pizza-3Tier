@@ -117,6 +117,7 @@ public class UserTableRepository : IUserTableRepository
             TableName = model.AddTable.TableName,
             Capacity = model.AddTable.Capacity,
             Isavailable = model.AddTable.Isavailable,
+            Status = "Available"
         };
 
         _db.Tables.Update(table);

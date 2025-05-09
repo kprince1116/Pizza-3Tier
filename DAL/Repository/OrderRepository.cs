@@ -29,7 +29,7 @@ public class OrderRepository : IOrderRepository
                 CustomerName = u.Customer.Customername,
                 Status = u.StatusNavigation.Status,
                 Payment = u.PaymentModeNavigation.Status,
-                Rating = u.RatingNavigation.Avgrating,
+                Rating = (decimal) u.RatingNavigation.Avgrating,
                 TotalAmount = u.TotalAmount,
             }
         );

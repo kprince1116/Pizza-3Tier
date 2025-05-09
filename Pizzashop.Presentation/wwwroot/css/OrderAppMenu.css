@@ -27,6 +27,11 @@
   --table-available-bg: #f8f3f3; */
 }
 
+.custom-offcanvas-width {
+    width: 70%; 
+    max-width: 800px;
+}
+
     .sidebar-tile {
         display: flex;
         gap: 1rem;
@@ -225,7 +230,7 @@
 .order-app-module
 {
     /* min-width: 800px; */
-    height: 85vh;
+    height: 88vh;
     background-color: white;
     border-radius: 10px;
     padding: 12px;

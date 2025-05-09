@@ -18,10 +18,16 @@
                 Name
             </th>
             <th scope="col">Type</th>
-            <th scope="col">IsEnabled</th>
+             @if(canAddTaxes) 
+             {
+              <th scope="col">IsEnabled</th>
+              }
+               @if(canAddTaxes) 
+             {
             <th scope="col">
                 Default
             </th>
+            }
             <th scope="col">Tax Value</th>
           @if(canAddTaxes || canDeleteTaxes)  
           {
@@ -46,19 +52,24 @@
                             <div>Flat Amount</div>
                         }
                 </td>
+                 @if(canAddTaxes) 
+             {
                 <td>
            <div class="ff form-check form-switch d-flex fs-6" style="text-align: center;">
           <input class="form-check-input tax-available-switch " data-id="@tax.TaxId" type="checkbox" role="switch" id="flexSwitchCheckActive_@tax.TaxId" 
                @(tax.IsActive ? "checked" : "")>
           </div>
         </td>
+        }
+         @if(canAddTaxes) 
+             {
         <td>
       <div class="ff form-check form-switch fs-6" style="text-align: center;">
         <input class="form-check-input tax-default-switch" data-taxid="@tax.TaxId" type="checkbox" role="switch" id="flexSwitchCheckDefault_@tax.TaxId" 
                @(tax.IsDefault ? "checked" : "")>
       </div>
       </td>
-
+}
                 @if(tax.TaxType)
                 {
                     <td class="fs-6 ps-4" >@tax.TaxValue<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-percent" viewBox="0 0 16 16">

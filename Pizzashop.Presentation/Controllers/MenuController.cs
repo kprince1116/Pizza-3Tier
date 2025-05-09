@@ -56,18 +56,13 @@ public class MenuController : Controller
     [HttpPost]
     public async Task<IActionResult> AddCategory(menuviewmodel model)
     {
-
         var isAdded = await _userMenu.AddCategory(model);
-        if (isAdded)
-        {
-            TempData["AddCategorySuccess"] = true;
-            return RedirectToAction("Items", "Menu");
+        if(isAdded){
+            return Json(new{success = true});
         }
-        else
-        {
-            TempData["AddCategoryError"] = "A category with the same name already exists.";
-            return RedirectToAction("Items", "Menu"); 
-        }
+        else{
+            return Json (new{success = false});
+        }    
     }
 
     [_AuthPermissionAttribute("Menu", ActionPermissions.CanAddEdit)]
@@ -75,16 +70,12 @@ public class MenuController : Controller
     public async Task<IActionResult> EditCategory(menuviewmodel model)
     {
         var isEdit = await _userMenu.UpdateCategory(model);
-         if (isEdit)
-        {
-            TempData["EditCategorySuccess"] = true;
-            return RedirectToAction("Items", "Menu");
+         if(isEdit){
+            return Json(new{success = true});
         }
-        else
-        {
-            TempData["AddCategoryError"] = "A category with the same name already exists.";
-            return RedirectToAction("Items", "Menu"); 
-        }
+        else{
+            return Json (new{success = false});
+        }    
     }
 
     [_AuthPermissionAttribute("Menu", ActionPermissions.CanDelete)]

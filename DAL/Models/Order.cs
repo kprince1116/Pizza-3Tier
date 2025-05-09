@@ -19,8 +19,6 @@ public partial class Order
 
     public string? Instruction { get; set; }
 
-    public int? Rating { get; set; }
-
     public decimal? TotalAmount { get; set; }
 
     public int? CreatedBy { get; set; }
@@ -38,6 +36,8 @@ public partial class Order
     public string? OrdereType { get; set; }
 
     public int? NoOfPerson { get; set; }
+
+    public int? Rating { get; set; }
 
     public virtual User? CreatedByNavigation { get; set; }
 

@@ -67,15 +67,13 @@ public partial class PizzaShopContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-    public virtual DbSet<Userrole> Userroles { get; set; }
-
     public virtual DbSet<Userrole1> Userroles1 { get; set; }
 
     public virtual DbSet<WaitingToken> WaitingTokens { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql("Host=localhost;Database=pizza-shop;Username=postgres;     password=Tatva@123");
+        => optionsBuilder.UseNpgsql("Host=localhost;Database=pizza-shop;Username=postgres;         password=Tatva@123");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -614,15 +612,22 @@ public partial class PizzaShopContext : DbContext
             entity.ToTable("rating");
 
             entity.Property(e => e.Ratingid).HasColumnName("ratingid");
-            entity.Property(e => e.Ambiencerating).HasColumnName("ambiencerating");
+            entity.Property(e => e.Ambiencerating)
+                .HasPrecision(18, 2)
+                .HasColumnName("ambiencerating");
             entity.Property(e => e.Avgrating)
-                .HasComputedColumnSql("(((foodrating + ambiencerating) + servicerating) / 3)", true)
+                .HasPrecision(18, 2)
+                .HasComputedColumnSql("(((foodrating + ambiencerating) + servicerating) / 3.0)", true)
                 .HasColumnName("avgrating");
             entity.Property(e => e.Comments)
-                .HasMaxLength(250)
+                .HasMaxLength(150)
                 .HasColumnName("comments");
-            entity.Property(e => e.Foodrating).HasColumnName("foodrating");
-            entity.Property(e => e.Servicerating).HasColumnName("servicerating");
+            entity.Property(e => e.Foodrating)
+                .HasPrecision(18, 2)
+                .HasColumnName("foodrating");
+            entity.Property(e => e.Servicerating)
+                .HasPrecision(18, 2)
+                .HasColumnName("servicerating");
         });
 
         modelBuilder.Entity<Rolesandpermission>(entity =>
@@ -895,28 +900,18 @@ public partial class PizzaShopContext : DbContext
 
             entity.HasOne(d => d.UserroleNavigation).WithMany(p => p.Users)
                 .HasForeignKey(d => d.Userrole)
-                .HasConstraintName("users_userrole_fkey");
-        });
-
-        modelBuilder.Entity<Userrole>(entity =>
-        {
-            entity.HasKey(e => e.Roleid).HasName("userrole_pkey");
-
-            entity.ToTable("userrole");
-
-            entity.Property(e => e.Roleid).HasColumnName("roleid");
-            entity.Property(e => e.Rolename)
-                .HasMaxLength(150)
-                .HasColumnName("rolename");
+                .HasConstraintName("users_userrole1_fkey");
         });
 
         modelBuilder.Entity<Userrole1>(entity =>
         {
             entity.HasKey(e => e.Userroleid).HasName("userroles_pkey");
 
-            entity.ToTable("userroles");
+            entity.ToTable("userrole1");
 
-            entity.Property(e => e.Userroleid).HasColumnName("userroleid");
+            entity.Property(e => e.Userroleid)
+                .HasDefaultValueSql("nextval('userroles_userroleid_seq'::regclass)")
+                .HasColumnName("userroleid");
             entity.Property(e => e.CreatedBy).HasColumnName("created_by");
             entity.Property(e => e.CreatedDate)
                 .HasColumnType("timestamp without time zone")

@@ -50,12 +50,12 @@
                     var isActive = sections.SectionName == "Ground Floor" ? "active-section" : "";
 
                     <div class="sidebar-table @isActive">
-                      <div class="d-flex justify-content-between align-items-center ">
+                      <div class="d-flex justify-content-between align-items-center section-name" data-sectionid="@sections.Sectionid">
 
                         <div data-section-id="@sections.Sectionid"
                           class="sectionBtn d-flex gap-2 pt-2 pb-2 ps-3 align-items-center">
                           <img style="height: 15px;" src="~/images/icons/grid.png">
-                          <div class="section-name" data-sectionid="@sections.Sectionid">@sections.SectionName</div>
+                          <div >@sections.SectionName</div>
                         </div>
 
                         <div class="icons">
@@ -120,12 +120,44 @@
 
 </html>
 
+<script>
+  $(document).on("submit", "#AddSectionData", function (e) {
+    e.preventDefault();
+
+    var form = $("#AddSectionData")[0];
+    var formData = new FormData(form);
+
+    $.ajax({
+      url: "/Table/AddSection",
+      type: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function (response) {
+        if (response.success === true) {
+          var modalEl = document.getElementById('addsection');
+          var modal = bootstrap.Modal.getInstance(modalEl);
+          if (modal) {
+            modal.hide();
+          }   
+          location.reload(); 
+          toastr.success("Section Added successfully");
+        } else {
+          toastr.error("A section with the same name already exists.");
+        }
+      },
+      error: function () {
+        toastr.error("An error occurred while adding the category.");
+      }
+    });
+  });
+</script>
 
 @*Add section*@
 <div class="modal fade" data-bs-backdrop="static" id="addsection" tabindex="-1" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
-    <form method="post" asp-controller="Table" asp-action="AddSection" class="modal-content">
+    <form method="post"  id="AddSectionData" class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel1">Add Section</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -177,12 +209,47 @@
   </div>
 </div>
 
+<script>
+  $(document).on("submit", "#EditSectionData", function (e) {
+    e.preventDefault();
+
+    var sectionId = $("#SectionEditId").val();
+    var form = $("#EditSectionData")[0];
+    var formData = new FormData(form);
+
+    $.ajax({
+      url: "/Table/EditSection",
+      type: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function (response) {
+        if (response.success === true) {
+          var modalEl = document.getElementById('editsection');
+          var modal = bootstrap.Modal.getInstance(modalEl);
+          if (modal) {
+            modal.hide();
+          }
+          toastr.success("Section Edited successfully");  
+          $('.modal-backdrop').remove();
+          fetchTables(sectionId);
+        } else {
+          toastr.error("A section with the same name already exists.");
+        }
+      },
+      error: function () {
+        toastr.error("An error occurred while adding the category.");
+      }
+    });
+  });
+</script>
+
 @*edit section*@
 
 <div class="modal fade" data-bs-backdrop="static" id="editsection" tabindex="-1" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
-    <form method="post" asp-controller="Table" asp-action="EditSection" class="modal-content">
+    <form method="post" asp-controller="Table" asp-action="EditSection" id="EditSectionData" class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel1">Edit Section</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -211,6 +278,8 @@
     </form>
   </div>
 </div>
+
+
 
 @*add table*@
 
@@ -399,7 +468,6 @@
     @* load edit table*@
       $(document).ready(function () {
         $(document).on("click", ".edittable", function () {
-
           loadTableModal($(this).data("edittableid"));
         });
       });
@@ -410,8 +478,7 @@
         data: { id: id },
         success: function (data) {
           $("#edittabledata").html(data);
-    @* $('#edittableModal').modal('show'); *@
-          },
+        },
         error: function () {
           console.log("No Projects Found");
           $("#EditTable").html('No User Fetched');
@@ -434,24 +501,21 @@
         contentType: false,
         data: formData,
         success: function (response) {
-          console.log("Response:", response);
-          if (response.success === true) {
+          if (response.success == true) {
             toastr.success("Table edited successfully");
-            var modal = bootstrap.Modal.getInstance(document.getElementById('EditTable'));
-            if (modal) {
-              modal.hide();
-            }
-            fetchTables(sectionId);
+             fetchTables(sectionId);
+            $("#EditTable").modal('hide');      
           } else {
-            toastr.error(response.message || "An error occurred while editing the table.");
+            toastr.error("An error occurred while editing the table.");
           }
         },
         error: function (xhr, status, error) {
-          console.error("AJAX error:", xhr.responseText || error);
-          toastr.error("An unexpected error occurred: " + (xhr.responseText || error));
+          console.error("AJAX error:", error);
+          toastr.error("An unexpected error occurred: " + error);
         }
       });
     });
+
 
     $(document).ready(function () {
 
@@ -504,7 +568,7 @@
       </text>
     }
 
-            });
+      });
 
 
   </script>

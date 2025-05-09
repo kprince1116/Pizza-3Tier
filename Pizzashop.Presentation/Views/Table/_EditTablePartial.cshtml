@@ -1,6 +1,6 @@
 @model Pizzashop.DAL.ViewModels.EditTableviewmodel
 
-<form method="post" asp-controller="Table" asp-action="EditTable" class="modal-content">
+<form method="post" class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Edit</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -55,7 +55,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="btton" data-sectionid="@Model.Sectionid" id="EditTableData" class="btn btn-primary">Save</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
       </div>
 </form>
