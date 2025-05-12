@@ -140,6 +140,27 @@
     });
 </script>
 
+<script>
+    const connection = new signalR.HubConnectionBuilder()
+        .withAutomaticReconnect()
+        .withUrl("http://localhost:5167/NotificationHub")
+        .build();
+
+    connection.start()
+        .then(function () {
+            console.log("SignalR Connected.");
+        })
+        .catch(function (err) {
+            console.error(err.toString());
+        });
+
+    connection.on("WaitingMessage", function (message) {
+        console.log("Received message: " + message);
+        getwaitlist();
+    });
+</script>
+
+
 @*get section list for modal*@
 <script>
     $(document).on("click", "#waitingtoken", function () {
@@ -187,7 +208,6 @@
 <script>
     $(document).ready(function () {
         getwaitlist();
-
     });
     function getwaitlist() {
         $.ajax({

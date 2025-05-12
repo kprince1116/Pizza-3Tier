@@ -29,8 +29,8 @@
                         <select class="form-select all-status " aria-label="Status filter" style="width: 270px; height: 58px;" id="statusfilter">
                             <option selected value="">ALL STATUS</option>
                             <option value="pending">Pending</option>
-                            <option value="in_progress">In Progress</option>
-                            <option value="on_hold">On Hold</option>
+                            <option value="in progress">In Progress</option>
+                            <option value="on hold">On Hold</option>
                             <option value="completed">Completed</option>
                             <option value="cancelled">Cancelled</option>
                             <option value="served">Served</option>
@@ -137,6 +137,26 @@
     });
 });
 
+</script>
+
+<script>
+    const connection = new signalR.HubConnectionBuilder()
+        .withAutomaticReconnect()
+        .withUrl("http://localhost:5167/NotificationHub")
+        .build();
+
+    connection.start()
+        .then(function () {
+            console.log("SignalR Connected.");
+        })
+        .catch(function (err) {
+            console.error(err.toString());
+        });
+
+    connection.on("OrderUpdatedMessage", function (message) {
+        console.log("Received message: " + message);
+        changePageForOrder(1);
+    });
 </script>
 
 <script>

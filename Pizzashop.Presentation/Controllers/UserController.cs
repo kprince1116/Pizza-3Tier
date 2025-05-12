@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.SignalR;
 using Pizzashop.DAL.ViewModels;
 // using Pizzashop.DAL.Models;
 
@@ -20,9 +21,11 @@ public class UserController : Controller
     private readonly IUserList _userList;
     private readonly IUserRepository _userRepository;
     private readonly IUserDetails _userDetails;
+    private readonly IHubContext<NotificationHub> _hubcontext;
 
-    public UserController(IConfiguration configuration, IUserList userList , IUserRepository userRepository , IUserDetails userDetails)
+    public UserController(IConfiguration configuration, IUserList userList , IUserRepository userRepository , IUserDetails userDetails , IHubContext<NotificationHub> hubcontext)
     {
+        _hubcontext = hubcontext;
         _configuration = configuration;
         _userList = userList;
         _userRepository = userRepository;
@@ -67,8 +70,10 @@ public class UserController : Controller
 
         var users = await _userList.AddUserAsync(user);
          if(users == AddUserResult.Success)
-         {TempData["AddUserSuccess"] = true;
-        return RedirectToAction("UserList", "User");
+         {
+         await _hubcontext.Clients.All.SendAsync("UserMessage", "A kot was updated succesfully.");
+         TempData["AddUserSuccess"] = true;
+         return RedirectToAction("UserList", "User");
          }
          else if (users == AddUserResult.EmailExists)
          {
@@ -138,10 +143,10 @@ public class UserController : Controller
 
     public async Task<IActionResult> EditUser(EditUserviewmodel user)
     {
-        await _userList.EditUserAsync(user);
-
+       await _userList.EditUserAsync(user);
+    
         TempData["EditUserSuccess"] = true;
-
+        await _hubcontext.Clients.All.SendAsync("UserMessage", "A kot was updated succesfully.");
         return RedirectToAction("userList", "User");
     }
 
@@ -150,8 +155,17 @@ public class UserController : Controller
     public async Task<IActionResult> SoftDelete(int UserId)
     {
         var existinguser = await _userList.GetById(UserId);
+        if(existinguser)
+        {
+        await _hubcontext.Clients.All.SendAsync("UserMessage", "A kot was updated succesfully.");
         TempData["DeleteUserSuccess"] = true;
         return RedirectToAction("UserList", "User");
+        }
+        else
+        {
+            TempData["DeleteUserError"] = "User not found.";
+            return RedirectToAction("UserList", "User");
+        }
     }
 
 }

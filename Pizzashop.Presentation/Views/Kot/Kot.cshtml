@@ -89,6 +89,32 @@
 
 
 <script>
+    const connection = new signalR.HubConnectionBuilder()
+        .withAutomaticReconnect()
+        .withUrl("http://localhost:5167/NotificationHub")
+        .build();
+
+    connection.start()
+        .then(function () {
+            console.log("SignalR Connected.");
+        })
+        .catch(function (err) {
+            console.error(err.toString());
+        });
+
+    connection.on("KotMessage", function (message) {
+        console.log("Received message: " + message);
+        loaddata();
+    });
+
+      connection.on("KotUpdatedMessage", function (message) {
+        console.log("Received message: " + message);
+       loaddata();
+    });
+
+</script>
+
+<script>
     $(document).on("click", "#all-content", function () {
         loaddata();
         $(".tab-btn").removeClass("active-tab");
@@ -128,28 +154,6 @@ let currentSlide = 0;
 const cardsToShow = 1; 
 const cardWidth = 220; 
 
-
-@* function nextslide() {
-    const cardWrapper = document.getElementById('cardWrapper');
-    const totalCards = cardWrapper.children.length;
-    const maxSlide = totalCards - cardsToShow;
-
-    if (currentSlide < maxSlide) {
-        currentSlide += cardsToShow;
-        const offset = -currentSlide * cardWidth;
-        cardWrapper.style.transform = `translateX(${offset}px)`;
-    }
-}
-
-function backslide() {
-    const cardWrapper = document.getElementById('cardWrapper');
-
-    if (currentSlide > 0) {
-        currentSlide -= cardsToShow;
-        const offset = -currentSlide * cardWidth;
-        cardWrapper.style.transform = `translateX(${offset}px)`;
-    }
-} *@
 
 $(document).off("click", ".rightKOTBtn").on("click", ".rightKOTBtn", function () {
         $(".KOT-Item-container").animate({

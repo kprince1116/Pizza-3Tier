@@ -175,6 +175,47 @@
 
 @section scripts
 {
+
+  <script>
+    const connection = new signalR.HubConnectionBuilder()
+        .withAutomaticReconnect()
+        .withUrl("http://localhost:5167/NotificationHub")
+        .build();
+
+    connection.start()
+        .then(function () {
+            console.log("SignalR Connected.");
+        })
+        .catch(function (err) {
+            console.error(err.toString());
+        });
+
+    connection.on("ItemMessage", function (message) {
+        console.log("Received message: " + message);
+        fetchItems(1);
+    });
+</script>
+
+  <script>
+    const connection = new signalR.HubConnectionBuilder()
+        .withAutomaticReconnect()
+        .withUrl("http://localhost:5167/NotificationHub")
+        .build();
+
+    connection.start()
+        .then(function () {
+            console.log("SignalR Connected.");
+        })
+        .catch(function (err) {
+            console.error(err.toString());
+        });
+
+    connection.on("ModifierMessage", function (message) {
+        console.log("Received message: " + message);
+        loadModifierTab();
+    });
+</script>
+
   <script>
     $(document).on("click","#AddCategory",function(){
       $("#addcategorydata")[0].reset();

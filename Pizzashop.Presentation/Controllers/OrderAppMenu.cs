@@ -3,6 +3,7 @@ using BAL.Models.Interfaces;
 using iText.Commons.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
 using Pizzashop.DAL.ViewModels;
 
@@ -12,9 +13,12 @@ public class OrderAppMenu : Controller
 {
 
     private readonly IOrderAppMenu _orderAppMenu;
+    private readonly IHubContext<NotificationHub> _hubcontext;
 
-    public OrderAppMenu(IOrderAppMenu orderAppMenu)
+
+    public OrderAppMenu(IOrderAppMenu orderAppMenu , IHubContext<NotificationHub> hubcontext )
     {
+        _hubcontext = hubcontext;
          _orderAppMenu = orderAppMenu;
     }
 
@@ -174,7 +178,16 @@ public class OrderAppMenu : Controller
         string paymenType = JsonConvert.DeserializeObject<string>(payment_type);
 
         var saveorder = await _orderAppMenu.SaveOrder(OrderId,OrderStatus,save_items,delete_items,save_tax,paymenType);
-        return Json(new { success = true });
+        if(saveorder)
+        {
+          await _hubcontext.Clients.All.SendAsync("KotUpdatedMessage", "A Kot Updated Succesfully");
+          await _hubcontext.Clients.All.SendAsync("OrderUpdatedMessage", "A Order Updated Succesfully");
+          return Json(new { success = true });
+        }
+        else
+        {
+            return Json(new { success = false });
+        }
     }
 
     public async Task<IActionResult> CheckReadyQuantity(int orderId)

@@ -6,6 +6,7 @@ using DAL.Models;
 using DAL.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Pizzashop.DAL.ViewModels;
 
@@ -15,9 +16,11 @@ public class MenuController : Controller
 {
 
     private readonly IUserMenu _userMenu;
+    private readonly IHubContext<NotificationHub> _hubcontext;
 
-    public MenuController(IUserMenu userMenu)
+    public MenuController(IUserMenu userMenu ,  IHubContext<NotificationHub> hubcontext)
     {
+        _hubcontext = hubcontext;
         _userMenu = userMenu;
     }
     [Authorize(Roles = "Account_Manager,Admin")]
@@ -58,6 +61,7 @@ public class MenuController : Controller
     {
         var isAdded = await _userMenu.AddCategory(model);
         if(isAdded){
+            await _hubcontext.Clients.All.SendAsync("ItemMessage", "A Category was added.");
             return Json(new{success = true});
         }
         else{
@@ -71,6 +75,7 @@ public class MenuController : Controller
     {
         var isEdit = await _userMenu.UpdateCategory(model);
          if(isEdit){
+            await _hubcontext.Clients.All.SendAsync("ItemMessage", "A Category was added.");
             return Json(new{success = true});
         }
         else{
@@ -86,6 +91,7 @@ public class MenuController : Controller
 
        if (existingCategory)
         {
+            await _hubcontext.Clients.All.SendAsync("ItemMessage", "A Category was added.");
             TempData["DeleteCategorySuccess"] = true;
             return RedirectToAction("Items", "Menu");
         }
@@ -133,6 +139,7 @@ public class MenuController : Controller
 
          if (isAdded)
         {
+            await _hubcontext.Clients.All.SendAsync("ItemMessage", "A Category was added.");
             TempData["AddItemSuccess"] = true;
             return RedirectToAction("Items", "Menu");
         }
@@ -173,6 +180,7 @@ public class MenuController : Controller
         
         var item = await _userMenu.EditItem(model);
           if(item){
+            await _hubcontext.Clients.All.SendAsync("ItemMessage", "A Category was added.");
             return Json(new{success = true});
         }
         else{
@@ -185,7 +193,14 @@ public class MenuController : Controller
     public async Task<IActionResult> EditItemAvailabity(int id , bool isAvailable)
     {
          var item =await _userMenu.EditItemAvailabity(id,isAvailable);
-         return Json( new { success = true, message = "hi"});
+         if(item){
+            await _hubcontext.Clients.All.SendAsync("ItemMessage", "A Category was added.");
+            return Json( new { success = true, message = "hi"});
+         }
+         else{
+            return Json( new { success = false, message = "hi"});
+         }
+         
     }
 
     [_AuthPermissionAttribute("Menu", ActionPermissions.CanDelete)]
@@ -196,6 +211,7 @@ public class MenuController : Controller
 
          if (isDelete)
         {
+             await _hubcontext.Clients.All.SendAsync("ItemMessage", "A Category was added.");
             TempData["DeleteItemSuccess"] = true;
             return RedirectToAction("Items", "Menu");
         }
@@ -207,10 +223,17 @@ public class MenuController : Controller
     
     [_AuthPermissionAttribute("Menu", ActionPermissions.CanDelete)]
     [HttpPost]
-    public IActionResult DeleteCombine(List<int> itemList)
+    public async Task<IActionResult> DeleteCombine(List<int> itemList)
     {
-        _userMenu.DeleteItemsAsync(itemList);
+        var isDelete = _userMenu.DeleteItemsAsync(itemList);
+        if(isDelete !=null)
+        {
+        await _hubcontext.Clients.All.SendAsync("ItemMessage", "A Category was added.");
         return Json( new { success = true, message = "hi"});
+        }
+        else{
+             return Json( new { success = false, message = "hi"});
+        }
     }
      #endregion
 
@@ -237,6 +260,7 @@ public class MenuController : Controller
         var isAdded = await _userMenu.AddModifier(model);
         if (isAdded)
         {
+            await _hubcontext.Clients.All.SendAsync("ModifierMessage", "A Category was added.");
             return Json( new { success = true});
         }
         else{
@@ -267,6 +291,7 @@ public class MenuController : Controller
         var isEdit = await _userMenu.UpdateModifier(model);
           if (isEdit)
         {
+            await _hubcontext.Clients.All.SendAsync("ModifierMessage", "A Category was added.");
             return Json( new { success = true});
         }
         else{
@@ -283,6 +308,7 @@ public class MenuController : Controller
         var existingModifier = await _userMenu.GetModifierByIdForDelete(id);
         if (existingModifier)
         {
+            await _hubcontext.Clients.All.SendAsync("ModifierMessage", "A Category was added.");
             TempData["DeleteModifierSuccess"] = true;
             return RedirectToAction("Items", "Menu");
         }
@@ -310,6 +336,7 @@ public class MenuController : Controller
         var isAdded = await _userMenu.AddModifierItem(model);
         if (isAdded)
         {
+            await _hubcontext.Clients.All.SendAsync("ModifierMessage", "A Category was added.");
             return Json( new { success = true});
         }
         else
@@ -334,6 +361,7 @@ public class MenuController : Controller
         var modifiers = await _userMenu.EditModifierItem(model);
          if (modifiers)
         {
+            await _hubcontext.Clients.All.SendAsync("ModifierMessage", "A Category was added.");
             return Json( new { success = true});
         }
         else
@@ -350,6 +378,7 @@ public class MenuController : Controller
         var existingmodifier =  await _userMenu.GetModifierItemForDeleteById(id,modifiergroupId);
          if (existingmodifier)
         {
+            await _hubcontext.Clients.All.SendAsync("ModifierMessage", "A Category was added.");
             return Json( new { success = true});
         }
         else
@@ -360,10 +389,17 @@ public class MenuController : Controller
 
     [_AuthPermissionAttribute("Menu", ActionPermissions.CanDelete)]
     [HttpPost]
-    public IActionResult DeleteCombineForModifier(List<int> modifierList , int modifiergroupId)
+    public async Task<IActionResult> DeleteCombineForModifier(List<int> modifierList , int modifiergroupId)
     {
-         _userMenu.DeleteModifiersAsync(modifierList , modifiergroupId);
-        return Json( new { success = true, message = "hi"});
+        var isDelete = _userMenu.DeleteModifiersAsync(modifierList , modifiergroupId);
+        if(isDelete !=null)
+        {
+             await _hubcontext.Clients.All.SendAsync("ModifierMessage", "A Category was added.");
+            return Json( new { success = true, message = "hi"});
+        }
+        else{
+             return Json( new { success = false, message = "hi"});
+        }
     }
 
       public async Task<IActionResult> ItemsByExistingModifier( int pageNo = 1 , int pageSize=3, string searchKey = "" )

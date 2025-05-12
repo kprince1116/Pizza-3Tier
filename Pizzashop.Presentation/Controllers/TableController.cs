@@ -4,6 +4,7 @@ using BAL.Services;
 using DAL.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Pizzashop.DAL.ViewModels;
 
 namespace Pizzashop.Presentation.Controllers;
@@ -12,9 +13,11 @@ public class TableController : Controller
 {
     private readonly IConfiguration _configuration;
     private readonly ITable _table;
+    private readonly IHubContext<NotificationHub> _hubcontext;
 
-    public TableController(IConfiguration configuration, ITable table)
+    public TableController(IConfiguration configuration, ITable table,IHubContext<NotificationHub> hubcontext)
     {
+         _hubcontext = hubcontext;
         _configuration = configuration;
         _table = table;
     }
@@ -45,6 +48,7 @@ public class TableController : Controller
         var isAdded = await _table.AddSection(model);
         if (isAdded)
         {
+            await _hubcontext.Clients.All.SendAsync("TableMessage", "A section was added.");
             return Json(new { success = true });
         }
         else
@@ -61,6 +65,7 @@ public class TableController : Controller
         var isEdit = await _table.EditSection(model);
         if (isEdit)
         {
+            await _hubcontext.Clients.All.SendAsync("TableMessage", "A section was added.");
             return Json(new { success = true });
         }
         else
@@ -78,6 +83,7 @@ public class TableController : Controller
         var existingSection = await _table.GetSectionByIdForDelte(id);
         if (existingSection)
         {
+            await _hubcontext.Clients.All.SendAsync("TableMessage", "A section was added.");
             TempData["DeleteSectionSuccess"] = true;
             return RedirectToAction("Table", "Table");
         }
@@ -101,6 +107,7 @@ public class TableController : Controller
         var isAdded = await _table.AddTable(model);
         if (isAdded)
         {
+            await _hubcontext.Clients.All.SendAsync("TableMessage", "A section was added.");
             TempData["AddTableSuccess"] = true;
             return RedirectToAction("Table", "Table");
         }
@@ -128,6 +135,7 @@ public class TableController : Controller
         var isEdit = await _table.EditTable(model);
         if (isEdit)
         {
+            await _hubcontext.Clients.All.SendAsync("TableMessage", "A section was added.");
             return Json(new { success = true });
         }
         else
@@ -144,6 +152,7 @@ public class TableController : Controller
         var isDelete = await _table.GetTableByIdForDelte(id);
         if (isDelete)
         {
+            await _hubcontext.Clients.All.SendAsync("TableMessage", "A section was added.");
             TempData["DeleteTableSuccess"] = true;
             return RedirectToAction("Table", "Table");
         }
@@ -157,8 +166,16 @@ public class TableController : Controller
     [HttpPost]
     public async Task<IActionResult> DeleteCombine(List<int> tableLists)
     {
-        _table.DeleteTableAsync(tableLists);
-        return Json(new { success = true, message = "hi" });
+        var isDelete =  _table.DeleteTableAsync(tableLists);
+        if(isDelete !=null)
+        {
+            await _hubcontext.Clients.All.SendAsync("TableMessage", "A section was added.");
+            return Json(new { success = true, message = "hi" });
+        }
+        else
+        {
+             return Json(new { success = false, message = "hi" });
+        }
     }
 
 }

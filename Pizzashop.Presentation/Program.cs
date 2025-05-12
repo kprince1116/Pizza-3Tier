@@ -11,6 +11,7 @@ using BAL.Interfaces;
 using DAL.Repository;
 using BAL.Models.Interfaces;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,7 +49,7 @@ builder.Services.AddScoped<IDashboard, Dashboard>();
 builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
 builder.Services.AddScoped<Permissions>();
 builder.Services.AddHttpContextAccessor();
-
+builder.Services.AddSignalR(); 
 
 builder.Services.AddControllersWithViews();
 
@@ -135,5 +136,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Login}/{action=Login}/{id?}");
+
+app.MapHub<NotificationHub>("/notificationHub");    
 
 app.Run();

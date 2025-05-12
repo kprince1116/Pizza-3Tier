@@ -86,7 +86,6 @@
         </div>
         }
 
-
     </div>
 </body>
 
@@ -1356,20 +1355,20 @@
     </script>
 
 }
-
+  
 <script>
     $(document).ready(function () {
 
     @if (TempData["SuccessCustomerRating"] != null)
     {
         <text>
-                    showToastrNotification('success', '@TempData["SuccessCustomerRating"]');
+            showToastrNotification('success', '@TempData["SuccessCustomerRating"]');
         </text>
     }
     @if (TempData["FailedCustomerRating"] != null)
     {
         <text>
-                    showToastrNotification('error', '@TempData["FailedCustomerRating"]');
+            showToastrNotification('error', '@TempData["FailedCustomerRating"]');
         </text>
     }
 

@@ -1,5 +1,6 @@
 using BAL.Models.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Pizzashop.DAL.ViewModels;
 // using static Pizzashop.DAL.ViewModels.ItemUpdateviewmodel;
 using static Pizzashop.DAL.ViewModels.Kotviewmodel;
@@ -10,9 +11,11 @@ public class KotController : Controller
 {
 
     private readonly IKotService _kotService;
+    private readonly IHubContext<NotificationHub> _hubcontext;
 
-    public KotController(IKotService kotService)
+    public KotController(IKotService kotService , IHubContext<NotificationHub> hubcontext)
     {
+        _hubcontext = hubcontext;
         _kotService = kotService;
     }
 
@@ -53,6 +56,7 @@ public class KotController : Controller
 
         if (success)
         {
+            await _hubcontext.Clients.All.SendAsync("KotMessage", "A kot was updated succesfully.");
             return Json(new { success = true });
         }
         else

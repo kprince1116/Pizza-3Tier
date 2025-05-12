@@ -2,6 +2,7 @@ using BAL.Models.Interfaces;
 using iText.Commons.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Pizzashop.DAL.ViewModels;
 
 namespace Pizzashop.Presentation.Controllers;
@@ -9,11 +10,12 @@ namespace Pizzashop.Presentation.Controllers;
 public class WaitingListController : Controller
 {
     private readonly IWaitingService _waitingService;  
-
     private readonly IKotTableService _kotTableService; 
+    private readonly IHubContext<NotificationHub> _hubcontext;
 
-    public WaitingListController(IWaitingService waitingService,IKotTableService kotTableService)
+    public WaitingListController(IWaitingService waitingService,IKotTableService kotTableService , IHubContext<NotificationHub> hubcontext)
     {
+        _hubcontext = hubcontext;
         _kotTableService = kotTableService;
         _waitingService = waitingService;
     }
@@ -49,6 +51,7 @@ public class WaitingListController : Controller
     {
         var result = await _kotTableService.AddWaitingToken(model);
         if(result){
+        await _hubcontext.Clients.All.SendAsync("WaitingMessage", "A tax was deleted.");
          return Json(new { success = true });
         }
         else{
@@ -68,7 +71,8 @@ public class WaitingListController : Controller
         var result = await _waitingService.UpdateWaitingToken(model);
 
         if(result){
-            TempData["EditWaitingSuccess"] = true;
+        await _hubcontext.Clients.All.SendAsync("WaitingMessage", "A tax was deleted.");
+        TempData["EditWaitingSuccess"] = true;
          return RedirectToAction("WaitingList", "WaitingList");
         }
         else{
@@ -81,6 +85,7 @@ public class WaitingListController : Controller
     {
         var result = await _waitingService.DeleteToken(Id);
          if(result){
+         await _hubcontext.Clients.All.SendAsync("WaitingMessage", "A tax was deleted.");
          TempData["DeleteWaitingSuccess"] = true;
          return RedirectToAction("WaitingList", "WaitingList");
         }

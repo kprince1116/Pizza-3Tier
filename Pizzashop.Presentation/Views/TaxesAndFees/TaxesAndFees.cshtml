@@ -37,7 +37,7 @@
                     </div>
                     @if(canAddTaxes)
                     {
-                    <a class=" add-user border p-lg-3 p-2 fw-bold"  data-bs-toggle="modal" data-bs-target="#addTax"
+                    <a class=" add-user border p-lg-3 p-2 fw-bold" data-bs-toggle="modal" data-bs-target="#addTax"
                         style="background-color: #0066a7; border-radius: 5px; text-decoration: none; color: white; text-wrap: nowrap;">
                         +Add Tax
                     </a>
@@ -53,7 +53,6 @@
     <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-  @* <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>   *@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 @*Add Tax*@
@@ -151,10 +150,29 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <script>
+    const connection = new signalR.HubConnectionBuilder()
+        .withAutomaticReconnect()
+        .withUrl("http://localhost:5167/NotificationHub")
+        .build();
 
+    connection.start()
+        .then(function () {
+            console.log("SignalR Connected.");
+        })
+        .catch(function (err) {
+            console.error(err.toString());
+        });
+
+    connection.on("TaxMessage", function (message) {
+        console.log("Received message: " + message);
+        changePageForTaxes(1);
+    });
+</script>
+
+<script>
      function changePageSizeForTaxes() {
         console.log("success");
-         let pageSize = $('#taxPageSize').val();
+        let pageSize = $('#taxPageSize').val();
         let search = $('#taxListSearch').val();
 
     $.ajax({
@@ -173,7 +191,6 @@
 
   function changePageForTaxes(pageNum) {
      let pageSize = $('#taxPageSize').val();
-    @* let selectedCategoryId = @Model.Sectionid; *@
     let search = $('#taxListSearch').val(); 
 
     $.ajax({

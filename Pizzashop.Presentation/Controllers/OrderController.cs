@@ -27,7 +27,6 @@ public class OrderController : Controller
     [_AuthPermissionAttribute("Order", ActionPermissions.CanView)]
     public IActionResult Order()
     {
-        //  ViewBag.CanViewOrders = _permissionService.HasPermission("Order", ActionPermissions.CanView);
         return View();
     }
 

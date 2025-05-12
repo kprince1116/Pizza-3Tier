@@ -68,6 +68,7 @@
                           }
                           @if (canDeleteTables)
                           {
+                            
                             <img style="height: 17px;" class="delete-section" data-sectiondeleteid="@sections.Sectionid"
                               data-bs-toggle="modal" data-bs-target="#deletesectionModal" src="~/images/icons/trash (1).svg"
                               alt="">
@@ -398,6 +399,26 @@
   <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
   <script>
+    const connection = new signalR.HubConnectionBuilder()
+        .withAutomaticReconnect()
+        .withUrl("http://localhost:5167/NotificationHub")
+        .build();
+
+    connection.start()
+        .then(function () {
+            console.log("SignalR Connected.");
+        })
+        .catch(function (err) {
+            console.error(err.toString());
+        });
+
+    connection.on("TableMessage", function (message) {
+        console.log("Received message: " + message);
+        fetchTables(1);
+    });
+</script>
+
+  <script>
 
     @*edit section*@
     function setEditSectionData(element) {
@@ -414,17 +435,12 @@
     @*delete section*@
       $(document).on('click', '.delete-section', function () {
         var sectionid = $(this).data('sectiondeleteid');
-        console.log(sectionid);
         $('#SectiondeleteId').val(sectionid);
       });
     });
 
     var selectedSectionId;
-    $(document).ready(function () {
-
-    });
-
-
+  
     $(document).ready(function () {
       $('.section-name').on('click', function (e) {
         e.preventDefault();
@@ -435,13 +451,11 @@
 
     function fetchTables(sectionId) {
       let pagesize = $('#selectpagesizeForTables').val();
-      console.log("sectionid:", sectionId);
       $.ajax({
         url: '@Url.Action("TablesBySection", "Table")',
         type: 'GET',
         data: { id: sectionId, searchKey: "", pageSize: pagesize, pageNo: 1 },
         success: function (data) {
-          console.log(data);
           $('#table-container-table').html(data);
         },
         error: function () {
@@ -456,14 +470,7 @@
       });
     });
 
-    @* $(document).on("click", ".edittable", function () {
-    var modal = bootstrap.Modal.getInstance(document.getElementById('EditTable'));
-    if (modal) {
-    modal.hide();
-    } else {
-                    console.error("Modal instance not found.");
-    }
-    }); *@
+   
 
     @* load edit table*@
       $(document).ready(function () {

@@ -50,16 +50,24 @@
           </td>
         @if(canAddTables || canDeleteTables)
         {
-          <td>
+          <td  >
             @if(canAddTables)
                         { <img data-bs-toggle="modal" class="edittable" data-edittableid="@tables.Tableid" data-bs-target="#EditTable"
               src="~/images/icons/pen.svg" alt="">
               }
                @if(canDeleteTables)
-                        {
-            <img class="delete-table" data-tablesdeleteid="@tables.Tableid" data-bs-toggle="modal"
-              data-bs-target="#deletemodalfortable" src="~/images/icons/trash (1).svg" alt="">
-              }
+                {
+                 @if(tables.Isavailable == false)
+                 {
+                   <img class="delete-table disabled" data-tablesdeleteid="@tables.Tableid" data-bs-toggle="modal"
+                   data-bs-target="#deletemodalfortable" src="~/images/icons/trash (1).svg">
+                 }
+                 else{
+                    <img class="delete-table" data-tablesdeleteid="@tables.Tableid" data-bs-toggle="modal"
+                   data-bs-target="#deletemodalfortable" src="~/images/icons/trash (1).svg">
+                   }
+                  
+               }
           </td>
           }
         </tr>
@@ -198,11 +206,7 @@
 
   });
 
-
-
-
-
-  $(document).on('click', '.delete-table', function () {
+  $(document).on('click','.delete-table', function () {
     var tableId = $(this).data('tablesdeleteid');
     console.log("tableid:", tableId);
     $('#TablesId').val(tableId);
