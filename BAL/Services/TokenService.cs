@@ -10,12 +10,12 @@ namespace BAL.Services;
 public class TokenService : ITokenService
 
 {
-    private readonly PizzaShopContext _db;
+        private readonly PizzaShopContext _db;
 
-    public TokenService(PizzaShopContext db)
-    {
-        _db = db;
-    }
+        public TokenService(PizzaShopContext db)
+        {
+            _db = db;
+        }
 
 
     public string GetEmailFromToken(string token)

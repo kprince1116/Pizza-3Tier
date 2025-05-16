@@ -354,7 +354,7 @@
 
 @*Edit table*@
 
-<div class="modal fade" data-bs-backdrop="static" id="EditTable" tabindex="-1" aria-labelledby="exampleModalLabel"
+<div class="modal fade" data-bs-backdrop="static" id="EditTableFor" tabindex="-1" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content" id="edittabledata">
@@ -485,6 +485,9 @@
         data: { id: id },
         success: function (data) {
           $("#edittabledata").html(data);
+           const modalElement = document.getElementById('EditTableFor');
+            const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+            modalInstance.show(); 
         },
         error: function () {
           console.log("No Projects Found");
@@ -509,9 +512,12 @@
         data: formData,
         success: function (response) {
           if (response.success == true) {
+            const modalElement = document.getElementById('EditTableFor');
+            const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+            modalInstance.hide(); 
             toastr.success("Table edited successfully");
              fetchTables(sectionId);
-            $("#EditTable").modal('hide');      
+                
           } else {
             toastr.error("An error occurred while editing the table.");
           }

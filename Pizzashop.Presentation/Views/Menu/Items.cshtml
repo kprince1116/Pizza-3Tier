@@ -1048,6 +1048,7 @@
     $(document).on('change', '.item-available-switch', function () {
       var $switch = $(this);
       var itemId = $switch.data("itemid");
+      var categoryId = $switch.data("categotyid");
       var newAvailable = $switch.prop('checked');
 
       $.ajax({
@@ -1057,6 +1058,7 @@
         success: function (data) {
           if (data.success) {
             toastr.success("Item updated successfully");
+             fetchItems(categoryId);
           } else {
             toastr.error("Failed to update item: " + data.message);
           }

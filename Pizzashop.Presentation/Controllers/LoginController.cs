@@ -9,7 +9,6 @@ public class LoginController : Controller
 {
     private readonly IConfiguration _configuration;
     private readonly IAuthService _authService;
-
     private readonly ITokenService _tokenService;
 
     public LoginController(IConfiguration configuration, IAuthService authService , ITokenService tokenService)
@@ -25,10 +24,14 @@ public class LoginController : Controller
         {
             return RedirectToAction("Index", "Home");
         }
-        
-        return View();
+        else  if (!string.IsNullOrEmpty(Request.Cookies["jwtToken"]))
+        {
+            return RedirectToAction("Index", "Home");
+        }
+       else{
+         return View();
+       }     
     }
-
 
     [HttpPost]
     public async Task<IActionResult> Login(Loginviewmodel user)
@@ -37,7 +40,6 @@ public class LoginController : Controller
         try
         {
             var result = await _authService.AuthenticateUserAsync(user);
-
 
              _authService.SetJwtToken(Response, result);
             
@@ -57,7 +59,7 @@ public class LoginController : Controller
                {
             TempData["LoginSuccess"] = true;
             return RedirectToAction("Index", "Home");
-               }
+            }
             
         }
         catch (Exception ex)
@@ -67,8 +69,9 @@ public class LoginController : Controller
         }
     }
 
-    public IActionResult ForgotPassword()
+    public IActionResult ForgotPassword(string email,string password)
     {
+         ViewData["emailview"] = email;
         return View();
     }
 
@@ -89,10 +92,9 @@ public class LoginController : Controller
         return View();
     }
 
-    public IActionResult ResetPassword(string? email)
+    public IActionResult ResetPassword(string? email ,  string expires)
     {
         return View(); 
-
     }
 
     [HttpPost]

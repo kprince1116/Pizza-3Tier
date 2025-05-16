@@ -17,7 +17,7 @@ public class AddUserviewmodel
     [Required(ErrorMessage = "Email is required.")]
     public string Email { get; set; } = null!;
 
-     [Required(ErrorMessage = "Password is required.")]
+    [Required(ErrorMessage = "Password is required.")]
     [StringLength(100, MinimumLength = 6, ErrorMessage = "Password must be between 6 and 100 characters.")]
     public string Password { get; set; } = null!;
 
@@ -25,6 +25,7 @@ public class AddUserviewmodel
     public int Userrole { get; set; }
 
     [Required(ErrorMessage = "Phone number is required.")]
+    [StringLength(10, ErrorMessage = "Phone number must be 10 digits.")]
     public string Phonenumber { get; set; } = null!;
 
     [Required(ErrorMessage = "Profile image is required.")]

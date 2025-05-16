@@ -71,13 +71,13 @@ public class ProfileController : Controller
         return Json(cities);
     }
 
-    public IActionResult Logout()
-    {
-        Response.Cookies.Delete("jwtToken");
-        Response.Cookies.Delete("Email");
-        TempData["LogOutSuccess"] = true;
-        return RedirectToAction("Login", "Login");
-    }
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("jwtToken");
+            Response.Cookies.Delete("Email");
+            TempData["LogOutSuccess"] = true;
+            return RedirectToAction("Login", "Login");
+        }
 
     public IActionResult ChangePassword()
     {

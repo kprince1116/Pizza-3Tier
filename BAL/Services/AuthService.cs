@@ -85,6 +85,7 @@ namespace BAL.Services
             {
                 return false;
             }
+            
 
             string resetUrl = $"http://localhost:5167/Login/ResetPassword?email={email}";
             System.Console.WriteLine(resetUrl);

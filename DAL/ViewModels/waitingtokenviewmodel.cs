@@ -17,6 +17,7 @@ public class waitingtokenviewmodel
     public string Name { get; set; }
 
     [Required(ErrorMessage = "Please enter your phone number")]
+    [StringLength(10, ErrorMessage = "Phone number must be 10 digits.")]
     public string Phone { get; set; }
 
     [Required(ErrorMessage = "Please enter the total person")]

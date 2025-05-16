@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using DAL.Models;
 using Microsoft.AspNetCore.Http;
 
@@ -7,10 +8,13 @@ public class EditUserviewmodel
 {
     public int UserId { get; set; }
 
+    [Required(ErrorMessage = "First name is required.")]
     public string Firstname { get; set; } = null!;
 
+    [Required(ErrorMessage = "Last name is required.")]
     public string Lastname { get; set; } = null!;
 
+    [Required(ErrorMessage = "Email is required.")]
     public string Email { get; set; } = null!;
 
     public string Password { get; set; } = null!;
@@ -19,6 +23,8 @@ public class EditUserviewmodel
 
     public string? UserRoleName {get; set;}
 
+    [Required(ErrorMessage = "Phone number is required.")]
+    [StringLength(10, ErrorMessage = "Phone number must be 10 digits.")]
     public string Phonenumber { get; set; } = null!;
 
     public IFormFile ProfileImage { get; set; } 
@@ -37,8 +43,10 @@ public class EditUserviewmodel
 
     public string? City { get; set; }
 
+    [Required(ErrorMessage = "Zip code is required.")]
     public int Zipcode { get; set; }
 
+    [Required(ErrorMessage = "Address is required.")]
     public string Address { get; set; } = null!;
 
     public bool Isdeleted { get; set; }

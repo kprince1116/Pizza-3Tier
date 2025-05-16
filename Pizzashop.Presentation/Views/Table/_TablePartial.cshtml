@@ -4,15 +4,15 @@
 @inject IPermissions PermissionService
 
 @{
-    var canAddTables = await PermissionService.HasPermission("TableAndSection", ActionPermissions.CanAddEdit);
-    var canDeleteTables = await PermissionService.HasPermission("TableAndSection", ActionPermissions.CanDelete);
+  var canAddTables = await PermissionService.HasPermission("TableAndSection", ActionPermissions.CanAddEdit);
+  var canDeleteTables = await PermissionService.HasPermission("TableAndSection", ActionPermissions.CanDelete);
 }
 
 
 <div class=" mt-3 me-3 mb-4 table-responsive">
   <table class="table table-hover">
     <thead>
-      <tr style="opacity: 0.9;" >
+      <tr style="opacity: 0.9;">
         <div>
           <th scope="col">
             <div class="form-check">
@@ -23,7 +23,10 @@
         </th>
         <th scope="col" style="text-align: center;">Capacity</th>
         <th scope="col" style="text-align: center;">Status</th>
-          @if(canAddTables || canDeleteTables){<th scope="col">Action</th>}
+        @if (canAddTables || canDeleteTables)
+        {
+          <th scope="col">Action</th>
+        }
       </tr>
     </thead>
     <tbody>
@@ -48,27 +51,29 @@
               @((bool)tables.Isavailable ? "Available" : "Occupied")
             </span>
           </td>
-        @if(canAddTables || canDeleteTables)
-        {
-          <td  >
-            @if(canAddTables)
-                        { <img data-bs-toggle="modal" class="edittable" data-edittableid="@tables.Tableid" data-bs-target="#EditTable"
-              src="~/images/icons/pen.svg" alt="">
+          @if (canAddTables || canDeleteTables)
+          {
+            <td>
+              @if (canAddTables)
+              {
+                <img  class="edittable" data-edittableid="@tables.Tableid"
+                   src="~/images/icons/pen.svg" alt="">
               }
-               @if(canDeleteTables)
+              @if (canDeleteTables)
+              {
+                @if (tables.Isavailable == false)
                 {
-                 @if(tables.Isavailable == false)
-                 {
-                   <img class="delete-table disabled" data-tablesdeleteid="@tables.Tableid" data-bs-toggle="modal"
-                   data-bs-target="#deletemodalfortable" src="~/images/icons/trash (1).svg">
-                 }
-                 else{
-                    <img class="delete-table" data-tablesdeleteid="@tables.Tableid" data-bs-toggle="modal"
-                   data-bs-target="#deletemodalfortable" src="~/images/icons/trash (1).svg">
-                   }
-                  
-               }
-          </td>
+                  <img class="delete-table disabled" data-tablesdeleteid="@tables.Tableid" data-bs-toggle="modal"
+                    data-bs-target="#deletemodalfortable" src="~/images/icons/trash (1).svg">
+                }
+                else
+                {
+                  <img class="delete-table" data-tablesdeleteid="@tables.Tableid" data-bs-toggle="modal"
+                    data-bs-target="#deletemodalfortable" src="~/images/icons/trash (1).svg">
+                }
+
+              }
+            </td>
           }
         </tr>
       }
@@ -78,7 +83,7 @@
 
 <div class="d-flex table-footer align-items-center justify-content-end gap-lg-2 gap-md-2 gap-1 me-1 me-md-4 me-lg-4">
   <div class="d-flex align-items-center gap-1 items">
-    <span class="ps-5 font2"  >Items Per Page</span>
+    <span class="ps-5 font2">Items Per Page</span>
     <select class="form-select" onchange="changePageSizeForTables()" id="selectpagesizeForTable"
       aria-label="Floating label select example" style="width: 65px;">
       @if (Model.PageSize != null)
@@ -142,11 +147,11 @@
 
 <script>
 
-  $(document).on("input","#tableSearch", function () {
-      console.log("success");
-        currentPage = 1;
-        changePageForTable(currentPage);
-      });
+  $(document).on("input", "#tableSearch", function () {
+    console.log("success");
+    currentPage = 1;
+    changePageForTable(currentPage);
+  });
 
   @*Mass Delete*@
 
@@ -206,7 +211,7 @@
 
   });
 
-  $(document).on('click','.delete-table', function () {
+  $(document).on('click', '.delete-table', function () {
     var tableId = $(this).data('tablesdeleteid');
     console.log("tableid:", tableId);
     $('#TablesId').val(tableId);
@@ -234,7 +239,7 @@
   function changePageForTable(pageNum) {
     let pagesize = @Model.PageSize;
     let selectedCategoryId = @Model.Sectionid;
-    let search = $('#tableSearch').val(); 
+    let search = $('#tableSearch').val();
 
     $.ajax({
       url: '@Url.Action("TablesBySection", "Table")',

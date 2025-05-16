@@ -9,6 +9,5 @@ public interface ITokenService
     public  Task<int> GetIdFromToken(string token);
     public string GetImageUrlFromToken(string token);
     public string GetRoleFromToken(string token);
-
     
 }

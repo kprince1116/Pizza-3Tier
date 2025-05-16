@@ -15,40 +15,49 @@ public class KotTableService : IKotTableService
     {
         _kotTableRepository = kotTableRepository;
     }
-    public async Task<List<KotTableviewmodel>> GetSections()
+public async Task<List<KotTableviewmodel>> GetSections()
+{
+    try
     {
         var sections = await _kotTableRepository.GetSections();
 
         var Table = new List<KotTableviewmodel>();
 
-         foreach (var section in sections)
-    {
-        var tables = await _kotTableRepository.GetTablesBySectionIdAsync(section.Sectionid);
-     
-        var kotTableViewModel = new KotTableviewmodel
+        foreach (var section in sections ?? new List<Section>())
         {
-            SectionId = section.Sectionid,
-            SectionName = section.SectionName,
-            AvailableCount = tables.Count(t=>t.Status == "Available"),
-            RunningCount = tables.Count(t=>t.Status == "Running"),
-            AssignedCount = tables.Count(t=>t.Status == "Assigned"),
-            Tables = tables.Select(t => new OrderAppTable
-            {
-                TableId = t.Tableid,
-                CustomerId = t.CustomerId == null ? 0 : (int)t.CustomerId, 
-                OrderId = t.OrderTables.FirstOrDefault()?.OrderId ?? 0,
-                Amount = t.OrderTables.FirstOrDefault()?.Order.TotalAmount ?? 0.00m,
-                Name = t.TableName,
-                Capacity = t.Capacity, 
-                Status = t.Status,
-                AssignTime = t.ModifiedDate ?? DateTime.Now,
-            }).ToList()
-        };
+            var tables = await _kotTableRepository.GetTablesBySectionIdAsync(section.Sectionid);
 
-        Table.Add(kotTableViewModel);
-    }
+            var kotTableViewModel = new KotTableviewmodel
+            {
+                SectionId = section.Sectionid,
+                SectionName = section.SectionName,
+                AvailableCount = tables.Count(t => t?.Status == "Available"),
+                RunningCount = tables.Count(t => t?.Status == "Running"),
+                AssignedCount = tables.Count(t => t?.Status == "Assigned"),
+                Tables = tables.Select(t => new OrderAppTable
+                {
+                    TableId = t?.Tableid ?? 0,
+                    CustomerId = t?.CustomerId ?? 0,
+                    OrderId = t?.OrderTables?.FirstOrDefault()?.OrderId ?? 0,
+                    Amount = t?.OrderTables?.FirstOrDefault()?.Order?.TotalAmount ?? 0.00m,
+                    Name = t?.TableName ?? string.Empty,
+                    Capacity = t?.Capacity ?? 0,
+                    Status = t?.Status ?? string.Empty,
+                    AssignTime = t?.ModifiedDate ?? DateTime.Now,
+                }).ToList()
+            };
+
+            Table.Add(kotTableViewModel);
+        }
         return Table;
     }
+    catch (Exception e)
+    {
+        // Log the exception (optional)
+        Console.WriteLine($"Error: {e.Message}");
+        return null;
+    }
+}
 
     public async Task<bool> AddWaitingToken(waitingtokenviewmodel model)
      {

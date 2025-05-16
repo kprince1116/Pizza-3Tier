@@ -22,7 +22,7 @@
         </div>
         <form method="post" asp-controller="Login" asp-action="Login"
             class="content col-lg-6 d-flex align-items-center justify-content-center col-md-12 ps-xl-5 pt-xl-5 ms-xl-0 ms-lg-0 ms-md-4">
-            <input type="hidden" asp-for = "@Model.imgUrl" >
+            <input type="hidden" asp-for="@Model.imgUrl">
             <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
             <div class="bg-image d-block d-lg-none position-absolute w-100 h-100"
                 style="background-image: url('~/images/dominos_background.jpg'); background-size: cover; background-position: center; z-index: -1; opacity: 70%;">
@@ -57,22 +57,17 @@
                         <a class="forgot-password" id="forgotpassword" style="color:blue; text-decoration: none;"
                             asp-action="ForgotPassword"> Forgot Password? </a>
                     </div>
-                    @* <div class="d-md-none d-lg-none d-xl-none d-block justify-content-between  mb-3 p-0">
-                        <div>
-                           
-                        </div>
-                        <a class="forgot-password" id="forgotpassword" style="color:blue; text-decoration: none;"
-                            asp-action="ForgotPassword"> Forgot Password? </a>
-                    </div> *@
-                     <div class="d-md-none d-lg-none d-xl-none justify-content-end col-10 mb-3">
-                            <div class="d-flex gap-1 justify-content-center">
+                    <div class="d-md-none d-lg-none d-xl-none justify-content-end col-10 mb-3">
+                        <div class="d-flex gap-1 justify-content-center">
                             <input asp-for="RememberMe" type="checkbox" id="rememberMe" />
-                            <span class="font1"> Remember Me</span>
-                            </div>
-                            <a class="forgot-password d-flex justify-content-center" id="forgotpassword" style="color:blue; text-decoration: none;"
-                            asp-action="ForgotPassword"> Forgot Password? </a>
+                            <span class="font1">Remember Me</span>
                         </div>
-                    
+                        <a class="forgot-password d-flex justify-content-center" id="forgotpassword"
+                            style="color:blue; text-decoration: none;" asp-action="ForgotPassword"
+                            asp-route-password="@(Model?.Password ?? string.Empty)"
+                            asp-route-emails="@(Model?.Email ?? string.Empty)"> Forgot Password? </a>
+                    </div>
+
                     <button type="submit"
                         class="btn btn-primary btn-sm col-10 align-items-center justify-content-center">Login</button>
                     @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
@@ -91,17 +86,17 @@
 
     <script>
         document.getElementById("togglepassword").addEventListener("click", function () {
-        var passwordInput = document.getElementById("passwordinput");
-        var icon = document.getElementById("togglepassword");
-        
-        if (passwordInput.type === "password") {
-            passwordInput.type = "text";
-            icon.src = '@Url.Content("~/images/icons/eye-slash.svg")'; 
-        } else {
-            passwordInput.type = "password";
-            icon.src = '@Url.Content("~/images/icons/eye.svg")'; 
-        }
-    });
+            var passwordInput = document.getElementById("passwordinput");
+            var icon = document.getElementById("togglepassword");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                icon.src = '@Url.Content("~/images/icons/eye-slash.svg")';
+            } else {
+                passwordInput.type = "password";
+                icon.src = '@Url.Content("~/images/icons/eye.svg")';
+            }
+        });
 
         document.getElementById("forgotpassword").addEventListener("click", function (event) {
             event.preventDefault();
@@ -116,11 +111,12 @@
         @if (TempData["LogOutSuccess"] != null && (bool)TempData["LogOutSuccess"])
         {
             <text>
-                toastr.success('User logged out successfully!');
+                        toastr.success('User logged out successfully!');
             </text>
         }
         });
     </script>
+
 
     @section Scripts {
         <partial name="_ValidationScriptsPartial" />
