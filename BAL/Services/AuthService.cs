@@ -107,7 +107,7 @@ namespace BAL.Services
 
            if (model.NewPassword!=model.ConfirmPassword)
             {
-                 throw new Exception("new password and confiermed new pasword does not match");
+                 throw new Exception("new password and confirmed new password does not match");
             }
 
             existingUser.Password = BCrypt.HashPassword(model.NewPassword, workFactor: 13);
@@ -136,7 +136,6 @@ namespace BAL.Services
                 Secure = false,
                 SameSite = SameSiteMode.Strict
             });
-          
         }
 
     }

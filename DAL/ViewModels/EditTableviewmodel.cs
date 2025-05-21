@@ -14,6 +14,7 @@ public class EditTableviewmodel
     [Required(ErrorMessage ="TableName is Required")]
     public string TableName { get; set; } = null!;
 
+    [Required(ErrorMessage ="section is Required")]
     public int? Sectionid { get; set; }
 
     [Required(ErrorMessage ="Capacity is Required")]

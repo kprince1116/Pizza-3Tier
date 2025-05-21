@@ -15,7 +15,7 @@ public interface IUserList
 
     public Task<bool> PhoneNumberExists(string Phonenumber);
 
-    public Task<User> GetUserById(int UserId);
+    public Task<EditUserviewmodel> GetUserById(int UserId);
     // Task<string?> GetUserById(int? userId);
 
     public Task<IEnumerable<Country>> GetCountriesAsync();

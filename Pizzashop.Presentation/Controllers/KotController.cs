@@ -1,9 +1,9 @@
+using AspNetCoreHero.ToastNotification.Abstractions;
 using BAL.Models.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Pizzashop.DAL.ViewModels;
-// using static Pizzashop.DAL.ViewModels.ItemUpdateviewmodel;
-using static Pizzashop.DAL.ViewModels.Kotviewmodel;
+
 
 namespace Pizzashop.Presentation.Controllers;
 
@@ -12,30 +12,36 @@ public class KotController : Controller
 
     private readonly IKotService _kotService;
     private readonly IHubContext<NotificationHub> _hubcontext;
+    private readonly INotyfService _notyf;
 
-    public KotController(IKotService kotService , IHubContext<NotificationHub> hubcontext)
+    public KotController(IKotService kotService , IHubContext<NotificationHub> hubcontext , INotyfService notyf)
     {
         _hubcontext = hubcontext;
         _kotService = kotService;
+        _notyf = notyf;
     }
 
     public async Task<IActionResult> Kot()
     {
-        var categories = await _kotService.GetCategories();
+        // var categories = await _kotService.GetCategories();
+        var categories = await _kotService.GetCategoriesFromFunctionAsync();
+        //  _notyf.Success("Item updated successfully");
         return View(categories);
     }
     public async Task<IActionResult> KotData(string status = "In Progress", int categoryId = 0)
     {
-        var kotData = await _kotService.GetKotDataAsync(status, categoryId);
+        var kotDataes = await _kotService.GetKotData(status, categoryId);
+        // var kotData = await _kotService.GetKotDataAsync(status, categoryId);
         ViewBag.ActivateCategoryId = categoryId;
-        return  PartialView("_kotcard",kotData);
+        return PartialView("_kotcard",kotDataes);
     }
 
-    public async Task<IActionResult> ChangeQuantityModal( int id , string status) 
+    public async Task<IActionResult> ChangeQuantityModal( int id , string status , int CategoryId) 
     {
-        var kotDetails = await _kotService.GetKotDetailsAsync(id,status);
-        ViewBag.OrderStatus = kotDetails.OrderStatus;
-        return PartialView("_ChangeQuantityModal", kotDetails);
+        var kotdata = await _kotService.GetKotCardData(id,status,CategoryId);
+        // var kotDetails = await _kotService.GetKotDetailsAsync(id,status);
+        ViewBag.OrderStatus = kotdata.OrderStatus;
+        return PartialView("_ChangeQuantityModal", kotdata);
     }
 
     [HttpPost]
@@ -51,7 +57,7 @@ public class KotController : Controller
             results.Add(result);      
             }
         }
-
+         _notyf.Success("Item updated successfully");
         bool success = results.All(r => r);
 
         if (success)

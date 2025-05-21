@@ -14,16 +14,16 @@ public class BaseController : Controller
         _permissionService = permissionService;
     }
 
-    public override async void OnActionExecuting(ActionExecutingContext context)
-{  
-    try
-    {
-        ViewBag.CanViewOrders = await _permissionService.HasPermission("Order", ActionPermissions.CanView);
-        Console.WriteLine("VVV: " +  ViewBag.CanViewOrders);
-    }
-    catch (Exception e)
-    {
-        Console.WriteLine(e.Message);
-    }
-}
+        public override async void OnActionExecuting(ActionExecutingContext context)
+        {
+            try
+            {
+                ViewBag.CanViewOrders = await _permissionService.HasPermission("Order", ActionPermissions.CanView);
+                Console.WriteLine("VVV: " + ViewBag.CanViewOrders);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
 }

@@ -90,9 +90,36 @@ public class UserList : IUserList
 
     }
 
-    public async Task<User> GetUserById(int UserId)
+    public async Task<EditUserviewmodel> GetUserById(int UserId)
     {
-        return await _userRepository.GetUserById(UserId);
+        var user = await _userRepository.GetUserById(UserId);
+
+        var countryname = await _userRepository.GetCountryById(user.Country.Value);
+        var statename = await _userRepository.GetStateById(user.State.Value);
+        var cityname = await _userRepository.GetCityById(user.City.Value);
+        var role = await _userRepository.GeRoleById(user.Userrole.Value);
+
+         var viewModel = new EditUserviewmodel
+        {
+            Firstname = user.Firstname,
+            Lastname = user.Lastname,
+            Username = user.Username,
+            Email = user.Email,
+            Country = countryname,
+            image = user.ProfileImage,
+            Status = user.Status,
+            State = statename,
+            City = cityname,
+            Userrole = user.Userrole.Value,
+            UserRoleName =role,
+            Zipcode = user.Zipcode,
+            Address = user.Address,
+            Phonenumber = user.Phonenumber,
+            CityId=user.City.Value,
+            StateId=user.State.Value,
+            CountryId=user.Country.Value,
+        };
+        return viewModel;
     }
 
     public async Task EditUserAsync(EditUserviewmodel user)

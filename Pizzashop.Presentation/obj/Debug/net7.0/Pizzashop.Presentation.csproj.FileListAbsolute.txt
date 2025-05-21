@@ -810,3 +810,6 @@ D:\Project\Pizza-3Tier\Pizzashop.Presentation\obj\Debug\net7.0\refint\Pizzashop.
 D:\Project\Pizza-3Tier\Pizzashop.Presentation\obj\Debug\net7.0\Pizzashop.Presentation.pdb
 D:\Project\Pizza-3Tier\Pizzashop.Presentation\obj\Debug\net7.0\Pizzashop.Presentation.genruntimeconfig.cache
 D:\Project\Pizza-3Tier\Pizzashop.Presentation\obj\Debug\net7.0\ref\Pizzashop.Presentation.dll
+d:\Project\Pizza-3Tier\Pizzashop.Presentation\bin\Debug\net7.0\Dapper.dll
+D:\Project\Pizza-3Tier\Pizzashop.Presentation\bin\Debug\net7.0\AspNetCoreHero.ToastNotification.Views.dll
+D:\Project\Pizza-3Tier\Pizzashop.Presentation\bin\Debug\net7.0\AspNetCoreHero.ToastNotification.dll

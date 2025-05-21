@@ -23,7 +23,6 @@
                             class="badge bg-success-subtle fs-6 text-success">@Model.StatusNavigation.Status</span></p>
                       <a class="btn w-auto  my-lg-0 px-4 d-flex align-items-center justify-content-center gap-2 text-white pdfinvoice"
                data-orderid="@Model.Orderid"
-    using System.Data.Common;
                 style="background-color:#0066a7">
                 <img src="~/images/icons/export-svgrepo-com (1).svg" width="25px">
                  Export
@@ -45,14 +44,26 @@
                             <strong>Modified on:</strong> @Model.ModifiedDate?.ToString("dd-MM-yyyy ")
                         </div>
                         <div class="col-12 col-md-4 col-lg-4 col-xl-2 mb-2">
-                            
+                            @if(Model.StatusNavigation.Status == "Completed" || Model.StatusNavigation.Status == "Cancelled")
+                            {
                             <strong>Duration:</strong>
-                            @{
+                            
                                 var duration = Model.ModifiedDate.HasValue && Model.CreatedDate.HasValue
-                                ? (Model.ModifiedDate.Value - Model.CreatedDate.Value).ToString(@"hh\:mm")
+                                ? (Model.ModifiedDate.Value - Model.CreatedDate.Value).ToString(@"hh\:mm\:ss")
                                 : "N/A";
-                            }
+                            
                             @duration
+                            }
+                            else
+                            {
+                                <strong>Duration:</strong>
+                            
+                                var duration = Model.ModifiedDate.HasValue && Model.CreatedDate.HasValue
+                                ? (Model.CreatedDate.Value - DateTime.Now).ToString(@"hh\:mm\:ss")
+                                : "N/A";
+                            
+                            @duration
+                            }
                         </div>
                     </div>
                 </div>
@@ -69,7 +80,7 @@
                                 Details</h5><br>
                             <p class="mb-0"><strong>Name:</strong> @Model.Customer?.Customername</p>
                             <p class="mb-0"><strong>Phone:</strong> @Model.Customer?.Phonenumber</p>
-                            <p class="mb-0"><strong>No of Persons:</strong> @Model.Customer?.TotalPersons</p>
+                            <p class="mb-0"><strong>No of Persons:</strong> @Model?.NoOfPerson</p>
                             <p class="mb-0"><strong>Email:</strong> @Model.Customer?.Customeremail</p>
                         </div>
                     </div>

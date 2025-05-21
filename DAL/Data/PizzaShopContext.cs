@@ -190,7 +190,7 @@ public partial class PizzaShopContext : DbContext
             entity.HasIndex(e => e.Name, "menu_category_name_key").IsUnique();
 
             entity.Property(e => e.Categoryid).HasColumnName("categoryid");
-            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
+            entity.Property(e => e.CreatedBy).HasColumnName("created_by").IsRequired(false);
             entity.Property(e => e.CreatedDate)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("created_date");

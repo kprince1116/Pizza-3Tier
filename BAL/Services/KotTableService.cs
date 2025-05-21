@@ -53,8 +53,6 @@ public async Task<List<KotTableviewmodel>> GetSections()
     }
     catch (Exception e)
     {
-        // Log the exception (optional)
-        Console.WriteLine($"Error: {e.Message}");
         return null;
     }
 }
@@ -130,7 +128,7 @@ public async Task<List<KotTableviewmodel>> GetSections()
             Name = customerDetails.Customername,
             Phone = customerDetails.Phonenumber,
             Email = customerDetails.Customeremail,
-            NoOfPerson =(int) customerDetails.TotalPersons,
+            // NoOfPerson =(int) customerDetails.TotalPersons,
             sectionId = (int) sectionid,
             // sectionName = customerDetails.,
             sections = section,

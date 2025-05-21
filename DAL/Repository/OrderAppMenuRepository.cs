@@ -16,13 +16,20 @@ public class OrderAppMenuRepository : IOrderAppMenuRepository
 
     public async Task<List<MenuCategory>> GetCategories()
     {
-        var categories = await _db.MenuCategories.Where(u=>u.IsDeleted == false).OrderBy(u=>u.Name).ToListAsync();
-        return categories;
+        // var categories = await _db.MenuCategories.Where(u=>u.IsDeleted == false).OrderBy(u=>u.Name).ToListAsync();
+        // return categories;
+          var categories = await _db.MenuCategories
+                .FromSqlRaw("SELECT * FROM GetCategories()")
+                .ToListAsync();
+          return categories;
     }
 
      public async Task<List<MenuItem>> GetItems(int CategoryId,string SearchKey)
      {
-        var items = await _db.MenuItems.Where(u=>u.IsDeleted == false).OrderBy(u=>u.Itemname).ToListAsync();
+        // var items = await _db.MenuItems.Where(u=>u.IsDeleted == false).OrderBy(u=>u.Itemname).ToListAsync();
+        var items = await _db.MenuItems
+                .FromSqlRaw("SELECT * FROM GetItems()")
+                .ToListAsync();
 
         if(CategoryId != 0)
         {
@@ -42,7 +49,10 @@ public class OrderAppMenuRepository : IOrderAppMenuRepository
 
     public async Task<List<MenuItem>> GetFavouriteItems(string SearchKey)
     {
-        var items = await _db.MenuItems.Where(u=>u.IsDeleted == false && u.IsFavourite == true).OrderBy(u=>u.Itemname).ToListAsync();
+        // var items = await _db.MenuItems.Where(u=>u.IsDeleted == false && u.IsFavourite == true).OrderBy(u=>u.Itemname).ToListAsync();
+         var items = await _db.MenuItems
+                .FromSqlRaw("SELECT * FROM GetFavouriteItems()")
+                .ToListAsync();
 
         if(!string.IsNullOrEmpty(SearchKey))
         {
@@ -232,9 +242,14 @@ public class OrderAppMenuRepository : IOrderAppMenuRepository
         return payment;
     }
 
+    public async Task<List<OrderTable>> GetTables(int Orderid)
+    {
+        return await _db.OrderTables.Where(u=>u.OrderId == Orderid && u.IsDeleted == false).ToListAsync();
+    }
+
     public async Task<Table> ChangeTableData(int CustomerId)
     {
-        return await _db.Tables.FirstOrDefaultAsync(u=>u.CustomerId == CustomerId);
+        return await _db.Tables.FirstOrDefaultAsync(u=>u.Tableid == CustomerId);
     }
 
     public async Task SaveTableData(Table table)

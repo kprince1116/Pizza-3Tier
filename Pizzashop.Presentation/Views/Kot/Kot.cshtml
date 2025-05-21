@@ -273,13 +273,15 @@
         $(document).on("click", "#order-card", function () {
             var orderid = $(this).data("orderid");
             var status = $(this).data("status");
+            var categoryid = $(this).data("categoryid");
+            console.log("categoryid",categoryid);
 
             console.log("OrdersIds:", orderid);
 
             $.ajax({
                 url: '@Url.Action("ChangeQuantityModal", "Kot")',
                 type: 'GET',
-                data: { id: orderid, status: status },
+                data: { id: orderid, status: status , CategoryId : categoryid },
                 dataType: "html",
                 success: function (data) {
                     $('#changeQuanityModalContainer').html(data);

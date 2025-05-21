@@ -112,9 +112,10 @@ namespace Pizzashop.Data.Repositories
             {
                 query = query.Where(u => u.Firstname.Contains(searchTerm) ||
                                          u.Lastname.Contains(searchTerm) ||
-                                         u.Email.Contains(searchTerm));
+                                         u.Email.Contains(searchTerm) ||
+                                         u.Phonenumber.Contains(searchTerm));
             }
-
+ 
             if(sortBy == "name")
             {
                 query = sortDirection == "asc" ? query.OrderBy(u => u.Firstname) : query.OrderByDescending(u => u.Firstname);

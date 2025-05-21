@@ -1,17 +1,13 @@
+using AspNetCoreHero.ToastNotification.Abstractions;
 using BAL.Attributes;
 using BAL.Interfaces;
 using DAL.Interfaces;
 using DAL.Models;
 using Microsoft.AspNetCore.Authorization;
-
-
-// using DAL.Models;
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.SignalR;
 using Pizzashop.DAL.ViewModels;
-// using Pizzashop.DAL.Models;
 
 namespace Pizzashop.Presentation.Controllers;
 
@@ -22,14 +18,17 @@ public class UserController : Controller
     private readonly IUserRepository _userRepository;
     private readonly IUserDetails _userDetails;
     private readonly IHubContext<NotificationHub> _hubcontext;
+    private readonly INotyfService _notyf;
 
-    public UserController(IConfiguration configuration, IUserList userList , IUserRepository userRepository , IUserDetails userDetails , IHubContext<NotificationHub> hubcontext)
+
+    public UserController(IConfiguration configuration, IUserList userList , IUserRepository userRepository , IUserDetails userDetails , IHubContext<NotificationHub> hubcontext , INotyfService notyf)
     {
         _hubcontext = hubcontext;
         _configuration = configuration;
         _userList = userList;
         _userRepository = userRepository;
         _userDetails = userDetails;
+        _notyf = notyf;
     }
 
     [Authorize(Roles = "Account_Manager,Admin")]
@@ -98,31 +97,32 @@ public class UserController : Controller
             return NotFound();
         }
 
-        var countryname = await _userRepository.GetCountryById(user.Country.Value);
-        var statename = await _userRepository.GetStateById(user.State.Value);
-        var cityname = await _userRepository.GetCityById(user.City.Value);
-        var role = await _userRepository.GeRoleById(user.Userrole.Value);
+        // var countryname = await _userRepository.GetCountryById(user.Country.Value);
+        // var statename = await _userRepository.GetStateById(user.State.Value);
+        // var cityname = await _userRepository.GetCityById(user.City.Value);
+        // var role = await _userRepository.GeRoleById(user.Userrole.Value);
 
-        var viewModel = new EditUserviewmodel
-        {
-            Firstname = user.Firstname,
-            Lastname = user.Lastname,
-            Username = user.Username,
-            Email = user.Email,
-            Country = countryname,
-            image = user.ProfileImage,
-            Status = user.Status,
-            State = statename,
-            City = cityname,
-            Userrole = user.Userrole.Value,
-            UserRoleName =role,
-            Zipcode = user.Zipcode,
-            Address = user.Address,
-            Phonenumber = user.Phonenumber,
-            CityId=user.City.Value,
-            StateId=user.State.Value,
-            CountryId=user.Country.Value,
-        };
+        // var viewModel = new EditUserviewmodel
+        // {
+        //     Firstname = user.Firstname,
+        //     Lastname = user.Lastname,
+        //     Username = user.Username,
+        //     Email = user.Email,
+        //     Country = countryname,
+        //     image = user.ProfileImage,
+        //     Status = user.Status,
+        //     State = statename,
+        //     City = cityname,
+        //     Userrole = user.Userrole.Value,
+        //     UserRoleName =role,
+        //     Zipcode = user.Zipcode,
+        //     Address = user.Address,
+        //     Phonenumber = user.Phonenumber,
+        //     CityId=user.City.Value,
+        //     StateId=user.State.Value,
+        //     CountryId=user.Country.Value,
+        // };
+        var viewModel = await _userList.GetUserById(UserId);
 
         viewModel.roles = await _userList.GetRolesAsync();
         viewModel.countrylist = await _userList.GetCountriesAsync();

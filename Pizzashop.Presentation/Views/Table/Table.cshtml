@@ -50,12 +50,13 @@
                     var isActive = sections.SectionName == "Ground Floor" ? "active-section" : "";
 
                     <div class="sidebar-table @isActive">
-                      <div class="d-flex justify-content-between align-items-center section-name" data-sectionid="@sections.Sectionid">
+                      <div class="d-flex justify-content-between align-items-center section-name"
+                        data-sectionid="@sections.Sectionid">
 
                         <div data-section-id="@sections.Sectionid"
                           class="sectionBtn d-flex gap-2 pt-2 pb-2 ps-3 align-items-center">
                           <img style="height: 15px;" src="~/images/icons/grid.png">
-                          <div >@sections.SectionName</div>
+                          <div>@sections.SectionName</div>
                         </div>
 
                         <div class="icons">
@@ -68,7 +69,7 @@
                           }
                           @if (canDeleteTables)
                           {
-                            
+
                             <img style="height: 17px;" class="delete-section" data-sectiondeleteid="@sections.Sectionid"
                               data-bs-toggle="modal" data-bs-target="#deletesectionModal" src="~/images/icons/trash (1).svg"
                               alt="">
@@ -140,8 +141,8 @@
           var modal = bootstrap.Modal.getInstance(modalEl);
           if (modal) {
             modal.hide();
-          }   
-          location.reload(); 
+          }
+          location.reload();
           toastr.success("Section Added successfully");
         } else {
           toastr.error("A section with the same name already exists.");
@@ -158,7 +159,7 @@
 <div class="modal fade" data-bs-backdrop="static" id="addsection" tabindex="-1" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
-    <form method="post"  id="AddSectionData" class="modal-content">
+    <form method="post" id="AddSectionData" class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel1">Add Section</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -231,7 +232,7 @@
           if (modal) {
             modal.hide();
           }
-          toastr.success("Section Edited successfully");  
+          toastr.success("Section Edited successfully");
           $('.modal-backdrop').remove();
           fetchTables(sectionId);
         } else {
@@ -316,6 +317,7 @@
                       }
                     </select>
                     <label for="categorySelect">Section</label>
+                    <span asp-validation-for="@Model.AddTable.Sectionid" class="text-danger"></span>
                   </div>
                 </div>
               </div>
@@ -332,8 +334,8 @@
                   <div class="form-floating">
                     <select class="form-select" id="statusSelect" asp-for="@Model.AddTable.Isavailable"
                       aria-label="Floating label select example" required>
-                      <option value="">Select Status</option>
-                      <option value="true">Available</option>
+                      @* <option value="">Select Status</option> *@
+                      <option value="true" selected>Available</option>
                       <option value="false">Reserved</option>
                     </select>
                     <label for="statusSelect">Status</label>
@@ -400,23 +402,23 @@
 
   <script>
     const connection = new signalR.HubConnectionBuilder()
-        .withAutomaticReconnect()
-        .withUrl("http://localhost:5167/NotificationHub")
-        .build();
+      .withAutomaticReconnect()
+      .withUrl("http://localhost:5167/NotificationHub")
+      .build();
 
     connection.start()
-        .then(function () {
-            console.log("SignalR Connected.");
-        })
-        .catch(function (err) {
-            console.error(err.toString());
-        });
+      .then(function () {
+        console.log("SignalR Connected.");
+      })
+      .catch(function (err) {
+        console.error(err.toString());
+      });
 
     connection.on("TableMessage", function (message) {
-        console.log("Received message: " + message);
-        fetchTables(1);
+      console.log("Received message: " + message);
+      fetchTables(1);
     });
-</script>
+  </script>
 
   <script>
 
@@ -440,7 +442,7 @@
     });
 
     var selectedSectionId;
-  
+
     $(document).ready(function () {
       $('.section-name').on('click', function (e) {
         e.preventDefault();
@@ -470,7 +472,7 @@
       });
     });
 
-   
+
 
     @* load edit table*@
       $(document).ready(function () {
@@ -485,9 +487,9 @@
         data: { id: id },
         success: function (data) {
           $("#edittabledata").html(data);
-           const modalElement = document.getElementById('EditTableFor');
-            const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
-            modalInstance.show(); 
+          const modalElement = document.getElementById('EditTableFor');
+          const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+          modalInstance.show();
         },
         error: function () {
           console.log("No Projects Found");
@@ -514,10 +516,10 @@
           if (response.success == true) {
             const modalElement = document.getElementById('EditTableFor');
             const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
-            modalInstance.hide(); 
+            modalInstance.hide();
             toastr.success("Table edited successfully");
-             fetchTables(sectionId);
-                
+            fetchTables(sectionId);
+
           } else {
             toastr.error("An error occurred while editing the table.");
           }
@@ -581,7 +583,7 @@
       </text>
     }
 
-      });
+        });
 
 
   </script>

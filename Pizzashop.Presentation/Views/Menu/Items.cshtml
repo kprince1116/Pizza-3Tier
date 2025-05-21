@@ -1002,7 +1002,6 @@
             var searchKey = encodeURIComponent($('#search-input').val() || '');
             var url = `/Menu/Items?id=${categoryId}&pageNo=1&pageSize=${pageSize}`;
             window.location.href = url;
-
           },
           error: function (xhr, status, error) {
             console.error("Error deleting items:", xhr.responseText);

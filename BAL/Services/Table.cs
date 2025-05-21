@@ -71,9 +71,9 @@ public class Table : ITable
 
         existingSection.Isdeleted = true;
 
-         await _userTableRepository.UpdateSectionAsync(existingSection);
+        await _userTableRepository.UpdateSectionAsync(existingSection);
 
-         return true;
+        return true;
 
     }
 

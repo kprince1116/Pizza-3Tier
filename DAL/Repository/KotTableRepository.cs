@@ -22,15 +22,15 @@ public class KotTableRepository : IKotTableRepository
     public async Task<List<Table>> GetTablesBySectionIdAsync(int sectionId)
     {
         return await _db.Tables.Where(t => t.Sectionid == sectionId && t.Isdeleted == false)
-                                        .Include(u=>u.Customer).ThenInclude(u=>u.OrderTables)
-                                        .Include(u=>u.OrderTables.Where(u=>u.IsDeleted == false))
-                                        .ThenInclude(u=>u.Order)
-                                        .OrderBy(u=>u.Tableid).ToListAsync();
+                                        .Include(u => u.Customer).ThenInclude(u => u.OrderTables)
+                                        .Include(u => u.OrderTables.Where(u => u.IsDeleted == false))
+                                        .ThenInclude(u => u.Order)
+                                        .OrderBy(u => u.Tableid).ToListAsync();
     }
 
     public async Task<List<Models.Section>> GetSectionList()
     {
-        return await _db.Sections.Where(u => u.Isdeleted == false).OrderBy(u=>u.Sectionid).ToListAsync();
+        return await _db.Sections.Where(u => u.Isdeleted == false).OrderBy(u => u.Sectionid).ToListAsync();
     }
     public async Task AddWaitingToken(waitingtokenviewmodel model)
     {
@@ -38,7 +38,7 @@ public class KotTableRepository : IKotTableRepository
         {
             var existingcustomer = await _db.Customers.FirstOrDefaultAsync(u => u.Customeremail == model.Email);
 
-            if(existingcustomer!=null)
+            if (existingcustomer != null)
             {
                 existingcustomer.Customername = model.Name;
                 existingcustomer.Phonenumber = model.Phone;
@@ -46,16 +46,16 @@ public class KotTableRepository : IKotTableRepository
                 _db.Customers.Update(existingcustomer);
 
                 var waitingToken = new WaitingToken
-            {
-                Customerid = existingcustomer?.Customerid,
-                SectionId = model.sectionId,
-                NoOfPersons = model.NoOfPerson,
-            };
+                {
+                    Customerid = existingcustomer?.Customerid,
+                    SectionId = model.sectionId,
+                    NoOfPersons = model.NoOfPerson,
+                };
 
-            _db.WaitingTokens.Add(waitingToken);
+                _db.WaitingTokens.Add(waitingToken);
 
             }
-        
+
             else
             {
                 var customer = new Customer
@@ -74,6 +74,7 @@ public class KotTableRepository : IKotTableRepository
                     Customerid = customer.Customerid,
                     SectionId = model.sectionId,
                     NoOfPersons = model.NoOfPerson,
+                    CreatedDate = DateTime.Now
                 };
                 _db.WaitingTokens.Add(waitingToken);
             }
@@ -86,37 +87,37 @@ public class KotTableRepository : IKotTableRepository
         }
     }
 
-        public async Task<List<waitingtokenviewmodel>> GetWaitingList(int id)
+    public async Task<List<waitingtokenviewmodel>> GetWaitingList(int id)
+    {
+        var waitinglist = await _db.WaitingTokens.Include(u => u.Customer).Where(u => u.SectionId == id && u.IsDeleted == false && u.IsAssigned == false)
+        .Select(u => new waitingtokenviewmodel
         {
-            var waitinglist = await _db.WaitingTokens.Include(u=>u.Customer).Where(u=> u.SectionId == id && u.IsDeleted == false && u.IsAssigned == false )
-            .Select(u=> new waitingtokenviewmodel
-            {
-               Id = u.Id,
-               Name = u.Customer.Customername,
-               NoOfPerson =(int) u.Customer.TotalPersons
-            }).ToListAsync();
+            Id = u.Id,
+            Name = u.Customer.Customername,
+            NoOfPerson = (int)u.Customer.TotalPersons
+        }).ToListAsync();
 
-            return waitinglist;
-        }
+        return waitinglist;
+    }
 
     public async Task<WaitingToken> GetCustomerDetails(int id)
     {
         var customer = await _db.WaitingTokens
         .Where(u => u.Id == id && u.IsDeleted == false)
-        .Include(u=>u.Customer) 
-        .Include(u=>u.Section)
+        .Include(u => u.Customer)
+        .Include(u => u.Section)
         .FirstOrDefaultAsync();
-        
+
         return customer;
     }
-    public async  Task<WaitingToken> GetCustomerDetailsForAssign(int customerId)
+    public async Task<WaitingToken> GetCustomerDetailsForAssign(int customerId)
     {
         var customer = await _db.WaitingTokens
         .Where(u => u.Customerid == customerId && u.IsDeleted == false)
-        .Include(u=>u.Customer) 
-        .Include(u=>u.Section)
+        .Include(u => u.Customer)
+        .Include(u => u.Section)
         .FirstOrDefaultAsync();
-        
+
         return customer;
     }
 
@@ -133,21 +134,21 @@ public class KotTableRepository : IKotTableRepository
     {
         try
         {
-         _db.Tables.Update(tables);
-        await _db.SaveChangesAsync();
+            _db.Tables.Update(tables);
+            await _db.SaveChangesAsync();
         }
         catch (Exception e)
         {
-            
+
             Console.WriteLine(e);
         }
-       
+
     }
     public async Task AddCustomer(Customer newcustomer)
     {
         try
         {
-             _db.Customers.Add(newcustomer);
+            _db.Customers.Add(newcustomer);
             await _db.SaveChangesAsync();
         }
         catch (Exception e)
@@ -156,11 +157,11 @@ public class KotTableRepository : IKotTableRepository
         }
     }
 
-     public async Task UpdateCustomer(WaitingToken model)
-     {
+    public async Task UpdateCustomer(WaitingToken model)
+    {
         _db.WaitingTokens.Update(model);
         await _db.SaveChangesAsync();
-     }
+    }
 
     public async Task<Table> GetTablesByIdAsync(int tableId)
     {
@@ -172,11 +173,12 @@ public class KotTableRepository : IKotTableRepository
         return await _db.Customers.FirstOrDefaultAsync(u => u.Customerid == id && u.Isdelete == false);
     }
 
-     public async Task<Order> GenerateOrder(Order obj){
-            await _db.Orders.AddAsync(obj);
-            await _db.SaveChangesAsync();
-            return obj;
-        }
+    public async Task<Order> GenerateOrder(Order obj)
+    {
+        await _db.Orders.AddAsync(obj);
+        await _db.SaveChangesAsync();
+        return obj;
+    }
 
     public async Task<OrderTable> AddOrderTable(OrderTable orderTable)
     {
@@ -184,5 +186,5 @@ public class KotTableRepository : IKotTableRepository
         await _db.SaveChangesAsync();
         return orderTable;
     }
-   
+
 }

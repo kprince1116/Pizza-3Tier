@@ -12,6 +12,7 @@ using DAL.Repository;
 using BAL.Models.Interfaces;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.SignalR;
+using AspNetCoreHero.ToastNotification;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -95,7 +96,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 OnChallenge = context =>
                 {
                     var path = context.Request.Path.Value;
-                    if(path != "/UserLogin/Login" && !context.Response.HasStarted)
+                    if(path != "/Login/Login" && !context.Response.HasStarted)
                     {
                         context.Response.Cookies.Delete("jwtToken");
                         context.Response.Redirect("/Login/Login");
@@ -117,6 +118,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddNotyf(config =>
+{
+    config.DurationInSeconds = 5;
+    config.IsDismissable = true;
+    config.Position = NotyfPosition.TopRight;
+});
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
@@ -125,6 +133,7 @@ if (!app.Environment.IsDevelopment())
 
     app.UseHsts();
 }
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

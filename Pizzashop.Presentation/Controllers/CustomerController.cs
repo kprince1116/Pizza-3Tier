@@ -13,11 +13,11 @@ public class CustomerController : Controller
 {
     private readonly IConfiguration _configuration;
 
-     private readonly ICustomerService _customerservice;
+    private readonly ICustomerService _customerservice;
 
-      public CustomerController(IConfiguration configuration,ICustomerService customerservice)
+    public CustomerController(IConfiguration configuration, ICustomerService customerservice)
     {
-        _configuration = configuration; 
+        _configuration = configuration;
         _customerservice = customerservice;
     }
 
@@ -28,12 +28,12 @@ public class CustomerController : Controller
         return View();
     }
 
-    
-     [_AuthPermissionAttribute("Customer", ActionPermissions.CanView)]
-    public async Task<IActionResult> GetCustomerDetails(int pageNo = 1, int pageSize = 15, string searchKey = "" ,  string sortby = "" , string sortdirection ="" ,  string timefilter = "" , string fromdate="" , string todate="")
+
+    [_AuthPermissionAttribute("Customer", ActionPermissions.CanView)]
+    public async Task<IActionResult> GetCustomerDetails(int pageNo = 1, int pageSize = 15, string searchKey = "", string sortby = "", string sortdirection = "", string timefilter = "", string fromdate = "", string todate = "")
     {
-        var customer = await _customerservice.GetCustomerDetails(pageNo,pageSize,searchKey,sortby,sortdirection,timefilter,fromdate,todate);
-         return PartialView("_customerPartial",customer);
+        var customer = await _customerservice.GetCustomerDetails(pageNo, pageSize, searchKey, sortby, sortdirection, timefilter, fromdate, todate);
+        return PartialView("_customerPartial", customer);
     }
 
     [_AuthPermissionAttribute("Customer", ActionPermissions.CanView)]
@@ -41,22 +41,22 @@ public class CustomerController : Controller
     {
         try
         {
-              var customer = await _customerservice.GetCustomerHistory(id);
+            var customer = await _customerservice.GetCustomerHistory(id);
 
-        return PartialView("_customerhistoryPartial",customer);
+            return PartialView("_customerhistoryPartial", customer);
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
             return null;
         }
-      
+
     }
 
-        public async Task<IActionResult> ExportCustomerToExcel(string searchKey, string timefilter ,  string fromdate , string todate)
-        {
-            var customers = await _customerservice.GetCustomer(searchKey, timefilter,  fromdate , todate);
-       
+    public async Task<IActionResult> ExportCustomerToExcel(string searchKey, string timefilter, string fromdate, string todate)
+    {
+        var customers = await _customerservice.GetCustomer(searchKey, timefilter, fromdate, todate);
+
 
         using (var package = new ExcelPackage())
         {
@@ -80,7 +80,7 @@ public class CustomerController : Controller
             }
             currentCol += 2;
             worksheet.Cells[currentRow, currentCol, currentRow + 1, currentCol + 3].Merge = true;
-            worksheet.Cells[currentRow, currentCol].Value =  "";
+            worksheet.Cells[currentRow, currentCol].Value = "";
             using (var headingCells = worksheet.Cells[currentRow, currentCol, currentRow + 1, currentCol + 3])
             {
                 headingCells.Style.Fill.PatternType = ExcelFillStyle.Solid;
@@ -126,7 +126,7 @@ public class CustomerController : Controller
             worksheet.Cells[currentRow, currentCol, currentRow + 4, currentCol + 1].Merge = true;
 
             // Insert Logo
-            var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images","logos", "pizzashop_logo.png");
+            var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "logos", "pizzashop_logo.png");
 
             if (System.IO.File.Exists(imagePath))
             {
@@ -199,7 +199,7 @@ public class CustomerController : Controller
                 headingCells.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
             }
 
-              // this is table ....................................
+            // this is table ....................................
             int headingRow = currentRow + 4;
             int headingCol = 2;
 
@@ -208,7 +208,7 @@ public class CustomerController : Controller
 
             worksheet.Cells[headingRow, headingCol, headingRow, headingCol + 2].Merge = true;
             worksheet.Cells[headingRow, headingCol].Value = "Name";
-            headingCol += 3;  
+            headingCol += 3;
 
             worksheet.Cells[headingRow, headingCol, headingRow, headingCol + 2].Merge = true;
             worksheet.Cells[headingRow, headingCol].Value = "Email";
@@ -226,7 +226,7 @@ public class CustomerController : Controller
             worksheet.Cells[headingRow, headingCol, headingRow, headingCol + 1].Merge = true;
             worksheet.Cells[headingRow, headingCol].Value = "Total Order";
 
-            using(var headingCells = worksheet.Cells[headingRow,2,headingRow,headingCol+1])
+            using (var headingCells = worksheet.Cells[headingRow, 2, headingRow, headingCol + 1])
             {
                 headingCells.Style.Fill.PatternType = ExcelFillStyle.Solid;
                 headingCells.Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml("#0066A7"));
@@ -252,7 +252,7 @@ public class CustomerController : Controller
                 worksheet.Cells[row, startCol].Value = customer.Customername;
                 startCol += 3;
 
-                 worksheet.Cells[row, startCol, row, startCol + 2].Merge = true;
+                worksheet.Cells[row, startCol, row, startCol + 2].Merge = true;
                 worksheet.Cells[row, startCol].Value = customer.Customeremail;
                 startCol += 3;
 
@@ -292,10 +292,10 @@ public class CustomerController : Controller
             package.SaveAs(stream);
             stream.Position = 0;
             var fileName = $"Customers_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
-            return File(stream,"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",fileName);
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
 
-       
+
     }
 
 }

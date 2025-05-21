@@ -64,6 +64,7 @@ public interface IOrderAppMenuRepository
 
     Task<Paymentmode> AddPayment(Paymentmode payment);
 
+    Task<List<OrderTable>> GetTables(int Orderid);
     Task<Table> ChangeTableData(int CustomerId);
 
     Task SaveTableData(Table table);

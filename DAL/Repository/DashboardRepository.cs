@@ -19,7 +19,7 @@ public class DashboardRepository : IDashboardRepository
     {
         try
         {
-            var orders = _db.Orders.Where(u => u.Status == 2 && u.Isdelete == false && u.Orderdate.HasValue && u.Orderdate.Value >= startDate && u.Orderdate.Value <= endDate);
+            var orders = _db.Orders.Where(u =>  u.Isdelete == false && u.Orderdate.HasValue && u.Orderdate.Value >= startDate && u.Orderdate.Value <= endDate);
 
             int totalorder = await orders.CountAsync();
 
@@ -139,7 +139,7 @@ public class DashboardRepository : IDashboardRepository
 
     public async Task<List<ItemDashboardviewmodel>> GetTopSellingItems(DateTime startDate, DateTime endDate)
     {
-        var orderItem = _db.OrderItems.Include(u => u.Item).Include(u => u.Order).Where(u => u.CreatedDate.HasValue && u.CreatedDate.Value >= startDate && u.CreatedDate.Value <= endDate);
+        var orderItem = _db.OrderItems.Include(u => u.Item).Include(u => u.Order).Where(u => u.CreatedDate.HasValue && u.CreatedDate.Value >= startDate && u.CreatedDate.Value <= endDate && u.IsDeleted == false);
 
         var itemList = orderItem.GroupBy(u => u.ItemId).Select
         (u => new ItemDashboardviewmodel

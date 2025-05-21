@@ -90,7 +90,6 @@ public class KotTableController : Controller
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
             return Json(new { success = false });
         }
     }

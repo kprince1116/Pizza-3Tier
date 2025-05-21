@@ -48,7 +48,10 @@
                                             {
                                                 @foreach (var mod in Model.ItemList[i].ModifierList)
                                                 {
-                                                    <li>@mod.ModifierName</li>
+                                                    @if(mod.ModifierName != null)
+                                                    {
+                                                        <li>@mod.ModifierName</li>
+                                                    }
                                                 }
                                             }
                                         </ul>
@@ -168,6 +171,7 @@
                 },  
                 success: function (response) {
                     console.log("Quantity updated successfully");
+                    notyf.success("Item updated successfully");
                     toastr.success("Item updated successfully");
                 },
                 error: function (xhr, status, error) {

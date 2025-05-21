@@ -23,7 +23,7 @@ public class ProfileController : Controller
     {
         var token = Request.Cookies["jwtToken"];
         string email = _tokenService.GetEmailFromToken(token);
-        var profiles =  _tokenService.GetImageUrlFromToken(token);
+        var profiles = _tokenService.GetImageUrlFromToken(token);
         var profile = await _userDetails.GetUserProfile(email);
         Console.WriteLine(profile);
         return View(profile);
@@ -35,17 +35,17 @@ public class ProfileController : Controller
     {
         var result = await _userDetails.UpdateProfile(model);
 
-        if(result)
+        if (result)
         {
             TempData["ProfileUpdateSuccess"] = true;
-             return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home");
         }
         else
         {
             TempData["ProfileUpdateError"] = true;
-             return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home");
         }
-       
+
 
     }
     public IActionResult GetRoles()
@@ -71,13 +71,13 @@ public class ProfileController : Controller
         return Json(cities);
     }
 
-        public IActionResult Logout()
-        {
-            Response.Cookies.Delete("jwtToken");
-            Response.Cookies.Delete("Email");
-            TempData["LogOutSuccess"] = true;
-            return RedirectToAction("Login", "Login");
-        }
+    public IActionResult Logout()
+    {
+        Response.Cookies.Delete("jwtToken");
+        Response.Cookies.Delete("Email");
+        TempData["LogOutSuccess"] = true;
+        return RedirectToAction("Login", "Login");
+    }
 
     public IActionResult ChangePassword()
     {
@@ -108,8 +108,5 @@ public class ProfileController : Controller
             ViewBag.ErrorMessage = ex.Message;
             return View(model);
         }
-
-
     }
-
 }
