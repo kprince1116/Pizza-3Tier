@@ -50,6 +50,7 @@ public class KotTableRepository : IKotTableRepository
                     Customerid = existingcustomer?.Customerid,
                     SectionId = model.sectionId,
                     NoOfPersons = model.NoOfPerson,
+                    CreatedDate = DateTime.Now
                 };
 
                 _db.WaitingTokens.Add(waitingToken);

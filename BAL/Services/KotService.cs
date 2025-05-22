@@ -81,7 +81,9 @@ public class KotService : IKotService
 
     public async Task<OrderCardviewmodel> GetKotCardData(int id, string status , int CategoryId)
     {
-        var order = await _kotRepository.GetKotCardData(id, status ,CategoryId);
+        try
+        {
+              var order = await _kotRepository.GetKotCardData(id, status ,CategoryId);
 
         var Model = new OrderCardviewmodel
         {
@@ -92,6 +94,7 @@ public class KotService : IKotService
             {
                 ItemId = u.FirstOrDefault().itemid,
                 ItemName = u.FirstOrDefault().itemname,
+                OrderItemID = u.FirstOrDefault().orderitemid,
                 TotalQuantity = u.FirstOrDefault().totalquantity,
                 IsSelected = true,
                 PendigQuantity = u.FirstOrDefault().pendingquantity,
@@ -106,10 +109,17 @@ public class KotService : IKotService
         };
 
         return Model;
+        }
+        catch (Exception e)
+        {
+            
+            throw;
+        }
+      
     }
-    public async Task<bool> UpdateQuantityAsync(int orderId, string status, int itemId, int quantity)
+    public async Task<bool> UpdateQuantityAsync(int orderId, string status, int itemId,int OrderItemId , int quantity)
     {
-        var result = await _kotRepository.UpdateQuantityAsync(orderId, status, itemId, quantity);
+        var result = await _kotRepository.UpdateQuantityAsync(orderId, status, itemId, OrderItemId , quantity);
         return result;
     }
 }

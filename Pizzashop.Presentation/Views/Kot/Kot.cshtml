@@ -183,7 +183,6 @@
                 data: { status: "In Progress", categoryId: 0 },
                 dataType: "html",
                 success: function (data) {
-                    console.log("Response:", data);
                     $('#cardWrapper').html(data);
                     DateTimerKOT();
 
@@ -284,6 +283,7 @@
                 data: { id: orderid, status: status , CategoryId : categoryid },
                 dataType: "html",
                 success: function (data) {
+                     console.log("Response:", data);
                     $('#changeQuanityModalContainer').html(data);
                     $('#changeQuantityModal').modal('show');
                 },

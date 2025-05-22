@@ -6,6 +6,7 @@ public class OrderAppMenuviewmodel
 {
     public int CustomerId { get; set; }
     public int OrderId { get; set; }
+    public int OrderItemId {get;set;}
     public string OrderStatus {get; set;}
     public string PaymentStatus {get; set;}
     public int FoodRating {get; set;}

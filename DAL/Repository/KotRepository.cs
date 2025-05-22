@@ -155,7 +155,7 @@ public class KotRepository : IKotRepository
         return orderDetails;
     }
 
-    public async Task<List<KotOrderCardDTOViewModel>> GetKotCardData(int id, string status, int CategoryId)
+    public async Task<List<KotOrderCardDTOViewModel>> GetKotCardData(int id, string status, int CategoryId )
     {
         try
         {
@@ -179,9 +179,9 @@ public class KotRepository : IKotRepository
             throw;
         }
     }
-    public async Task<bool> UpdateQuantityAsync(int orderId, string status, int itemId, int quantity)
+    public async Task<bool> UpdateQuantityAsync(int orderId, string status, int itemId,int OrderItemId , int quantity)
     {
-        var orderItem = await _db.OrderItems.FirstOrDefaultAsync(u => u.ItemId == itemId && u.OrderId == orderId);
+        var orderItem = await _db.OrderItems.FirstOrDefaultAsync(u => u.ItemId == itemId && u.OrderId == orderId & u.Id == OrderItemId);
 
         if (orderItem == null)
         {
@@ -211,7 +211,7 @@ public class KotRepository : IKotRepository
         await _db.SaveChangesAsync();
         return true;
     }
-    // public async Task<bool> UpdateQuantityAsync(int orderId, string status, int itemId, int quantity)
+    // public async Task<bool> UpdateQuantityAsync(int orderId, string status, int itemId,int OrderItemId , int quantity)
     // {
     //     try
     //     {
@@ -219,12 +219,13 @@ public class KotRepository : IKotRepository
     //         await conn.OpenAsync();
 
     //         await conn.ExecuteAsync(
-    //             "Call UpdateQuantity(@p_order_id,@p_status,@p_item_id,@p_quantity)",
+    //             "Call UpdateQuantity(@p_order_id,@p_status,@p_item_id,@p_quantity,p_order_item_id)",
     //             new
     //             {
     //                 p_order_id = orderId,
     //                 p_status = status,
     //                 p_item_id = itemId,
+                      // p_order_item_id = OrderItemId,
     //                 p_quantity = quantity
     //             }
     //         );

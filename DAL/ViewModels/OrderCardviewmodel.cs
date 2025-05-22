@@ -19,6 +19,8 @@ public class OrderItemsviewmodel
     public int ItemId { get; set; }
     public string ItemName { get; set; }
 
+    public int OrderItemID {get; set;}
+
     public bool IsSelected { get; set; } = false;
 
     public int TotalQuantity { get; set; }

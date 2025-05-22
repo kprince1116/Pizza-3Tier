@@ -1,13 +1,10 @@
 namespace BAL.Services;
-
 using System.Collections.Generic;
-
 using BAL.Models.Interfaces;
 using DAL.Interfaces;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Pizzashop.DAL.ViewModels;
-
 
 public class WaitingService : IWaitingService
 {
@@ -21,7 +18,6 @@ public class WaitingService : IWaitingService
         _kotTableRepository = kotTableRepository;
     }
 
- 
     public async Task<waitingviemodel> GetSections()
     {
         var section =  await _waitingRepository.GetSections();

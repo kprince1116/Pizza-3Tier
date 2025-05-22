@@ -102,7 +102,7 @@ public class OrderAppMenuRepository : IOrderAppMenuRepository
         var orderItems = await _db.OrderItems.Include(u=>u.Item)
                                             .Include(u=>u.OrderItemModifiers).ThenInclude(u=>u.Modifier)
                                              .Where(u=>u.OrderId == OrderId).Where(u=>u.IsDeleted == false).ToListAsync();
-        return orderItems;
+        return orderItems;  
     }
 
     public async Task<Order> GetCustomerDetails(int OrderId)
@@ -277,7 +277,7 @@ public class OrderAppMenuRepository : IOrderAppMenuRepository
 
     public async Task<bool> CheckReadyQuantity(int orderId)
     {
-        var order = await _db.Orders.Include(u=>u.OrderItems).FirstOrDefaultAsync(U=>U.Orderid == orderId && U.Isdelete == false);
+        var order = await _db.Orders.Include(u=>u.OrderItems.Where(u=>u.IsDeleted == false)).FirstOrDefaultAsync(U=>U.Orderid == orderId && U.Isdelete == false);
 
         if(order == null)
         {
@@ -295,7 +295,7 @@ public class OrderAppMenuRepository : IOrderAppMenuRepository
     }
     public async Task<bool> CheckReadyQuantityForCancel(int orderId)
     {
-        var order = await _db.Orders.Include(u=>u.OrderItems).FirstOrDefaultAsync(U=>U.Orderid == orderId && U.Isdelete == false);
+        var order = await _db.Orders.Include(u=>u.OrderItems.Where(u=>u.IsDeleted == false)).FirstOrDefaultAsync(U=>U.Orderid == orderId && U.Isdelete == false);
 
         if(order == null)
         {

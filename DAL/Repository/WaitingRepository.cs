@@ -16,13 +16,13 @@ public class WaitingRepository : IWaitingRepository
 
     public async Task<List<Section>> GetSections()
     {
-        return await _db.Sections.Include(s => s.WaitingTokens.Where(w => w.IsDeleted == false && w.IsAssigned == false)).Where(u=>u.Isdeleted == false).OrderBy(u=>u.Sectionid).ToListAsync();
+        return await _db.Sections.Include(s => s.WaitingTokens.Where(w => w.IsDeleted == false && w.IsAssigned == false)).Where(u => u.Isdeleted == false).OrderBy(u => u.Sectionid).ToListAsync();
     }
 
     public async Task<List<waitingtokenviewmodel>> GetWaitingList(int sectionId)
     {
-        var waitingList = await _db.WaitingTokens.Include(u=>u.Customer).Include(u=>u.Section).Where(u=>u.IsDeleted==false && u.IsAssigned==false).
-                                                    Select(u=> new waitingtokenviewmodel
+        var waitingList = await _db.WaitingTokens.Include(u => u.Customer).Include(u => u.Section).Where(u => u.IsDeleted == false && u.IsAssigned == false).
+                                                    Select(u => new waitingtokenviewmodel
                                                     {
                                                         Id = u.Id,
                                                         customerId = u.Customer.Customerid,
@@ -30,28 +30,28 @@ public class WaitingRepository : IWaitingRepository
                                                         Name = u.Customer.Customername,
                                                         Phone = u.Customer.Phonenumber,
                                                         CreatedAt = u.CreatedDate.GetValueOrDefault(),
-                                                        NoOfPerson =(int) u.NoOfPersons,
+                                                        NoOfPerson = (int)u.NoOfPersons,
                                                         sectionId = u.Section.Sectionid
-                                                    }).OrderBy(u=>u.Id).ToListAsync();
-    
-        if(sectionId != 0)
+                                                    }).OrderBy(u => u.Id).ToListAsync();
+
+        if (sectionId != 0)
         {
-            waitingList =  waitingList.Where(v => v.sectionId == sectionId).ToList();
+            waitingList = waitingList.Where(v => v.sectionId == sectionId).ToList();
         }
-        
-    
+
+
         return waitingList;
     }
 
     public async Task<Customer> GetCustomerDetailsByEmail(string email)
     {
-        var customer = await _db.Customers .FirstOrDefaultAsync(u => u.Customeremail == email && u.Isdelete == false);
+        var customer = await _db.Customers.FirstOrDefaultAsync(u => u.Customeremail == email && u.Isdelete == false);
         return customer;
     }
 
     public async Task<waitingtokenviewmodel> EditToken(int id)
     {
-        var waiting = await _db.WaitingTokens.Include(u=>u.Customer).Include(u=>u.Section).Where(u => u.Id == id && u.IsDeleted == false)
+        var waiting = await _db.WaitingTokens.Include(u => u.Customer).Include(u => u.Section).Where(u => u.Id == id && u.IsDeleted == false)
                         .Select(u => new waitingtokenviewmodel
                         {
                             Id = u.Id,
@@ -70,7 +70,7 @@ public class WaitingRepository : IWaitingRepository
 
     public async Task<WaitingToken> GetTokenId(int Id)
     {
-        return await _db.WaitingTokens.Include(u=>u.Customer).Include(u=>u.Section).FirstOrDefaultAsync(u => u.Id == Id);
+        return await _db.WaitingTokens.Include(u => u.Customer).Include(u => u.Section).FirstOrDefaultAsync(u => u.Id == Id);
     }
 
     public async Task Update(WaitingToken waitingToken)
@@ -86,7 +86,7 @@ public class WaitingRepository : IWaitingRepository
 
     public async Task<List<Table>> GetTablesBySectionId(int id)
     {
-        return await _db.Tables.Where(u=>u.Sectionid == id && u.Isdeleted == false && u.Status == "Available")
+        return await _db.Tables.Where(u => u.Sectionid == id && u.Isdeleted == false && u.Status == "Available")
                                                                                             .ToListAsync();
     }
 
@@ -105,13 +105,13 @@ public class WaitingRepository : IWaitingRepository
 
     public async Task<Table> GetTableBySectionId(int id)
     {
-        return await _db.Tables.FirstOrDefaultAsync(u=>u.Tableid == id && u.Isdeleted == false);
+        return await _db.Tables.FirstOrDefaultAsync(u => u.Tableid == id && u.Isdeleted == false);
     }
 
     public async Task UpdateTable(Table tables)
     {
-       _db.Tables.Update(tables);
-       await _db.SaveChangesAsync();
+        _db.Tables.Update(tables);
+        await _db.SaveChangesAsync();
     }
 
     public async Task UpdateCustomer(WaitingToken customer)

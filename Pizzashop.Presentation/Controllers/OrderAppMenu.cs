@@ -178,11 +178,12 @@ public class OrderAppMenu : Controller
         string paymenType = JsonConvert.DeserializeObject<string>(payment_type);
 
         var saveorder = await _orderAppMenu.SaveOrder(OrderId,OrderStatus,save_items,delete_items,save_tax,paymenType);
+        var redirectUrl = "/OrderAppMenu/OrderMenu?&orderId=" + order_id;
         if(saveorder)
         {
           await _hubcontext.Clients.All.SendAsync("KotUpdatedMessage", "A Kot Updated Succesfully");
           await _hubcontext.Clients.All.SendAsync("OrderUpdatedMessage", "A Order Updated Succesfully");
-          return Json(new { success = true });
+          return Json(new { success = true , url = redirectUrl});
         }
         else
         {

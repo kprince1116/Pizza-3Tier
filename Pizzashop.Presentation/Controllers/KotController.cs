@@ -53,7 +53,7 @@ public class KotController : Controller
         {
             if(update.Quantity>0)
             {
-            var result = await _kotService.UpdateQuantityAsync(orderId,status, update.ItemId, update.Quantity);
+            var result = await _kotService.UpdateQuantityAsync(orderId,status, update.ItemId,update.OrderItemId, update.Quantity);
             results.Add(result);      
             }
         }

@@ -40,7 +40,7 @@ public class OrderRepository : IOrderRepository
                                             .Include(o=>o.StatusNavigation)
                                             .Include(o=>o.PaymentModeNavigation)
                                             .Include(o=>o.OrderItems.Where(oi => oi.IsDeleted == false)).ThenInclude(o=>o.Item)
-                                            .Include(o=>o.OrderItems) .ThenInclude(o=>o.OrderItemModifiers).ThenInclude(o=>o.Modifier)                                 
+                                            .Include(o=>o.OrderItems.Where(u=>u.IsDeleted == false)) .ThenInclude(o=>o.OrderItemModifiers).ThenInclude(o=>o.Modifier)                                 
                                             .Include(o=>o.OrderTables).ThenInclude(t=>t.Table).ThenInclude(s=>s.Section)
                                             .Include(o=>o.OrderTaxes).ThenInclude(t=>t.Tax)
                                             .FirstOrDefaultAsync(o=>o.Orderid==orderId);

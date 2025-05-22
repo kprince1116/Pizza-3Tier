@@ -13,5 +13,5 @@ public interface IKotRepository
         Task<List<OrderDtoViewmodel>> GetKotData(string status , int categoryId);
         Task<OrderCardviewmodel> GetKotDetailsAsync(int id,string status);
         Task<List<KotOrderCardDTOViewModel>> GetKotCardData(int id,string status , int CategoryId);
-        Task<bool> UpdateQuantityAsync(int orderId,string status,int itemId, int quantity);
+        Task<bool> UpdateQuantityAsync(int orderId,string status,int itemId,int OrderItemId , int quantity);
 }

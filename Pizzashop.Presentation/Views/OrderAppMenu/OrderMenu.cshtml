@@ -621,37 +621,37 @@
 
                         let itemaccordian =
                             `
-                                                              <div class="item-row w-100 py-1 px-2 d-flex align-items-center justify-content-between border mt-2 mb-2" id="accord-${globalid}">
-                                                        <div class="accordion mt-2 mb-2" id="item-accordian-1">
-                                                    <div class="d-flex align-items-center gap-2 drop-class" data-bs-toggle="collapse" data-bs-target="#order-item-${globalid}" aria-expanded="false" aria-controls="order-item-${globalid}">
-                                                    <img src="~/images/dropdownimg.webp" alt="" height="23" class="icon-rotate opacity-50">
-                                                    <span class="item-name-for-order">${itemname}</span>
-                                                    </div>
-                                                    <div id="order-item-${globalid}" class="p-0 ms-0 collapse" aria-labelledby="headingPizza" data-bs-parent="#item-accordian-1">
+                                                                  <div class="item-row w-100 py-1 px-2 d-flex align-items-center justify-content-between border mt-2 mb-2" id="accord-${globalid}">
+                                                            <div class="accordion mt-2 mb-2" id="item-accordian-1">
+                                                        <div class="d-flex align-items-center gap-2 drop-class" data-bs-toggle="collapse" data-bs-target="#order-item-${globalid}" aria-expanded="false" aria-controls="order-item-${globalid}">
+                                                        <img src="~/images/dropdownimg.webp" alt="" height="23" class="icon-rotate opacity-50">
+                                                        <span class="item-name-for-order">${itemname}</span>
+                                                        </div>
+                                                        <div id="order-item-${globalid}" class="p-0 ms-0 collapse" aria-labelledby="headingPizza" data-bs-parent="#item-accordian-1">
 
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="item-end-part-for-order">
-                                                <!-- Quantity Box -->
-                                                            <div class="d-flex align-items-center justify-content-between px-2 py-0 gap-1 quantity-box">
-                                                            <i class="bi bi-dash" onclick="MinusQuantity(${globalid})" id="minus-quantity-${globalid}" ></i>
-                                                            <span class="quantity-box-display" id="item-quantity-${globalid}" data-itemid=${globalid}
-                                                         data-itemname=${itemname} data-itemprice=${itemprice} data-modifiertotalprice = ${totalmodifierprice}>
-                                                            1
-                                                            </span>
-                                                            <i class="bi bi-plus" onclick="PlusQuantity(${globalid})" id="minus-quantity-${globalid}"></i>
-                                                            </div>
-                                                            <!-- Price Details -->
-                                                            <div class="d-flex flex-column align-items-start gap-1 item-sums">
-                                                            <div class="d-flex align-items-center">₹<div class="item-amount" id="item-amount-${globalid}">${itemprice}</div></div>
-                                                            </div>
-                                                            <!-- Delete Icon -->
-                                                            <div class="d-flex justify-content-center align-items-center delete-item" data-global-id="${globalid}">
-                                                            <i class="bi bi-trash fs-5"></i>
-                                                            </div>
-                                                    </div>
-                                                    </div>
-                                                            `;
+                                                    <div class="item-end-part-for-order">
+                                                    <!-- Quantity Box -->
+                                                                <div class="d-flex align-items-center justify-content-between px-2 py-0 gap-1 quantity-box">
+                                                                <i class="bi bi-dash" onclick="MinusQuantity(${globalid})" id="minus-quantity-${globalid}" ></i>
+                                                                <span class="quantity-box-display" id="item-quantity-${globalid}" data-itemid=${globalid}
+                                                             data-itemname=${itemname} data-itemprice=${itemprice} data-modifiertotalprice = ${totalmodifierprice}>
+                                                                1
+                                                                </span>
+                                                                <i class="bi bi-plus" onclick="PlusQuantity(${globalid})" id="minus-quantity-${globalid}"></i>
+                                                                </div>
+                                                                <!-- Price Details -->
+                                                                <div class="d-flex flex-column align-items-start gap-1 item-sums">
+                                                                <div class="d-flex align-items-center">₹<div class="item-amount" id="item-amount-${globalid}">${itemprice}</div></div>
+                                                                </div>
+                                                                <!-- Delete Icon -->
+                                                                <div class="d-flex justify-content-center align-items-center delete-item" data-global-id="${globalid}">
+                                                                <i class="bi bi-trash fs-5"></i>
+                                                                </div>
+                                                        </div>
+                                                        </div>
+                                                                `;
 
                         $("#itemdata").append(itemaccordian);
 
@@ -1157,6 +1157,10 @@
                 contentType: false,
                 success: function (data) {
                     toastr.success("Order Placed Succesfully");
+                    setTimeout(function () {
+                        window.location.href = data.url;
+                    }, 1000); 
+
                 },
                 error: function (data) {
                     toastr.error("An Error Occured!");
@@ -1256,19 +1260,19 @@
         $(document).off("click", ".itemmodalclose").on("click", ".itemmodalclose", function () {
         @* var modal = new bootstrap.Modal(document.getElementById('ItemInstruction'));
             modal.hide(); *@
-            const modalElement = document.getElementById('ItemInstruction');
+                const modalElement = document.getElementById('ItemInstruction');
             const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
             modalInstance.hide();
         });
 
         $(document).off("click", ".item-wise-comment").on("click", ".item-wise-comment", function () {
-            @* var modal = new bootstrap.Modal(document.getElementById('ItemInstruction'));
+        @* var modal = new bootstrap.Modal(document.getElementById('ItemInstruction'));
             modal.show(); *@
-            @* const modalElement = document.getElementById('ItemInstruction');
+        @* const modalElement = document.getElementById('ItemInstruction');
             const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
             modalInstance.show();  *@
 
-            var orderid = $(this).data("orderid");
+                var orderid = $(this).data("orderid");
             console.log("orderid", orderid);
 
             $.ajax({
@@ -1277,9 +1281,9 @@
                 data: { OrderId: orderid },
                 success: function (data) {
                     $("#ItemCommentData").html(data);
-                    @* var modal = new bootstrap.Modal(document.getElementById('ItemInstruction'));
+        @* var modal = new bootstrap.Modal(document.getElementById('ItemInstruction'));
                     modal.hide(); *@
-                    const modalElement = document.getElementById('ItemInstruction');
+                        const modalElement = document.getElementById('ItemInstruction');
                     const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
                     modalInstance.show();
                 },
